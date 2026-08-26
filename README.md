@@ -27,15 +27,19 @@
 
 <h3 align="center"><b>Integrantes</b></h3>
  
-| **Código**      | **Apellidos y Nombres**                          |
-|-------------|-----------------------------------------------|
-| U20241A267  | Alfaro Mallma, Alberto Joaquin                 |
-| U202415820  | Cabrera Novoa, Leonardo Moises                  |
-| U20241a195  | Diaz Yurivilca, Sofía                         |
-| U20231b504  | Morales Venegas, David Joel              |
-| U202324623  | Quispe Perez, Eder Edu          |
-| U202323350  | Velasquez Laquihuanaco Eduardo David |
- 
+<div align="center">
+<br>
+
+| **Código**   | **Apellidos y Nombres**          |
+|--------------|-----------------------------------|
+| U20241A267   | Alfaro Mallma, Alberto Joaquin   |
+| U202415820   | Cabrera Novoa, Leonardo Moises   |
+| U20241a195   | Diaz Yurivilca, Sofía            |
+| U20231b504   | Morales Venegas, David Joel      |
+| U202324623   | Quispe Perez, Eder Edu           |
+| U202323350   | Velasquez Laquihuanaco Eduardo David |
+
+</div>
 <br>
 <h4 align="center"><b>Período 202610</b></h4>
 <h4 align="center"><b>Abril 2026</b></h4>
