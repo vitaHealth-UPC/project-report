@@ -132,4 +132,93 @@ Feature Assumptions:<br>
 
 #### 1.2.2.4. Lean UX Canvas
 
+<table>
+  <tr>
+    <td valign="top">
+      <strong>Business problem</strong>
+      <br><br>
+      Las familias de Lima con adultos mayores que viven solos o pasan muchas horas sin compañía tienen dificultades para verificar si cumplen correctamente su tratamiento médico.
+      <br><br>
+      Las alternativas actuales, como alarmas, pastilleros o llamadas, ayudan a recordar una toma, pero no permiten confirmar su cumplimiento de forma confiable ni actuar a tiempo ante una omisión.
+      <br><br>
+      Además, muchas soluciones digitales presentan barreras de uso para adultos mayores con baja alfabetización digital.
+    </td>
+    <td rowspan="2" valign="top">
+      <strong>Solution ideas</strong>
+      <br><br>
+      - Aplicación móvil con interfaz simplificada para adultos mayores
+      <br><br>
+      - Confirmación de medicamentos con un solo toque o reconocimiento de voz
+      <br><br>
+      - Recordatorios personalizados de medicación
+      <br><br>
+      - Panel de monitoreo para familiares o cuidadores
+      <br><br>
+      - Notificaciones push ante tomas no confirmadas
+      <br><br>
+      - Reportes históricos de adherencia
+      <br><br>
+      - Detección de patrones de riesgo de olvido
+    </td>
+    <td valign="top">
+      <strong>Business Outcomes</strong>
+      <br><br>
+      - Alcanzar una retención mensual mayor al 60% en familiares suscritos al plan premium
+      <br><br>
+      - Alcanzar 500 familias activas en los primeros 6 meses
+      <br><br>
+      - Incrementar en 30% la conversión de usuarios freemium a premium
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <strong>Users and customers</strong>
+      <br><br>
+      - Adultos mayores de 68 a 85 años que viven solos o pasan largas horas sin compañía
+      <br><br>
+      - Adultos mayores con baja alfabetización digital
+      <br><br>
+      - Familiares de 35 a 55 años que trabajan y no pueden supervisar presencialmente
+      <br><br>
+      - Cuidadores o familiares responsables del seguimiento de la medicación
+    </td>
+    <td valign="top">
+      <strong>User benefits</strong>
+      <br><br>
+      - Mayor autonomía para el adulto mayor
+      <br><br>
+      - Menor dependencia de llamadas constantes
+      <br><br>
+      - Reducción de la carga mental del familiar
+      <br><br>
+      - Mejor visibilidad del cumplimiento del tratamiento
+      <br><br>
+      - Posibilidad de anticiparse a olvidos
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <strong>Hypotheses</strong>
+      <br><br>
+      - Creemos que aumentaremos la adherencia al tratamiento si los adultos mayores pueden confirmar sus medicamentos mediante una interfaz simple con voz o un solo toque.
+      <br><br>
+      - Creemos que aumentaremos la retención de los familiares si estos pueden anticiparse a olvidos mediante detección de patrones y recordatorios reforzados.
+      <br><br>
+      - Creemos que incrementaremos la conversión a premium si los familiares reciben reportes históricos de adherencia.
+      <br><br>
+      - Creemos que lograremos una retención mensual superior al 60% si los familiares reducen la incertidumbre mediante monitoreo en tiempo real y notificaciones push.
+    </td>
+    <td valign="top">
+      <strong>What’s the most important thing we need to learn first?</strong>
+      <br><br>
+      Si los adultos mayores con baja alfabetización digital pueden usar de manera autónoma el flujo de confirmación de medicamentos mediante un solo toque o reconocimiento de voz.
+    </td>
+    <td valign="top">
+      <strong>What’s the least amount of work we need to do to learn the next most important thing?</strong>
+      <br><br>
+      Crear un prototipo interactivo del flujo de recordatorio y confirmación de medicamentos y probarlo con adultos mayores del segmento objetivo para observar si comprenden la tarea y la completan sin ayuda.
+    </td>
+  </tr>
+</table>
+
 ## 1.3. Segmentos objetivo
