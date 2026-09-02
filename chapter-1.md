@@ -26,7 +26,7 @@ Con Tata, VitaHealth busca dar tranquilidad a la familia y autonomía al adulto 
 
 <table> <tr> <td width="150"><img src="assets/EDU_FOTO.jpg" width="130"/></td> <td>
 
-Eder Edu Quispe Pérez Código: U202324623 Carrera: Ingeniería de Software
+Eder Edu Quispe Pérez - Código: U202324623 - Carrera: Ingeniería de Software
 
 Me llamo Eder Edu Quispe Pérez, soy estudiante de Ingeniería de Software en la Universidad Peruana de Ciencias Aplicadas (UPC), manejo lenguajes como Python y C++, y en mi tiempo libre me gusta ver películas y series
 
