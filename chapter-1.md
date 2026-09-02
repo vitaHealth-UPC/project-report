@@ -30,13 +30,12 @@ Eder Edu Quispe Pérez - Código: U202324623 - Carrera: Ingeniería de Software
 
 Me llamo Eder Edu Quispe Pérez, soy estudiante de Ingeniería de Software en la Universidad Peruana de Ciencias Aplicadas (UPC), manejo lenguajes como Python y C++, y en mi tiempo libre me gusta ver películas y series
 
-</td> </tr> <tr> <td width="150"><img src="RUTA_FOTO_2.jpg" width="130"/></td> <td>
+</td> </tr> <tr> <td width="150"><img src="assets/Sofia.png" width="130"/></td> <td>
 
-[Nombre Apellido] Código: [Código] Carrera: [Carrera]
+Diaz Yurivilca, Sofia - Código: U20241A195 - Carrera: Ingenieria de Software
 
-[Párrafo resumen de conocimientos técnicos y habilidades que aporta al equipo]
-
-</td> </tr> <tr> <td width="150"><img src="RUTA_FOTO_3.jpg" width="130"/></td> <td>
+Soy estudiante de sexto ciclo en la carrera de ingenieria de software y estoy en esta  carrera porque me entusiasma la programación soy una persona dedicada y cumplo con mis deberes, mas me gusta el frontend. Y mi objetivo con mi grupo es salir adelanto y dar toda mi ayuda.
+</td> </tr> <tr> <td width="150"><img src="" width="130"/></td> <td>
 
 [Nombre Apellido] Código: [Código] Carrera: [Carrera]
 
@@ -68,7 +67,35 @@ Me llamo Eder Edu Quispe Pérez, soy estudiante de Ingeniería de Software en la
 
 ### 1.2.2. Lean UX Process
 
+En esta sección se aplica el Lean UX Process (Gothelf & Seiden, 3rd Edition) al proyecto Tata, desarrollado por la startup peruana VitaHealth. El proceso permite definir el problema que se busca resolver, identificar los principales segmentos de usuarios, establecer las creencias iniciales del negocio y de los usuarios, y formular hipótesis que posteriormente podrán ser validadas mediante el desarrollo y evaluación del producto.
+
+Tata es una aplicación móvil enfocada en el cuidado remoto de adultos mayores y en el seguimiento de la adherencia a sus tratamientos médicos. La solución contempla dos experiencias complementarias: una interfaz simplificada para el adulto mayor, orientada a facilitar la gestión y confirmación de sus medicamentos, y un panel de monitoreo para el familiar o cuidador, que permite conocer el estado de las tomas y recibir alertas ante posibles olvidos.
+
+El producto parte de una problemática identificada en Lima, donde muchos adultos mayores viven solos o permanecen durante varias horas sin compañía debido a las responsabilidades laborales de sus familiares. Esta situación dificulta que los familiares puedan verificar oportunamente si sus padres o abuelos han tomado sus medicamentos de acuerdo con el tratamiento indicado.
+
+A partir de esta problemática, Tata propone combinar recordatorios, confirmación de tomas, monitoreo remoto y funcionalidades inteligentes. El reconocimiento de voz busca reducir las barreras de interacción para los adultos mayores, mientras que el análisis de patrones de medicación busca identificar momentos con mayor riesgo de olvido y permitir una intervención preventiva por parte del familiar.
+
+El proceso Lean UX permitirá validar progresivamente estas suposiciones mediante el comportamiento real de los usuarios, priorizando aquellas funcionalidades que generen mayor valor tanto para el adulto mayor como para el familiar.
+
 #### 1.2.2.1. Lean UX Problem Statements
+
+VitaHealth se plantea como una startup peruana de salud digital enfocada en facilitar el cuidado remoto de adultos mayores y mejorar el seguimiento de la adherencia a sus tratamientos médicos. Su primera solución, Tata, busca conectar a los adultos mayores con sus familiares o cuidadores mediante una experiencia móvil sencilla, accesible y orientada al monitoreo de la medicación.
+
+Actualmente, el seguimiento de los tratamientos médicos de adultos mayores depende frecuentemente de mecanismos como pastilleros físicos, alarmas, recordatorios de celulares o llamadas realizadas por los familiares. Estas alternativas pueden ayudar a recordar una hora determinada, pero no ofrecen necesariamente una forma confiable de conocer si el adulto mayor confirmó la toma ni permiten al familiar reaccionar oportunamente ante una posible omisión.
+
+Esta problemática es especialmente relevante en familias limeñas donde los adultos mayores pueden vivir solos o permanecer largas horas sin compañía debido a las responsabilidades laborales de sus hijos u otros familiares. La distancia y la falta de supervisión constante generan incertidumbre sobre el cumplimiento de la medicación y obligan a los familiares a realizar verificaciones manuales mediante llamadas o mensajes.
+
+Asimismo, las soluciones digitales convencionales pueden presentar dificultades para los adultos mayores debido a interfaces complejas, botones pequeños, exceso de información o la necesidad de escribir y realizar múltiples pasos para completar una acción. Estas barreras pueden dificultar que el adulto mayor utilice de manera autónoma una herramienta digital destinada a apoyar su tratamiento.
+
+Lo que las soluciones actuales no abordan adecuadamente es la combinación entre accesibilidad para el adulto mayor y supervisión remota para el familiar. Existe una oportunidad de ofrecer una experiencia que permita al adulto mayor confirmar sus medicamentos de manera sencilla, mientras que el familiar obtiene visibilidad sobre el cumplimiento del tratamiento y recibe información oportuna cuando se presenta una posible omisión.
+
+Tata abordará esta brecha mediante una aplicación móvil con una interfaz simplificada para el adulto mayor, recordatorios personalizados y mecanismos de confirmación mediante un solo toque o reconocimiento de voz. Paralelamente, el familiar contará con un panel de monitoreo, historial de adherencia y notificaciones push ante tomas que no hayan sido confirmadas dentro del periodo establecido. Además, el análisis de los registros permitirá identificar patrones de retraso u omisión y generar alertas o recordatorios reforzados en momentos de mayor riesgo.
+
+Nuestro enfoque inicial estará dirigido a adultos mayores de 68 a 85 años que viven solos o pasan largas horas sin compañía, y a sus familiares de 35 a 55 años que trabajan y necesitan supervisar remotamente la medicación de sus familiares. La validación inicial se enfocará en familias de Lima que enfrenten esta problemática.
+
+Sabremos que Tata está teniendo éxito cuando los adultos mayores puedan utilizar la aplicación de manera recurrente para confirmar sus medicamentos con poca o ninguna asistencia, mientras que los familiares incrementen su confianza en el seguimiento del tratamiento, reduzcan la necesidad de realizar verificaciones manuales y utilicen las alertas y reportes para actuar oportunamente ante posibles olvidos.
+
+¿Cómo puede Tata ayudar a los adultos mayores a gestionar y confirmar su medicación de manera simple y accesible, y al mismo tiempo permitir que sus familiares supervisen remotamente el cumplimiento del tratamiento y se anticipen a posibles olvidos, sin incrementar la complejidad del cuidado diario?
 
 #### 1.2.2.2. Lean UX Assumptions
 
