@@ -35,12 +35,11 @@ Me llamo Eder Edu Quispe Pérez, soy estudiante de Ingeniería de Software en la
 Diaz Yurivilca, Sofia - Código: U20241A195 - Carrera: Ingenieria de Software
 
 Soy estudiante de sexto ciclo en la carrera de ingenieria de software y estoy en esta  carrera porque me entusiasma la programación soy una persona dedicada y cumplo con mis deberes, mas me gusta el frontend. Y mi objetivo con mi grupo es salir adelanto y dar toda mi ayuda.
-</td> </tr> <tr> <td width="150"><img src="" width="130"/></td> <td>
+</td> </tr> <tr> <td width="150"><img src="assets/DAVID_FOTO.jpg" width="130"/></td> <td>
 
-[Nombre Apellido] Código: [Código] Carrera: [Carrera]
+Morales Venegas, David Joel - Código: U20231B504 - Carrera: Ingeniería de Software
 
-[Párrafo resumen de conocimientos técnicos y habilidades que aporta al equipo]
-
+Estudiante de Ingeniería de Software con conocimientos medios en programación y desarrollo. Tengo interés en redes, ciberseguridad y desarrollo de software, y experiencia académica trabajando en proyectos en equipo.
 </td> </tr> <tr> <td width="150"><img src="RUTA_FOTO_4.jpg" width="130"/></td> <td>
 
 [Nombre Apellido] Código: [Código] Carrera: [Carrera]
