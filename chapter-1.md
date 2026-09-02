@@ -54,11 +54,13 @@ Me llamo Eder Edu Quispe Pérez, soy estudiante de Ingeniería de Software en la
 
 [Párrafo resumen de conocimientos técnicos y habilidades que aporta al equipo]
 
-</td> </tr> <tr> <td width="150"><img src="RUTA_FOTO_6.jpg" width="130"/></td> <td>
+</td> </tr> <tr> <td width="150"><img src="assets/EDUARDO_FOTO.jpeg" width="130"/></td> <td>
 
-[Nombre Apellido] Código: [Código] Carrera: [Carrera]
+Eduardo Velasquez Laquihuanaco - Código: U202323350 Carrera: Ingeniería de Software
 
-[Párrafo resumen de conocimientos técnicos y habilidades que aporta al equipo]
+En cuanto a desarrollo frontend, mis principales conocimientos incluyen HTML, CSS, TypeScript y el framework Angular. En el lado del backend, manejo Java con Spring Boot y Node.js, además de bases de datos como MySQL, PostgreSQL y MongoDB, junto con conocimientos básicos en la nube (Azure).
+
+Entre las habilidades que puedo aportar al equipo destacan mi responsabilidad, capacidad de trabajo en equipo y buena organización para cumplir con los plazos de entrega.
 
 </td> </tr> </table>
 
@@ -77,3 +79,11 @@ Me llamo Eder Edu Quispe Pérez, soy estudiante de Ingeniería de Software en la
 #### 1.2.2.4. Lean UX Canvas
 
 ## 1.3. Segmentos objetivo
+
+- **Segmento 1:** Adultos mayores
+  
+  A nivel nacional, este grupo representa el 13.9% de la población total del país, totalizando 4 millones 747,803 personaes según proyecciones del INEI al 2024. En Lima Metropolitana, uno de cada cuatro adultos mayores vivía solo en 2024, especificamente el 25.3% de los hogares con jefe de 60 años a más son unipersonales, cifra que aumentó 2,3 puntos pocentuales respecto al año anterior. Además, el 91.1% cuenta con algún seguro de salud, lo que evidencia una población con necesidades de salud activas pero con acompañamiento limitado en el dia a dia.
+
+- **Segmento 2:** Familiares o cuidadores de adultos mayores
+
+  El 46.2% de los hogares en Lima Metropolitana tiene al menos un adulto mayor entre sus miembros, lo que representa un número considerable de familias que enfrentan el reto de balancear su vida laboral con el cuidado o supervisión remota de un adulto mayor, especialmente cuando este vive solo o pasa el día sin compañía directa.
