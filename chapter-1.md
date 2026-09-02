@@ -72,7 +72,36 @@ Me llamo Eder Edu Quispe Pérez, soy estudiante de Ingeniería de Software en la
 
 #### 1.2.2.2. Lean UX Assumptions
 
+Business Assumptions:<br>
+> * Creemos que las familias limeñas con adultos mayores en tratamiento médico crónico están dispuestas a pagar por una solución digital que les brinde tranquilidad sobre la adherencia de sus familiares al tratamiento.
+> * Creemos que un modelo freemium con suscripción mensual para el familiar (plan premium con reportes y alertas avanzadas) es viable en el mercado peruano de salud digital.
+> * Creemos que clínicas, farmacias o aseguradoras de salud constituyen un canal de distribución B2B2C viable para escalar la adopción de Tata.
+
+Business Outcome Assumptions:<br>
+> *	Creemos que lograremos una tasa de retención mensual mayor al 60% entre los familiares suscritos al plan premium.<br>
+> *	Creemos que alcanzaremos 500 familias activas usando Tata en un lapso de 6 meses desde el lanzamiento.<br>
+> * Creemos que incrementaremos en un 30% la conversión de usuarios freemium a premium gracias a las funcionalidades de anticipación de olvidos.
+
+User Assumptions:<br>
+> *	Creemos que los adultos mayores (68-85 años) que viven solos o pasan largas horas sin compañía representan un segmento con necesidad real de una herramienta simple de confirmación de medicación.<br>
+> * Creemos que los familiares (hijos e hijas de 35-55 años) que trabajan y no pueden estar físicamente presentes representan el segmento con mayor disposición a pagar por monitoreo remoto.<br>
+> * Creemos que los adultos mayores presentan baja alfabetización digital, por lo que requieren interfaces con mínima carga cognitiva (voz o un solo toque).
+
+User Benefits Assumptions:<br>
+> * Creemos que los familiares reducirán su carga mental y el tiempo invertido en seguimiento manual gracias al panel de monitoreo.<br>
+> * Creemos que los adultos mayores obtendrán mayor autonomía y sensación de independencia al no depender de llamadas constantes de verificación.<br>
+> * Creemos que los familiares podrán anticiparse a posibles olvidos gracias al modelo de detección de patrones de riesgo.
+
+Feature Assumptions:<br>
+> * Creemos que un modelo de detección de patrones que anticipe horarios de mayor riesgo de olvido permitirá enviar recordatorios reforzados en esos momentos críticos.<br>
+> *	Creemos que la incorporación de reportes históricos de adherencia (semanales/mensuales) en el panel del familiar incentivará la conversión al plan premium.<br>
+> * Creemos que un panel de monitoreo en tiempo real para el familiar, con notificaciones push inmediatas, aumentará la confianza y el uso recurrente de la app.
+
 #### 1.2.2.3. Lean UX Hypothesis Statements
+
+> * Creemos que lograremos incrementar la adherencia al tratamiento médico de los usuarios adultos mayores de Tata, si los adultos mayores de 68 a 85 años con baja alfabetización digital logran confirmar sus tomas de medicación sin fricción ni ayuda de terceros, con una interfaz de confirmación por voz o un solo toque.<br>
+> *	Creemos que lograremos alcanzar 500 familias activas usando Tata en 6 meses, si los adultos mayores con baja alfabetización digital logran registrar sus confirmaciones de medicación sin interactuar con pantallas complejas, con un módulo de reconocimiento de voz integrado a la app.<br>
+> *	Creemos que lograremos una tasa de retención mensual mayor al 60% entre los familiares suscritos, si los familiares de 35 a 55 años que no pueden estar físicamente presentes obtienen tranquilidad emocional al recibir notificaciones inmediatas sobre la toma de medicación, con un panel de monitoreo en tiempo real con notificaciones push inmediatas.<br>
 
 #### 1.2.2.4. Lean UX Canvas
 
