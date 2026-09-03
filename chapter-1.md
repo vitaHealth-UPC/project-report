@@ -1,6 +1,31 @@
 # Registro de Versiones del Informe
 
+| Versión | Fecha | Autor | Descripción de modificación |
+|---------|-------|-------|-----------------------------|
+| AV1 |  | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | (FALTA) |
+
+<br>
+<br>
+
 # Project Report Collaboration Insights
+
+El Project Report del equipo se encuentra alojado en el repositorio de informes
+dentro de la organización de GitHub del equipo:
+
+- **Organización de GitHub:** (FALTA)
+- **Repositorio del Project Report:** (FALTA)
+  
+El informe se elaboró de manera colaborativa utilizando Git y GitHub como
+plataforma de control de versiones. Cada integrante trabajó las secciones
+asignadas y registró sus aportes mediante commits al repositorio del informe,
+lo cual queda evidenciado en los analíticos de colaboración de GitHub y en el
+Registro de Versiones del Informe. A continuación, se describe el desarrollo
+de las actividades por cada entrega.
+
+![Foto de la colaboración](FALTA)
+
+
+---
 
 # Contenido
 
