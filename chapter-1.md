@@ -66,6 +66,46 @@ Entre las habilidades que puedo aportar al equipo destacan mi responsabilidad, c
 
 ### 1.2.1. Antecedentes y problemática
 
+#### Aplicación de la técnica 5W's y 2H's
+
+**Who (¿Quién?)**
+El problema afecta principalmente a dos segmentos interdependientes: los adultos mayores de 68 a 85 años que residen en Lima Metropolitana, viven solos o permanecen largas horas sin compañía, y sus familiares de 35 a 55 años, quienes trabajan y no pueden supervisar de manera presencial y constante el cumplimiento del tratamiento médico de sus padres o abuelos.
+
+**What (¿Qué?)**
+La ausencia de un mecanismo confiable que permita confirmar, en tiempo real, si el adulto mayor tomó su medicación según lo indicado, y que a su vez informe oportunamente al familiar ante una posible omisión. Los mecanismos actuales (pastilleros físicos, alarmas, llamadas telefónicas) recuerdan la hora de la toma, pero no certifican su cumplimiento ni permiten una reacción oportuna.
+
+**Where (¿Dónde?)**
+El problema se ubica en los hogares de familias limeñas donde el adulto mayor vive solo o permanece sin compañía directa durante buena parte del día, mientras el familiar responsable de su cuidado se encuentra en su centro de trabajo o en otra ubicación física distinta.
+
+**When (¿Cuándo?)**
+La problemática se manifiesta de forma recurrente y diaria, en los horarios establecidos para cada toma de medicación, y se intensifica particularmente durante las horas laborales de los familiares, periodo en el que la supervisión presencial resulta inviable.
+
+**Why (¿Por qué?)**
+Ocurre debido a una combinación de factores demográficos y sociales: el crecimiento sostenido de la población adulta mayor en el Perú, el incremento de hogares unipersonales encabezados por personas de 60 años a más, y las responsabilidades laborales de los familiares, que reducen su disponibilidad para el acompañamiento y verificación manual. A ello se suma que buena parte de este segmento presenta baja alfabetización digital, lo que limita la adopción de soluciones tecnológicas convencionales.
+
+**How (¿Cómo?)**
+Actualmente, los familiares intentan mitigar el problema mediante llamadas telefónicas de verificación, mensajes de texto o visitas esporádicas, mecanismos que resultan poco escalables, generan carga mental adicional y no garantizan una respuesta oportuna ante una toma omitida.
+
+**How much (¿Cuánto?)**
+Según proyecciones del INEI al 2024, los adultos mayores representan el 13.9% de la población total del país (4,747,803 personas). En Lima Metropolitana, el 25.3% de los hogares con jefe de 60 años a más son unipersonales (2.3 puntos porcentuales más que el año anterior), y el 91.1% de los adultos mayores cuenta con algún seguro de salud, lo que evidencia necesidades de salud activas con acompañamiento diario limitado. Asimismo, el 46.2% de los hogares de Lima Metropolitana tiene al menos un adulto mayor entre sus miembros, dimensionando la magnitud del segundo segmento afectado.
+
+#### Descripción de la problemática
+
+Las familias limeñas que tienen a su cargo adultos mayores en tratamiento médico enfrentan una brecha entre la necesidad de garantizar la adherencia al tratamiento y la imposibilidad de supervisarla de manera constante y presencial. Esta brecha se origina en la creciente proporción de adultos mayores que viven solos o pasan largas horas sin compañía, y en las responsabilidades laborales de sus familiares, que les impiden verificar oportunamente el cumplimiento de la medicación.
+
+Las alternativas actuales —pastilleros físicos, alarmas de celular y llamadas de verificación— cumplen una función de recordatorio, pero no ofrecen confirmación confiable de la toma ni permiten una intervención oportuna ante un posible olvido. A esto se añade que las soluciones digitales convencionales suelen presentar interfaces complejas, poco accesibles para adultos mayores con baja alfabetización digital, lo que limita su adopción autónoma.
+
+**Objetivos que delimitan el alcance de la solución propuesta:**
+- Ofrecer al adulto mayor un mecanismo de confirmación de medicación simple y accesible (un solo toque o reconocimiento de voz), que minimice la carga cognitiva de uso.
+- Brindar al familiar visibilidad remota y en tiempo real sobre el cumplimiento del tratamiento, mediante notificaciones ante tomas no confirmadas.
+- Anticipar posibles olvidos mediante el análisis de patrones de comportamiento en las tomas registradas.
+
+**Restricciones que delimitan el alcance del proyecto:**
+- La validación inicial se circunscribe a familias de Lima Metropolitana.
+- El segmento de adultos mayores considerado se limita al rango etario de 68 a 85 años.
+- El segmento de familiares considerado se limita al rango etario de 35 a 55 años, con vínculo directo de cuidado sobre el adulto mayor.
+- La solución no reemplaza la supervisión médica profesional; se orienta exclusivamente al soporte de adherencia y monitoreo remoto.
+
 ### 1.2.2. Lean UX Process
 
 En esta sección se aplica el Lean UX Process (Gothelf & Seiden, 3rd Edition) al proyecto Tata, desarrollado por la startup peruana VitaHealth. El proceso permite definir el problema que se busca resolver, identificar los principales segmentos de usuarios, establecer las creencias iniciales del negocio y de los usuarios, y formular hipótesis que posteriormente podrán ser validadas mediante el desarrollo y evaluación del producto.
