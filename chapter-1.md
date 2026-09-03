@@ -118,7 +118,7 @@ Según proyecciones del INEI al 2024, los adultos mayores representan el 13.9% d
 
 Las familias limeñas que tienen a su cargo adultos mayores en tratamiento médico enfrentan una brecha entre la necesidad de garantizar la adherencia al tratamiento y la imposibilidad de supervisarla de manera constante y presencial. Esta brecha se origina en la creciente proporción de adultos mayores que viven solos o pasan largas horas sin compañía, y en las responsabilidades laborales de sus familiares, que les impiden verificar oportunamente el cumplimiento de la medicación.
 
-Las alternativas actuales —pastilleros físicos, alarmas de celular y llamadas de verificación— cumplen una función de recordatorio, pero no ofrecen confirmación confiable de la toma ni permiten una intervención oportuna ante un posible olvido. A esto se añade que las soluciones digitales convencionales suelen presentar interfaces complejas, poco accesibles para adultos mayores con baja alfabetización digital, lo que limita su adopción autónoma.
+Las alternativas actuales pastilleros físicos, alarmas de celular y llamadas de verificación cumplen una función de recordatorio, pero no ofrecen confirmación confiable de la toma ni permiten una intervención oportuna ante un posible olvido. A esto se añade que las soluciones digitales convencionales suelen presentar interfaces complejas, poco accesibles para adultos mayores con baja alfabetización digital, lo que limita su adopción autónoma.
 
 **Objetivos que delimitan el alcance de la solución propuesta:**
 - Ofrecer al adulto mayor un mecanismo de confirmación de medicación simple y accesible (un solo toque o reconocimiento de voz), que minimice la carga cognitiva de uso.
