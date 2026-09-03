@@ -40,7 +40,7 @@ Soy estudiante de sexto ciclo en la carrera de ingenieria de software y estoy en
 Morales Venegas, David Joel - Código: U20231B504 - Carrera: Ingeniería de Software
 
 Estudiante de Ingeniería de Software con conocimientos medios en programación y desarrollo. Tengo interés en redes, ciberseguridad y desarrollo de software, y experiencia académica trabajando en proyectos en equipo.
-</td> </tr> <tr> <td width="150"><img src="assets/Foto_Leonardo.jpg" width="130"/></td> <td>
+</td> </tr> <tr> <td width="150"><img src="assets/Foto_Leonardo.png" width="130"/></td> <td>
 
 Cabrera Novoa, Leonardo Moises - Código: U202415820 - Carrera: Ingeniería de Software
 
