@@ -46,11 +46,11 @@ Cabrera Novoa, Leonardo Moises - Código: U202415820 - Carrera: Ingeniería de S
 
 Estudiante de Sexto Ciclo de la Carrera de Ingeniería de Software. Tengo experiencia media en C++, C# y Javascript, y tengo interes en el desarrollo de aplicaciones web y moviles.
 
-</td> </tr> <tr> <td width="150"><img src="RUTA_FOTO_5.jpg" width="130"/></td> <td>
+</td> </tr> <tr> <td width="150"><img src="assets/Foto_Joaquin.png" width="130"/></td> <td>
 
-[Nombre Apellido] Código: [Código] Carrera: [Carrera]
+Alfaro Mallma, Alberto Joaquín - Código: U20241A67 - Carrera: Ingeniería de Software
 
-[Párrafo resumen de conocimientos técnicos y habilidades que aporta al equipo]
+Estudiante de la Carrera de Ingeniería de Software . Tengo experiencia en C++, C#, Java/Spring Boot, Angular, Vue.js y Node.js, con enfoque en desarrollo web fullstack.
 
 </td> </tr> <tr> <td width="150"><img src="assets/EDUARDO_FOTO.jpeg" width="130"/></td> <td>
 
