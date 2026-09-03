@@ -107,17 +107,6 @@ Las alternativas actuales —pastilleros físicos, alarmas de celular y llamadas
 - La solución no reemplaza la supervisión médica profesional; se orienta exclusivamente al soporte de adherencia y monitoreo remoto.
 
 ### 1.2.2. Lean UX Process
-
-En esta sección se aplica el Lean UX Process (Gothelf & Seiden, 3rd Edition) al proyecto Tata, desarrollado por la startup peruana VitaHealth. El proceso permite definir el problema que se busca resolver, identificar los principales segmentos de usuarios, establecer las creencias iniciales del negocio y de los usuarios, y formular hipótesis que posteriormente podrán ser validadas mediante el desarrollo y evaluación del producto.
-
-Tata es una aplicación móvil enfocada en el cuidado remoto de adultos mayores y en el seguimiento de la adherencia a sus tratamientos médicos. La solución contempla dos experiencias complementarias: una interfaz simplificada para el adulto mayor, orientada a facilitar la gestión y confirmación de sus medicamentos, y un panel de monitoreo para el familiar o cuidador, que permite conocer el estado de las tomas y recibir alertas ante posibles olvidos.
-
-El producto parte de una problemática identificada en Lima, donde muchos adultos mayores viven solos o permanecen durante varias horas sin compañía debido a las responsabilidades laborales de sus familiares. Esta situación dificulta que los familiares puedan verificar oportunamente si sus padres o abuelos han tomado sus medicamentos de acuerdo con el tratamiento indicado.
-
-A partir de esta problemática, Tata propone combinar recordatorios, confirmación de tomas, monitoreo remoto y funcionalidades inteligentes. El reconocimiento de voz busca reducir las barreras de interacción para los adultos mayores, mientras que el análisis de patrones de medicación busca identificar momentos con mayor riesgo de olvido y permitir una intervención preventiva por parte del familiar.
-
-El proceso Lean UX permitirá validar progresivamente estas suposiciones mediante el comportamiento real de los usuarios, priorizando aquellas funcionalidades que generen mayor valor tanto para el adulto mayor como para el familiar.
-
 #### 1.2.2.1. Lean UX Problem Statements
 
 VitaHealth se plantea como una startup peruana de salud digital enfocada en facilitar el cuidado remoto de adultos mayores y mejorar el seguimiento de la adherencia a sus tratamientos médicos. Su primera solución, Tata, busca conectar a los adultos mayores con sus familiares o cuidadores mediante una experiencia móvil sencilla, accesible y orientada al monitoreo de la medicación.
