@@ -24,19 +24,19 @@ Plataforma de coordinación de cuidado familiar que integra listas de tareas, ca
     <th width="12%">Perfil / Criterio</th>
     <th width="18%">Subcriterio</th>
     <th width="17.5%">
-      <img src="https://via.placeholder.com/80x80?text=Tata" alt="Tata Logo" width="50"><br>
+      <img src="./assets/PlaceholderLogo.png" alt="Tata Logo" width="50"><br>
       <b>Tata (VitaHealth)</b>
     </th>
     <th width="17.5%">
-      <img src="https://via.placeholder.com/80x80?text=Medisafe" alt="Medisafe Logo" width="50"><br>
+      <img src="./assets/Medisafe.png" alt="Medisafe Logo" width="50"><br>
       <b>Medisafe</b>
     </th>
     <th width="17.5%">
-      <img src="https://via.placeholder.com/80x80?text=MyTherapy" alt="MyTherapy Logo" width="50"><br>
+      <img src="./assets/MyTheraphy.jpg" alt="MyTherapy Logo" width="50"><br>
       <b>MyTherapy</b>
     </th>
     <th width="17.5%">
-      <img src="https://via.placeholder.com/80x80?text=Caring+Village" alt="Caring Village Logo" width="50"><br>
+      <img src="./assets/CaringVillage.png" alt="Caring Village Logo" width="50"><br>
       <b>Caring Village</b>
     </th>
   </tr>
@@ -129,15 +129,81 @@ Plataforma de coordinación de cuidado familiar que integra listas de tareas, ca
 
 ### 2.1.2. Estrategias y tácticas frente a competidores
 
+Para posicionar a **Tata** de manera sólida frente a las alternativas del mercado, se establecen estrategias específicas según el perfil de cada competidor, complementadas con una táctica transversal de adquisición local:
+
+* **Frente a Medisafe (Diferenciación por accesibilidad extrema):** Mientras Medisafe se enfoca en el seguimiento clínico avanzado y un alto volumen de usuarios, Tata centrará su propuesta en eliminar barreras de uso. Se aplicará un testeo continuo de la interfaz de confirmación por voz y un solo toque con adultos mayores reales del segmento objetivo, evitando la sobrecarga de funciones que dificulta la adopción autónoma en plataformas complejas.
+
+* **Frente a MyTherapy (Posicionamiento por valor agregado vs. gratuidad):** Ante la ventaja de gratuidad total de MyTherapy, Tata no competirá por precio, sino por el valor diferencial de la detección de patrones de olvido y el panel de monitoreo familiar en tiempo real. Esta propuesta se comunicará claramente en la Landing Page y la app para justificar el modelo *freemium*.
+
+* **Frente a Caring Village (Especialización exclusiva):** Dado que Caring Village se orienta a la coordinación general del cuidado (calendario, tareas y documentos), Tata mantendrá su foco exclusivo en la adherencia a medicamentos. Esta táctica evita la dispersión funcional y atiende de forma directa el problema central identificado en la investigación.
+
+* **Táctica transversal de adquisición (Canal B2B2C local):** Se establecerán alianzas estratégicas con clínicas geriátricas y farmacias en Lima Metropolitana para acelerar la captura de usuarios a través de un canal local que ninguno de los tres competidores internacionales aprovecha actualmente.
+
 ## 2.2. Entrevistas
 
 ### 2.2.1. Diseño de entrevistas
+
+Para cada segmento objetivo se diseñó una guía de entrevista semiestructurada. Esta se compone de preguntas principales que abordan directamente los objetivos de la investigación y preguntas complementarias que permiten profundizar según las respuestas del entrevistado.
+
+El diseño busca recolectar información de ambos segmentos sobre:
+* **Datos demográficos y contexto:** Género, edad, distrito de residencia, estado civil, composición familiar y ocupación.
+* **Perfil cualitativo:** Personalidad, habilidades, afinidad por marcas, influencias y dispositivos preferidos.
+* **Comportamiento digital:** Canales digitales de interacción y uso de asistentes o comandos de voz.
+* **Dominio del problema:** Objetivos, frustraciones y antecedentes o biografía relevante vinculada a la adherencia a la medicación y el cuidado remoto.
+
+---
+
+#### Guía de entrevista — Segmento Adulto Mayor
+
+**Preguntas demográficas y de contexto** <br>
+**1.** ¿Podría contarme un poco sobre usted: su edad, distrito donde vive y con quién vive actualmente? <br>
+**2.** ¿A qué se dedicaba antes de jubilarse, y cómo describiría un día típico suyo actualmente? <br>
+
+**Preguntas sobre el problema (medicación)** <br>
+**3.** ¿Qué medicamentos toma actualmente y con qué frecuencia? <br>
+**4.** ¿Cómo recuerda usted la hora en que debe tomar cada medicamento? <br>
+**5.** ¿Le ha pasado alguna vez olvidarse de tomar un medicamento? ¿Qué ocurrió después? <br>
+**6.** ¿Alguien de su familia le pregunta o verifica si tomó sus medicamentos? ¿Cómo lo hace (llamada, visita, mensaje)? <br>
+
+**Preguntas sobre tecnología** <br>
+**7.** ¿Qué tipo de celular usa (básico o smartphone) y qué aplicaciones usa con más frecuencia? <br>
+**8.** ¿Ha usado alguna vez comandos de voz en su celular (como asistentes de voz)? ¿Cómo fue esa experiencia? <br>
+**9.** ¿Qué le resulta difícil o incómodo al usar aplicaciones nuevas en su celular? <br>
+
+**Preguntas sobre frustraciones y objetivos** <br>
+**10.** ¿Qué es lo que más le preocupa en relación con su salud y su tratamiento médico? <br>
+**11.** ¿Qué le gustaría que fuera más fácil en su día a día respecto al cuidado de su salud? <br>
+
+---
+
+#### Guía de entrevista — Segmento Familiar
+
+**Preguntas demográficas y de contexto** <br>
+**1.** ¿Podría contarme sobre usted: edad, distrito donde vive, ocupación y composición de su familia? <br>
+**2.** ¿Con qué frecuencia ve o se comunica con su familiar adulto mayor? <br>
+
+**Preguntas sobre el problema (supervisión remota)** <br>
+**3.** ¿Cómo se entera usted si su familiar tomó su medicación en el horario indicado? <br>
+**4.** ¿Qué hace cuando no está seguro de si la tomó (llama, envía mensaje, pide a alguien que lo visite)? <br>
+**5.** ¿Cuánto tiempo diría que le toma, en promedio, hacer este tipo de seguimiento a la semana? <br>
+**6.** Cuénteme sobre alguna vez en la que se enteró tarde de que su familiar no tomó su medicamento. ¿Qué pasó? <br>
+
+**Preguntas sobre tecnología** <br>
+**7.** ¿Qué aplicaciones usa habitualmente en su celular (redes sociales, mensajería, salud)? <br>
+**8.** ¿Ha usado alguna aplicación para el cuidado de un familiar? ¿Cuál y qué le pareció? <br>
+**9.** ¿Qué tan cómodo se siente configurando alertas o notificaciones en aplicaciones móviles? <br>
+
+**Preguntas sobre frustraciones y objetivos** <br>
+**10.** ¿Qué es lo que más le genera ansiedad o preocupación respecto al cuidado de su familiar a distancia? <br>
+**11.** Si pudiera tener una herramienta ideal para este problema, ¿qué es lo primero que le gustaría que le mostrara o le avisara? <br>
 
 ### 2.2.2. Registro de entrevistas
 
 ### 2.2.3. Análisis de entrevistas
 
 ## 2.3. Needfinding
+
+A partir de la información recolectada en el proceso de entrevistas y del análisis competitivo desarrollado previamente, el equipo procedera a realizar el Needfinding, con el objetivo de construir una comprensión profunda y estructurada de los dos segmentos objetivo de Tata. Esta sección incluye la elaboración de los User Personas que representan a cada segmento, el User Task Matrix que consolida las tareas relevantes que estos realizan, los User Journey Maps en su versión As-Is, los Empathy Maps por cada arquetipo, el Big Picture EventStorming del dominio del negocio, y el glosario de Ubiquitous Language que unifica el vocabulario del equipo en torno al dominio del problema.
 
 ### 2.3.1. User Personas
 
