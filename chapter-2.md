@@ -1,7 +1,131 @@
 # Capítulo II: Requirements Development and Software Solution Design
 ## 2.1. Competidores
 
+Para el análisis competitivo de Tata se identificaron tres soluciones digitales relacionadas con el cuidado remoto y la adherencia al tratamiento médico de personas mayores. Se consideraron competidores directos cuyo nucleo del producto sea el recordatorio de medicación con alertas al cuidador, así como un competidor indirecto orientado a la coordinación familiar del cuidado en general.
+
+**Competidor 1: Medisafe** <br>
+Aplicación de recordatorio de medicamentos con más de 10 millones de usuarios a nivel global. Permite programar dosis, registrar la toma y, mediante su función "Medfriend", notificar a un familiar cuando una dosis fue omitida. Cuenta con un plan gratuito limitado y un plan premium mensual/anual con reportes de adherencia ilimitados.
+
+**Competidor 2: MyTherapy** <br>
+Aplicación gratuita desarrollada por la empresa alemana smartpatient GmbH, orientada a recordatorios de medicación y diario de salud (síntomas, mediciones). No requiere suscripción de pago y opera bajo estándares de privacidad GDPR, pero su función de monitoreo remoto para un familiar es limitada frente a soluciones especializadas en cuidado a distancia.
+
+**Competidor 3: Caring Village** <br>
+Plataforma de coordinación de cuidado familiar que integra listas de tareas, calendario compartido, almacenamiento de documentos y recordatorios de medicación básicos dentro de un "círculo de cuidado" con múltiples cuidadores. Su enfoque es más amplio que la sola adherencia a medicamentos, por lo que no está optimizada para la simplicidad de uso que requiere un adulto mayor con baja alfabetización digital.
+
 ### 2.1.1. Análisis competitivo
+
+<table>
+  <tr>
+    <th colspan="2" style="background-color: #f6f8fa; text-align: left;">¿Por qué llevar a cabo este análisis?</th>
+    <td colspan="4">Se busca contrastar la propuesta de valor de Tata frente a soluciones existentes de recordatorio de medicación y coordinación de cuidado, identificando vacíos que Tata puede cubrir, particularmente en la combinación de accesibilidad para el adulto mayor y anticipación de olvidos mediante detección de patrones.</td>
+  </tr>
+
+  <tr align="center">
+    <th width="12%">Perfil / Criterio</th>
+    <th width="18%">Subcriterio</th>
+    <th width="17.5%">
+      <img src="https://via.placeholder.com/80x80?text=Tata" alt="Tata Logo" width="50"><br>
+      <b>Tata (VitaHealth)</b>
+    </th>
+    <th width="17.5%">
+      <img src="https://via.placeholder.com/80x80?text=Medisafe" alt="Medisafe Logo" width="50"><br>
+      <b>Medisafe</b>
+    </th>
+    <th width="17.5%">
+      <img src="https://via.placeholder.com/80x80?text=MyTherapy" alt="MyTherapy Logo" width="50"><br>
+      <b>MyTherapy</b>
+    </th>
+    <th width="17.5%">
+      <img src="https://via.placeholder.com/80x80?text=Caring+Village" alt="Caring Village Logo" width="50"><br>
+      <b>Caring Village</b>
+    </th>
+  </tr>
+
+  <tr>
+    <td colspan="2"><b>Overview — Perfil</b></td>
+    <td>Aplicación móvil enfocada en la adherencia a medicamentos para adultos mayores con baja alfabetización digital, mediante confirmación por voz o un solo toque, y un panel de monitoreo en tiempo real para la familia.</td>
+    <td>Aplicación de recordatorio de medicación con función de alerta al cuidador (Medfriend) ante dosis omitidas.</td>
+    <td>Aplicación gratuita de recordatorio de medicación y diario de salud, sin foco específico en cuidadores remotos.</td>
+    <td>Plataforma de coordinación del cuidado familiar con múltiples cuidadores, calendario y tareas compartidas.</td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><b>Ventaja competitiva / ¿Qué valor ofrece a los clientes?</b></td>
+    <td>Interfaz ultra simplificada (voz/un toque) diseñada para adultos mayores + anticipación de olvidos mediante detección de patrones.</td>
+    <td>Amplia base de usuarios y robusta base de datos sobre interacciones entre medicamentos.</td>
+    <td>Gratuita sin límites, enfoque integral en salud (no solo enfocado en medicación).</td>
+    <td>Coordinación entre varios cuidadores familiares, no solo un contacto de alerta.</td>
+  </tr>
+
+  <tr>
+    <td rowspan="2" align="center" style="vertical-align: middle;"><b>Perfil de Marketing</b></td>
+    <td><b>Mercado objetivo</b></td>
+    <td>Familias limeñas con adultos mayores de 68-85 años que viven solos o con poca compañía.</td>
+    <td>Usuarios individuales a nivel global con tratamientos crónicos, con opción de compartir información con un familiar.</td>
+    <td>Personas que gestionan su propia medicación y buscan una alternativa gratuita.</td>
+    <td>Familias con múltiples cuidadores que coordinan el cuidado integral de un adulto mayor.</td>
+  </tr>
+  <tr>
+    <td><b>Estrategias de marketing</b></td>
+    <td>Cercanía local, alianzas estratégicas con clínicas, farmacias y aseguradoras (canal B2B2C).</td>
+    <td>Marketing digital masivo y posicionamiento orgánico/pagado en app stores globales.</td>
+    <td>Posicionamiento por gratuidad y cumplimiento estricto de privacidad (GDPR).</td>
+    <td>Posicionamiento en comunidades de cuidadores familiares (blogs, guías de soporte).</td>
+  </tr>
+
+  <tr>
+    <td rowspan="3" align="center" style="vertical-align: middle;"><b>Perfil de Producto</b></td>
+    <td><b>Productos & Servicios</b></td>
+    <td>Aplicación móvil (adulto mayor + familiar) + reconocimiento de voz + detección de patrones de olvido.</td>
+    <td>Aplicación móvil de recordatorios + seguimiento de interacciones + reportes de adherencia.</td>
+    <td>Aplicación móvil de recordatorios + diario de salud + sincronización con Apple Health / Google Fit.</td>
+    <td>Aplicación móvil de coordinación de cuidado + recordatorios básicos + almacenamiento de documentos.</td>
+  </tr>
+  <tr>
+    <td><b>Precios & Costos</b></td>
+    <td>Modelo freemium con suscripción mensual para el familiar (plan premium).</td>
+    <td>Gratuito (limitado a 2 medicamentos) / Premium a USD 4.99 mensual o USD 39.99 anual.</td>
+    <td>Gratis, sin muro de pago.</td>
+    <td>Gratis.</td>
+  </tr>
+  <tr>
+    <td><b>Canales de distribución (Web y/o Móvil)</b></td>
+    <td>Aplicación móvil nativa (Android/iOS) + Sitio web (Landing Page).</td>
+    <td>Aplicación móvil (iOS/Android).</td>
+    <td>Aplicación móvil (iOS/Android).</td>
+    <td>Aplicación móvil (iOS/Android) + versión web.</td>
+  </tr>
+  
+  <tr>
+    <td rowspan="4" align="center" style="vertical-align: middle;"><b>Análisis SWOT</b></td>
+    <td><b>Fortalezas</b></td>
+    <td>Interfaz diseñada específicamente para baja alfabetización digital (voz/un toque); detección de patrones de olvido como diferenciador único.</td>
+    <td>Base de usuarios masiva (+10M) y robustez en el seguimiento de interacciones medicamentosas.</td>
+    <td>Gratuidad total sin muro de pago; buen posicionamiento en privacidad de datos (cumplimiento GDPR).</td>
+    <td>Coordinación entre múltiples cuidadores familiares, no solo un contacto único de alerta.</td>
+  </tr>
+  <tr>
+    <td><b>Debilidades</b></td>
+    <td>Startup nueva sin base de usuarios ni reconocimiento de marca; recursos limitados frente a aplicaciones consolidadas.</td>
+    <td>Interfaz no optimizada para adultos mayores con baja alfabetización digital; versión gratuita limitada a 2 medicamentos.</td>
+    <td>Monitoreo remoto para el familiar limitado; sin función de anticipación de olvidos.</td>
+    <td>Enfoque generalista que diluye la especialización en medicación; no diseñada para uso autónomo del adulto mayor.</td>
+  </tr>
+  <tr>
+    <td><b>Oportunidades</b></td>
+    <td>Mercado peruano de salud digital para adultos mayores poco atendido; alianzas B2B2C con clínicas y aseguradoras.</td>
+    <td>Expansión a mercados latinoamericanos no explotados.</td>
+    <td>Ampliar funciones dirigidas al cuidador a futuro.</td>
+    <td>Integrar funciones más específicas de salud y seguimiento clínico.</td>
+  </tr>
+  <tr>
+    <td><b>Amenazas</b></td>
+    <td>Aplicaciones globales gratuitas que reducen la disposición a pagar; posible entrada de competidores locales con mayor respaldo.</td>
+    <td>Soluciones locales más simples y económicas orientadas específicamente al segmento de adultos mayores.</td>
+    <td>Al ser gratuita, presiona a Tata a justificar claramente el valor monetario de su modelo freemium.</td>
+    <td>Aplicaciones especializadas como Tata, con foco exclusivo en medicación, pueden captar al segmento que busca esa profundidad.</td>
+  </tr>
+</table>
 
 ### 2.1.2. Estrategias y tácticas frente a competidores
 
