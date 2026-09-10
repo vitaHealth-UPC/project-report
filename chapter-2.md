@@ -1757,6 +1757,28 @@ Como equipo de desarrollo, quiero investigar los mecanismos disponibles para pro
 
 ### 2.4.2. Impact Mapping
 
+El Impact Mapping permitió relacionar los objetivos de negocio de Tata con los cambios esperados en el comportamiento de sus segmentos objetivo. Para ello se utilizaron los User Persona definidos previamente, identificando los impactos que pueden contribuir al cumplimiento de cada objetivo, los entregables necesarios para producir dichos impactos y las User Stories relacionadas.
+
+#### Impact Mapping: Doña Carmen Rodríguez
+
+El primer Impact Map corresponde al segmento de adultos mayores y utiliza a Doña Carmen Rodríguez como User Persona. El objetivo se orienta a reducir las tomas que permanecen sin confirmar mediante recordatorios, consulta de la agenda, mecanismos accesibles de confirmación y configuraciones que faciliten el uso de la aplicación.
+
+![Impact Mapping de Doña Carmen Rodríguez](assets/impact-mapping-dona-carmen-rodriguez.png)
+
+*Figura. Impact Mapping correspondiente al User Persona Doña Carmen Rodríguez.*
+
+El mapa muestra que el cumplimiento del objetivo no depende de una sola funcionalidad. Los recordatorios buscan disminuir los olvidos, mientras que la agenda permite anticipar las próximas tomas. La confirmación accesible facilita registrar la acción realizada y las configuraciones de accesibilidad reducen las barreras de interacción que podrían dificultar el uso autónomo de Tata.
+
+#### Impact Mapping: Diego Dani Mendoza
+
+El segundo Impact Map corresponde al segmento de familiares o cuidadores y utiliza a Diego Dani Mendoza como User Persona. En este caso, el objetivo se concentra en incrementar el uso del seguimiento remoto y disminuir la dependencia de verificaciones manuales constantes.
+
+![Impact Mapping de Diego Dani Mendoza](assets/impact-mapping-diego-dani-mendoza.png)
+
+*Figura. Impact Mapping correspondiente al User Persona Diego Dani Mendoza.*
+
+En este mapa, los impactos se concentran en reducir la incertidumbre del familiar durante el seguimiento remoto. El resumen y el historial permiten consultar información sin depender exclusivamente de llamadas, mientras que las alertas facilitan identificar situaciones que requieren atención. La analítica complementa este seguimiento mediante la identificación de retrasos, omisiones y patrones recurrentes que pueden orientar futuras acciones.
+
 ### 2.4.3. Product Backlog
 
 El Product Backlog de Tata organiza los requisitos funcionales y técnicos identificados para el producto. La prioridad se estableció considerando primero el valor que cada funcionalidad proporciona a los segmentos objetivo y no únicamente el orden técnico requerido para su implementación.
