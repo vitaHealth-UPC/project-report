@@ -315,7 +315,126 @@ En conjunto, el Big Picture EventStorming permitió identificar una secuencia gl
 
 Enlace a la versión del Big Picture EventStorming: [https://miro.com/app/board/uXjVHq5Jc9w=/](https://miro.com/app/board/uXjVHq5Jc9w=/)
 
-### 2.3.6. Ubiquitous Language
+#### 2.3.6. Ubiquitous Language
+
+El Ubiquitous Language se definió a partir de los conceptos identificados durante el análisis del dominio y el desarrollo del EventStorming. Su propósito es establecer un vocabulario común entre los integrantes del equipo y reducir interpretaciones diferentes sobre los elementos que forman parte de Tata.
+
+Debido a que un mismo término puede adquirir un significado particular según el contexto en el que se utiliza, el vocabulario se organizó de acuerdo con los Bounded Contexts identificados. Esto permite mantener definiciones precisas dentro de cada parte del dominio y facilita la posterior especificación de reglas, eventos y relaciones.
+
+##### Identidad y suscripción
+
+| Término | Definición |
+| --- | --- |
+| Cuenta | Registro de acceso de un usuario en Tata. |
+| Usuario | Persona autenticada que utiliza la aplicación. |
+| Estado de cuenta | Condición que indica si la cuenta se encuentra habilitada. |
+| Plan | Conjunto de funcionalidades asociado a una modalidad de uso. |
+| Suscripción | Relación vigente entre una cuenta y un plan. |
+| Consentimiento | Autorización registrada para el uso de datos y funcionalidades relacionadas con el cuidado. |
+| Correo verificado | Correo cuya propiedad fue confirmada por el usuario. |
+
+##### Vínculo de cuidado
+
+| Término | Definición |
+| --- | --- |
+| Adulto mayor | Persona cuyo tratamiento es acompañado mediante Tata. |
+| Familiar | Persona cercana que consulta y acompaña el seguimiento del adulto mayor. |
+| Cuidador | Usuario autorizado para supervisar información relacionada con el adulto mayor. |
+| Vínculo de cuidado | Relación autorizada entre un cuidador y un adulto mayor. |
+| Código de vinculación | Código temporal utilizado para iniciar la asociación entre usuarios. |
+| Consentimiento | Aceptación del adulto mayor para establecer la relación de cuidado. |
+| Contacto de emergencia | Información de contacto disponible para situaciones que requieren mayor atención. |
+
+##### Gestión del tratamiento
+
+| Término | Definición |
+| --- | --- |
+| Tratamiento | Conjunto de reglas que define cómo debe administrarse un medicamento. |
+| Medicamento | Producto asociado a una pauta de tratamiento. |
+| Dosis | Cantidad indicada para una toma. |
+| Frecuencia | Periodicidad con la que debe realizarse una toma. |
+| Horario de toma | Hora programada para administrar una dosis. |
+| Instrucciones | Indicaciones asociadas a la administración del medicamento. |
+| Recordatorio | Aviso programado relacionado con una toma futura. |
+| Tratamiento activo | Tratamiento completo y habilitado para generar tomas programadas. |
+
+##### Ejecución de tomas
+
+| Término | Definición |
+| --- | --- |
+| Toma | Instancia concreta de una dosis programada. |
+| Próxima toma | Siguiente toma pendiente según la programación vigente. |
+| Toma programada | Toma asociada a una fecha y hora determinadas. |
+| Ventana de confirmación | Intervalo disponible para registrar la confirmación de una toma. |
+| Confirmación | Registro realizado por el usuario para indicar que completó una toma. |
+| Confirmación por voz | Confirmación registrada a partir de una frase reconocida por el sistema. |
+| Confirmación por toque | Confirmación registrada mediante una interacción táctil. |
+| Historial diario | Registro de las tomas y sus estados correspondientes a un día. |
+
+##### Omisión y escalamiento
+
+| Término | Definición |
+| --- | --- |
+| Toma no confirmada | Toma que no posee una confirmación dentro de la ventana inicial. |
+| Tolerancia | Tiempo adicional disponible antes de considerar una omisión. |
+| Pendiente | Estado temporal previo a determinar que una toma fue omitida. |
+| Omisión | Toma que permanece sin confirmación después de finalizar el periodo permitido. |
+| Alerta | Aviso generado para comunicar una situación que requiere atención del cuidador. |
+| Escalamiento | Incremento del nivel de atención cuando una situación continúa sin respuesta. |
+| Caso de omisión | Seguimiento de una omisión desde su detección hasta su cierre. |
+
+##### Seguimiento familiar
+
+| Término | Definición |
+| --- | --- |
+| Resumen familiar | Vista consolidada del estado reciente del adulto mayor. |
+| Seguimiento | Conjunto de acciones realizadas por el familiar o cuidador para acompañar al adulto mayor. |
+| Estado del adulto | Situación reciente obtenida a partir de las tomas, confirmaciones y alertas disponibles. |
+| Alerta | Situación presentada al familiar porque requiere su atención. |
+| Nota del cuidador | Registro textual asociado a una intervención o situación observada. |
+| Contacto | Canal disponible para comunicarse con el adulto mayor. |
+| Intervención | Acción realizada por el cuidador ante un estado, alerta o necesidad de seguimiento. |
+
+##### Accesibilidad y preferencias
+
+| Término | Definición |
+| --- | --- |
+| Tamaño de texto | Escala visual aplicada a los textos de la aplicación. |
+| Contraste | Nivel de diferenciación visual aplicado a los elementos de la interfaz. |
+| Reducción de movimiento | Preferencia que disminuye animaciones y transiciones de la aplicación. |
+| Confirmación por voz | Preferencia que habilita el uso de la voz como mecanismo de confirmación de una toma. |
+| Ayuda de lectura | Soporte destinado a facilitar la comprensión del contenido presentado. |
+| Horario de silencio | Intervalo en el que se restringen determinadas notificaciones no críticas. |
+| Canal de notificación | Medio habilitado para recibir avisos. |
+| Preferencias | Conjunto de configuraciones asociadas a la experiencia de un usuario. |
+
+##### Analítica de adherencia
+
+| Término | Definición |
+| --- | --- |
+| Adherencia | Grado de cumplimiento del tratamiento durante un periodo determinado. |
+| Tasa de adherencia | Porcentaje de tomas cumplidas respecto de las tomas esperadas durante un periodo. |
+| Toma tardía | Toma confirmada después de su horario previsto, pero dentro del periodo considerado válido. |
+| Omisión | Toma que no fue confirmada dentro del periodo establecido. |
+| Patrón horario | Tendencia recurrente asociada a determinadas franjas de tiempo. |
+| Riesgo de omisión | Estimación de la posibilidad de que se produzcan futuras omisiones. |
+| Insight | Hallazgo obtenido a partir del análisis del historial de adherencia. |
+| Recomendación | Consejo orientativo generado a partir de los resultados del análisis. |
+
+##### Inventario y reposición
+
+| Término | Definición |
+| --- | --- |
+| Inventario | Cantidad disponible de un medicamento. |
+| Stock restante | Número de unidades disponibles en un momento determinado. |
+| Stock bajo | Estado alcanzado cuando las unidades disponibles llegan al umbral establecido. |
+| Umbral de reposición | Cantidad mínima que provoca la generación de un aviso de reabastecimiento. |
+| Lote | Conjunto de unidades incorporadas al inventario durante una reposición. |
+| Solicitud de reposición | Registro de la necesidad de reabastecer un medicamento. |
+| Continuidad | Condición en la que el tratamiento puede mantenerse sin interrupciones por falta de medicamento. |
+| Reabastecimiento | Incremento del stock disponible después de una reposición. |
+
+Algunos términos aparecen en más de un contexto, como **Consentimiento**, **Confirmación por voz**, **Omisión** y **Alerta**. Esta repetición responde a que su significado depende de la responsabilidad del contexto. Por ejemplo, una omisión representa el estado de una toma no confirmada dentro de **Omisión y escalamiento**, mientras que en **Analítica de adherencia** se utiliza como un dato histórico para calcular indicadores y detectar patrones. Mantener estas diferencias permite utilizar el mismo vocabulario de manera consistente sin mezclar responsabilidades entre los modelos del dominio.
 
 ## 2.4. Requirements specification
 
