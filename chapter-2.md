@@ -199,7 +199,523 @@ El diseño busca recolectar información de ambos segmentos sobre:
 
 ### 2.2.2. Registro de entrevistas
 
+Las entrevistas se realizaron con representantes de los dos segmentos objetivo de Tata. El propósito fue conocer cómo gestionan actualmente la medicación, qué dificultades aparecen durante este proceso y cómo intervienen los familiares cuando el seguimiento se realiza a distancia.
+
+Para cada participante se registraron sus datos principales, una captura de la sesión, la duración de la entrevista y el enlace de acceso. Además, se elaboró un resumen descriptivo con los aspectos más relevantes obtenidos durante la conversación.
+
+#### Segmento 1: Adultos mayores
+
+Este segmento está conformado por adultos mayores que siguen uno o más tratamientos y gestionan directamente sus medicamentos. Las entrevistas buscan conocer sus rutinas actuales, las dificultades que experimentan para recordar o confirmar una toma y su relación con el uso de dispositivos móviles.
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 1</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">
+        <img src="assets/interviews/segmento-1-entrevista-1.png" alt="Entrevista del segmento 1, participante 1" width="900">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de la entrevista</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Tratamiento o medicación</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Gestión actual de las tomas</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Apoyo familiar</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Ocupación o situación actual</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Contexto digital</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
+      <td colspan="2">
+        <strong>URL de grabación:</strong>
+        <a href="https://example.com/segmento-1-entrevista-1">Ver video</a>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de la entrevista</strong>
+        <p>[pendiente]</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 2</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">
+        <img src="assets/interviews/segmento-1-entrevista-2.png" alt="Entrevista del segmento 1, participante 2" width="900">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de la entrevista</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Tratamiento o medicación</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Gestión actual de las tomas</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Apoyo familiar</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Ocupación o situación actual</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Contexto digital</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
+      <td colspan="2">
+        <strong>URL de grabación:</strong>
+        <a href="https://example.com/segmento-1-entrevista-2">Ver video</a>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de la entrevista</strong>
+        <p>[pendiente]</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">
+        <img src="assets/interviews/segmento-1-entrevista-3.png" alt="Entrevista del segmento 1, participante 3" width="900">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de la entrevista</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Tratamiento o medicación</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Gestión actual de las tomas</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Apoyo familiar</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Ocupación o situación actual</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Contexto digital</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
+      <td colspan="2">
+        <strong>URL de grabación:</strong>
+        <a href="https://example.com/segmento-1-entrevista-3">Ver video</a>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de la entrevista</strong>
+        <p>[pendiente]</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### Segmento 2: Familiares o cuidadores
+
+Este segmento está conformado por familiares o cuidadores que realizan algún tipo de seguimiento a un adulto mayor, especialmente cuando no pueden acompañarlo presencialmente durante todo el día. Las entrevistas buscan comprender cómo obtienen información sobre la medicación, qué dificultades encuentran y qué situaciones generan mayor preocupación durante el cuidado a distancia.
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 1</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">
+        <img src="assets/interviews/segmento-2-entrevista-1.png" alt="Entrevista del segmento 2, participante 1" width="900">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de seguimiento</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Adulto mayor acompañado</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Frecuencia de contacto</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Seguimiento actual</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Ocupación</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Contexto digital</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
+      <td colspan="2">
+        <strong>URL de grabación:</strong>
+        <a href="https://example.com/segmento-2-entrevista-1">Ver video</a>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de la entrevista</strong>
+        <p>[pendiente]</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 2: Sebastián Vásquez</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">
+        <img src="assets/segmento-2-entrevista-2-sebastian-vasquez.png" alt="Entrevista a Sebastián Vásquez" width="900">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de seguimiento</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td>Sebastián Vásquez</td>
+      <td><strong>Adulto mayor acompañado</strong></td>
+      <td>Su abuelo</td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td>26 años</td>
+      <td><strong>Frecuencia de contacto</strong></td>
+      <td>Una visita semanal y alrededor de dos llamadas o videollamadas por semana</td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td>Magdalena, Lima</td>
+      <td><strong>Seguimiento actual</strong></td>
+      <td>Pregunta directamente a su abuelo y normalmente confía en su respuesta</td>
+    </tr>
+    <tr>
+      <td><strong>Ocupación</strong></td>
+      <td>Estudiante y supervisor de un pequeño proyecto de software</td>
+      <td><strong>Contexto digital</strong></td>
+      <td>Utiliza smartphone, WhatsApp, Telegram, banca móvil, Yape, TikTok y llamadas telefónicas</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Duración:</strong> 14:29</td>
+      <td colspan="2">
+        <strong>URL de grabación:</strong>
+        <a href="https://drive.google.com/file/d/1vmsmti_gVNPKoTYMcTZnCLLsb_3lQmc5/view?usp=drive_link">Ver video</a>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de la entrevista</strong>
+        <p>Sebastián tiene 26 años, vive en Magdalena y combina sus estudios con un trabajo que realiza desde casa. Vive solo y se encarga de acompañar a su abuelo debido a que ambos son actualmente los integrantes de su familia que se encuentran en Lima. Su abuelo sufrió una caída aproximadamente dos años atrás y quedó con molestias permanentes en la espalda, por lo que realiza ejercicios de rehabilitación y utiliza medicamentos para el dolor y vitaminas.</p>
+        <p>Intenta visitarlo al menos una vez por semana y también mantiene contacto mediante llamadas o videollamadas, aunque señala que su abuelo presenta poca familiaridad con la tecnología. En relación con los medicamentos, Sebastián no dispone de un mecanismo de seguimiento constante. Normalmente pregunta si realizó la toma y debe confiar en la respuesta que recibe, incluso cuando percibe cierta duda.</p>
+        <p>Durante la entrevista recordó una situación en la que su abuelo afirmó inicialmente haber tomado sus medicamentos, pero después de varias preguntas reconoció que no lo había hecho. Aunque no ocurrió una consecuencia inmediata, la situación generó preocupación dentro de la familia. Sebastián considera conveniente recibir información que reduzca esta incertidumbre y evite depender de consultas constantes para conocer si una toma fue realizada.</p>
+        <p>Su preocupación por el cuidado a distancia también incluye la posibilidad de que su abuelo vuelva a sufrir un accidente cuando se encuentra solo. Al referirse a una herramienta ideal, mencionó que le resultaría útil conocer algunas actividades básicas del adulto mayor y disponer de un mecanismo sencillo de solicitud de ayuda ante una emergencia.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">
+        <img src="assets/interviews/segmento-2-entrevista-3.png" alt="Entrevista del segmento 2, participante 3" width="900">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de seguimiento</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Adulto mayor acompañado</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Frecuencia de contacto</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Seguimiento actual</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td><strong>Ocupación</strong></td>
+      <td>[pendiente]</td>
+      <td><strong>Contexto digital</strong></td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
+      <td colspan="2">
+        <strong>URL de grabación:</strong>
+        <a href="https://example.com/segmento-2-entrevista-3">Ver video</a>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de la entrevista</strong>
+        <p>[pendiente]</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ### 2.2.3. Análisis de entrevistas
+
+El análisis de las entrevistas se organizó por segmento objetivo. Primero se identificaron los principales hallazgos obtenidos de cada participante y luego se contrastaron sus respuestas para reconocer características comunes.
+
+Las características fueron clasificadas como objetivas o subjetivas y su recurrencia será expresada mediante frecuencias y porcentajes. Estos resultados servirán como base para la definición y ajuste de los User Persona de Tata.
+
+#### Segmento 1: Adultos mayores
+
+##### Hallazgos por entrevista
+
+<table>
+  <thead>
+    <tr>
+      <th>Entrevista</th>
+      <th>Características objetivas</th>
+      <th>Características subjetivas</th>
+      <th>Hallazgo principal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Entrevista N.° 1</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td>Entrevista N.° 2</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td>Entrevista N.° 3</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+  </tbody>
+</table>
+
+##### Características representativas del segmento
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Característica</th>
+      <th>Evidencia</th>
+      <th>Frecuencia</th>
+      <th>Porcentaje</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Objetiva</td>
+      <td>[pendiente]</td>
+      <td>Entrevistas [pendiente]</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td>Objetiva</td>
+      <td>[pendiente]</td>
+      <td>Entrevistas [pendiente]</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td>Subjetiva</td>
+      <td>[pendiente]</td>
+      <td>Entrevistas [pendiente]</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td>Subjetiva</td>
+      <td>[pendiente]</td>
+      <td>Entrevistas [pendiente]</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+  </tbody>
+</table>
+
+##### Conclusión del segmento 1
+
+[pendiente]
+
+#### Segmento 2: Familiares o cuidadores
+
+##### Hallazgos por entrevista
+
+<table>
+  <thead>
+    <tr>
+      <th>Entrevista</th>
+      <th>Características objetivas</th>
+      <th>Características subjetivas</th>
+      <th>Hallazgo principal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Entrevista N.° 1</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td>Entrevista N.° 2: Sebastián Vásquez</td>
+      <td>26 años, vive en Magdalena, estudia y trabaja desde casa. Acompaña a su abuelo y mantiene contacto mediante visitas, llamadas y videollamadas.</td>
+      <td>Considera poco confiable depender únicamente de la respuesta de su abuelo para comprobar una toma. Valora recibir información sin realizar verificaciones constantes.</td>
+      <td>El seguimiento a distancia genera incertidumbre porque no existe un mecanismo confiable para conocer si la medicación fue cumplida.</td>
+    </tr>
+    <tr>
+      <td>Entrevista N.° 3</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+  </tbody>
+</table>
+
+##### Características representativas del segmento
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Característica</th>
+      <th>Evidencia</th>
+      <th>Frecuencia</th>
+      <th>Porcentaje</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Objetiva</td>
+      <td>El seguimiento se realiza mediante visitas y comunicación remota</td>
+      <td>Entrevista N.° 2</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td>Objetiva</td>
+      <td>El familiar utiliza habitualmente aplicaciones móviles</td>
+      <td>Entrevista N.° 2</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td>Subjetiva</td>
+      <td>Existe incertidumbre sobre el cumplimiento de la medicación</td>
+      <td>Entrevista N.° 2</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td>Subjetiva</td>
+      <td>Se valora recibir información sin realizar verificaciones constantes</td>
+      <td>Entrevista N.° 2</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+    <tr>
+      <td>Subjetiva</td>
+      <td>Existe preocupación por el cuidado del adulto mayor cuando se encuentra solo</td>
+      <td>Entrevista N.° 2</td>
+      <td>[pendiente]</td>
+      <td>[pendiente]</td>
+    </tr>
+  </tbody>
+</table>
+
+##### Conclusión del segmento 2
+
+[pendiente]
 
 ## 2.3. Needfinding
 
