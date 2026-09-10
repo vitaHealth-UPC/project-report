@@ -965,234 +965,883 @@ Para ordenar este trabajo, la sección se divide en cuatro partes:
 
 ### 2.4.1. User Stories
 
-A partir de los requisitos identificados en la investigación, el equipo tradujo cada necesidad detectada en historias de usuario, agrupadas en epics según el módulo al que pertenecen. Además de las historias orientadas al adulto mayor y al familiar, se incluyen historias técnicas para aquellas funcionalidades que no tienen una interacción directa con el usuario final (como los endpoints del backend), y dos spike stories para investigar la viabilidad de los componentes que requieren aprendizaje autónomo antes de comenzar su implementación.
+A partir de los requisitos identificados durante la investigación y el modelado del dominio, el equipo tradujo las necesidades de los segmentos objetivo en historias de usuario agrupadas en Epics. Las historias consideran las funciones destinadas al adulto mayor, al familiar o cuidador y al visitante del Landing Page.
 
-Cada historia de usuario sigue el formato Story ID / User / Priority / Epic, con su Title, Description y Acceptance Criteria redactados bajo la estructura Given-When-Then, en tiempo presente y tercera persona, evitando hacer referencia a elementos específicos de interfaz.
+También se incorporaron Technical Stories para las capacidades que no presentan una interacción directa con el usuario final, como servicios REST, procesamiento automático, almacenamiento local e integraciones externas. Finalmente, se definieron Spike Stories para aquellas funcionalidades que requieren reducir incertidumbre técnica antes de su implementación.
 
+Cada User Story y Technical Story mantiene el formato Story ID, User, Priority y Epic. La descripción sigue la estructura Como, quiero, para y los criterios de aceptación utilizan Given, When y Then mediante sus equivalentes Dado, Cuando y Entonces.
 
-**Epics identificadas**
+#### Epics identificadas
 
 | Epic ID | Nombre | Descripción breve |
-|---|---|---|
-| EPIC-01 | Autenticación y Vinculación de Cuentas | Acceso simplificado del adulto mayor y vinculación con la cuenta del familiar |
-| EPIC-02 | Gestión de Medicamentos | Registro, edición y eliminación de medicamentos por parte del familiar |
-| EPIC-03 | Confirmación de Toma de Medicamento | Recordatorio y confirmación de la toma desde la app del adulto mayor |
-| EPIC-04 | Monitoreo y Notificaciones | Visibilidad del familiar sobre el estado de las tomas y la adherencia |
-| EPIC-05 | Detección de Patrones de Olvido (IA) | Análisis de historial para anticipar olvidos recurrentes |
- 
----
+| --- | --- | --- |
+| EPIC-01 | Autenticación y Vinculación de Cuentas | Gestiona las cuentas del familiar y adulto mayor, su acceso, verificación y relación de cuidado. |
+| EPIC-02 | Gestión de Medicamentos y Tratamientos | Permite registrar medicamentos y definir la pauta que determina dosis, frecuencia, horarios e instrucciones. |
+| EPIC-03 | Recordatorios y Confirmación de Tomas | Gestiona la agenda de tomas, recordatorios, ventanas de confirmación y registro de cumplimiento. |
+| EPIC-04 | Monitoreo, Alertas y Seguimiento Familiar | Permite al familiar conocer el estado de las tomas, recibir alertas relevantes y registrar acciones de seguimiento. |
+| EPIC-05 | Analítica de Adherencia y Patrones | Consolida el historial de tomas, calcula adherencia e identifica tendencias recurrentes. |
+| EPIC-06 | Accesibilidad y Preferencias | Permite adaptar la experiencia a las necesidades del usuario y configurar determinadas preferencias de interacción. |
+| EPIC-07 | Inventario y Reposición | Permite controlar la disponibilidad de medicamentos y registrar su reposición. |
+| EPIC-08 | Planes y Suscripción | Gestiona el plan asociado al familiar y las funcionalidades disponibles según la suscripción. |
+| EPIC-09 | Landing Page y Captación | Presenta Tata, su propuesta de valor, funcionalidades, planes y medios para continuar con el producto. |
 
-**User Stories**
+#### User Stories
 
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>US-01</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-01</td></tr>
 <tr><td colspan="4"><strong>Title:</strong> Ingreso simplificado a la aplicación</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero ingresar a la aplicación con un PIN corto y sencillo, para no tener que recordar contraseñas complicadas.</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero ingresar a la aplicación mediante un PIN corto, para acceder sin recordar una contraseña compleja.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el adulto mayor abre la aplicación por primera vez, cuando ingresa un PIN de cuatro dígitos, entonces el sistema registra dicho PIN como su credencial de acceso.<br>
-2. Dado que el adulto mayor ya tiene un PIN registrado, cuando lo ingresa correctamente, entonces el sistema le da acceso a la pantalla principal.<br>
-3. Dado que el adulto mayor ingresa un PIN incorrecto, cuando lo intenta tres veces seguidas, entonces el sistema bloquea temporalmente el acceso y sugiere contactar a su familiar.
+1. Dado que el adulto mayor tiene un perfil habilitado y todavía no cuenta con un PIN, cuando registra cuatro dígitos válidos, entonces el sistema guarda su credencial de acceso.<br>
+2. Dado que el adulto mayor posee un PIN registrado, cuando ingresa el valor correcto, entonces el sistema inicia su sesión.<br>
+3. Dado que se producen intentos incorrectos consecutivos, cuando se alcanza el límite configurado, entonces el sistema restringe temporalmente nuevos intentos.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>US-02</td><td>Familiar</td><td>Alta</td><td>EPIC-01</td></tr>
 <tr><td colspan="4"><strong>Title:</strong> Vinculación con la cuenta del adulto mayor</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero vincular mi cuenta con la de mi adulto mayor mediante un código, para poder monitorear su tratamiento desde mi propia aplicación.</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero vincular mi cuenta con la de un adulto mayor mediante un código, para realizar su seguimiento desde mi cuenta.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el adulto mayor tiene una cuenta creada, cuando el sistema genera un código de vinculación para esa cuenta, entonces dicho código queda disponible para ser compartido.<br>
-2. Dado que el familiar cuenta con el código de vinculación, cuando lo ingresa en su aplicación, entonces el sistema asocia ambas cuentas.<br>
-3. Dado que dos familiares distintos ingresan el mismo código de vinculación, cuando ambos lo registran, entonces el sistema permite que ambos queden vinculados al mismo adulto mayor.
+1. Dado que existe un adulto mayor registrado, cuando se solicita una vinculación, entonces el sistema genera un código temporal asociado a su perfil.<br>
+2. Dado que el familiar ingresa un código vigente, cuando el adulto mayor acepta la vinculación, entonces el sistema registra la relación de cuidado.<br>
+3. Dado que el código ha expirado o ya fue utilizado, cuando se intenta utilizar nuevamente, entonces el sistema rechaza la vinculación.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>US-03</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
 <tr><td colspan="4"><strong>Title:</strong> Registro de un nuevo medicamento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar un medicamento con su dosis, horario y días de la semana, para que el sistema le recuerde a mi adulto mayor cuándo debe tomarlo.</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar un medicamento del adulto mayor, para incorporarlo a su tratamiento.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el familiar completa el nombre, la dosis y al menos un horario del medicamento, cuando confirma el registro, entonces el sistema guarda el medicamento como activo para el adulto mayor vinculado.<br>
-2. Dado que el familiar no completa el nombre del medicamento, cuando intenta confirmar el registro, entonces el sistema rechaza la operación y no crea el medicamento.<br>
-3. Dado que un medicamento fue registrado con éxito, cuando llega la fecha y hora programada, entonces el sistema genera una toma pendiente asociada a ese medicamento.
+1. Dado que el familiar se encuentra vinculado al adulto mayor, cuando registra los datos obligatorios de un medicamento, entonces el sistema almacena el medicamento asociado al adulto.<br>
+2. Dado que falta información obligatoria, cuando el familiar intenta registrar el medicamento, entonces el sistema rechaza la operación.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>US-04</td><td>Familiar</td><td>Media</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Edición y eliminación de un medicamento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero editar o eliminar un medicamento ya registrado, para mantener actualizado el tratamiento cuando cambie una indicación médica.</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Edición y desactivación de un medicamento</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero modificar o desactivar un medicamento registrado, para mantener actualizado el tratamiento sin perder su historial.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un medicamento registrado, cuando el familiar modifica su horario o dosis, entonces el sistema actualiza la información y aplica el cambio a las próximas tomas programadas.<br>
-2. Dado que existe un medicamento registrado, cuando el familiar lo elimina, entonces el sistema deja de generar nuevas tomas para dicho medicamento, conservando el historial previo.
+1. Dado que existe un medicamento activo, cuando el familiar modifica sus datos, entonces el sistema conserva la nueva información para las programaciones futuras.<br>
+2. Dado que existe un medicamento activo, cuando el familiar lo desactiva, entonces no se generan nuevas tomas y se conserva el historial previo.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>US-05</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
 <tr><td colspan="4"><strong>Title:</strong> Recordatorio de toma de medicamento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero recibir un recordatorio a la hora indicada de mi medicamento, para no olvidarme de tomarlo.</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero recibir un recordatorio cuando corresponde una toma, para disminuir la posibilidad de olvidarla.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe una toma programada para la hora actual, cuando dicha hora se cumple, entonces el sistema envía un recordatorio al adulto mayor.<br>
-2. Dado que un recordatorio fue enviado, cuando el adulto mayor no confirma la toma dentro del tiempo de tolerancia configurado, entonces el sistema envía un segundo recordatorio.
+1. Dado que existe una toma programada, cuando se alcanza su horario, entonces el sistema genera el recordatorio correspondiente.<br>
+2. Dado que la toma ya fue confirmada antes de la ejecución del recordatorio, cuando llega el horario programado, entonces el sistema evita generar un recordatorio innecesario.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>US-06</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Confirmación de toma por voz o por selección</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero confirmar que tomé mi medicamento con una sola acción, ya sea hablando o seleccionando una opción, para no tener que escribir nada.</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Confirmación accesible de una toma</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero confirmar una toma mediante una acción sencilla por toque o por voz, para registrar su realización sin escribir información.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe una toma pendiente, cuando el adulto mayor confirma la toma mediante voz, entonces el sistema reconoce la confirmación y cambia el estado de la toma a confirmada.<br>
-2. Dado que existe una toma pendiente, cuando el adulto mayor selecciona la confirmación sin usar voz, entonces el sistema cambia el estado de la toma a confirmada.<br>
-3. Dado que una toma ya fue confirmada, cuando el adulto mayor intenta confirmarla nuevamente, entonces el sistema no genera un registro duplicado.
+1. Dado que existe una toma pendiente, cuando el adulto mayor confirma mediante interacción táctil, entonces el sistema registra la toma como confirmada.<br>
+2. Dado que existe una toma pendiente, cuando una confirmación de voz es reconocida y validada, entonces el sistema registra la toma como confirmada.<br>
+3. Dado que la toma ya fue confirmada, cuando se intenta confirmarla nuevamente, entonces el sistema evita crear un segundo registro.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>US-07</td><td>Familiar</td><td>Alta</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Notificación del estado de una toma</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero recibir una notificación cuando una toma es confirmada o queda sin confirmar, para estar al tanto sin necesidad de llamar constantemente.</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Alerta ante una toma no confirmada</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero recibir una alerta cuando una toma permanece sin confirmar o es registrada como omitida, para intervenir cuando sea necesario.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el adulto mayor confirma una toma, cuando el sistema registra dicha confirmación, entonces envía una notificación al familiar vinculado.<br>
-2. Dado que una toma supera el tiempo de tolerancia sin ser confirmada, cuando el sistema la marca como omitida, entonces envía una notificación al familiar vinculado.
+1. Dado que una toma supera el periodo de confirmación establecido, cuando el sistema detecta la falta de respuesta, entonces genera una alerta asociada al adulto mayor.<br>
+2. Dado que una toma es registrada como omitida, cuando existe un familiar vinculado con notificaciones habilitadas, entonces el sistema solicita el envío de la alerta correspondiente.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-08</td><td>Familiar</td><td>Media</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Resumen de adherencia al tratamiento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero ver un resumen del cumplimiento de los medicamentos durante la semana, para entender cómo ha ido el tratamiento en general.</td></tr>
+<tr><td>US-08</td><td>Familiar</td><td>Media</td><td>EPIC-05</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Resumen semanal de adherencia</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar un resumen semanal de adherencia, para comprender el nivel general de cumplimiento del tratamiento.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existen tomas registradas durante los últimos siete días, cuando el familiar consulta el resumen semanal, entonces el sistema muestra el porcentaje de tomas confirmadas frente al total programado.<br>
-2. Dado que no existen tomas registradas en el periodo consultado, cuando el familiar accede al resumen, entonces el sistema indica que no hay información disponible para ese periodo.
+1. Dado que existen tomas programadas durante el periodo, cuando el familiar consulta el resumen semanal, entonces el sistema calcula las tomas confirmadas, tardías y omitidas.<br>
+2. Dado que no existen tomas durante el periodo, cuando se solicita el resumen, entonces el sistema informa que no existen datos suficientes para calcular adherencia.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>US-09</td><td>Familiar</td><td>Media</td><td>EPIC-05</td></tr>
 <tr><td colspan="4"><strong>Title:</strong> Alerta de patrón de olvido recurrente</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero recibir una alerta cuando el sistema detecta que una toma se olvida de forma repetida en un horario específico, para poder ajustar el tratamiento junto al médico o modificar el recordatorio.</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero conocer cuando se detecta un patrón recurrente de omisiones, para revisar los recordatorios y realizar un seguimiento más oportuno.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que un medicamento acumula tres o más tomas omitidas en el mismo horario dentro de las últimas cuatro semanas, cuando el sistema evalúa el historial, entonces genera una alerta de patrón para el familiar.<br>
-2. Dado que una alerta de patrón fue generada, cuando el familiar la revisa, entonces el sistema le permite acceder directamente a la edición del medicamento asociado.
+1. Dado que el historial cumple el criterio configurado de recurrencia, cuando el sistema analiza las tomas, entonces registra un patrón asociado al horario o medicamento correspondiente.<br>
+2. Dado que existe un patrón identificado, cuando el familiar consulta sus insights, entonces el sistema presenta la información que sustenta el hallazgo.
 </td></tr>
 </table>
 
----
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-10</td><td>Familiar</td><td>Alta</td><td>EPIC-01</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Registro de cuenta del familiar</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero crear una cuenta en Tata, para administrar el seguimiento de un adulto mayor.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el familiar proporciona los datos requeridos, cuando confirma el registro, entonces el sistema crea una cuenta pendiente de verificación.<br>
+2. Dado que el correo ya pertenece a una cuenta existente, cuando se intenta registrar nuevamente, entonces el sistema evita crear una cuenta duplicada.
+</td></tr>
+</table>
 
-**Technical Stories**
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-11</td><td>Familiar</td><td>Alta</td><td>EPIC-01</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Verificación del correo del familiar</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero verificar mi correo, para habilitar mi cuenta y continuar con el proceso de vinculación.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe una cuenta pendiente, cuando el familiar utiliza una verificación vigente, entonces el sistema registra el correo como verificado.<br>
+2. Dado que la verificación ha expirado, cuando se intenta utilizar, entonces el sistema rechaza la operación y permite solicitar una nueva.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-12</td><td>Familiar</td><td>Alta</td><td>EPIC-01</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Registro del perfil del adulto mayor</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar los datos básicos del adulto mayor, para preparar su perfil de cuidado dentro de Tata.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el familiar posee una cuenta habilitada, cuando registra los datos requeridos del adulto mayor, entonces el sistema crea su perfil.<br>
+2. Dado que se proporciona un contacto de emergencia válido, cuando se completa el perfil, entonces el sistema lo asocia al adulto mayor.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-13</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-01</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consentimiento para establecer el vínculo de cuidado</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero aceptar la relación de cuidado con un familiar, para autorizar el acceso a la información necesaria para mi seguimiento.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe una solicitud de vinculación vigente, cuando el adulto mayor registra su aceptación, entonces el sistema almacena el consentimiento asociado.<br>
+2. Dado que no existe consentimiento registrado, cuando el familiar intenta acceder al seguimiento del adulto, entonces el sistema mantiene restringido dicho acceso.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-14</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Creación de un tratamiento</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero crear un tratamiento para el adulto mayor, para agrupar los medicamentos y pautas que debe seguir.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un vínculo activo, cuando el familiar crea un tratamiento, entonces el sistema lo asocia al adulto mayor.<br>
+2. Dado que el tratamiento aún no contiene una pauta completa, cuando se crea, entonces permanece inactivo hasta completar su configuración.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-15</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Definición de dosis y frecuencia</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero definir la dosis y frecuencia de un medicamento, para representar correctamente su pauta de administración.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un medicamento dentro de un tratamiento, cuando se registra una dosis y frecuencia válidas, entonces el sistema conserva la pauta.<br>
+2. Dado que la información proporcionada es incompleta, cuando se intenta guardar la pauta, entonces el sistema rechaza la configuración.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-16</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Configuración de horarios e instrucciones</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero definir los horarios e instrucciones de un medicamento, para que cada toma contenga la información necesaria.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe una pauta registrada, cuando el familiar añade uno o más horarios, entonces el sistema los asocia al medicamento.<br>
+2. Dado que se registran instrucciones complementarias, cuando se genera una toma, entonces estas permanecen asociadas a la programación correspondiente.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-17</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Configuración de recordatorios</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero configurar los recordatorios de un tratamiento, para establecer cómo se avisará al adulto mayor antes de una toma.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un tratamiento configurado, cuando el familiar habilita sus recordatorios, entonces el sistema registra la configuración correspondiente.<br>
+2. Dado que los recordatorios son modificados, cuando existen tomas futuras, entonces la nueva configuración se aplica a las programaciones pendientes.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-18</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Activación y pausa de un tratamiento</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero activar o pausar un tratamiento, para controlar cuándo debe generar nuevas tomas.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que un tratamiento contiene la información obligatoria, cuando el familiar lo activa, entonces el sistema permite generar sus tomas futuras.<br>
+2. Dado que el tratamiento está activo, cuando el familiar lo pausa, entonces el sistema deja de generar nuevas tomas sin eliminar el historial existente.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-19</td><td>Familiar</td><td>Media</td><td>EPIC-02</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta del detalle de un tratamiento</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar la pauta completa de un tratamiento, para verificar la configuración vigente del adulto mayor.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un tratamiento registrado, cuando el familiar consulta su detalle, entonces el sistema proporciona medicamentos, dosis, frecuencia, horarios, instrucciones y estado.<br>
+2. Dado que el tratamiento no pertenece a un adulto mayor vinculado al familiar, cuando se intenta consultarlo, entonces el sistema rechaza el acceso.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-20</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta de la próxima toma</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero conocer cuál es mi próxima toma, para saber qué medicamento debo tomar y cuándo.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existen tomas futuras, cuando el adulto mayor consulta su próxima toma, entonces el sistema devuelve la más cercana según la programación.<br>
+2. Dado que no existen tomas pendientes, cuando se realiza la consulta, entonces el sistema informa que no hay una próxima toma programada.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-21</td><td>Adulto mayor</td><td>Media</td><td>EPIC-03</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta del detalle de una toma</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero consultar los datos de una toma, para recordar la dosis y las instrucciones asociadas.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe una toma programada, cuando se consulta su detalle, entonces el sistema proporciona medicamento, dosis, horario e instrucciones disponibles.<br>
+2. Dado que la toma ya posee un estado, cuando se consulta, entonces el sistema informa si está pendiente, confirmada, tardía u omitida.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-22</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Recordatorio reforzado por falta de confirmación</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero recibir un nuevo recordatorio cuando una toma continúa pendiente, para tener otra oportunidad de recordar la medicación.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el primer recordatorio fue enviado y la toma continúa pendiente, cuando se alcanza el intervalo configurado, entonces el sistema genera un recordatorio reforzado.<br>
+2. Dado que la toma ya fue confirmada, cuando llega el momento del refuerzo, entonces el sistema no genera otro recordatorio.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-23</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Confirmación dentro del periodo de tolerancia</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero poder confirmar una toma durante el periodo de tolerancia, para registrar correctamente una toma realizada con retraso.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que la hora programada ya pasó y la tolerancia continúa vigente, cuando se registra la confirmación, entonces el sistema clasifica la toma según el retraso correspondiente.<br>
+2. Dado que el periodo permitido terminó y la toma fue registrada como omitida, cuando se intenta una confirmación posterior, entonces el sistema no reemplaza automáticamente la omisión.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-24</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta de agenda diaria de tomas</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero consultar las tomas programadas para el día, para conocer mi rutina de medicación.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existen tomas en la fecha consultada, cuando el adulto mayor solicita su agenda, entonces el sistema devuelve las tomas ordenadas cronológicamente.<br>
+2. Dado que algunas tomas ya poseen un resultado, cuando se consulta la agenda, entonces cada toma conserva su estado correspondiente.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-25</td><td>Familiar</td><td>Alta</td><td>EPIC-04</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta del estado reciente del adulto mayor</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar el estado reciente de las tomas del adulto mayor, para conocer su situación sin tener que llamarlo constantemente.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un vínculo de cuidado activo, cuando el familiar consulta el estado del adulto, entonces el sistema proporciona la próxima toma y los últimos resultados registrados.<br>
+2. Dado que existe una alerta activa, cuando se consulta el estado, entonces el sistema incluye la situación pendiente de atención.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-26</td><td>Familiar</td><td>Alta</td><td>EPIC-04</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta del historial reciente de tomas</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero revisar las tomas recientes del adulto mayor, para identificar confirmaciones, retrasos u omisiones.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existen tomas registradas, cuando el familiar consulta el historial reciente, entonces el sistema devuelve las tomas con fecha, medicamento y estado.<br>
+2. Dado que no existen registros dentro del periodo solicitado, cuando se realiza la consulta, entonces el sistema informa la ausencia de resultados.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-27</td><td>Familiar</td><td>Alta</td><td>EPIC-04</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta del detalle de una alerta</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar el detalle de una alerta, para comprender qué toma requiere mi atención.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe una alerta asociada a una toma, cuando el familiar consulta su detalle, entonces el sistema proporciona medicamento, horario, estado y motivo de la alerta.<br>
+2. Dado que la alerta presenta acciones de seguimiento registradas, cuando se consulta nuevamente, entonces el sistema conserva la información correspondiente.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-28</td><td>Familiar</td><td>Media</td><td>EPIC-04</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Configuración de preferencias de notificación</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero seleccionar qué avisos deseo recibir, para mantener un seguimiento útil sin recibir notificaciones innecesarias.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el familiar posee un vínculo activo, cuando modifica las categorías de notificación permitidas, entonces el sistema guarda sus preferencias.<br>
+2. Dado que ocurre un evento no habilitado por el familiar y no corresponde a una alerta crítica, cuando se evalúa el envío, entonces el sistema respeta la preferencia configurada.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-29</td><td>Familiar</td><td>Media</td><td>EPIC-04</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Contacto con el adulto mayor ante una alerta</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero utilizar el contacto registrado del adulto mayor cuando existe una alerta, para comunicarme con él y verificar la situación.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un contacto disponible, cuando el familiar decide comunicarse ante una alerta, entonces el sistema proporciona el canal de contacto correspondiente.<br>
+2. Dado que no existe información de contacto válida, cuando se solicita la acción, entonces el sistema informa que el contacto no se encuentra disponible.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-30</td><td>Familiar</td><td>Baja</td><td>EPIC-04</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Registro de una nota de seguimiento</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar una nota sobre una intervención, para conservar información relevante sobre el seguimiento realizado.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un vínculo activo, cuando el familiar registra una nota válida, entonces el sistema la almacena con la fecha y el usuario responsable.<br>
+2. Dado que existe una nota registrada, cuando se consulta el seguimiento correspondiente, entonces la nota permanece disponible.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-31</td><td>Familiar</td><td>Media</td><td>EPIC-04</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Actualización del seguimiento de una alerta</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar que una alerta fue atendida, para diferenciar las situaciones resueltas de aquellas que todavía requieren intervención.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe una alerta abierta, cuando el familiar registra una intervención, entonces el sistema actualiza su seguimiento.<br>
+2. Dado que la situación se considera atendida, cuando el familiar registra su cierre, entonces la alerta deja de aparecer como pendiente sin eliminar su historial.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-32</td><td>Familiar</td><td>Media</td><td>EPIC-05</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta del historial de adherencia</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar la adherencia de distintos periodos, para observar cómo evoluciona el cumplimiento del tratamiento.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe historial suficiente, cuando el familiar selecciona un periodo válido, entonces el sistema calcula los indicadores correspondientes.<br>
+2. Dado que se consultan periodos diferentes, cuando existen registros para ambos, entonces cada resultado se calcula utilizando únicamente las tomas de su periodo.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-33</td><td>Familiar</td><td>Media</td><td>EPIC-05</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Identificación de tomas tardías y omitidas</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero distinguir las tomas tardías y omitidas dentro del historial, para comprender mejor dónde aparecen dificultades de adherencia.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que una toma se confirma después del horario programado pero dentro del periodo permitido, cuando se procesa su resultado, entonces el sistema la clasifica como tardía.<br>
+2. Dado que una toma termina el periodo permitido sin confirmación, cuando se procesa su estado, entonces el sistema la clasifica como omitida.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-34</td><td>Familiar</td><td>Media</td><td>EPIC-05</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Recomendaciones a partir de patrones de adherencia</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero recibir recomendaciones orientativas a partir de patrones de adherencia, para mejorar la forma en que realizo el seguimiento.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un patrón con evidencia suficiente, cuando el sistema genera una recomendación, entonces esta se relaciona con recordatorios, horarios o seguimiento y no modifica indicaciones médicas.<br>
+2. Dado que no existe evidencia suficiente, cuando se ejecuta el análisis, entonces el sistema evita presentar una recomendación concluyente.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-35</td><td>Adulto mayor</td><td>Media</td><td>EPIC-06</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Ajuste del tamaño de texto</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero aumentar el tamaño del texto, para leer la información con mayor facilidad.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el adulto mayor modifica el tamaño de texto permitido, cuando guarda la preferencia, entonces el sistema conserva el valor seleccionado.<br>
+2. Dado que existe una preferencia guardada, cuando el usuario vuelve a utilizar la aplicación, entonces el sistema aplica dicha configuración.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-36</td><td>Adulto mayor</td><td>Media</td><td>EPIC-06</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Activación de mayor contraste</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero utilizar una configuración de mayor contraste, para distinguir mejor la información presentada.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que la configuración de contraste está disponible, cuando el adulto mayor la activa, entonces el sistema conserva la preferencia.<br>
+2. Dado que la preferencia se encuentra activa, cuando el usuario inicia una nueva sesión, entonces el sistema mantiene la configuración.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-37</td><td>Adulto mayor</td><td>Baja</td><td>EPIC-06</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Reducción de movimiento</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero reducir animaciones y movimientos no esenciales, para utilizar Tata con menos distracciones visuales.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el usuario habilita la reducción de movimiento, cuando el sistema presenta transiciones no esenciales, entonces utiliza una alternativa reducida.<br>
+2. Dado que la preferencia fue guardada, cuando el usuario vuelve a ingresar, entonces el sistema mantiene la configuración seleccionada.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-38</td><td>Adulto mayor</td><td>Media</td><td>EPIC-06</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Activación de ayuda de lectura</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero disponer de ayuda para comprender la información relevante de mis tomas, para reducir dificultades de lectura.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que la ayuda de lectura está habilitada, cuando existe contenido compatible, entonces el sistema proporciona el apoyo correspondiente.<br>
+2. Dado que la ayuda se encuentra deshabilitada, cuando se consulta la misma información, entonces el sistema mantiene el comportamiento estándar.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-39</td><td>Familiar</td><td>Media</td><td>EPIC-06</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Configuración de horario de silencio y canales</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero definir horarios de silencio y canales de aviso, para adaptar las notificaciones no críticas a mi disponibilidad.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el familiar configura un horario de silencio válido, cuando se genera un aviso no crítico dentro de dicho periodo, entonces el sistema respeta la configuración.<br>
+2. Dado que el familiar habilita o deshabilita un canal disponible, cuando se genera una notificación compatible, entonces el sistema utiliza únicamente los canales permitidos.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-40</td><td>Familiar</td><td>Media</td><td>EPIC-07</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Registro de inventario inicial</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar la cantidad disponible de un medicamento, para comenzar a controlar su stock.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un medicamento activo, cuando el familiar registra una cantidad inicial válida, entonces el sistema crea su inventario.<br>
+2. Dado que se intenta registrar una cantidad inválida, cuando se procesa la operación, entonces el sistema rechaza el valor.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-41</td><td>Familiar</td><td>Media</td><td>EPIC-07</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta de stock restante</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero conocer el stock restante de un medicamento, para estimar cuándo será necesario reponerlo.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un inventario registrado, cuando el familiar consulta el medicamento, entonces el sistema proporciona la cantidad restante calculada.<br>
+2. Dado que existe una pauta activa, cuando se consulta el stock, entonces el sistema puede estimar los días de disponibilidad a partir de la información registrada.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-42</td><td>Familiar</td><td>Alta</td><td>EPIC-07</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Aviso de stock bajo</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero recibir un aviso cuando un medicamento se aproxima al umbral de reposición, para evitar interrupciones por falta de stock.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el stock alcanza o queda por debajo del umbral configurado, cuando el sistema recalcula el inventario, entonces genera un aviso de reposición.<br>
+2. Dado que el stock vuelve a superar el umbral después de una reposición, cuando se recalcula el inventario, entonces el sistema deja de considerarlo bajo.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-43</td><td>Familiar</td><td>Media</td><td>EPIC-07</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Registro de reposición de medicamento</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar una reposición y la cantidad incorporada, para actualizar el inventario disponible.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existe un medicamento con inventario, cuando el familiar registra una reposición válida, entonces el sistema incrementa el stock disponible.<br>
+2. Dado que la reposición incluye información de un nuevo lote, cuando se confirma el registro, entonces el sistema conserva dicha información junto con el movimiento.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-44</td><td>Familiar</td><td>Baja</td><td>EPIC-08</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta del plan actual</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar el plan asociado a mi cuenta, para conocer las funcionalidades disponibles en Tata.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que la cuenta posee un plan asociado, cuando el familiar consulta su suscripción, entonces el sistema proporciona el plan y su estado.<br>
+2. Dado que una funcionalidad depende del plan contratado, cuando se consulta la suscripción, entonces el sistema informa si dicha capacidad se encuentra disponible.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-45</td><td>Familiar</td><td>Media</td><td>EPIC-08</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Activación o cambio de suscripción</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero seleccionar o cambiar mi plan, para utilizar la modalidad de Tata que mejor se adapte a mis necesidades.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existen planes disponibles, cuando el familiar selecciona uno válido, entonces el sistema registra la suscripción asociada a su cuenta.<br>
+2. Dado que la suscripción cambia de plan, cuando la operación es confirmada, entonces el sistema actualiza las capacidades asociadas.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-46</td><td>Visitante</td><td>Alta</td><td>EPIC-09</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta de la propuesta de valor de Tata</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como visitante, quiero conocer el problema que aborda Tata y sus principales beneficios, para evaluar si la solución es relevante para mi familia.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el visitante accede al Landing Page, cuando se carga el contenido principal, entonces se presenta la propuesta de valor de Tata.<br>
+2. Dado que el visitante revisa la información del producto, cuando continúa explorando el contenido, entonces puede reconocer a qué segmentos está dirigida la solución.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-47</td><td>Visitante</td><td>Media</td><td>EPIC-09</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Consulta de funcionalidades principales</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como visitante, quiero conocer las principales funcionalidades de Tata, para comprender cómo facilita la adherencia y el seguimiento familiar.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el visitante consulta la información del producto, cuando revisa sus funcionalidades, entonces se presentan las capacidades principales de Tata.<br>
+2. Dado que existen funcionalidades destinadas a diferentes segmentos, cuando son descritas, entonces el contenido diferencia las relacionadas con el adulto mayor y el familiar.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-48</td><td>Visitante</td><td>Media</td><td>EPIC-09</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Comparación de planes disponibles</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como visitante, quiero conocer las alternativas de suscripción de Tata, para comparar sus beneficios antes de registrarme.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existen planes disponibles, cuando el visitante consulta la información comercial, entonces se muestran sus principales diferencias.<br>
+2. Dado que una funcionalidad pertenece únicamente a una modalidad específica, cuando se comparan los planes, entonces dicha diferencia queda identificada.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-49</td><td>Visitante</td><td>Alta</td><td>EPIC-09</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Continuación hacia registro o contacto</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como visitante, quiero disponer de una forma de continuar hacia el registro, descarga o contacto, para comenzar a utilizar Tata o solicitar más información.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el visitante decide continuar con Tata, cuando selecciona una alternativa disponible, entonces el sistema lo dirige al destino correspondiente.<br>
+2. Dado que una alternativa externa no se encuentra disponible, cuando se intenta acceder a ella, entonces el sistema evita dirigir al visitante hacia un recurso inválido.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>US-50</td><td>Visitante</td><td>Alta</td><td>EPIC-09</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Acceso adaptable al Landing Page</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como visitante, quiero consultar el Landing Page desde distintos tamaños de pantalla, para acceder a la información sin perder contenido relevante.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que el visitante utiliza un dispositivo móvil o de escritorio, cuando accede al Landing Page, entonces el contenido permanece disponible y comprensible.<br>
+2. Dado que el visitante navega mediante teclado o tecnologías de asistencia compatibles, cuando interactúa con elementos funcionales, entonces puede acceder a las acciones disponibles.
+</td></tr>
+</table>
+
+#### Technical Stories
+
+Las Technical Stories representan capacidades que soportan las funcionalidades del producto sin corresponder directamente a una interacción de los segmentos objetivo. Cuando una historia expone un servicio REST, los criterios consideran los principales escenarios de request y response.
 
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>TS-01</td><td>Developer</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Endpoint de autenticación por PIN</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar el endpoint que valida el PIN del adulto mayor, para que la aplicación pueda autenticar sus solicitudes.</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Servicio de autenticación mediante PIN</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar la validación del PIN del adulto mayor, para autenticar sus solicitudes de manera controlada.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un request con un PIN válido registrado, cuando se envía al endpoint de autenticación, entonces el response devuelve un token de sesión con código 200.<br>
-2. Dado un request con un PIN inválido, cuando se envía al endpoint de autenticación, entonces el response devuelve un código 401 sin generar token.
+1. Dado un request con una credencial válida, cuando se procesa la autenticación, entonces el servicio responde 200 y genera una sesión válida.<br>
+2. Dado un request con una credencial incorrecta, cuando se procesa la autenticación, entonces el servicio responde 401 y no genera una sesión.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>TS-02</td><td>Developer</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Endpoint de vinculación familiar-paciente</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar el endpoint que asocia la cuenta de un familiar con la de un adulto mayor mediante un código, para reflejar esa relación en el sistema.</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> API de vinculación de cuidado</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar las operaciones necesarias para crear y validar una vinculación entre familiar y adulto mayor, para mantener la relación de cuidado.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un request con un código de vinculación existente y vigente, cuando se envía al endpoint de vinculación, entonces el response crea la relación familiar-paciente y devuelve código 201.<br>
-2. Dado un request con un código de vinculación expirado o inexistente, cuando se envía al endpoint de vinculación, entonces el response devuelve código 404 sin crear ninguna relación.
+1. Dado un código vigente y un consentimiento válido, cuando se confirma la vinculación, entonces la API persiste la relación y responde con el recurso creado.<br>
+2. Dado un código inválido o expirado, cuando se solicita la vinculación, entonces la API rechaza la operación sin crear la relación.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>TS-03</td><td>Developer</td><td>Alta</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Endpoints CRUD de medicamentos</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero exponer los endpoints para crear, actualizar, eliminar y listar medicamentos, para que la aplicación del familiar pueda gestionar el tratamiento del adulto mayor.</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> API de medicamentos y tratamientos</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero proporcionar operaciones REST para medicamentos y tratamientos, para persistir la configuración administrada desde la aplicación del familiar.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un request con los datos obligatorios de un medicamento, cuando se envía al endpoint de creación, entonces el response registra el medicamento y devuelve código 201.<br>
-2. Dado un request de actualización sobre un medicamento existente, cuando se envía al endpoint correspondiente, entonces el response refleja los cambios y devuelve código 200.<br>
-3. Dado un request de eliminación sobre un medicamento existente, cuando se envía al endpoint correspondiente, entonces el response marca el medicamento como inactivo y devuelve código 200.
+1. Dado un request válido de creación, cuando se registra un medicamento o tratamiento, entonces la API persiste el recurso y responde 201.<br>
+2. Dado un recurso existente, cuando se solicita su actualización o desactivación, entonces la API conserva el cambio y responde correctamente.<br>
+3. Dado un identificador inexistente, cuando se intenta modificar el recurso, entonces la API responde 404.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
 <tr><td>TS-04</td><td>Developer</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Endpoint de confirmación de toma</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar el endpoint que registra la confirmación de una toma, para actualizar su estado en la base de datos.</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> API de confirmación de tomas</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar una operación que registre la confirmación de una toma, para actualizar su estado de forma idempotente.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un request de confirmación sobre una toma en estado pendiente, cuando se envía al endpoint correspondiente, entonces el response cambia el estado a confirmada y devuelve código 200.<br>
-2. Dado un request de confirmación sobre una toma ya confirmada previamente, cuando se envía al endpoint correspondiente, entonces el response devuelve código 409 sin duplicar el registro.
+1. Dado un request válido para una toma pendiente, cuando se registra la confirmación, entonces la API actualiza su estado y responde 200.<br>
+2. Dado que la toma ya posee una confirmación, cuando se recibe nuevamente la misma operación, entonces la API evita crear un registro duplicado.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-05</td><td>Developer</td><td>Media</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Proceso automático de tomas vencidas</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar un proceso que revise periódicamente las tomas pendientes vencidas, para marcarlas como omitidas y disparar la notificación correspondiente.</td></tr>
+<tr><td>TS-05</td><td>Developer</td><td>Alta</td><td>EPIC-04</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Proceso automático de tomas sin confirmar</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero ejecutar un proceso que evalúe las tomas pendientes, para identificar vencimientos, registrar omisiones y generar los eventos correspondientes.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que una toma pendiente supera el tiempo de tolerancia configurado, cuando el proceso automático se ejecuta, entonces cambia el estado de la toma a omitida.<br>
-2. Dado que una toma fue marcada como omitida, cuando el proceso automático finaliza, entonces se genera una solicitud de notificación hacia el servicio de mensajería.
+1. Dado que una toma supera el periodo permitido sin confirmación, cuando el proceso automático la evalúa, entonces actualiza su estado según las reglas vigentes.<br>
+2. Dado que la misma toma ya fue procesada, cuando el proceso vuelve a ejecutarse, entonces no genera una segunda omisión ni una segunda transición equivalente.
 </td></tr>
 </table>
+
 <table>
 <tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-06</td><td>Developer</td><td>Media</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Endpoint de envío de notificaciones push</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero exponer el endpoint que dispara una notificación push al familiar, para informarle sobre el estado de una toma.</td></tr>
+<tr><td>TS-06</td><td>Developer</td><td>Alta</td><td>EPIC-04</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Integración del servicio de notificaciones push</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero integrar un servicio de notificaciones push, para entregar recordatorios y alertas a los dispositivos registrados.</td></tr>
 <tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un request con el identificador de una toma y el familiar destinatario, cuando se envía al endpoint de notificaciones, entonces el response confirma el envío y devuelve código 200.<br>
-2. Dado un request con un familiar destinatario sin dispositivo registrado, cuando se envía al endpoint de notificaciones, entonces el response devuelve código 404 sin intentar el envío.
+1. Dado que existe un dispositivo registrado y un evento notificable, cuando se solicita el envío, entonces la integración entrega la solicitud al proveedor configurado.<br>
+2. Dado que el proveedor rechaza el envío o el dispositivo ya no es válido, cuando se procesa la respuesta, entonces el sistema registra el resultado sin interrumpir el proceso principal.
 </td></tr>
 </table>
 
----
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>TS-07</td><td>Developer</td><td>Alta</td><td>EPIC-01</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> API de cuenta y sesión del familiar</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar el registro, verificación e inicio de sesión del familiar, para proporcionar acceso autenticado a sus recursos.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado un request de registro válido, cuando se procesa, entonces la API crea la cuenta pendiente de verificación.<br>
+2. Dadas credenciales válidas de una cuenta habilitada, cuando se solicita iniciar sesión, entonces la API genera una sesión válida.
+</td></tr>
+</table>
 
-**Spike Stories**
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>TS-08</td><td>Developer</td><td>Alta</td><td>EPIC-03</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Servicio de generación de agenda de tomas</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero generar las tomas futuras a partir de los tratamientos activos, para mantener la agenda de medicación actualizada.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado un tratamiento activo con una pauta válida, cuando se procesa la programación, entonces el servicio genera las tomas futuras correspondientes.<br>
+2. Dado que una pauta cambia, cuando se regenera la programación, entonces se actualizan únicamente las tomas futuras que todavía no poseen un resultado definitivo.
+</td></tr>
+</table>
 
-***Spike 1: Investigar la Integración de Reconocimiento de Voz (Speech-to-Text) para la Confirmación de Tomas***
- 
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>TS-09</td><td>Developer</td><td>Alta</td><td>EPIC-04</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> API de resumen familiar e historial</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero proporcionar el estado reciente, historial y alertas del adulto mayor, para soportar las consultas de seguimiento del familiar.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado un vínculo activo, cuando se consulta el resumen del adulto mayor, entonces la API responde con sus datos recientes autorizados.<br>
+2. Dado que el solicitante no posee un vínculo válido, cuando intenta consultar dichos datos, entonces la API rechaza el acceso.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>TS-10</td><td>Developer</td><td>Media</td><td>EPIC-05</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Servicio de cálculo de adherencia y detección de patrones</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero analizar el historial de tomas, para calcular indicadores e identificar patrones de adherencia.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado un periodo con tomas registradas, cuando se ejecuta el cálculo, entonces el servicio obtiene indicadores a partir de confirmaciones, retrasos y omisiones.<br>
+2. Dado que el historial cumple los criterios configurados de recurrencia, cuando se procesa el análisis, entonces el servicio registra el patrón identificado.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>TS-11</td><td>Developer</td><td>Alta</td><td>EPIC-03</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Integración de reconocimiento de voz</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero integrar el mecanismo seleccionado de reconocimiento de voz, para convertir una confirmación hablada en información utilizable por Tata.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado un audio válido, cuando se procesa mediante la alternativa seleccionada, entonces la integración devuelve la transcripción y la información disponible sobre su reconocimiento.<br>
+2. Dado que la entrada no puede reconocerse con suficiente confiabilidad, cuando finaliza el procesamiento, entonces el sistema no registra automáticamente una toma como confirmada.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>TS-12</td><td>Developer</td><td>Media</td><td>EPIC-07</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> API de inventario y reposición</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero proporcionar operaciones de inventario y reposición, para mantener el stock asociado a cada medicamento.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado un medicamento válido, cuando se registra un inventario o una reposición, entonces la API persiste el movimiento y actualiza el stock.<br>
+2. Dado que el stock alcanza el umbral configurado, cuando se recalcula la disponibilidad, entonces el servicio genera la condición de stock bajo.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>TS-13</td><td>Developer</td><td>Alta</td><td>EPIC-03</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> Almacenamiento local y sincronización de información esencial</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero conservar localmente la información necesaria para la experiencia móvil y sincronizarla cuando exista conectividad, para mantener continuidad ante interrupciones temporales de red.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que la aplicación pierde conectividad después de haber sincronizado información esencial, cuando el usuario consulta dichos datos, entonces la aplicación puede recuperar la información local disponible.<br>
+2. Dado que existen cambios pendientes y se restablece la conectividad, cuando se ejecuta la sincronización, entonces el sistema procesa los cambios evitando duplicados.
+</td></tr>
+</table>
+
+<table>
+<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
+<tr><td>TS-14</td><td>Developer</td><td>Media</td><td>EPIC-08</td></tr>
+<tr><td colspan="4"><strong>Title:</strong> API de planes y suscripciones</td></tr>
+<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero gestionar planes y suscripciones mediante el backend, para determinar las capacidades disponibles para cada cuenta.</td></tr>
+<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
+1. Dado que existen planes configurados, cuando se consulta el catálogo, entonces la API responde con sus características vigentes.<br>
+2. Dada una cuenta con una suscripción válida, cuando se consulta su estado, entonces la API proporciona el plan y las capacidades asociadas.
+</td></tr>
+</table>
+
+#### Spike Stories
+
+##### Spike 1: Investigación de reconocimiento de voz para confirmación de tomas
+
 **Contexto**
-La aplicación del adulto mayor requiere una forma de confirmar la toma de medicamentos sin depender exclusivamente de la lectura o escritura, dado que parte del público objetivo tiene dificultad para interactuar con interfaces convencionales. El equipo evalúa incorporar un SDK de reconocimiento de voz (por ejemplo, el Speech Recognition nativo de Android/iOS, o un servicio externo como Google Speech-to-Text) dentro de la aplicación móvil, considerando que este componente no ha sido trabajado previamente en el curso.
- 
-**Spike Story**
-Como equipo de desarrollo, quiero investigar y prototipar la integración de un servicio de reconocimiento de voz en la aplicación del adulto mayor, para entender su precisión, facilidad de integración y esfuerzo necesario antes de implementarlo como funcionalidad definitiva.
- 
-**Criterios de Aceptación**
- 
-1. Dado que el equipo necesita conocer las opciones disponibles, cuando revisa la documentación de al menos dos alternativas de reconocimiento de voz (SDK nativo vs. servicio externo), entonces documenta ventajas, limitaciones y costos de cada una en un informe.
-2. Dado que se eligió una alternativa preliminar, cuando el equipo construye un prototipo mínimo que reconoce la frase "ya tomé mi pastilla" en español, entonces el prototipo queda registrado en una rama del repositorio.
-3. Dado que el prototipo está construido, cuando se realizan pruebas con distintas formas de pronunciar la frase, entonces el equipo documenta el porcentaje de reconocimiento correcto obtenido.
-4. Dado que las pruebas fueron realizadas, cuando el equipo evalúa los resultados, entonces documenta una recomendación final sobre si la alternativa evaluada es viable para el proyecto.
-**Definition of Done (DoD)**
-- El código del prototipo está registrado en una rama del repositorio.
-- El informe con hallazgos, precisión obtenida y recomendación final es compartido con el equipo.
-- Los hallazgos se utilizan para crear o ajustar la historia de usuario US-06 en el backlog.
-- El spike está limitado a 8 horas y se completa dentro del sprint correspondiente.
 
----
- 
-***Spike 2: Investigar un Modelo Simple de Detección de Patrones de Olvido***
- 
-**Contexto**
-Como parte del feature de aprendizaje autónomo del proyecto, el equipo busca incorporar un mecanismo que analice el historial de tomas y detecte patrones recurrentes de olvido (por ejemplo, un horario donde el adulto mayor suele omitir la toma con frecuencia). Este análisis no corresponde a un tema cubierto directamente en el curso, por lo que se requiere investigar una aproximación simple antes de integrarla al backend.
- 
+La confirmación mediante voz busca reducir la necesidad de interacción táctil o escritura para el adulto mayor. El equipo necesita determinar qué alternativa proporciona una integración viable y un nivel de reconocimiento suficiente en español.
+
 **Spike Story**
-Como equipo de desarrollo, quiero investigar y prototipar una forma simple de detectar patrones de olvido a partir del historial de tomas, para determinar qué enfoque (reglas estadísticas o un modelo de clasificación básico) es viable de implementar dentro del alcance del proyecto.
- 
+
+Como equipo de desarrollo, quiero investigar y prototipar alternativas de reconocimiento de voz, para seleccionar una opción viable para la confirmación de tomas.
+
 **Criterios de Aceptación**
- 
-1. Dado que el equipo necesita comparar alternativas, cuando investiga un enfoque basado en reglas estadísticas simples y un enfoque basado en un modelo de clasificación básico (por ejemplo, con una librería ligera de machine learning), entonces documenta las diferencias, complejidad de implementación y precisión esperada de cada uno.
-2. Dado que se seleccionó un enfoque preliminar, cuando el equipo construye un prototipo que procesa un set de datos de prueba con tomas confirmadas y omitidas, entonces el prototipo identifica al menos un patrón esperado dentro de los datos de prueba.
-3. Dado que el prototipo genera resultados, cuando el equipo revisa la salida obtenida, entonces documenta si el resultado es lo suficientemente claro como para mostrarse directamente al familiar.
-**Definition of Done (DoD)**
-- El código del prototipo está registrado en una rama del repositorio.
-- El informe con el enfoque recomendado y sus limitaciones es compartido con el equipo.
-- Los hallazgos se utilizan para crear o ajustar la historia de usuario US-09 en el backlog.
-- El spike está limitado a 8 horas y se completa dentro del sprint correspondiente.
+
+1. Dado que existen distintas alternativas de reconocimiento de voz, cuando se investigan al menos dos opciones, entonces el equipo documenta sus ventajas, restricciones, costos y requisitos de integración.
+2. Dado que se selecciona una alternativa candidata, cuando se desarrolla un prototipo, entonces este procesa distintas frases de confirmación en español.
+3. Dado que se completan las pruebas, cuando el equipo analiza sus resultados, entonces registra la alternativa recomendada y sus limitaciones.
+
+**Timebox:** 8 horas.
+
+##### Spike 2: Investigación de detección de patrones de olvido
+
+**Contexto**
+
+Tata busca identificar tendencias recurrentes dentro del historial de tomas. Antes de implementar esta capacidad es necesario determinar si un enfoque estadístico basado en reglas o una técnica de clasificación sencilla resulta adecuada para el alcance del proyecto.
+
+**Spike Story**
+
+Como equipo de desarrollo, quiero investigar y prototipar alternativas para detectar patrones de omisión, para seleccionar un enfoque comprensible y viable para Tata.
+
+**Criterios de Aceptación**
+
+1. Dado que existen distintas alternativas de análisis, cuando se comparan al menos un enfoque basado en reglas y otro basado en clasificación, entonces se documentan sus diferencias y complejidad.
+2. Dado un conjunto de datos de prueba con confirmaciones y omisiones, cuando se ejecuta el prototipo, entonces este identifica los patrones conocidos incluidos en los datos.
+3. Dado que se obtienen resultados, cuando se finaliza el análisis, entonces el equipo registra el enfoque recomendado y sus limitaciones.
+
+**Timebox:** 8 horas.
+
+##### Spike 3: Investigación de recordatorios y ejecución en segundo plano
+
+**Contexto**
+
+Los recordatorios constituyen una capacidad central de Tata y deben continuar funcionando bajo las restricciones propias de los sistemas operativos móviles. El equipo necesita evaluar cómo manejar programaciones y notificaciones cuando la aplicación no se encuentra activa.
+
+**Spike Story**
+
+Como equipo de desarrollo, quiero investigar los mecanismos disponibles para programar recordatorios y ejecutar tareas necesarias en segundo plano, para seleccionar una estrategia confiable para las aplicaciones móviles de Tata.
+
+**Criterios de Aceptación**
+
+1. Dado que Android y la alternativa multiplataforma presentan mecanismos distintos de ejecución en segundo plano, cuando se revisa su documentación, entonces se registran restricciones y alternativas aplicables.
+2. Dado que se selecciona una estrategia candidata, cuando se realiza una prueba con la aplicación cerrada, entonces el equipo documenta el comportamiento observado.
+3. Dado que finalizan las pruebas, cuando se comparan los resultados, entonces se registra la estrategia recomendada para el proyecto.
+
+**Timebox:** 8 horas.
 
 ### 2.4.2. Impact Mapping
 
 ### 2.4.3. Product Backlog
+
+El Product Backlog de Tata organiza los requisitos funcionales y técnicos identificados para el producto. La prioridad se estableció considerando primero el valor que cada funcionalidad proporciona a los segmentos objetivo y no únicamente el orden técnico requerido para su implementación.
+
+Las estimaciones utilizan Story Points de 1, 2, 3, 5 y 8. La columna Sprint representa una asignación inicial que podrá revisarse posteriormente durante los Sprint Planning según la capacidad del equipo, los resultados de las iteraciones previas y las dependencias encontradas durante el desarrollo.
+
+Las historias correspondientes al Landing Page se incluyen desde el Sprint 1. Las Technical Stories y Spike Stories se mantienen dentro del mismo Product Backlog porque representan trabajo necesario para habilitar funcionalidades del producto o reducir incertidumbre técnica.
+
+| # Orden | Story ID | Título | Epic | Story Points | Sprint |
+| ---: | --- | --- | --- | ---: | --- |
+| 1 | US-05 | Recordatorio de toma de medicamento | EPIC-03 | 3 | Sprint 1 |
+| 2 | US-06 | Confirmación accesible de una toma | EPIC-03 | 5 | Sprint 2 |
+| 3 | US-03 | Registro de un nuevo medicamento | EPIC-02 | 5 | Sprint 1 |
+| 4 | US-02 | Vinculación con la cuenta del adulto mayor | EPIC-01 | 5 | Sprint 1 |
+| 5 | US-07 | Alerta ante una toma no confirmada | EPIC-04 | 5 | Sprint 2 |
+| 6 | US-25 | Consulta del estado reciente del adulto mayor | EPIC-04 | 3 | Sprint 2 |
+| 7 | US-14 | Creación de un tratamiento | EPIC-02 | 3 | Sprint 1 |
+| 8 | US-15 | Definición de dosis y frecuencia | EPIC-02 | 3 | Sprint 1 |
+| 9 | US-16 | Configuración de horarios e instrucciones | EPIC-02 | 3 | Sprint 1 |
+| 10 | US-17 | Configuración de recordatorios | EPIC-02 | 3 | Sprint 1 |
+| 11 | US-20 | Consulta de la próxima toma | EPIC-03 | 2 | Sprint 1 |
+| 12 | US-24 | Consulta de agenda diaria de tomas | EPIC-03 | 3 | Sprint 2 |
+| 13 | US-26 | Consulta del historial reciente de tomas | EPIC-04 | 3 | Sprint 2 |
+| 14 | US-08 | Resumen semanal de adherencia | EPIC-05 | 3 | Sprint 3 |
+| 15 | US-27 | Consulta del detalle de una alerta | EPIC-04 | 2 | Sprint 2 |
+| 16 | US-22 | Recordatorio reforzado por falta de confirmación | EPIC-03 | 3 | Sprint 2 |
+| 17 | US-23 | Confirmación dentro del periodo de tolerancia | EPIC-03 | 3 | Sprint 2 |
+| 18 | US-18 | Activación y pausa de un tratamiento | EPIC-02 | 3 | Sprint 2 |
+| 19 | US-04 | Edición y desactivación de un medicamento | EPIC-02 | 3 | Sprint 2 |
+| 20 | US-21 | Consulta del detalle de una toma | EPIC-03 | 2 | Sprint 2 |
+| 21 | US-19 | Consulta del detalle de un tratamiento | EPIC-02 | 2 | Sprint 2 |
+| 22 | US-09 | Alerta de patrón de olvido recurrente | EPIC-05 | 5 | Sprint 3 |
+| 23 | US-32 | Consulta del historial de adherencia | EPIC-05 | 3 | Sprint 3 |
+| 24 | US-33 | Identificación de tomas tardías y omitidas | EPIC-05 | 3 | Sprint 3 |
+| 25 | US-34 | Recomendaciones a partir de patrones | EPIC-05 | 5 | Sprint 3 |
+| 26 | US-29 | Contacto con el adulto mayor ante una alerta | EPIC-04 | 2 | Sprint 2 |
+| 27 | US-31 | Actualización del seguimiento de una alerta | EPIC-04 | 3 | Sprint 3 |
+| 28 | US-28 | Configuración de preferencias de notificación | EPIC-04 | 3 | Sprint 3 |
+| 29 | US-35 | Ajuste del tamaño de texto | EPIC-06 | 2 | Sprint 2 |
+| 30 | US-36 | Activación de mayor contraste | EPIC-06 | 2 | Sprint 2 |
+| 31 | US-38 | Activación de ayuda de lectura | EPIC-06 | 3 | Sprint 3 |
+| 32 | US-39 | Configuración de horario de silencio y canales | EPIC-06 | 3 | Sprint 3 |
+| 33 | US-37 | Reducción de movimiento | EPIC-06 | 2 | Sprint 3 |
+| 34 | US-42 | Aviso de stock bajo | EPIC-07 | 3 | Sprint 4 |
+| 35 | US-41 | Consulta de stock restante | EPIC-07 | 2 | Sprint 4 |
+| 36 | US-40 | Registro de inventario inicial | EPIC-07 | 3 | Sprint 4 |
+| 37 | US-43 | Registro de reposición de medicamento | EPIC-07 | 3 | Sprint 4 |
+| 38 | US-46 | Consulta de la propuesta de valor de Tata | EPIC-09 | 2 | Sprint 1 |
+| 39 | US-47 | Consulta de funcionalidades principales | EPIC-09 | 2 | Sprint 1 |
+| 40 | US-49 | Continuación hacia registro o contacto | EPIC-09 | 2 | Sprint 1 |
+| 41 | US-50 | Acceso adaptable al Landing Page | EPIC-09 | 3 | Sprint 1 |
+| 42 | US-48 | Comparación de planes disponibles | EPIC-09 | 2 | Sprint 1 |
+| 43 | US-10 | Registro de cuenta del familiar | EPIC-01 | 3 | Sprint 1 |
+| 44 | US-11 | Verificación del correo del familiar | EPIC-01 | 2 | Sprint 1 |
+| 45 | US-01 | Ingreso simplificado a la aplicación | EPIC-01 | 3 | Sprint 1 |
+| 46 | US-12 | Registro del perfil del adulto mayor | EPIC-01 | 3 | Sprint 1 |
+| 47 | US-13 | Consentimiento para establecer el vínculo | EPIC-01 | 3 | Sprint 1 |
+| 48 | US-44 | Consulta del plan actual | EPIC-08 | 2 | Sprint 4 |
+| 49 | US-45 | Activación o cambio de suscripción | EPIC-08 | 5 | Sprint 4 |
+| 50 | US-30 | Registro de una nota de seguimiento | EPIC-04 | 2 | Sprint 4 |
+| 51 | TS-03 | API de medicamentos y tratamientos | EPIC-02 | 5 | Sprint 1 |
+| 52 | TS-08 | Servicio de generación de agenda de tomas | EPIC-03 | 5 | Sprint 1 |
+| 53 | TS-04 | API de confirmación de tomas | EPIC-03 | 5 | Sprint 2 |
+| 54 | TS-02 | API de vinculación de cuidado | EPIC-01 | 5 | Sprint 1 |
+| 55 | TS-09 | API de resumen familiar e historial | EPIC-04 | 5 | Sprint 2 |
+| 56 | TS-05 | Proceso automático de tomas sin confirmar | EPIC-04 | 5 | Sprint 2 |
+| 57 | TS-06 | Integración del servicio de notificaciones push | EPIC-04 | 5 | Sprint 2 |
+| 58 | TS-11 | Integración de reconocimiento de voz | EPIC-03 | 5 | Sprint 2 |
+| 59 | TS-13 | Almacenamiento local y sincronización | EPIC-03 | 8 | Sprint 2 |
+| 60 | TS-10 | Servicio de cálculo de adherencia y patrones | EPIC-05 | 8 | Sprint 3 |
+| 61 | TS-07 | API de cuenta y sesión del familiar | EPIC-01 | 5 | Sprint 1 |
+| 62 | TS-01 | Servicio de autenticación mediante PIN | EPIC-01 | 3 | Sprint 1 |
+| 63 | TS-12 | API de inventario y reposición | EPIC-07 | 5 | Sprint 4 |
+| 64 | TS-14 | API de planes y suscripciones | EPIC-08 | 5 | Sprint 4 |
+| 65 | SP-01 | Investigación de reconocimiento de voz | EPIC-03 | 3 | Sprint 1 |
+| 66 | SP-03 | Investigación de ejecución en segundo plano | EPIC-03 | 3 | Sprint 1 |
+| 67 | SP-02 | Investigación de detección de patrones de olvido | EPIC-05 | 5 | Sprint 2 |
+
+#### Evidencia del Product Backlog
+
+![Product Backlog de Tata](assets/product-backlog-tata.png)
+
+*Figura. Product Backlog de Tata.*
+
+Enlace público al Product Backlog: https://trello.com/b/wuHmMypU/apps-moviles
 
 ### 2.5. Strategic-Level Domain-Driven Design
 
