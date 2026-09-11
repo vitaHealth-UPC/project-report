@@ -767,6 +767,14 @@ Finalmente, las tareas identificadas muestran que existe una necesidad de reduci
 
 ### 2.3.4. Empathy Mapping
 
+#### Segmento 1: Adultos mayores
+
+![empathymap1.png](assets/empathymap1.png)
+
+#### Segmento 2: Familiares o cuidadores de adultos mayores
+
+![empathymap2.png](assets/empathymap2.png)
+
 ### 2.3.5. Big Picture EventStorming
 
 El Big Picture EventStorming permitió representar de forma general cómo se desarrolla el dominio de Tata, desde el registro y la vinculación de los usuarios hasta el seguimiento de las tomas, la generación de alertas y el análisis de la adherencia. El modelo se construyó principalmente a partir de eventos de dominio expresados como hechos ya ocurridos y organizados según su secuencia dentro del negocio.
