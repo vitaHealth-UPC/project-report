@@ -2157,6 +2157,23 @@ Enlace a la version de Bounded Context Canvas: [https://miro.com/app/board/uXjVH
 
 ### 2.5.2. Context Mapping
 
+El Context Mapping se utilizó para representar las relaciones estructurales entre los nueve Bounded Contexts identificados en el Candidate Context Discovery, a partir de la información ya documentada en el Domain Message Flows Modeling y en los Bounded Context Canvases. El objetivo de esta etapa es explicitar, para cada colaboración relevante entre contextos, qué patrón de relación de Domain-Driven Design describe mejor la forma en que ambos modelos deben coexistir.
+
+Para construir el mapa, el equipo revisó cada mensaje identificado entre contextos y discutió preguntas exploratorias del tipo "¿qué pasaría si...?" antes de fijar el patrón definitivo. Entre las discusiones más relevantes:
+
+- **¿Qué pasaría si moviéramos la validación del vínculo de cuidado dentro de Gestión del tratamiento?** Se descartó porque duplicaría las reglas de autorización ya definidas en Vínculo de cuidado y rompería la responsabilidad única de ese contexto. Se optó por mantener una relación **Customer/Supplier**, donde Gestión del tratamiento consulta a Vínculo de cuidado sin reimplementar su lógica.
+- **¿Qué pasaría si Seguimiento familiar recalculara la adherencia o decidiera cuándo una toma se convierte en omisión?** Se descartó porque mezclaría reglas de negocio que ya pertenecen a Ejecución de tomas, Omisión y escalamiento y Analítica de adherencia. Se decidió que Seguimiento familiar se comporte como **Conformist** frente a esos tres contextos: consume sus resultados tal como se publican, sin traducirlos ni cuestionarlos.
+- **¿Qué pasaría si duplicáramos las preferencias de accesibilidad dentro de cada contexto que las necesita (Ejecución de tomas, Omisión y escalamiento, Seguimiento familiar)?** Se descartó por el riesgo de que las configuraciones queden inconsistentes entre contextos. Se optó por tratar a Accesibilidad y preferencias como un **Shared Kernel** acotado, limitado a un conjunto pequeño y estable de conceptos (canal de notificación, horario de silencio, confirmación por voz) que los demás contextos referencian directamente.
+- **¿Qué pasaría si Tata se acoplara directamente a los modelos de los servicios externos de reconocimiento de voz, notificaciones push y correo?** Se descartó porque un cambio en la API de cualquiera de esos proveedores impactaría directamente el modelo de dominio. Se decidió aislar cada integración mediante un **Anti-Corruption Layer**, de modo que Tata siempre trabaje con sus propios conceptos (Confirmación por voz, Alerta, Correo verificado) independientemente del contrato específico del proveedor.
+
+El resultado de esta discusión se resume en el siguiente Context Map:
+
+![Context Map de Tata](assets/context-map-tata.png)
+
+*Figura. Context Map de Tata, con los patrones de relación aplicados entre Bounded Contexts.*
+
+En conjunto, la mayoría de las colaboraciones entre contextos internos de Tata siguen relaciones de tipo **Customer/Supplier**, reflejando un flujo con dirección clara (identidad → vínculo → tratamiento → ejecución → omisión/analítica). Seguimiento familiar se mantiene deliberadamente como **Conformist** frente a los contextos que sí poseen las reglas de negocio, evitando duplicar lógica. Accesibilidad y preferencias se aísla como un **Shared Kernel** pequeño y estable para no fragmentar la configuración del usuario, mientras que toda integración con los sistemas externos de terceros (correo, reconocimiento de voz, notificaciones push) queda protegida mediante un **Anti-Corruption Layer**. Esta estructura sirve como base para las decisiones de Software Architecture que se detallan en la siguiente sección.
+
 ### 2.5.3. Software Architecture
 
 #### 2.5.3.1. Software Architecture Context Level Diagrams
