@@ -384,7 +384,7 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
     </tr>
     <tr>
       <td colspan="4" align="center">
-        <img src="assets/interviews/segmento-2-entrevista-1.png" alt="Entrevista del segmento 2, participante 1" width="900">
+        <img src="assets/segmento-2-valeri-rojas.png" alt="Entrevista del segmento 2, participante 1" width="900">
       </td>
     </tr>
     <tr>
@@ -393,39 +393,41 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
     </tr>
     <tr>
       <td><strong>Nombre completo</strong></td>
-      <td>[pendiente]</td>
+      <td>Valeri Rojas</td>
       <td><strong>Adulto mayor acompañado</strong></td>
-      <td>[pendiente]</td>
+      <td>Abuela (enfermedad: diabetes)</td>
     </tr>
     <tr>
       <td><strong>Edad</strong></td>
-      <td>[pendiente]</td>
+      <td>22 años</td>
       <td><strong>Frecuencia de contacto</strong></td>
-      <td>[pendiente]</td>
+      <td>Diaria (vive en el mismo hogar que su abuela)</td>
     </tr>
     <tr>
       <td><strong>Distrito</strong></td>
-      <td>[pendiente]</td>
+      <td>Los Olivos</td>
       <td><strong>Seguimiento actual</strong></td>
-      <td>[pendiente]</td>
+      <td>Le pregunta directamente si ya tomó sus medicamentos; si no está en casa, la llama para verificar. Dedica en promedio 10 minutos a la semana a este seguimiento.</td>
     </tr>
     <tr>
       <td><strong>Ocupación</strong></td>
-      <td>[pendiente]</td>
+      <td>Estudiante universitaria</td>
       <td><strong>Contexto digital</strong></td>
-      <td>[pendiente]</td>
+      <td>Usa habitualmente WhatsApp, Instagram y TikTok. Nunca ha usado una app específica para el cuidado de un familiar; se siente cómoda configurando alertas y notificaciones en apps móviles. Su abuela no usa WhatsApp, solo llamadas.</td>
     </tr>
     <tr>
       <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://example.com/segmento-2-entrevista-1">Ver video</a>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQAGYnZf_FOeSpr13EuOgvBGAW-DLQJ_IvvwJbMMOnjjoEE?e=2l9JH8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">Ver video</a>
       </td>
     </tr>
     <tr>
       <td colspan="4">
         <strong>Resumen de la entrevista</strong>
-        <p>[pendiente]</p>
+        <p>
+          Valeri (22 años, estudiante universitaria, distrito de Los Olivos) vive con sus padres y su abuela, quien tiene diabetes y requiere seguimiento constante de su medicación. Al vivir juntas, la ve y conversa con ella todos los días, y su método actual de seguimiento es preguntarle directamente si ya tomó sus medicamentos o, si no está en casa, llamarla para confirmarlo. Este seguimiento le toma en promedio unos 10 minutos a la semana. Relató un episodio en el que la familia asumió que su abuelita ya había tomado el medicamento y luego se dieron cuenta de que no fue así, lo que generó preocupación y llevó a reforzar las indicaciones del doctor. Su principal fuente de ansiedad es no enterarse a tiempo cuando está fuera de casa y su abuelita olvida tomar la medicación, dado que está relacionada a su condición de diabetes. En cuanto a contexto digital, usa a diario WhatsApp, Instagram y TikTok, nunca ha probado una aplicación de cuidado familiar, y se siente cómoda configurando alertas o notificaciones. Como funcionalidad ideal, mencionó que le gustaría recibir un aviso cuando su abuelita ya tomó sus medicamentos y una alerta si se olvida o se retrasa, señalando que esto sería especialmente útil porque su abuelita no usa WhatsApp, solo llamadas.
+        </p>
       </td>
     </tr>
   </tbody>
