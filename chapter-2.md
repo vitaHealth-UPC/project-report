@@ -416,7 +416,7 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
       <td>Usa habitualmente WhatsApp, Instagram y TikTok. Nunca ha usado una app específica para el cuidado de un familiar; se siente cómoda configurando alertas y notificaciones en apps móviles. Su abuela no usa WhatsApp, solo llamadas.</td>
     </tr>
     <tr>
-      <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
+      <td colspan="2"><strong>Duración:</strong>4:50</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
         <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQAGYnZf_FOeSpr13EuOgvBGAW-DLQJ_IvvwJbMMOnjjoEE?e=2l9JH8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">Ver video</a>
@@ -2180,178 +2180,30 @@ El resultado de esta discusión se resume en el siguiente Context Map:
 
 En conjunto, la mayoría de las colaboraciones entre contextos internos de Tata siguen relaciones de tipo **Customer/Supplier**, reflejando un flujo con dirección clara (identidad → vínculo → tratamiento → ejecución → omisión/analítica). Seguimiento familiar se mantiene deliberadamente como **Conformist** frente a los contextos que sí poseen las reglas de negocio, evitando duplicar lógica. Accesibilidad y preferencias se aísla como un **Shared Kernel** pequeño y estable para no fragmentar la configuración del usuario, mientras que toda integración con los sistemas externos de terceros (correo, reconocimiento de voz, notificaciones push) queda protegida mediante un **Anti-Corruption Layer**. Esta estructura sirve como base para las decisiones de Software Architecture que se detallan en la siguiente sección.
 
+### 2.5.3. Software Architecture
+
+#### 2.5.3.1. Software Architecture Context Level Diagrams
+
+#### 2.5.3.2. Software Architecture Container Level Diagrams
+
+#### 2.5.3.3. Software Architecture Deployment Diagrams
+
 ## 2.6. Tactical-Level Domain-Driven Design
 
-### 2.6.1. Bounded Context: Ejecución de tomas
+### 2.6.x. Bounded Context: <Bounded Context Name>
 
-#### 2.6.1.1. Domain Layer
+#### 2.6.x.1. Domain Layer
 
-#### 2.6.1.2. Interface Layer
+#### 2.6.x.2. Interface Layer
 
-#### 2.6.1.3. Application Layer
+#### 2.6.x.3. Application Layer
 
-#### 2.6.1.4. Infrastructure Layer
+#### 2.6.x.4 Infrastructure Layer
 
-#### 2.6.1.5. Bounded Context Software Architecture Component Level Diagrams
+#### 2.6.x.5. Bounded Context Software Architecture Component Level Diagrams
 
-#### 2.6.1.6. Bounded Context Software Architecture Code Level Diagrams
+#### 2.6.x.6. Bounded Context Software Architecture Code Level Diagrams
 
-##### 2.6.1.6.1. Bounded Context Domain Layer Class Diagrams
+##### 2.6.x.6.1. Bounded Context Domain Layer Class Diagrams
 
-##### 2.6.1.6.2. Bounded Context Database Design Diagram
-
-
-### 2.6.2. Bounded Context: Analítica de adherencia
-
-#### 2.6.2.1. Domain Layer
-
-#### 2.6.2.2. Interface Layer
-
-#### 2.6.2.3. Application Layer
-
-#### 2.6.2.4. Infrastructure Layer
-
-#### 2.6.2.5. Bounded Context Software Architecture Component Level Diagrams
-
-#### 2.6.2.6. Bounded Context Software Architecture Code Level Diagrams
-
-##### 2.6.2.6.1. Bounded Context Domain Layer Class Diagrams
-
-##### 2.6.2.6.2. Bounded Context Database Design Diagram
-
-
-### 2.6.3. Bounded Context: Identidad y suscripción
-
-#### 2.6.3.1. Domain Layer
-
-#### 2.6.3.2. Interface Layer
-
-#### 2.6.3.3. Application Layer
-
-#### 2.6.3.4. Infrastructure Layer
-
-#### 2.6.3.5. Bounded Context Software Architecture Component Level Diagrams
-
-#### 2.6.3.6. Bounded Context Software Architecture Code Level Diagrams
-
-##### 2.6.3.6.1. Bounded Context Domain Layer Class Diagrams
-
-##### 2.6.3.6.2. Bounded Context Database Design Diagram
-
-
-### 2.6.4. Bounded Context: Vínculo de cuidado
-
-#### 2.6.4.1. Domain Layer
-
-#### 2.6.4.2. Interface Layer
-
-#### 2.6.4.3. Application Layer
-
-#### 2.6.4.4. Infrastructure Layer
-
-#### 2.6.4.5. Bounded Context Software Architecture Component Level Diagrams
-
-#### 2.6.4.6. Bounded Context Software Architecture Code Level Diagrams
-
-##### 2.6.4.6.1. Bounded Context Domain Layer Class Diagrams
-
-##### 2.6.4.6.2. Bounded Context Database Design Diagram
-
-
-### 2.6.5. Bounded Context: Gestión del tratamiento
-
-#### 2.6.5.1. Domain Layer
-
-#### 2.6.5.2. Interface Layer
-
-#### 2.6.5.3. Application Layer
-
-#### 2.6.5.4. Infrastructure Layer
-
-#### 2.6.5.5. Bounded Context Software Architecture Component Level Diagrams
-
-#### 2.6.5.6. Bounded Context Software Architecture Code Level Diagrams
-
-##### 2.6.5.6.1. Bounded Context Domain Layer Class Diagrams
-
-##### 2.6.5.6.2. Bounded Context Database Design Diagram
-
-
-### 2.6.6. Bounded Context: Inventario y reposición
-
-#### 2.6.6.1. Domain Layer
-
-#### 2.6.6.2. Interface Layer
-
-#### 2.6.6.3. Application Layer
-
-#### 2.6.6.4. Infrastructure Layer
-
-#### 2.6.6.5. Bounded Context Software Architecture Component Level Diagrams
-
-#### 2.6.6.6. Bounded Context Software Architecture Code Level Diagrams
-
-##### 2.6.6.6.1. Bounded Context Domain Layer Class Diagrams
-
-##### 2.6.6.6.2. Bounded Context Database Design Diagram
-
-
-### 2.6.7. Bounded Context: Seguimiento familiar
-
-#### 2.6.7.1. Domain Layer
-
-#### 2.6.7.2. Interface Layer
-
-#### 2.6.7.3. Application Layer
-
-#### 2.6.7.4. Infrastructure Layer
-
-#### 2.6.7.5. Bounded Context Software Architecture Component Level Diagrams
-
-#### 2.6.7.6. Bounded Context Software Architecture Code Level Diagrams
-
-##### 2.6.7.6.1. Bounded Context Domain Layer Class Diagrams
-
-##### 2.6.7.6.2. Bounded Context Database Design Diagram
-
-
-### 2.6.8. Bounded Context: Accesibilidad y preferencias
-
-#### 2.6.8.1. Domain Layer
-
-#### 2.6.8.2. Interface Layer
-
-#### 2.6.8.3. Application Layer
-
-#### 2.6.8.4. Infrastructure Layer
-
-#### 2.6.8.5. Bounded Context Software Architecture Component Level Diagrams
-
-#### 2.6.8.6. Bounded Context Software Architecture Code Level Diagrams
-
-##### 2.6.8.6.1. Bounded Context Domain Layer Class Diagrams
-
-##### 2.6.8.6.2. Bounded Context Database Design Diagram
-
-
-### 2.6.9. Bounded Context: Omisión y escalamiento
-
-#### 2.6.9.1. Domain Layer
-
-#### 2.6.9.2. Interface Layer
-
-#### 2.6.9.3. Application Layer
-
-#### 2.6.9.4. Infrastructure Layer
-
-#### 2.6.9.5. Bounded Context Software Architecture Component Level Diagrams
-
-#### 2.6.9.6. Bounded Context Software Architecture Code Level Diagrams
-
-##### 2.6.9.6.1. Bounded Context Domain Layer Class Diagrams
-
-##### 2.6.9.6.2. Bounded Context Database Design Diagram
-
-##### 2.6.9.6.1. Bounded Context Domain Layer Class Diagrams
-
-##### 2.6.9.6.2. Bounded Context Database Design Diagram
+##### 2.6.x.6.2. Bounded Context Database Design Diagram
