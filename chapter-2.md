@@ -2638,40 +2638,342 @@ Relación: INVENTORIES (1) - (N) BATCHES.
 
 ### 2.6.7. Bounded Context: Seguimiento familiar
 
+El Bounded Context **Seguimiento familiar** (**Family Monitoring BC**) consolida y presenta al familiar o cuidador la información necesaria para conocer el estado reciente del adulto mayor e intervenir cuando corresponda. Se implementa como un módulo dentro del backend único de Tata. Su responsabilidad no consiste en recalcular adherencia ni en decidir cuándo una toma se convierte en omisión; consume los resultados ya producidos por Ejecución de tomas, Omisión y escalamiento y Analítica de adherencia, y los hace accesibles al familiar mediante un resumen consolidado, un historial reciente, el detalle de alertas y la posibilidad de registrar notas de seguimiento (ver Bounded Context Canvas, sección 2.5.1.3).
+
 #### 2.6.7.1. Domain Layer
+
+**Sub-capa Model - Aggregates:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Aggregate Root | FamilyMonitor | Representar el seguimiento activo de un familiar sobre un adulto mayor y mantener las alertas pendientes y las notas registradas | `id`, `careLinkId`, `olderAdultId`, `familiarId`, `alerts: List<AlertSummary>`, `notes: List<CaregiverNote>` — `addAlert()`, `closeAlert()`, `addNote()` | Referencia al vínculo de cuidado por identificador (Vínculo de cuidado); contiene entidades AlertSummary y CaregiverNote |
+| Entity | AlertSummary | Representar el estado de seguimiento de una alerta recibida desde Omisión y escalamiento | `id`, `intakeId`, `medicationName`, `scheduledAt`, `reason`, `status` (Open / Attended / Closed), `openedAt`, `closedAt` — `markAttended()`, `close()` | Entidad hija de FamilyMonitor; su estado es actualizado mediante US-31 |
+| Entity | CaregiverNote | Representar una nota registrada por el familiar sobre una intervención realizada | `id`, `text`, `recordedAt`, `familiarId` | Entidad hija de FamilyMonitor; asociada a US-30 |
+
+**Sub-capa Model - Value Objects:**
+
+| Tipo | Nombre | Propósito | Atributos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Value Object | OlderAdultStatus | Encapsular el estado reciente del adulto mayor: próxima toma y últimos resultados | `nextIntakeAt`, `lastIntakeStatus`, `hasOpenAlert` | Usado en las queries de resumen (US-25) |
+| Value Object | IntakeSummary | Encapsular el resultado de una toma pasada para su presentación en el historial | `intakeId`, `medicationName`, `scheduledAt`, `status` (Confirmed / Late / Omitted) | Usado en el historial reciente (US-26) |
+| Value Object | ContactChannel | Encapsular el canal de contacto disponible para comunicarse con el adulto mayor ante una alerta | `type` (phone / whatsapp), `value` | Usado en US-29 |
+
+**Sub-capa Services y Repositories:**
+
+| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Interface | IFamilyMonitorRepository | Contrato de persistencia para el agregado FamilyMonitor | `save(monitor)`, `findByCareLinkId(id): FamilyMonitor`, `findByOlderAdultId(id): FamilyMonitor` | Implementado en la capa Infrastructure |
+| Interface | IIntakeHistoryPort | Puerto de dominio para recuperar el historial reciente de tomas del adulto mayor | `getRecentIntakes(olderAdultId, days): List<IntakeSummary>` | Implementado en Infrastructure; invoca al módulo Ejecución de tomas dentro del mismo proceso |
+| Interface | IAdherenceSummaryPort | Puerto de dominio para recuperar los indicadores de adherencia calculados por Analítica de adherencia | `getWeeklySummary(olderAdultId): AdherenceSnapshot` | Implementado en Infrastructure; invoca al módulo Analítica de adherencia dentro del mismo proceso |
 
 #### 2.6.7.2. Interface Layer
 
+**Sub-capa REST - Resources:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Resource | OlderAdultStatusResource | Representar el estado reciente del adulto mayor para el cliente (US-25) |
+| Resource | IntakeSummaryResource | Representar una entrada del historial reciente de tomas (US-26) |
+| Resource | AlertSummaryResource | Representar el detalle de una alerta para el cliente (US-27) |
+| Resource | CreateCaregiverNoteResource | Representar la petición para registrar una nota de seguimiento (US-30) |
+| Resource | UpdateAlertStatusResource | Representar la petición para marcar una alerta como atendida o cerrada (US-31) |
+
+**Sub-capa REST - Transform:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Assembler | OlderAdultStatusResourceFromEntityAssembler | Convertir OlderAdultStatus en OlderAdultStatusResource |
+| Assembler | AlertSummaryResourceFromEntityAssembler | Convertir AlertSummary en AlertSummaryResource |
+| Assembler | CreateCaregiverNoteCommandFromResourceAssembler | Convertir CreateCaregiverNoteResource en CreateCaregiverNoteCommand |
+| Assembler | UpdateAlertStatusCommandFromResourceAssembler | Convertir UpdateAlertStatusResource en UpdateAlertStatusCommand |
+
+**Sub-capa REST - Controllers:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Controller | FamilyMonitoringController | Exponer endpoints para consultar el estado reciente, el historial e iniciar contacto (US-25, US-26, US-29), enrutados desde el API Gateway hacia este módulo |
+| Controller | AlertsController | Exponer endpoints para consultar el detalle y actualizar el seguimiento de alertas (US-27, US-31) |
+| Controller | CaregiverNotesController | Exponer endpoint para registrar una nota de seguimiento (US-30) |
+
+**Sub-capa Domain Event Listeners:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Consumer | IntakeOmittedEventConsumer | Escuchar el evento `IntakeOmitted` publicado por Omisión y escalamiento para crear una nueva AlertSummary en el FamilyMonitor correspondiente |
+| Consumer | LowStockDetectedEventConsumer | Escuchar el evento `LowStockDetected` publicado por Inventario y reposición para incluir el aviso de stock bajo en el estado del adulto mayor |
+| Consumer | AdherencePatternDetectedEventConsumer | Escuchar el evento `AdherencePatternDetected` publicado por Analítica de adherencia para actualizar los insights disponibles para el familiar |
+
 #### 2.6.7.3. Application Layer
+
+**Sub-capa Internal - CommandServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| CommandHandler | CreateCaregiverNoteCommandHandler | Registrar una nota de seguimiento sobre una intervención realizada (US-30) |
+| CommandHandler | MarkAlertAttendedCommandHandler | Registrar que el familiar atendió una alerta (US-31) |
+| CommandHandler | CloseAlertCommandHandler | Cerrar una alerta resuelta sin eliminar su historial (US-31) |
+| CommandHandler | RegisterAlertFromOmissionCommandHandler | Crear una AlertSummary en el FamilyMonitor al recibir el evento `IntakeOmitted` |
+
+**Sub-capa Internal - QueryServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| QueryHandler | GetOlderAdultStatusQueryHandler | Construir el resumen del estado reciente del adulto mayor (US-25); utiliza IIntakeHistoryPort y consulta las alertas abiertas del FamilyMonitor |
+| QueryHandler | GetRecentIntakeHistoryQueryHandler | Recuperar el historial reciente de tomas mediante IIntakeHistoryPort (US-26) |
+| QueryHandler | GetAlertDetailQueryHandler | Obtener el detalle de una alerta y sus acciones de seguimiento (US-27) |
+| QueryHandler | GetContactChannelQueryHandler | Recuperar el canal de contacto disponible ante una alerta (US-29) |
+
+**Sub-capa Internal - EventServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| EventHandler | IntakeOmittedEventHandler | Traducir el evento consumido en un RegisterAlertFromOmissionCommand |
+| EventHandler | LowStockDetectedEventHandler | Actualizar el flag de stock bajo en el estado del adulto mayor correspondiente |
+| EventHandler | AdherencePatternDetectedEventHandler | Persistir el insight recibido para su presentación al familiar |
 
 #### 2.6.7.4. Infrastructure Layer
 
+**Sub-capa Persistence (PostgreSQL):**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Repository | FamilyMonitorRepository | Implementación de IFamilyMonitorRepository (Spring Data JPA); persiste FamilyMonitor junto con AlertSummary y CaregiverNote en la base de datos PostgreSQL central |
+
+**Sub-capa Module Adapters:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Adapter | IntakeHistoryAdapter | Implementación de IIntakeHistoryPort; invoca directamente, dentro del mismo proceso, la interfaz pública expuesta por el módulo Ejecución de tomas |
+| Adapter | AdherenceSummaryAdapter | Implementación de IAdherenceSummaryPort; invoca directamente, dentro del mismo proceso, la interfaz pública expuesta por el módulo Analítica de adherencia |
+
+**Sub-capa Domain Events:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Listener | IntakeOmittedEventListener | Registra IntakeOmittedEventConsumer como manejador del evento en memoria publicado por Omisión y escalamiento |
+| Listener | LowStockDetectedEventListener | Registra LowStockDetectedEventConsumer como manejador del evento en memoria publicado por Inventario y reposición |
+| Listener | AdherencePatternDetectedEventListener | Registra AdherencePatternDetectedEventConsumer como manejador del evento en memoria publicado por Analítica de adherencia |
+
 #### 2.6.7.5. Bounded Context Software Architecture Component Level Diagrams
+
+El diagrama representa la descomposición interna del módulo **Family Monitoring BC** dentro del container Backend, mostrando cómo `FamilyMonitoringController`, `AlertsController` y `CaregiverNotesController` reciben peticiones enrutadas por el API Gateway, cómo los Listeners activan los Consumer y EventHandlers al recibir eventos de Omisión y escalamiento, Inventario y reposición y Analítica de adherencia, y cómo los Query Handlers acceden a Ejecución de tomas y Analítica de adherencia mediante adaptadores en el mismo proceso. El agregado `FamilyMonitor` se persiste a través de `FamilyMonitorRepository`.
+
+![Component Diagram de Seguimiento familiar](assets/bcfamilymonitoring.png)
+
+*Figura. Component Diagram (C4 Nivel 3) del Bounded Context Seguimiento familiar.*
 
 #### 2.6.7.6. Bounded Context Software Architecture Code Level Diagrams
 
 ##### 2.6.7.6.1. Bounded Context Domain Layer Class Diagrams
 
+El diagrama de clases del Domain Layer muestra a `FamilyMonitor` como aggregate root en relación de composición (1 a 0..*) con las entidades `AlertSummary` y `CaregiverNote`. Se incluyen los Value Objects `OlderAdultStatus`, `IntakeSummary` y `ContactChannel`, la interfaz `IFamilyMonitorRepository` que gestiona la persistencia del agregado, y las interfaces de puerto `IIntakeHistoryPort` e `IAdherenceSummaryPort` que mantienen la colaboración con otros módulos sin acoplar el dominio.
+
+![Class Diagram del Domain Layer de Seguimiento familiar](assets/familymonitoringPlantUML.png)
+
+*Figura. Domain Layer Class Diagram del Bounded Context Seguimiento familiar.*
+
 ##### 2.6.7.6.2. Bounded Context Database Design Diagram
 
+Las referencias a `care_link_id`, `older_adult_id` y `familiar_id` se conservan como identificadores lógicos sin FK físicas hacia los módulos Vínculo de cuidado e Identidad y suscripción, manteniendo el aislamiento de esquemas entre módulos.
+
+![Database Design Diagram de Seguimiento familiar](assets/familymonitoringDBmodel.png)
+
+*Figura. Database Design Diagram del Bounded Context Seguimiento familiar.*
+
+**FAMILY_MONITORS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del monitor familiar |
+| care_link_id | Referencia lógica al vínculo de cuidado (sin FK física) |
+| older_adult_id | Referencia lógica al adulto mayor (sin FK física) |
+| familiar_id | Referencia lógica al familiar (sin FK física) |
+| created_at / updated_at | Fechas de auditoría |
+
+**ALERT_SUMMARIES**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único de la alerta |
+| family_monitor_id (FK → FAMILY_MONITORS.id) | Monitor al que pertenece la alerta |
+| intake_id | Referencia lógica a la toma omitida en Ejecución de tomas (sin FK física) |
+| medication_name | Nombre del medicamento al momento de la alerta |
+| scheduled_at | Horario programado de la toma omitida |
+| reason | Motivo de la alerta |
+| status | Estado: OPEN, ATTENDED o CLOSED |
+| opened_at / closed_at | Fechas de apertura y cierre |
+
+**CAREGIVER_NOTES**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único de la nota |
+| family_monitor_id (FK → FAMILY_MONITORS.id) | Monitor al que pertenece la nota |
+| familiar_id | Referencia lógica al familiar que registró la nota (sin FK física) |
+| text | Contenido de la nota |
+| recorded_at | Fecha de registro |
+
+Relaciones: FAMILY_MONITORS (1) - (N) ALERT_SUMMARIES; FAMILY_MONITORS (1) - (N) CAREGIVER_NOTES.
+
+---
 
 ### 2.6.8. Bounded Context: Accesibilidad y preferencias
 
+El Bounded Context **Accesibilidad y preferencias** (**Accessibility & Preferences BC**) administra las configuraciones que permiten adaptar la experiencia de Tata a las necesidades de cada usuario. Actúa como un **Shared Kernel** acotado (sección 2.5.2): un conjunto pequeño y estable de conceptos —canal de notificación, horario de silencio y confirmación por voz— es referenciado directamente por otros módulos como Ejecución de tomas, Omisión y escalamiento y Seguimiento familiar, sin que estos deban reimplementar la lógica de preferencias. El contexto persiste configuraciones de tamaño de texto, contraste, reducción de movimiento, ayuda de lectura, confirmación por voz, horario de silencio y canales de notificación (ver Bounded Context Canvas, sección 2.5.1.3).
+
 #### 2.6.8.1. Domain Layer
+
+**Sub-capa Model - Aggregates:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Aggregate Root | UserPreferences | Mantener el conjunto de preferencias de accesibilidad e interacción de un usuario y garantizar su coherencia | `id`, `userId`, `textSize` (Small / Medium / Large / ExtraLarge), `highContrast: boolean`, `reducedMotion: boolean`, `readingAssistance: boolean`, `voiceConfirmationEnabled: boolean`, `quietHours: QuietHoursRange`, `notificationChannels: List<NotificationChannel>` — `updateTextSize()`, `enableHighContrast()`, `enableVoiceConfirmation()`, `setQuietHours()`, `updateChannels()` | Referencia al usuario por identificador (Identidad y suscripción); expone conceptos del Shared Kernel utilizados por otros BCs |
+
+**Sub-capa Model - Value Objects:**
+
+| Tipo | Nombre | Propósito | Atributos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Value Object | QuietHoursRange | Encapsular el intervalo de tiempo durante el cual se suprimen notificaciones no críticas | `startHour`, `startMinute`, `endHour`, `endMinute` — `contains(hour, minute): boolean` | Usado en UserPreferences; consultado por Omisión y escalamiento y Seguimiento familiar al evaluar envíos de avisos |
+| Value Object | NotificationChannel | Encapsular un canal de notificación habilitado por el usuario | `type` (push / sms / email), `enabled: boolean` | Usado en UserPreferences (colección); referenciado como parte del Shared Kernel por Ejecución de tomas y Omisión y escalamiento |
+| Value Object | TextSizeLevel | Encapsular el nivel de tamaño de texto seleccionado por el usuario | `level` (Small / Medium / Large / ExtraLarge) | Usado en UserPreferences |
+
+**Sub-capa Services y Repositories:**
+
+| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Interface | IUserPreferencesRepository | Contrato de persistencia para el agregado UserPreferences | `save(preferences)`, `findByUserId(id): UserPreferences` | Implementado en la capa Infrastructure |
+| Factory | UserPreferencesFactory | Crear un registro de preferencias con valores por defecto para un usuario recién registrado | `createDefaults(userId): UserPreferences` | Usado al reaccionar al evento `AccountEnabled` de Identidad y suscripción |
 
 #### 2.6.8.2. Interface Layer
 
+**Sub-capa REST - Resources:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Resource | UserPreferencesResource | Representar el conjunto de preferencias de un usuario para el cliente |
+| Resource | UpdateTextSizeResource | Representar la petición para ajustar el tamaño de texto (US-35) |
+| Resource | UpdateContrastResource | Representar la petición para activar o desactivar el alto contraste (US-36) |
+| Resource | UpdateReducedMotionResource | Representar la petición para activar o desactivar la reducción de movimiento (US-37) |
+| Resource | UpdateReadingAssistanceResource | Representar la petición para activar o desactivar la ayuda de lectura (US-38) |
+| Resource | UpdateQuietHoursResource | Representar la petición para configurar el horario de silencio y los canales de notificación (US-39) |
+
+**Sub-capa REST - Transform:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Assembler | UserPreferencesResourceFromEntityAssembler | Convertir UserPreferences en UserPreferencesResource |
+| Assembler | UpdateTextSizeCommandFromResourceAssembler | Convertir UpdateTextSizeResource en UpdateTextSizeCommand |
+| Assembler | UpdateQuietHoursCommandFromResourceAssembler | Convertir UpdateQuietHoursResource en UpdateQuietHoursCommand |
+
+**Sub-capa REST - Controllers:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Controller | AccessibilityController | Exponer endpoints para consultar y actualizar las preferencias de accesibilidad del adulto mayor (US-35, US-36, US-37, US-38), enrutados desde el API Gateway hacia este módulo |
+| Controller | NotificationPreferencesController | Exponer endpoints para configurar horario de silencio y canales de notificación del familiar (US-39) |
+
+**Sub-capa Domain Event Listeners:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Consumer | AccountEnabledEventConsumer | Escuchar el evento `AccountEnabled` publicado por Identidad y suscripción para crear un registro de preferencias con valores por defecto para el nuevo usuario |
+
 #### 2.6.8.3. Application Layer
+
+**Sub-capa Internal - CommandServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| CommandHandler | UpdateTextSizeCommandHandler | Ajustar el nivel de tamaño de texto del usuario (US-35) |
+| CommandHandler | UpdateContrastCommandHandler | Activar o desactivar el alto contraste (US-36) |
+| CommandHandler | UpdateReducedMotionCommandHandler | Activar o desactivar la reducción de movimiento (US-37) |
+| CommandHandler | UpdateReadingAssistanceCommandHandler | Activar o desactivar la ayuda de lectura (US-38) |
+| CommandHandler | UpdateVoiceConfirmationCommandHandler | Habilitar o deshabilitar la confirmación por voz (parte de US-06 en su configuración) |
+| CommandHandler | UpdateQuietHoursCommandHandler | Configurar el horario de silencio (US-39) |
+| CommandHandler | UpdateNotificationChannelsCommandHandler | Habilitar o deshabilitar canales de notificación (US-39) |
+| CommandHandler | InitializeDefaultPreferencesCommandHandler | Crear las preferencias por defecto al registrarse un nuevo usuario; invocado por AccountEnabledEventHandler |
+
+**Sub-capa Internal - QueryServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| QueryHandler | GetUserPreferencesQueryHandler | Obtener el conjunto de preferencias de un usuario para presentarlo en la pantalla de configuración |
+
+**Sub-capa Internal - EventServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| EventHandler | AccountEnabledEventHandler | Traducir el evento consumido en un InitializeDefaultPreferencesCommand |
+
+**Sub-capa Internal - OutboundServices:**
+
+Este Bounded Context no publica eventos de dominio hacia otros módulos. Su rol como Shared Kernel implica que los demás contextos lo consultan de forma directa (a través de su interfaz pública en el mismo proceso) en lugar de reaccionar a eventos emitidos por él.
 
 #### 2.6.8.4. Infrastructure Layer
 
+**Sub-capa Persistence (PostgreSQL):**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Repository | UserPreferencesRepository | Implementación de IUserPreferencesRepository (Spring Data JPA); persiste UserPreferences y su colección de NotificationChannel en la base de datos PostgreSQL central |
+
+**Sub-capa Domain Events:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Listener | AccountEnabledEventListener | Registra AccountEnabledEventConsumer como manejador del evento en memoria publicado por Identidad y suscripción (por ejemplo, mediante `@EventListener` de Spring) |
+
 #### 2.6.8.5. Bounded Context Software Architecture Component Level Diagrams
+
+El diagrama representa la descomposición interna del módulo **Accessibility & Preferences BC** dentro del container Backend, mostrando cómo `AccessibilityController` y `NotificationPreferencesController` reciben peticiones enrutadas por el API Gateway, cómo `AccountEnabledEventListener` activa el Consumer y el EventHandler correspondiente, y cómo los Command/Query Handlers operan sobre el agregado `UserPreferences` a través de `UserPreferencesRepository`. Se muestra también la consulta directa que otros módulos (Ejecución de tomas, Omisión y escalamiento, Seguimiento familiar) realizan sobre la interfaz pública del BC como parte del Shared Kernel.
+
+![Component Diagram de Accesibilidad y preferencias](assets/bcaccessibility.png)
+
+*Figura. Component Diagram (C4 Nivel 3) del Bounded Context Accesibilidad y preferencias.*
 
 #### 2.6.8.6. Bounded Context Software Architecture Code Level Diagrams
 
 ##### 2.6.8.6.1. Bounded Context Domain Layer Class Diagrams
 
+El diagrama de clases del Domain Layer muestra a `UserPreferences` como aggregate root, con dependencias de composición sobre los Value Objects `QuietHoursRange`, `NotificationChannel` (0..*) y `TextSizeLevel`, y la enumeración `TextSizeLevel`. Se incluyen la interfaz `IUserPreferencesRepository` que gestiona la persistencia del agregado y `UserPreferencesFactory` como responsable de la creación de preferencias por defecto.
+
+![Class Diagram del Domain Layer de Accesibilidad y preferencias](assets/accessibilityPlantUML.png)
+
+*Figura. Domain Layer Class Diagram del Bounded Context Accesibilidad y preferencias.*
+
 ##### 2.6.8.6.2. Bounded Context Database Design Diagram
+
+La referencia a `user_id` se conserva como identificador lógico sin FK física hacia el módulo Identidad y suscripción, manteniendo el aislamiento de esquemas entre módulos.
+
+![Database Design Diagram de Accesibilidad y preferencias](assets/accessibilityDBmodel.png)
+
+*Figura. Database Design Diagram del Bounded Context Accesibilidad y preferencias.*
+
+**USER_PREFERENCES**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del registro de preferencias |
+| user_id | Referencia lógica al usuario en Identidad y suscripción (sin FK física) |
+| text_size | Nivel de tamaño de texto: SMALL, MEDIUM, LARGE o EXTRA_LARGE |
+| high_contrast | Indica si el alto contraste está habilitado |
+| reduced_motion | Indica si la reducción de movimiento está habilitada |
+| reading_assistance | Indica si la ayuda de lectura está habilitada |
+| voice_confirmation_enabled | Indica si la confirmación por voz está habilitada |
+| quiet_hours_start | Hora y minuto de inicio del horario de silencio |
+| quiet_hours_end | Hora y minuto de fin del horario de silencio |
+| created_at / updated_at | Fechas de auditoría |
+
+**USER_NOTIFICATION_CHANNELS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del registro de canal |
+| user_preferences_id (FK → USER_PREFERENCES.id) | Preferencias al que pertenece el canal |
+| channel_type | Tipo de canal: push, sms o email |
+| enabled | Indica si el canal está habilitado |
+
+Relación: USER_PREFERENCES (1) - (N) USER_NOTIFICATION_CHANNELS.
 
 
 ### 2.6.9. Bounded Context: Omisión y escalamiento
