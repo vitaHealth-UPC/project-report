@@ -2182,48 +2182,77 @@ En conjunto, la mayoría de las colaboraciones entre contextos internos de Tata 
 
 ### 2.5.3. Software Architecture
 
-En esta sección el equipo presenta y explica la representación de la arquitectura de software de Tata mediante **C4 Model**, utilizando **Structurizr DSL** como herramienta de Diagram-as-Code. El objetivo es mostrar, de forma progresiva y en distintos niveles de abstracción, cómo el sistema se relaciona con sus usuarios y sistemas externos (Context), cómo se descompone en aplicaciones y servicios desplegables (Container) y cómo estos se distribuyen físicamente en la infraestructura (Deployment).
+La arquitectura de software de Tata se representa mediante C4 Model con el propósito de describir la solución desde distintos niveles de abstracción. Las vistas elaboradas permiten observar el entorno general del sistema, los principales elementos que conforman la solución y la distribución de estos elementos en un entorno de ejecución.
 
-Las decisiones de arquitectura reflejan directamente los resultados del Context Mapping (sección 2.5.2): los nueve Bounded Contexts candidatos se materializan como servicios backend independientes que colaboran mediante un API Gateway y un bus de mensajes, mientras que las integraciones con sistemas externos (reconocimiento de voz, notificaciones push y correo) se mantienen aisladas mediante el patrón Anti-Corruption Layer ya definido a nivel estratégico.
+La propuesta considera los productos definidos para Tata: un Landing Page, una aplicación Android nativa, una aplicación móvil multiplataforma y un backend encargado de atender las operaciones del dominio. Las aplicaciones móviles disponen de almacenamiento local y se comunican con el backend mediante solicitudes sobre HTTPS. Asimismo, la solución emplea una base de datos central e integra servicios externos para notificaciones, reconocimiento de voz y correo electrónico.
 
-El archivo fuente completo en Structurizr DSL se encuentra documentado como artefacto del proyecto en el repositorio del equipo.
+El diseño del backend mantiene correspondencia con los Bounded Contexts identificados durante el Strategic-Level Domain-Driven Design. Estos límites de dominio se hacen explícitos en la vista de contenedores para mostrar cómo las solicitudes son dirigidas desde un punto de entrada común hacia las diferentes capacidades del negocio. Esta representación no implica que cada Bounded Context corresponda a un microservicio independiente. Para el alcance actual de Tata, los módulos del backend se consideran parte de una misma solución desplegable.
 
 #### 2.5.3.1. Software Architecture Context Level Diagrams
 
-El **Context Diagram** (C4 Nivel 1) muestra a Tata como una única caja negra, rodeada de los actores y sistemas externos con los que interactúa, sin exponer todavía su estructura interna. Este nivel permite comunicar el alcance del sistema a una audiencia no técnica.
+El System Context Diagram presenta a Tata como el sistema de software central y muestra las personas y sistemas externos que interactúan directamente con la solución.
 
-Los actores identificados son el **Familiar/Cuidador**, quien configura tratamientos y monitorea el estado del adulto mayor; el **Adulto Mayor**, quien consulta su agenda y confirma sus tomas; y el **Visitante**, quien navega el Landing Page para conocer la propuesta de valor de Tata. Los sistemas externos considerados son el **Servicio de Notificaciones Push** (para recordatorios y alertas), el **Servicio de Reconocimiento de Voz** (para validar confirmaciones habladas) y el **Servicio de Correo** (para la verificación de cuentas).
+Se consideran tres tipos de personas. El adulto mayor utiliza Tata para consultar su rutina de medicación, recibir recordatorios y registrar confirmaciones de toma. El familiar o cuidador configura tratamientos y realiza seguimiento remoto de la adherencia. El visitante consulta la información pública de Tata para conocer su propuesta de valor, funcionalidades y planes disponibles.
 
-![Context Diagram de Tata](assets/context.png)
+Tata se integra con tres sistemas externos. El servicio de correo electrónico permite gestionar verificaciones de cuenta y comunicaciones transaccionales. El servicio Speech-to-Text procesa las confirmaciones realizadas mediante voz. Por su parte, el servicio de notificaciones push permite entregar recordatorios y alertas a los dispositivos móviles.
 
-*Figura. Software Architecture Context Level Diagram de Tata (C4 Nivel 1).*
+![Diagrama de Contexto del Sistema de Tata](assets/software-architecture-context-diagram.svg)
 
-El diagrama evidencia que, si bien Tata concentra la lógica del negocio, depende de tres integraciones externas críticas para cumplir su propuesta de valor: sin el servicio de notificaciones push no sería posible entregar recordatorios ni alertas al familiar, y sin el servicio de reconocimiento de voz no sería posible ofrecer la confirmación accesible por voz que constituye uno de los diferenciadores frente a la competencia (ver sección 2.1).
+*Figura. Diagrama de Contexto del Sistema de Tata.*
 
 #### 2.5.3.2. Software Architecture Container Level Diagrams
 
-El **Container Diagram** (C4 Nivel 2) descompone a Tata en las aplicaciones y servicios desplegables que lo conforman, mostrando sus responsabilidades, la tecnología elegida para cada uno y cómo se comunican entre sí. Cada Container corresponde, en su mayoría, a uno de los Bounded Contexts identificados en el Candidate Context Discovery (sección 2.5.1.1), lo que mantiene la trazabilidad entre el diseño estratégico y la arquitectura de software.
+El Container Diagram representa los principales elementos que conforman Tata y complementa esta visión con los Bounded Contexts obtenidos durante el diseño estratégico del dominio. De esta manera, además de las aplicaciones y almacenes de datos, se observa cómo las solicitudes son distribuidas hacia las capacidades responsables de cada parte del negocio.
 
-Se definieron los siguientes contenedores: **Landing Page** (sitio estático), **Mobile App** (aplicación única con vistas diferenciadas para el familiar y el adulto mayor), un **API Gateway** como punto de entrada único, nueve **servicios backend** — uno por Bounded Context —, una **base de datos** relacional compartida y un **bus de mensajes** para la comunicación asíncrona entre servicios (por ejemplo, la publicación de *Toma confirmada* o *Toma no confirmada* que consumen Omisión y escalamiento, Analítica de adherencia y Seguimiento familiar).
+El Landing Page se implementa mediante HTML5, CSS3 y JavaScript. Su responsabilidad consiste en presentar la propuesta de valor, las funcionalidades principales y los planes disponibles de Tata.
 
-![Container Diagram de Tata](assets/container.png)
+La solución móvil comprende una aplicación Android nativa desarrollada con Kotlin y una aplicación móvil multiplataforma desarrollada con Flutter y Dart. Ambas permiten acceder a las funcionalidades de Tata y se comunican con el backend mediante JSON sobre HTTPS. La aplicación Android utiliza Room sobre SQLite para su almacenamiento local, mientras que la aplicación multiplataforma emplea SQLite. Estos almacenes conservan información como agenda, preferencias, datos en caché y operaciones pendientes de sincronización.
 
-*Figura. Software Architecture Container Level Diagram de Tata (C4 Nivel 2).*
+Las solicitudes de las aplicaciones móviles ingresan al backend mediante un API Gateway implementado con Spring Cloud Gateway y Java. Este elemento actúa como punto de entrada y dirige cada operación hacia el Bounded Context responsable.
 
-Como decisión de tecnología, el **API Gateway** centraliza el enrutamiento hacia los nueve servicios, evitando que la Mobile App conozca la ubicación interna de cada uno. La comunicación entre servicios ante eventos de dominio (como una toma confirmada u omitida) se realiza de forma asíncrona mediante el **bus de mensajes**, lo cual es coherente con la relación **Customer/Supplier** definida en el Context Mapping (sección 2.5.2): el servicio productor del evento no necesita conocer a sus consumidores. Se identifica **Family Monitoring Service** con acceso de solo lectura a la base de datos, reflejando su rol **Conformist** frente a los contextos que sí poseen las reglas de negocio.
+El backend se organiza en los siguientes Bounded Contexts:
+
+- **Identity & Subscription BC:** gestiona cuentas, autenticación, planes y suscripciones.
+- **Care Link BC:** administra el vínculo de cuidado entre el familiar o cuidador y el adulto mayor.
+- **Treatment Management BC:** gestiona medicamentos, tratamientos, dosis y programación terapéutica.
+- **Intake Execution BC:** administra la agenda de tomas, recordatorios, confirmaciones y ventanas de tolerancia.
+- **Omission & Escalation BC:** gestiona tomas no confirmadas, omisiones, alertas y reglas de escalamiento.
+- **Adherence Analytics BC:** calcula indicadores de adherencia e identifica tendencias y patrones de cumplimiento.
+- **Family Monitoring BC:** consolida información necesaria para el seguimiento remoto del familiar o cuidador.
+- **Accessibility & Preferences BC:** administra preferencias de accesibilidad, interacción, recordatorios y notificaciones.
+- **Inventory & Replenishment BC:** gestiona disponibilidad de medicamentos y necesidades de reposición.
+
+Las relaciones entre estos Bounded Contexts conservan la estructura definida en el Context Mapping del dominio. Los patrones Customer/Supplier, Conformist, Shared Kernel y Anti-Corruption Layer representan las dependencias y formas de colaboración previamente identificadas durante el Strategic-Level DDD.
+
+Los diferentes módulos utilizan una base de datos PostgreSQL como persistencia central. Aunque se emplea una misma tecnología de almacenamiento, las responsabilidades sobre la información se mantienen asociadas al Bounded Context correspondiente. Las integraciones con correo electrónico, Speech-to-Text y notificaciones push se realizan desde los contextos que requieren dichas capacidades.
+
+No se incorpora un bus de mensajes externo en la arquitectura actual. Las interacciones necesarias entre los Bounded Contexts forman parte del backend de Tata y no requieren, para el alcance actual del proyecto, infraestructura adicional de mensajería distribuida.
+
+![Diagrama de Contenedores y Bounded Contexts de Tata](assets/software-architecture-container-diagram.svg)
+
+*Figura. Diagrama de Contenedores y Bounded Contexts de Tata.*
 
 #### 2.5.3.3. Software Architecture Deployment Diagrams
 
-El **Deployment Diagram** muestra la distribución física de los contenedores sobre la infraestructura de despliegue: dónde se aloja cada aplicación, qué proveedor cloud se utiliza y cómo se relacionan los nodos de hardware/plataforma entre sí. Este nivel de detalle no requiere ser exhaustivo para un proyecto académico, pero sí debe evidenciar los entornos considerados para producción.
+El Deployment Diagram representa la distribución de los elementos de Tata en los diferentes entornos de ejecución previstos para producción.
 
-Para Tata se definió un entorno de **Producción** sobre **AWS**: el Landing Page se despliega en un servicio de hosting estático con CDN, la Mobile App se distribuye a través de Firebase App Distribution / las tiendas de aplicaciones hacia el dispositivo del usuario, los nueve servicios backend y el API Gateway se despliegan como pods dentro de un clúster de **Amazon EKS (Kubernetes)**, la base de datos utiliza **Amazon RDS (PostgreSQL)** y el bus de mensajes se aloja en **Amazon MQ (RabbitMQ)**.
+La aplicación Android nativa se ejecuta sobre dispositivos Android y mantiene información local mediante Room y SQLite. El dispositivo proporciona además capacidades internas utilizadas por Tata, como el micrófono requerido para la confirmación de tomas mediante voz.
 
-![Deployment Diagram de Tata](assets/deployment.png)
+La aplicación móvil multiplataforma se ejecuta sobre dispositivos compatibles con Android o iOS y dispone igualmente de almacenamiento SQLite para conservar información necesaria durante la experiencia móvil.
 
-*Figura. Software Architecture Deployment Diagram de Tata.*
+El Landing Page se despliega de manera independiente mediante un servicio de hosting web estático o una CDN, debido a que su responsabilidad se limita a presentar información pública del producto.
 
-Esta configuración permite que la Landing Page, al ser un sitio estático, escale de forma independiente mediante CDN sin afectar el backend. El uso de un clúster de Kubernetes para los nueve servicios facilita el escalamiento independiente de cada Bounded Context por ejemplo, ante picos de tráfico en **Intake Execution Service** durante las horas de mayor concentración de tomas programadas sin necesidad de escalar la totalidad del sistema. Asimismo, aislar la base de datos en Amazon RDS y el bus de mensajes en Amazon MQ como servicios administrados reduce la carga operativa del equipo y refuerza la separación entre la lógica de negocio y la infraestructura de persistencia y mensajería.
+El backend se despliega en una plataforma de aplicaciones en la nube. Dentro de este entorno se ejecutan conjuntamente el API Gateway y los módulos correspondientes a los Bounded Contexts de Tata. Esta decisión mantiene la separación lógica establecida mediante DDD sin requerir que cada contexto sea desplegado como un microservicio independiente.
 
+La persistencia central se aloja en un servicio administrado de PostgreSQL. Las aplicaciones móviles no acceden directamente a esta base de datos, sino que realizan sus operaciones mediante el backend de Tata.
+
+Finalmente, los servicios de correo electrónico, Speech-to-Text y notificaciones push se consideran servicios SaaS externos. Estos sistemas son consumidos únicamente por los Bounded Contexts que requieren sus respectivas capacidades.
+
+La distribución propuesta mantiene una infraestructura acorde con el alcance del producto y evita incorporar componentes adicionales, como clústeres Kubernetes o brokers de mensajería, que no resultan necesarios para la versión actual de Tata.
+
+![Diagrama de Despliegue de Tata](assets/software-architecture-deployment-diagram.svg)
+
+*Figura. Diagrama de Despliegue de Tata.*
 
 ## 2.6. Tactical-Level Domain-Driven Design
 
