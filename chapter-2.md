@@ -2334,40 +2334,306 @@ La distribución propuesta mantiene una infraestructura acorde con el alcance de
 
 ### 2.6.5. Bounded Context: Gestión del tratamiento
 
+Siguiendo el modelo de arquitectura **Clean Architecture** combinado con **Domain-Driven Design**, este Bounded Context (**Treatment Management BC**) se organiza en las capas Domain, Interface, Application e Infrastructure, y se implementa como un módulo dentro del backend único de Tata (sección 2.5.3.2). Gestión del tratamiento es responsable de definir la pauta operativa del adulto mayor: qué medicamentos debe tomar, en qué dosis, con qué frecuencia, en qué horarios y bajo qué instrucciones, además de la configuración de sus recordatorios (ver Bounded Context Canvas, sección 2.5.1.3). Su responsabilidad culmina en decidir cuándo un tratamiento queda completamente configurado y puede activarse; no administra la ejecución de cada toma individual, responsabilidad que pertenece a Ejecución de tomas, a quien notifica mediante el evento **Tratamiento activado**.
+
 #### 2.6.5.1. Domain Layer
+
+**Sub-capa Model - Aggregates:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Aggregate Root | Treatment | Representar la pauta completa de un adulto mayor y garantizar que solo se active cuando su configuración esté completa | `id`, `olderAdultId`, `status` (Draft / Active / Paused), `medications: List<Medication>` - `addMedication()`, `activate()`, `pause()`, `isComplete()` | Contiene entidades Medication; referencia al adulto mayor por identificador (Vínculo de cuidado) |
+| Entity | Medication | Representar un medicamento y su pauta de administración dentro de un tratamiento | `id`, `name`, `dose: Dose`, `frequency: Frequency`, `intakeTimes: List<IntakeTime>`, `instructions: Instructions`, `reminderConfig: ReminderConfig`, `active` - `updateDose()`, `updateSchedule()`, `deactivate()` | Entidad hija de Treatment; sus datos alimentan a Ejecución de tomas cuando el tratamiento se activa |
+
+**Sub-capa Model - Value Objects:**
+
+| Tipo | Nombre | Propósito | Atributos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Value Object | Dose | Encapsular la cantidad y unidad de una dosis | `amount`, `unit` | Usado en Medication |
+| Value Object | Frequency | Encapsular la periodicidad de una toma | `timesPerDay`, `intervalHours` | Usado en Medication |
+| Value Object | IntakeTime | Representar un horario programado de toma | `hour`, `minute` | Usado en Medication (colección) |
+| Value Object | Instructions | Encapsular las indicaciones de administración | `text` | Usado en Medication |
+| Value Object | ReminderConfig | Encapsular la configuración de recordatorio de un medicamento | `enabled`, `leadTimeMinutes`, `notificationChannel` | Referencia conceptos del Shared Kernel Accesibilidad y preferencias (canal de notificación) |
+
+**Sub-capa Services y Repositories:**
+
+| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Interface | ICareLinkVerificationPort | Puerto de dominio para verificar que el familiar solicitante posea un vínculo de cuidado activo con el adulto mayor | `isAuthorized(familiarId, olderAdultId): boolean` | Implementado en Infrastructure; invoca en el mismo proceso a Vínculo de cuidado (relación Customer/Supplier, sección 2.5.2) |
+| Factory | TreatmentFactory | Crear un nuevo Treatment en estado Draft asociado a un adulto mayor | `createDraft(olderAdultId): Treatment` | Usado por CreateTreatmentCommandHandler |
+| Interface | ITreatmentRepository | Contrato de persistencia para el agregado Treatment | `save(treatment)`, `findById(id): Treatment`, `findByOlderAdultId(id): List<Treatment>` | Implementado en la capa Infrastructure |
 
 #### 2.6.5.2. Interface Layer
 
+**Sub-capa REST - Resources:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Resource | TreatmentResource | Representar un tratamiento completo con sus medicamentos para el cliente |
+| Resource | CreateTreatmentResource | Representar la petición para crear un tratamiento |
+| Resource | RegisterMedicationResource | Representar la petición para registrar un medicamento (dosis, frecuencia, horarios, instrucciones) |
+| Resource | ConfigureReminderResource | Representar la petición para configurar los recordatorios de un medicamento |
+
+**Sub-capa REST - Transform:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Assembler | TreatmentResourceFromEntityAssembler | Convertir la entidad Treatment en TreatmentResource |
+| Assembler | CreateTreatmentCommandFromResourceAssembler | Convertir CreateTreatmentResource en CreateTreatmentCommand |
+| Assembler | RegisterMedicationCommandFromResourceAssembler | Convertir RegisterMedicationResource en RegisterMedicationCommand |
+
+**Sub-capa REST - Controllers:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Controller | TreatmentsController | Exponer endpoints para crear, consultar, activar y pausar tratamientos (US-14, US-18, US-19), enrutados desde el API Gateway hacia este módulo |
+| Controller | MedicationsController | Exponer endpoints para registrar, editar, desactivar y configurar medicamentos (US-03, US-04, US-15, US-16, US-17) |
+
+Este Bounded Context no requiere Consumers de eventos en esta versión, ya que no reacciona a eventos publicados por otros módulos; únicamente invoca de forma síncrona y en el mismo proceso al módulo Vínculo de cuidado mediante `ICareLinkVerificationPort` (no existe bus de mensajes externo en la arquitectura actual, sección 2.5.3.2).
+
 #### 2.6.5.3. Application Layer
+
+**Sub-capa Internal - CommandServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| CommandHandler | CreateTreatmentCommandHandler | Crear un tratamiento en estado Draft (US-14) |
+| CommandHandler | RegisterMedicationCommandHandler | Registrar un medicamento dentro de un tratamiento (US-03) |
+| CommandHandler | EditMedicationCommandHandler | Editar los datos de un medicamento (US-04) |
+| CommandHandler | DeactivateMedicationCommandHandler | Desactivar un medicamento sin perder su historial (US-04) |
+| CommandHandler | DefineDoseAndFrequencyCommandHandler | Definir dosis y frecuencia de un medicamento (US-15) |
+| CommandHandler | ConfigureScheduleCommandHandler | Configurar horarios e instrucciones de un medicamento (US-16) |
+| CommandHandler | ConfigureRemindersCommandHandler | Configurar los recordatorios de un tratamiento (US-17) |
+| CommandHandler | ActivateTreatmentCommandHandler | Activar un tratamiento validando `isComplete()` y publicar el evento de dominio `TreatmentActivated` (US-18) |
+| CommandHandler | PauseTreatmentCommandHandler | Pausar un tratamiento activo sin eliminar su historial (US-18) |
+
+**Sub-capa Internal - QueryServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| QueryHandler | GetTreatmentDetailQueryHandler | Obtener el detalle completo de un tratamiento (US-19) |
+
+**Sub-capa Internal - OutboundServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Service | IDomainEventPublisher | Puerto para publicar el evento de dominio `TreatmentActivated` dentro del mismo proceso; según el Domain Message Flow de la sección 2.5.1.2, es consumido por el módulo Ejecución de tomas para programar las tomas correspondientes |
 
 #### 2.6.5.4. Infrastructure Layer
 
+**Sub-capa Persistence (PostgreSQL):**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Repository | TreatmentRepository | Implementación de ITreatmentRepository (Spring Data JPA); persiste el agregado Treatment junto con sus entidades Medication en la base de datos PostgreSQL central, en las tablas propias de este Bounded Context |
+
+**Sub-capa Module Adapters:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Adapter | CareLinkVerificationAdapter | Implementación de ICareLinkVerificationPort; invoca directamente, dentro del mismo proceso, la interfaz pública expuesta por el módulo Vínculo de cuidado |
+
+**Sub-capa Domain Events:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Publisher | TreatmentDomainEventPublisher | Implementación de IDomainEventPublisher mediante el mecanismo de eventos de aplicación en memoria (por ejemplo, `ApplicationEventPublisher` de Spring); publica `TreatmentActivated` para que otros módulos del mismo backend lo escuchen |
+
 #### 2.6.5.5. Bounded Context Software Architecture Component Level Diagrams
+
+El diagrama representa la descomposición interna del módulo **Treatment Management BC** dentro del container Backend, mostrando cómo `TreatmentsController` y `MedicationsController` reciben las peticiones enrutadas por el API Gateway, invocan a los Command/Query Handlers de la capa Application, estos operan sobre el agregado `Treatment` (capa Domain) a través de `TreatmentRepository`, y cómo `CareLinkVerificationAdapter` invoca en el mismo proceso al módulo Vínculo de cuidado. Se incluye también la publicación en memoria del evento `TreatmentActivated`, consumido por Ejecución de tomas.
+
+![Component Diagram de Gestión del tratamiento](assets/bctreatment.png)
+
+*Figura. Component Diagram (C4 Nivel 3) del Bounded Context Gestión del tratamiento.*
 
 #### 2.6.5.6. Bounded Context Software Architecture Code Level Diagrams
 
 ##### 2.6.5.6.1. Bounded Context Domain Layer Class Diagrams
 
+El diagrama de clases del Domain Layer muestra a `Treatment` como aggregate root en una relación de composición (1 a 0..*) con la entidad `Medication`, la cual a su vez compone los Value Objects `Dose`, `Frequency`, `IntakeTime` (0..*), `Instructions` y `ReminderConfig`. Se incluyen además la enumeración `TreatmentStatus`, la interfaz `ITreatmentRepository` (que gestiona la persistencia del agregado) y la interfaz `ICareLinkVerificationPort`, junto con `TreatmentFactory` como responsable de la creación de nuevos tratamientos.
+
+![Class Diagram del Domain Layer de Gestión del tratamiento](assets/treatmentPlantUML.png)
+
+*Figura. Domain Layer Class Diagram del Bounded Context Gestión del tratamiento.*
+
 ##### 2.6.5.6.2. Bounded Context Database Design Diagram
+
+Aunque toda la persistencia comparte la misma instancia de PostgreSQL (sección 2.5.3.2), las tablas de este Bounded Context no definen foreign keys físicas hacia tablas de otros módulos (por ejemplo, hacia el adulto mayor de Vínculo de cuidado); esa referencia se conserva únicamente como un identificador, para no acoplar los módulos a nivel de esquema.
+
+![Database Design Diagram de Gestión del tratamiento](assets/treatmentDBmodel.png)
+
+*Figura. Database Design Diagram del Bounded Context Gestión del tratamiento.*
+
+**TREATMENTS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del tratamiento |
+| older_adult_id | Identificador del adulto mayor propietario del tratamiento (referencia lógica al Bounded Context Vínculo de cuidado, sin FK física) |
+| status | Estado del tratamiento: DRAFT, ACTIVE o PAUSED |
+| created_at / updated_at | Fechas de auditoría |
+
+**MEDICATIONS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del medicamento |
+| treatment_id (FK → TREATMENTS.id) | Tratamiento al que pertenece el medicamento |
+| name | Nombre del medicamento |
+| dose_amount / dose_unit | Cantidad y unidad de la dosis |
+| frequency_times_per_day | Número de tomas al día |
+| instructions | Indicaciones de administración |
+| reminder_enabled / reminder_lead_minutes | Configuración del recordatorio |
+| active | Indica si el medicamento está activo |
+| created_at / updated_at | Fechas de auditoría |
+
+**INTAKE_SCHEDULES**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del horario |
+| medication_id (FK → MEDICATIONS.id) | Medicamento al que pertenece el horario |
+| intake_hour | Hora programada de la toma |
+
+Relaciones: TREATMENTS (1) - (N) MEDICATIONS; MEDICATIONS (1) - (N) INTAKE_SCHEDULES.
 
 
 ### 2.6.6. Bounded Context: Inventario y reposición
 
+Inventario y reposición (**Inventory & Replenishment BC**) administra la disponibilidad física de los medicamentos definidos en Gestión del tratamiento y las acciones necesarias para mantener la continuidad del tratamiento del adulto mayor (ver Bounded Context Canvas, sección 2.5.1.3). Se implementa igualmente como un módulo dentro del backend único de Tata. Su responsabilidad inicia cuando se registra el stock de un medicamento y continúa detectando cuándo dicho stock se aproxima al umbral de reposición, hasta registrar una reposición y actualizar el stock disponible.
+
 #### 2.6.6.1. Domain Layer
+
+**Sub-capa Model - Aggregates:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Aggregate Root | Inventory | Mantener el stock disponible de un medicamento y decidir cuándo se encuentra en estado de stock bajo | `id`, `medicationId`, `remainingStock`, `replenishmentThreshold`, `batches: List<Batch>` - `registerBatch()`, `consumeUnit()`, `isLowStock()` | Referencia a Medication (Gestión del tratamiento) por identificador; contiene entidades Batch |
+| Entity | Batch | Representar un lote de unidades incorporado en una reposición | `id`, `quantity`, `registeredAt` | Entidad hija de Inventory |
+
+**Sub-capa Model - Value Objects:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Value Object | StockLevel | Encapsular la comparación entre el stock restante y el umbral de reposición | `remaining`, `threshold` - `isLow(): boolean` | Usado dentro de Inventory |
+
+**Sub-capa Services y Repositories:**
+
+| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Factory | InventoryFactory | Crear un nuevo Inventory en cero para un medicamento existente | `createEmpty(medicationId): Inventory` | Usado por RegisterInitialInventoryCommandHandler |
+| Interface | IInventoryRepository | Contrato de persistencia para el agregado Inventory | `save(inventory)`, `findByMedicationId(id): Inventory` | Implementado en la capa Infrastructure |
 
 #### 2.6.6.2. Interface Layer
 
+**Sub-capa REST - Resources, Transform y Controllers:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Resource | InventoryResource | Representar el estado de inventario de un medicamento para el cliente |
+| Resource | RegisterReplenishmentResource | Representar la petición para registrar una reposición |
+| Assembler | InventoryResourceFromEntityAssembler | Convertir Inventory en InventoryResource |
+| Assembler | RegisterReplenishmentCommandFromResourceAssembler | Convertir RegisterReplenishmentResource en RegisterReplenishmentCommand |
+| Controller | InventoryController | Exponer endpoints para registrar inventario inicial, consultar stock y registrar reposiciones (US-40, US-41, US-43) |
+
+**Sub-capa Domain Event Listeners:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Consumer | IntakeConfirmedEventConsumer | Escuchar, dentro del mismo proceso, el evento de dominio `IntakeConfirmed` publicado por Ejecución de tomas para descontar una unidad del stock |
+
+El registro inicial del inventario (US-40) no se modela como reacción automática a un evento de Gestión del tratamiento, sino como una acción explícita del familiar sobre un medicamento ya existente, tal como lo describe la historia de usuario; por ello `InventoryController` la expone directamente como comando y no como Consumer.
+
 #### 2.6.6.3. Application Layer
+
+**Sub-capa Internal - CommandServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| CommandHandler | RegisterInitialInventoryCommandHandler | Registrar la cantidad disponible inicial de un medicamento (US-40) |
+| CommandHandler | RegisterReplenishmentCommandHandler | Registrar una reposición y el lote incorporado (US-43) |
+| CommandHandler | ConsumeUnitCommandHandler | Descontar una unidad del stock tras una toma confirmada (invocado internamente) |
+
+**Sub-capa Internal - QueryServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| QueryHandler | GetRemainingStockQueryHandler | Consultar el stock restante y la estimación de días de disponibilidad (US-41) |
+
+**Sub-capa Internal - EventServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| EventHandler | IntakeConfirmedEventHandler | Traducir el evento consumido en un ConsumeUnitCommand |
+
+**Sub-capa Internal - OutboundServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Service | IDomainEventPublisher | Puerto para publicar `LowStockDetected` (US-42), consumido por Seguimiento familiar para generar el aviso al familiar, y `ReplenishmentRegistered`, consumido por Ejecución de tomas para mantener actualizada la planificación de futuras tomas (sección 2.5.1.2, "Reposición y continuidad del tratamiento") |
 
 #### 2.6.6.4. Infrastructure Layer
 
+**Sub-capa Persistence (PostgreSQL):**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Repository | InventoryRepository | Implementación de IInventoryRepository (Spring Data JPA); persiste Inventory junto con sus Batch en la base de datos PostgreSQL central |
+
+**Sub-capa Domain Events:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Listener | IntakeConfirmedEventListener | Registra `IntakeConfirmedEventConsumer` como manejador del evento en memoria publicado por Ejecución de tomas (por ejemplo, mediante `@EventListener` de Spring) |
+| Publisher | InventoryDomainEventPublisher | Implementación de IDomainEventPublisher; publica `LowStockDetected` (hacia Seguimiento familiar) y `ReplenishmentRegistered` (hacia Ejecución de tomas) dentro del mismo proceso |
+
 #### 2.6.6.5. Bounded Context Software Architecture Component Level Diagrams
+
+El diagrama representa la descomposición interna del módulo **Inventory & Replenishment BC** dentro del container Backend, mostrando cómo `InventoryController` recibe peticiones enrutadas por el API Gateway, cómo `IntakeConfirmedEventListener` activa el Consumer, el EventHandler y los Command Handlers de Application, cómo estos operan sobre el agregado `Inventory` (capa Domain) a través de `InventoryRepository`, y la publicación en memoria de `LowStockDetected` (hacia Seguimiento familiar) y `ReplenishmentRegistered` (hacia Ejecución de tomas).
+
+![Component Diagram de Inventario y reposición](assets/bcinventory&replenishment.png)
+
+*Figura. Component Diagram (C4 Nivel 3) del Bounded Context Inventario y reposición.*
 
 #### 2.6.6.6. Bounded Context Software Architecture Code Level Diagrams
 
 ##### 2.6.6.6.1. Bounded Context Domain Layer Class Diagrams
 
+El diagrama de clases del Domain Layer muestra a `Inventory` como aggregate root en una relación de composición (1 a 0..*) con la entidad `Batch`, y su dependencia sobre el Value Object `StockLevel` para determinar el estado de stock bajo. Se incluyen también la interfaz `IInventoryRepository`, que gestiona la persistencia del agregado, y `InventoryFactory`, responsable de crear un nuevo registro de inventario en cero.
+
+![Class Diagram del Domain Layer de Inventario y reposición](assets/inventory&replenishmentPlantUML.png)
+
+*Figura. Domain Layer Class Diagram del Bounded Context Inventario y reposición.*
+
 ##### 2.6.6.6.2. Bounded Context Database Design Diagram
+
+Igual que en Gestión del tratamiento, `medication_id` se conserva como referencia lógica (sin FK física) hacia la tabla MEDICATIONS de ese Bounded Context, ya que ambos módulos comparten la misma instancia de PostgreSQL pero mantienen sus esquemas lógicamente separados.
+
+![Database Design Diagram de Inventario y reposición](assets/inventory&replensishmentDBmodel.png)
+
+*Figura. Database Design Diagram del Bounded Context Inventario y reposición.*
+
+**INVENTORIES**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del registro de inventario |
+| medication_id | Referencia lógica al medicamento en Gestión del tratamiento (sin FK física) |
+| remaining_stock | Unidades disponibles actualmente |
+| replenishment_threshold | Umbral mínimo que dispara el aviso de stock bajo |
+| created_at / updated_at | Fechas de auditoría |
+
+**BATCHES**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del lote |
+| inventory_id (FK → INVENTORIES.id) | Inventario al que pertenece el lote |
+| quantity | Unidades incorporadas en el lote |
+| registered_at | Fecha de registro de la reposición |
+
+Relación: INVENTORIES (1) - (N) BATCHES.
 
 
 ### 2.6.7. Bounded Context: Seguimiento familiar
