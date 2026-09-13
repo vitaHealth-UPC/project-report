@@ -2227,20 +2227,172 @@ Esta configuración permite que la Landing Page, al ser un sitio estático, esca
 
 ## 2.6. Tactical-Level Domain-Driven Design
 
-### 2.6.x. Bounded Context: <Bounded Context Name>
+### 2.6.1. Bounded Context: Ejecución de tomas
 
-#### 2.6.x.1. Domain Layer
+#### 2.6.1.1. Domain Layer
 
-#### 2.6.x.2. Interface Layer
+#### 2.6.1.2. Interface Layer
 
-#### 2.6.x.3. Application Layer
+#### 2.6.1.3. Application Layer
 
-#### 2.6.x.4 Infrastructure Layer
+#### 2.6.1.4. Infrastructure Layer
 
-#### 2.6.x.5. Bounded Context Software Architecture Component Level Diagrams
+#### 2.6.1.5. Bounded Context Software Architecture Component Level Diagrams
 
-#### 2.6.x.6. Bounded Context Software Architecture Code Level Diagrams
+#### 2.6.1.6. Bounded Context Software Architecture Code Level Diagrams
 
-##### 2.6.x.6.1. Bounded Context Domain Layer Class Diagrams
+##### 2.6.1.6.1. Bounded Context Domain Layer Class Diagrams
 
-##### 2.6.x.6.2. Bounded Context Database Design Diagram
+##### 2.6.1.6.2. Bounded Context Database Design Diagram
+
+
+### 2.6.2. Bounded Context: Analítica de adherencia
+
+#### 2.6.2.1. Domain Layer
+
+#### 2.6.2.2. Interface Layer
+
+#### 2.6.2.3. Application Layer
+
+#### 2.6.2.4. Infrastructure Layer
+
+#### 2.6.2.5. Bounded Context Software Architecture Component Level Diagrams
+
+#### 2.6.2.6. Bounded Context Software Architecture Code Level Diagrams
+
+##### 2.6.2.6.1. Bounded Context Domain Layer Class Diagrams
+
+##### 2.6.2.6.2. Bounded Context Database Design Diagram
+
+
+### 2.6.3. Bounded Context: Identidad y suscripción
+
+#### 2.6.3.1. Domain Layer
+
+#### 2.6.3.2. Interface Layer
+
+#### 2.6.3.3. Application Layer
+
+#### 2.6.3.4. Infrastructure Layer
+
+#### 2.6.3.5. Bounded Context Software Architecture Component Level Diagrams
+
+#### 2.6.3.6. Bounded Context Software Architecture Code Level Diagrams
+
+##### 2.6.3.6.1. Bounded Context Domain Layer Class Diagrams
+
+##### 2.6.3.6.2. Bounded Context Database Design Diagram
+
+
+### 2.6.4. Bounded Context: Vínculo de cuidado
+
+#### 2.6.4.1. Domain Layer
+
+#### 2.6.4.2. Interface Layer
+
+#### 2.6.4.3. Application Layer
+
+#### 2.6.4.4. Infrastructure Layer
+
+#### 2.6.4.5. Bounded Context Software Architecture Component Level Diagrams
+
+#### 2.6.4.6. Bounded Context Software Architecture Code Level Diagrams
+
+##### 2.6.4.6.1. Bounded Context Domain Layer Class Diagrams
+
+##### 2.6.4.6.2. Bounded Context Database Design Diagram
+
+
+### 2.6.5. Bounded Context: Gestión del tratamiento
+
+#### 2.6.5.1. Domain Layer
+
+#### 2.6.5.2. Interface Layer
+
+#### 2.6.5.3. Application Layer
+
+#### 2.6.5.4. Infrastructure Layer
+
+#### 2.6.5.5. Bounded Context Software Architecture Component Level Diagrams
+
+#### 2.6.5.6. Bounded Context Software Architecture Code Level Diagrams
+
+##### 2.6.5.6.1. Bounded Context Domain Layer Class Diagrams
+
+##### 2.6.5.6.2. Bounded Context Database Design Diagram
+
+
+### 2.6.6. Bounded Context: Inventario y reposición
+
+#### 2.6.6.1. Domain Layer
+
+#### 2.6.6.2. Interface Layer
+
+#### 2.6.6.3. Application Layer
+
+#### 2.6.6.4. Infrastructure Layer
+
+#### 2.6.6.5. Bounded Context Software Architecture Component Level Diagrams
+
+#### 2.6.6.6. Bounded Context Software Architecture Code Level Diagrams
+
+##### 2.6.6.6.1. Bounded Context Domain Layer Class Diagrams
+
+##### 2.6.6.6.2. Bounded Context Database Design Diagram
+
+
+### 2.6.7. Bounded Context: Seguimiento familiar
+
+#### 2.6.7.1. Domain Layer
+
+#### 2.6.7.2. Interface Layer
+
+#### 2.6.7.3. Application Layer
+
+#### 2.6.7.4. Infrastructure Layer
+
+#### 2.6.7.5. Bounded Context Software Architecture Component Level Diagrams
+
+#### 2.6.7.6. Bounded Context Software Architecture Code Level Diagrams
+
+##### 2.6.7.6.1. Bounded Context Domain Layer Class Diagrams
+
+##### 2.6.7.6.2. Bounded Context Database Design Diagram
+
+
+### 2.6.8. Bounded Context: Accesibilidad y preferencias
+
+#### 2.6.8.1. Domain Layer
+
+#### 2.6.8.2. Interface Layer
+
+#### 2.6.8.3. Application Layer
+
+#### 2.6.8.4. Infrastructure Layer
+
+#### 2.6.8.5. Bounded Context Software Architecture Component Level Diagrams
+
+#### 2.6.8.6. Bounded Context Software Architecture Code Level Diagrams
+
+##### 2.6.8.6.1. Bounded Context Domain Layer Class Diagrams
+
+##### 2.6.8.6.2. Bounded Context Database Design Diagram
+
+
+### 2.6.9. Bounded Context: Omisión y escalamiento
+
+#### 2.6.9.1. Domain Layer
+
+#### 2.6.9.2. Interface Layer
+
+#### 2.6.9.3. Application Layer
+
+#### 2.6.9.4. Infrastructure Layer
+
+#### 2.6.9.5. Bounded Context Software Architecture Component Level Diagrams
+
+#### 2.6.9.6. Bounded Context Software Architecture Code Level Diagrams
+
+##### 2.6.9.6.1. Bounded Context Domain Layer Class Diagrams
+
+##### 2.6.9.6.2. Bounded Context Database Design Diagram
