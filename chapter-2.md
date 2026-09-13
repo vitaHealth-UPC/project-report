@@ -384,7 +384,7 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
     </tr>
     <tr>
       <td colspan="4" align="center">
-        <img src="assets/interviews/segmento-2-entrevista-1.png" alt="Entrevista del segmento 2, participante 1" width="900">
+        <img src="assets/segmento-2-valeri-rojas.png" alt="Entrevista del segmento 2, participante 1" width="900">
       </td>
     </tr>
     <tr>
@@ -393,39 +393,41 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
     </tr>
     <tr>
       <td><strong>Nombre completo</strong></td>
-      <td>[pendiente]</td>
+      <td>Valeri Rojas</td>
       <td><strong>Adulto mayor acompañado</strong></td>
-      <td>[pendiente]</td>
+      <td>Abuela (enfermedad: diabetes)</td>
     </tr>
     <tr>
       <td><strong>Edad</strong></td>
-      <td>[pendiente]</td>
+      <td>22 años</td>
       <td><strong>Frecuencia de contacto</strong></td>
-      <td>[pendiente]</td>
+      <td>Diaria (vive en el mismo hogar que su abuela)</td>
     </tr>
     <tr>
       <td><strong>Distrito</strong></td>
-      <td>[pendiente]</td>
+      <td>Los Olivos</td>
       <td><strong>Seguimiento actual</strong></td>
-      <td>[pendiente]</td>
+      <td>Le pregunta directamente si ya tomó sus medicamentos; si no está en casa, la llama para verificar. Dedica en promedio 10 minutos a la semana a este seguimiento.</td>
     </tr>
     <tr>
       <td><strong>Ocupación</strong></td>
-      <td>[pendiente]</td>
+      <td>Estudiante universitaria</td>
       <td><strong>Contexto digital</strong></td>
-      <td>[pendiente]</td>
+      <td>Usa habitualmente WhatsApp, Instagram y TikTok. Nunca ha usado una app específica para el cuidado de un familiar; se siente cómoda configurando alertas y notificaciones en apps móviles. Su abuela no usa WhatsApp, solo llamadas.</td>
     </tr>
     <tr>
-      <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
+      <td colspan="2"><strong>Duración:</strong>4:50</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://example.com/segmento-2-entrevista-1">Ver video</a>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQAGYnZf_FOeSpr13EuOgvBGAW-DLQJ_IvvwJbMMOnjjoEE?e=2l9JH8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">Ver video</a>
       </td>
     </tr>
     <tr>
       <td colspan="4">
         <strong>Resumen de la entrevista</strong>
-        <p>[pendiente]</p>
+        <p>
+          Valeri (22 años, estudiante universitaria, distrito de Los Olivos) vive con sus padres y su abuela, quien tiene diabetes y requiere seguimiento constante de su medicación. Al vivir juntas, la ve y conversa con ella todos los días, y su método actual de seguimiento es preguntarle directamente si ya tomó sus medicamentos o, si no está en casa, llamarla para confirmarlo. Este seguimiento le toma en promedio unos 10 minutos a la semana. Relató un episodio en el que la familia asumió que su abuelita ya había tomado el medicamento y luego se dieron cuenta de que no fue así, lo que generó preocupación y llevó a reforzar las indicaciones del doctor. Su principal fuente de ansiedad es no enterarse a tiempo cuando está fuera de casa y su abuelita olvida tomar la medicación, dado que está relacionada a su condición de diabetes. En cuanto a contexto digital, usa a diario WhatsApp, Instagram y TikTok, nunca ha probado una aplicación de cuidado familiar, y se siente cómoda configurando alertas o notificaciones. Como funcionalidad ideal, mencionó que le gustaría recibir un aviso cuando su abuelita ya tomó sus medicamentos y una alerta si se olvida o se retrasa, señalando que esto sería especialmente útil porque su abuelita no usa WhatsApp, solo llamadas.
+        </p>
       </td>
     </tr>
   </tbody>
@@ -2180,11 +2182,48 @@ En conjunto, la mayoría de las colaboraciones entre contextos internos de Tata 
 
 ### 2.5.3. Software Architecture
 
+En esta sección el equipo presenta y explica la representación de la arquitectura de software de Tata mediante **C4 Model**, utilizando **Structurizr DSL** como herramienta de Diagram-as-Code. El objetivo es mostrar, de forma progresiva y en distintos niveles de abstracción, cómo el sistema se relaciona con sus usuarios y sistemas externos (Context), cómo se descompone en aplicaciones y servicios desplegables (Container) y cómo estos se distribuyen físicamente en la infraestructura (Deployment).
+
+Las decisiones de arquitectura reflejan directamente los resultados del Context Mapping (sección 2.5.2): los nueve Bounded Contexts candidatos se materializan como servicios backend independientes que colaboran mediante un API Gateway y un bus de mensajes, mientras que las integraciones con sistemas externos (reconocimiento de voz, notificaciones push y correo) se mantienen aisladas mediante el patrón Anti-Corruption Layer ya definido a nivel estratégico.
+
+El archivo fuente completo en Structurizr DSL se encuentra documentado como artefacto del proyecto en el repositorio del equipo.
+
 #### 2.5.3.1. Software Architecture Context Level Diagrams
+
+El **Context Diagram** (C4 Nivel 1) muestra a Tata como una única caja negra, rodeada de los actores y sistemas externos con los que interactúa, sin exponer todavía su estructura interna. Este nivel permite comunicar el alcance del sistema a una audiencia no técnica.
+
+Los actores identificados son el **Familiar/Cuidador**, quien configura tratamientos y monitorea el estado del adulto mayor; el **Adulto Mayor**, quien consulta su agenda y confirma sus tomas; y el **Visitante**, quien navega el Landing Page para conocer la propuesta de valor de Tata. Los sistemas externos considerados son el **Servicio de Notificaciones Push** (para recordatorios y alertas), el **Servicio de Reconocimiento de Voz** (para validar confirmaciones habladas) y el **Servicio de Correo** (para la verificación de cuentas).
+
+![Context Diagram de Tata](assets/context.png)
+
+*Figura. Software Architecture Context Level Diagram de Tata (C4 Nivel 1).*
+
+El diagrama evidencia que, si bien Tata concentra la lógica del negocio, depende de tres integraciones externas críticas para cumplir su propuesta de valor: sin el servicio de notificaciones push no sería posible entregar recordatorios ni alertas al familiar, y sin el servicio de reconocimiento de voz no sería posible ofrecer la confirmación accesible por voz que constituye uno de los diferenciadores frente a la competencia (ver sección 2.1).
 
 #### 2.5.3.2. Software Architecture Container Level Diagrams
 
+El **Container Diagram** (C4 Nivel 2) descompone a Tata en las aplicaciones y servicios desplegables que lo conforman, mostrando sus responsabilidades, la tecnología elegida para cada uno y cómo se comunican entre sí. Cada Container corresponde, en su mayoría, a uno de los Bounded Contexts identificados en el Candidate Context Discovery (sección 2.5.1.1), lo que mantiene la trazabilidad entre el diseño estratégico y la arquitectura de software.
+
+Se definieron los siguientes contenedores: **Landing Page** (sitio estático), **Mobile App** (aplicación única con vistas diferenciadas para el familiar y el adulto mayor), un **API Gateway** como punto de entrada único, nueve **servicios backend** — uno por Bounded Context —, una **base de datos** relacional compartida y un **bus de mensajes** para la comunicación asíncrona entre servicios (por ejemplo, la publicación de *Toma confirmada* o *Toma no confirmada* que consumen Omisión y escalamiento, Analítica de adherencia y Seguimiento familiar).
+
+![Container Diagram de Tata](assets/container.png)
+
+*Figura. Software Architecture Container Level Diagram de Tata (C4 Nivel 2).*
+
+Como decisión de tecnología, el **API Gateway** centraliza el enrutamiento hacia los nueve servicios, evitando que la Mobile App conozca la ubicación interna de cada uno. La comunicación entre servicios ante eventos de dominio (como una toma confirmada u omitida) se realiza de forma asíncrona mediante el **bus de mensajes**, lo cual es coherente con la relación **Customer/Supplier** definida en el Context Mapping (sección 2.5.2): el servicio productor del evento no necesita conocer a sus consumidores. Se identifica **Family Monitoring Service** con acceso de solo lectura a la base de datos, reflejando su rol **Conformist** frente a los contextos que sí poseen las reglas de negocio.
+
 #### 2.5.3.3. Software Architecture Deployment Diagrams
+
+El **Deployment Diagram** muestra la distribución física de los contenedores sobre la infraestructura de despliegue: dónde se aloja cada aplicación, qué proveedor cloud se utiliza y cómo se relacionan los nodos de hardware/plataforma entre sí. Este nivel de detalle no requiere ser exhaustivo para un proyecto académico, pero sí debe evidenciar los entornos considerados para producción.
+
+Para Tata se definió un entorno de **Producción** sobre **AWS**: el Landing Page se despliega en un servicio de hosting estático con CDN, la Mobile App se distribuye a través de Firebase App Distribution / las tiendas de aplicaciones hacia el dispositivo del usuario, los nueve servicios backend y el API Gateway se despliegan como pods dentro de un clúster de **Amazon EKS (Kubernetes)**, la base de datos utiliza **Amazon RDS (PostgreSQL)** y el bus de mensajes se aloja en **Amazon MQ (RabbitMQ)**.
+
+![Deployment Diagram de Tata](assets/deployment.png)
+
+*Figura. Software Architecture Deployment Diagram de Tata.*
+
+Esta configuración permite que la Landing Page, al ser un sitio estático, escale de forma independiente mediante CDN sin afectar el backend. El uso de un clúster de Kubernetes para los nueve servicios facilita el escalamiento independiente de cada Bounded Context por ejemplo, ante picos de tráfico en **Intake Execution Service** durante las horas de mayor concentración de tomas programadas sin necesidad de escalar la totalidad del sistema. Asimismo, aislar la base de datos en Amazon RDS y el bus de mensajes en Amazon MQ como servicios administrados reduce la carga operativa del equipo y refuerza la separación entre la lógica de negocio y la infraestructura de persistencia y mensajería.
+
 
 ## 2.6. Tactical-Level Domain-Driven Design
 
