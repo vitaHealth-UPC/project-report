@@ -42,7 +42,7 @@ Plataforma de coordinación de cuidado familiar que integra listas de tareas, ca
   </tr>
 
   <tr>
-    <td colspan="2"><b>Overview — Perfil</b></td>
+    <td colspan="2"><b>Overview  Perfil</b></td>
     <td>Aplicación móvil enfocada en la adherencia a medicamentos para adultos mayores con baja alfabetización digital, mediante confirmación por voz o un solo toque, y un panel de monitoreo en tiempo real para la familia.</td>
     <td>Aplicación de recordatorio de medicación con función de alerta al cuidador (Medfriend) ante dosis omitidas.</td>
     <td>Aplicación gratuita de recordatorio de medicación y diario de salud, sin foco específico en cuidadores remotos.</td>
@@ -153,7 +153,7 @@ El diseño busca recolectar información de ambos segmentos sobre:
 
 ---
 
-#### Guía de entrevista — Segmento Adulto Mayor
+#### Guía de entrevista - Segmento Adulto Mayor
 
 **Preguntas demográficas y de contexto** <br>
 **1.** ¿Podría contarme un poco sobre usted: su edad, distrito donde vive y con quién vive actualmente? <br>
@@ -176,7 +176,7 @@ El diseño busca recolectar información de ambos segmentos sobre:
 
 ---
 
-#### Guía de entrevista — Segmento Familiar
+#### Guía de entrevista - Segmento Familiar
 
 **Preguntas demográficas y de contexto** <br>
 **1.** ¿Podría contarme sobre usted: edad, distrito donde vive, ocupación y composición de su familia? <br>
@@ -259,7 +259,7 @@ Este segmento está conformado por adultos mayores que siguen uno o más tratami
         <p>Es hipertenso y toma losartán en la mañana y amlodipino en la tarde; adicionalmente maneja dolor de columna con celecoxib 200mg ante episodios de dolor, y atorvastatina para el control del colesterol. No cuenta con un método fijo de recordatorio: sigue una rutina informal asociada a los momentos del día, pero reconoce olvidarse con frecuencia de si ya tomó una dosis, dándose cuenta generalmente solo cuando aparecen síntomas físicos (dolor de cabeza asociado al antihipertensivo, mareos asociados a la atorvastatina).</p>
         <p>El apoyo familiar existente es esporádico: su hijo lo llama o le escribe ocasionalmente para recordarle tomar su medicación, pero sin una frecuencia constante debido a sus propias responsabilidades laborales y familiares. Manuel expresa que, al vivir solo, no existe alguien presente que note si algo sale mal.</p>
         <p>En cuanto a tecnología, usa un smartphone gama media (Honor) y limita su uso principalmente a WhatsApp y Facebook para comunicarse con familiares y conocidos. Utiliza aplicaciones de pago de servicios (agua, luz, teléfono) por necesidad, pero evita explorar aplicaciones nuevas que perciba como complejas. No ha usado comandos de voz personalmente, pero los conoce por observar a personas más jóvenes de su entorno, y expresa una actitud favorable hacia esta forma de interacción, ya que la percibe como más práctica que escribir.</p>
-        <p>Su principal preocupación de salud es sufrir un evento grave (menciona explícitamente el riesgo de un infarto) por no medicarse correctamente mientras vive solo, sin nadie que lo note a tiempo. Señala además la preocupación de convertirse en una carga para su familia. Como necesidad ideal, describe un mecanismo de aviso simple —lo compara con un timbre— que no dependa de la disponibilidad de un familiar para recordarle su medicación.</p>
+        <p>Su principal preocupación de salud es sufrir un evento grave (menciona explícitamente el riesgo de un infarto) por no medicarse correctamente mientras vive solo, sin nadie que lo note a tiempo. Señala además la preocupación de convertirse en una carga para su familia. Como necesidad ideal, describe un mecanismo de aviso simple lo compara con un timbre que no dependa de la disponibilidad de un familiar para recordarle su medicación.</p>
       </td>
     </tr>
   </tbody>
