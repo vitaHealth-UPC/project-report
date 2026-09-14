@@ -651,10 +651,10 @@ Las características fueron clasificadas como objetivas o subjetivas y su recurr
   </thead>
   <tbody>
     <tr>
-      <td>Entrevista N.° 1</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Entrevista N.° 1: Valeri Rojas</td>
+      <td>22 años, vive en Los Olivos con sus padres y su abuela (con diabetes), estudiante universitaria. Vive en el mismo hogar que su abuela y la ve/conversa con ella todos los días.</td>
+      <td>Considera que preguntar directamente no siempre es suficiente: hubo una ocasión en que la familia asumió que su abuela ya había tomado el medicamento y luego se dieron cuenta de que no fue así. Valora recibir un aviso automático de la toma y una alerta ante olvidos o retrasos, sobre todo porque su abuela no usa WhatsApp, solo llamadas.</td>
+      <td>Incluso viviendo bajo el mismo techo, el seguimiento depende de la memoria y honestidad de las respuestas del adulto mayor, lo que puede generar falsas certezas sobre si la medicación fue tomada.</td>
     </tr>
     <tr>
       <td>Entrevista N.° 2: Sebastián Vásquez</td>
@@ -663,10 +663,10 @@ Las características fueron clasificadas como objetivas o subjetivas y su recurr
       <td>El seguimiento a distancia genera incertidumbre porque no existe un mecanismo confiable para conocer si la medicación fue cumplida.</td>
     </tr>
     <tr>
-      <td>Entrevista N.° 3</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Entrevista N.° 3: Marvi Alarcón</td>
+      <td>20 años, vive en Comas con sus padres y hermano, estudiante de Psicología. Acompaña a su abuela, a quien visita 2 o 3 veces al mes y contacta por llamada o mensaje el resto del tiempo.</td>
+      <td>Le genera ansiedad no saber si su abuela tomó correctamente sus medicamentos o si le ocurrió algo, sintiendo que al estar lejos no siempre puede reaccionar rápido. Cuando tiene dudas, recurre a otro familiar cercano para verificar. Preferiría una app de cuidado dedicada, simple y sin demasiadas opciones.</td>
+      <td>La distancia física alarga el tiempo de reacción ante un posible olvido y obliga a depender de terceros para confirmar la toma, generando incertidumbre prolongada.</td>
     </tr>
   </tbody>
 </table>
