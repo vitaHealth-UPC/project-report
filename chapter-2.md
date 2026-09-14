@@ -2978,18 +2978,172 @@ Relación: USER_PREFERENCES (1) - (N) USER_NOTIFICATION_CHANNELS.
 
 ### 2.6.9. Bounded Context: Omisión y escalamiento
 
+El Bounded Context **Omisión y escalamiento** (**Omission & Escalation BC**) administra el flujo excepcional que se inicia cuando una toma permanece sin confirmación después de la ventana inicial definida por Ejecución de tomas. Se implementa como un módulo dentro del backend único de Tata y concentra las reglas relacionadas con el periodo de tolerancia, el recordatorio reforzado, el registro definitivo de la omisión, la generación de alertas y el escalamiento cuando la situación continúa sin resolverse.
+
+Su responsabilidad comienza al recibir el evento `IntakeUnconfirmed` publicado por Ejecución de tomas. A partir de este evento se abre un `OmissionCase` en estado pendiente y se establece el `GracePeriod`. Si la toma es confirmada mientras la tolerancia continúa vigente, el caso se resuelve sin registrar una omisión. Si el periodo permitido finaliza sin confirmación, el contexto registra la omisión, genera la alerta correspondiente y publica los resultados necesarios para Analítica de adherencia y Seguimiento familiar. La entrega de recordatorios y alertas se realiza mediante un Anti-Corruption Layer hacia el servicio externo de notificaciones push, mientras que las preferencias de canal y horario se consultan desde Accesibilidad y preferencias mediante los conceptos compartidos definidos en el Shared Kernel.
+
 #### 2.6.9.1. Domain Layer
+
+**Sub-capa Model - Aggregates:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Aggregate Root | OmissionCase | Mantener el ciclo de vida de una toma no confirmada desde la apertura del periodo de tolerancia hasta su resolución, omisión, escalamiento o cierre | `id`, `intakeId`, `olderAdultId`, `status`, `gracePeriod`, `reinforcedReminderSentAt`, `omittedAt`, `alerts: List<CareAlert>`, `escalations: List<EscalationRecord>` - `markReminderSent()`, `resolve()`, `markOmitted()`, `addAlert()`, `escalate()`, `close()`, `isGraceExpired()` | Referencia la toma y al adulto mayor mediante identificadores lógicos; contiene CareAlert y EscalationRecord |
+| Entity | CareAlert | Representar una alerta generada a partir de una omisión y conservar el resultado de su entrega | `id`, `status`, `generatedAt`, `sentAt`, `failureReason` - `markSent()`, `markFailed()` | Entidad hija de OmissionCase; su generación se comunica a Seguimiento familiar |
+| Entity | EscalationRecord | Registrar cada incremento del nivel de atención aplicado a un caso de omisión | `id`, `level`, `reason`, `triggeredAt` | Entidad hija de OmissionCase; conserva el historial de escalamiento |
+
+**Sub-capa Model - Value Objects:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Value Object | GracePeriod | Encapsular el intervalo adicional durante el cual una toma puede confirmarse antes de considerarse omitida | `startsAt`, `endsAt` - `isActive(now)`, `isExpired(now)` | Usado dentro de OmissionCase |
+| Value Object | EscalationLevel | Encapsular el nivel de atención alcanzado por un caso | `value` - `next()` | Usado por OmissionCase y EscalationPolicy |
+| Enumeration | OmissionCaseStatus | Representar el estado del caso | `PENDING`, `RESOLVED`, `OMITTED`, `ESCALATED`, `CLOSED` | Controla las transiciones de OmissionCase |
+| Enumeration | AlertStatus | Representar el estado de entrega de una alerta | `GENERATED`, `SENT`, `FAILED` | Usado por CareAlert |
+
+**Sub-capa Services y Repositories:**
+
+| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Factory | OmissionCaseFactory | Crear un caso pendiente a partir de una toma no confirmada y el periodo de tolerancia configurado | `createPending(intakeId, olderAdultId, gracePeriod): OmissionCase` | Usado por OpenOmissionCaseCommandHandler |
+| Domain Service | EscalationPolicy | Determinar si un caso debe incrementar su nivel de atención de acuerdo con su estado y el tiempo transcurrido | `shouldEscalate(omissionCase, now): boolean` | Consultado por EscalateOmissionCommandHandler |
+| Interface | IOmissionCaseRepository | Contrato de persistencia del agregado OmissionCase | `save(case)`, `findByIntakeId(id): OmissionCase`, `findExpiredPending(now): List<OmissionCase>` | Implementado en Infrastructure |
+| Interface | INotificationPreferencesPort | Recuperar las preferencias necesarias para decidir el canal y las restricciones de envío | `getPreferences(userId): NotificationPreferences` | Implementado en Infrastructure; consulta Accesibilidad y preferencias dentro del mismo proceso y reutiliza los conceptos compartidos del Shared Kernel |
 
 #### 2.6.9.2. Interface Layer
 
+**Sub-capa Domain Event Listeners:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Consumer | IntakeUnconfirmedEventConsumer | Escuchar el evento `IntakeUnconfirmed` publicado por Ejecución de tomas e iniciar el flujo de omisión |
+| Consumer | IntakeConfirmedEventConsumer | Escuchar `IntakeConfirmed` para resolver un caso pendiente cuando la confirmación ocurre durante el periodo de tolerancia |
+
+Este Bounded Context no requiere Controllers REST directos en la versión actual. El flujo principal es automático y se activa mediante eventos internos provenientes de Ejecución de tomas y mediante el proceso programado que evalúa los casos pendientes. Por ello, el API Gateway no necesita exponer una operación de usuario específica hacia este módulo.
+
 #### 2.6.9.3. Application Layer
+
+**Sub-capa Internal - CommandServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| CommandHandler | OpenOmissionCaseCommandHandler | Crear un OmissionCase al recibir una toma no confirmada e iniciar el periodo de tolerancia (TS-05) |
+| CommandHandler | SendReinforcedReminderCommandHandler | Solicitar un recordatorio reforzado mientras la toma permanece pendiente (US-22) |
+| CommandHandler | ResolveOmissionCaseCommandHandler | Resolver el caso si Ejecución de tomas informa una confirmación válida durante la tolerancia (US-23) |
+| CommandHandler | EvaluateGracePeriodCommandHandler | Evaluar de forma idempotente los casos cuyo periodo de tolerancia puede haber vencido (TS-05) |
+| CommandHandler | RegisterOmissionCommandHandler | Marcar el caso como omitido cuando finaliza el periodo permitido sin confirmación (TS-05) |
+| CommandHandler | GenerateCaregiverAlertCommandHandler | Crear la alerta del caso y solicitar su entrega al familiar o cuidador (TS-05, TS-06) |
+| CommandHandler | EscalateOmissionCommandHandler | Incrementar el nivel de atención cuando EscalationPolicy determina que la situación debe escalar |
+| CommandHandler | CloseOmissionCaseCommandHandler | Cerrar el caso después de completar las acciones previstas sin eliminar su historial |
+
+**Sub-capa Internal - EventServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| EventHandler | IntakeUnconfirmedEventHandler | Traducir `IntakeUnconfirmed` en la apertura de un caso y la programación del recordatorio reforzado |
+| EventHandler | IntakeConfirmedEventHandler | Traducir `IntakeConfirmed` en la resolución del caso pendiente correspondiente |
+
+**Sub-capa Internal - OutboundServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Service | INotificationPort | Puerto para solicitar el envío de recordatorios reforzados y alertas sin acoplar la aplicación al proveedor externo |
+| Service | IDomainEventPublisher | Puerto para publicar dentro del mismo proceso los eventos `IntakeOmitted`, `CaregiverAlertGenerated` y `EscalationExecuted`; `IntakeOmitted` es consumido por Analítica de adherencia y Seguimiento familiar |
 
 #### 2.6.9.4. Infrastructure Layer
 
+**Sub-capa Persistence (PostgreSQL):**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Repository | OmissionCaseRepository | Implementación de IOmissionCaseRepository mediante Spring Data JPA; persiste OmissionCase junto con CareAlert y EscalationRecord en la base de datos PostgreSQL central |
+
+**Sub-capa Module Adapters:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Adapter | NotificationPreferencesAdapter | Implementación de INotificationPreferencesPort; consulta directamente la interfaz pública de Accesibilidad y preferencias dentro del mismo proceso y conserva los conceptos compartidos del Shared Kernel |
+
+**Sub-capa External Services:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Adapter | PushNotificationAdapter | Implementación de INotificationPort; actúa como Anti-Corruption Layer frente al proveedor externo de notificaciones push y registra el resultado del envío sin interrumpir el proceso principal (TS-06) |
+
+**Sub-capa Scheduled Processing:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Scheduler | OmissionEvaluationScheduler | Ejecutar periódicamente la evaluación de casos pendientes y activar EvaluateGracePeriodCommandHandler de forma idempotente (TS-05) |
+
+**Sub-capa Domain Events:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Listener | IntakeUnconfirmedEventListener | Registra IntakeUnconfirmedEventConsumer como manejador del evento en memoria publicado por Ejecución de tomas |
+| Listener | IntakeConfirmedEventListener | Registra IntakeConfirmedEventConsumer para resolver casos pendientes cuando una toma se confirma dentro de la tolerancia |
+| Publisher | OmissionDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `IntakeOmitted`, `CaregiverAlertGenerated` y `EscalationExecuted` para los módulos interesados |
+
 #### 2.6.9.5. Bounded Context Software Architecture Component Level Diagrams
+
+El diagrama representa la descomposición interna del módulo **Omission & Escalation BC** dentro del container Backend. `IntakeUnconfirmedEventListener` e `IntakeConfirmedEventListener` reciben los eventos publicados por Ejecución de tomas y activan sus Consumers y EventHandlers correspondientes. `OmissionEvaluationScheduler` ejecuta la evaluación periódica de los casos pendientes. Los Command Handlers operan sobre el agregado `OmissionCase` mediante `OmissionCaseRepository`, consultan las preferencias de notificación mediante `NotificationPreferencesAdapter`, solicitan los envíos a través de `PushNotificationAdapter` y publican en memoria `IntakeOmitted`, `CaregiverAlertGenerated` y `EscalationExecuted` para Analítica de adherencia y Seguimiento familiar.
+
+![Component Diagram de Omisión y escalamiento](assets/bcomission&escalation.png)
+
+*Figura. Component Diagram (C4 Nivel 3) del Bounded Context Omisión y escalamiento.*
 
 #### 2.6.9.6. Bounded Context Software Architecture Code Level Diagrams
 
 ##### 2.6.9.6.1. Bounded Context Domain Layer Class Diagrams
 
+El diagrama de clases del Domain Layer muestra a `OmissionCase` como aggregate root en relaciones de composición (1 a 0..*) con las entidades `CareAlert` y `EscalationRecord`. El agregado utiliza los Value Objects `GracePeriod` y `EscalationLevel`, así como las enumeraciones `OmissionCaseStatus` y `AlertStatus`, para controlar sus transiciones. Se incluyen además `IOmissionCaseRepository`, `INotificationPreferencesPort`, `EscalationPolicy` y `OmissionCaseFactory`, manteniendo las reglas del dominio independientes de la persistencia y de los proveedores externos.
+
+![Class Diagram del Domain Layer de Omisión y escalamiento](assets/omission&escalationPlantUML.png)
+
+*Figura. Domain Layer Class Diagram del Bounded Context Omisión y escalamiento.*
+
 ##### 2.6.9.6.2. Bounded Context Database Design Diagram
+
+Las referencias `intake_id` y `older_adult_id` se conservan como identificadores lógicos sin foreign keys físicas hacia Ejecución de tomas y Vínculo de cuidado. De esta manera, las tablas del Bounded Context mantienen el mismo criterio de aislamiento lógico aplicado por los demás módulos, aunque toda la solución utilice una misma instancia de PostgreSQL.
+
+![Database Design Diagram de Omisión y escalamiento](assets/omission&escalationDBmodel.png)
+
+*Figura. Database Design Diagram del Bounded Context Omisión y escalamiento.*
+
+**OMISSION_CASES**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del caso de omisión |
+| intake_id | Referencia lógica a la toma en Ejecución de tomas (sin FK física) |
+| older_adult_id | Referencia lógica al adulto mayor (sin FK física) |
+| status | Estado del caso: PENDING, RESOLVED, OMITTED, ESCALATED o CLOSED |
+| grace_started_at / grace_ends_at | Inicio y fin del periodo de tolerancia |
+| reinforced_reminder_sent_at | Fecha del recordatorio reforzado; nullable |
+| omitted_at | Fecha en la que se confirmó la omisión; nullable |
+| closed_at | Fecha de cierre del caso; nullable |
+| created_at / updated_at | Fechas de auditoría |
+
+**CARE_ALERTS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único de la alerta |
+| omission_case_id (FK → OMISSION_CASES.id) | Caso de omisión al que pertenece |
+| status | Estado de entrega: GENERATED, SENT o FAILED |
+| generated_at | Fecha de generación de la alerta |
+| sent_at | Fecha de entrega al proveedor; nullable |
+| failure_reason | Motivo del fallo de entrega cuando corresponda; nullable |
+
+**ESCALATION_RECORDS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del registro de escalamiento |
+| omission_case_id (FK → OMISSION_CASES.id) | Caso de omisión al que pertenece |
+| level | Nivel de escalamiento aplicado |
+| reason | Motivo que produjo el escalamiento |
+| triggered_at | Fecha en la que se ejecutó el escalamiento |
+
+Relaciones: OMISSION_CASES (1) - (N) CARE_ALERTS; OMISSION_CASES (1) - (N) ESCALATION_RECORDS.
+
