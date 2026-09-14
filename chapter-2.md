@@ -493,11 +493,11 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
 <table>
   <tbody>
     <tr>
-      <td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td>
+      <td colspan="4" align="center"><strong>Entrevista N.° 2</strong></td>
     </tr>
     <tr>
       <td colspan="4" align="center">
-        <img src="assets/interviews/segmento-2-entrevista-3.png" alt="Entrevista del segmento 2, participante 3" width="900">
+        <img src="assets/Entrevista-02.png" alt="Entrevista del segmento 2, participante 2" width="900">
       </td>
     </tr>
     <tr>
@@ -506,43 +506,46 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
     </tr>
     <tr>
       <td><strong>Nombre completo</strong></td>
-      <td>[pendiente]</td>
+      <td>Marvi Alarcón</td>
       <td><strong>Adulto mayor acompañado</strong></td>
-      <td>[pendiente]</td>
+      <td>Su abuela</td>
     </tr>
     <tr>
       <td><strong>Edad</strong></td>
-      <td>[pendiente]</td>
+      <td>20 años</td>
       <td><strong>Frecuencia de contacto</strong></td>
-      <td>[pendiente]</td>
+      <td>Aproximadamente 2 o 3 veces por mes en persona; cuando no puede visitarla se comunica por llamada o mensaje.</td>
     </tr>
     <tr>
       <td><strong>Distrito</strong></td>
-      <td>[pendiente]</td>
+      <td>Comas</td>
       <td><strong>Seguimiento actual</strong></td>
-      <td>[pendiente]</td>
+      <td>Le pregunta directamente por llamada o mensaje y trata de recordarle los horarios de medicación. Si no contesta o quedan dudas, contacta a otro familiar cercano para verificar. Dedica en promedio entre 1 y 2 horas a la semana a este seguimiento.</td>
     </tr>
     <tr>
       <td><strong>Ocupación</strong></td>
-      <td>[pendiente]</td>
+      <td>Estudiante de Psicología</td>
       <td><strong>Contexto digital</strong></td>
-      <td>[pendiente]</td>
+      <td>Usa habitualmente WhatsApp y llamadas para comunicarse con su familia, además de Instagram y YouTube. Nunca ha usado una app específica para el cuidado de un familiar; se siente cómoda configurando alarmas, recordatorios y notificaciones.</td>
     </tr>
     <tr>
-      <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
+      <td colspan="2"><strong>Duración:</strong> 05:00</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://example.com/segmento-2-entrevista-3">Ver video</a>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQDpr5ILeBtnSK32ysEfc-RAASL3mfonRwH_TXRCBz-wZF8?e=IYbQDm&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">Ver video</a>
       </td>
     </tr>
     <tr>
       <td colspan="4">
         <strong>Resumen de la entrevista</strong>
-        <p>[pendiente]</p>
+        <p>
+          Marvi (20 años, estudiante de Psicología, distrito de Comas) vive con sus padres y su hermano, mientras que su abuela vive en otro lugar. La visita aproximadamente 2 o 3 veces al mes y, cuando no puede hacerlo en persona, se comunica por llamada o mensaje. Su método actual de seguimiento es preguntarle directamente si tomó su medicación y recordarle los horarios; cuando no está segura o su abuela no contesta, contacta a otro familiar cercano para que verifique. Este seguimiento le toma entre 1 y 2 horas a la semana, dependiendo de cuántos medicamentos debe tomar su abuela. Relató un episodio en el que su abuela olvidó una dosis por estar realizando otras actividades, y ella se enteró varias horas después, lo que le generó preocupación al no saber cuánto tiempo había pasado, y tuvo que comunicarse con otro familiar para decidir qué hacer. En cuanto a contexto digital, usa WhatsApp y llamadas para hablar con su familia, además de Instagram y YouTube para otros fines; nunca ha usado una aplicación de cuidado familiar, pero se siente cómoda configurando alarmas, recordatorios y notificaciones, y preferiría una app de cuidado dedicada que sea sencilla y sin demasiadas opciones. Su principal fuente de ansiedad es no saber si su abuela tomó correctamente sus medicamentos o si le ocurrió algo, ya que al estar lejos siente que no siempre puede reaccionar rápidamente. Como funcionalidad ideal, mencionó que le gustaría que la app le avise si su familiar tomó o no el medicamento en el horario establecido, y que le llegue una alerta cuando se olvide de tomarlo, para poder saber rápidamente si todo está bien.
+        </p>
       </td>
     </tr>
   </tbody>
 </table>
+
 
 ### 2.2.3. Análisis de entrevistas
 
