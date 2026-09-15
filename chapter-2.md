@@ -2299,21 +2299,226 @@ La distribución propuesta mantiene una infraestructura acorde con el alcance de
 
 ### 2.6.3. Bounded Context: Identidad y suscripción
 
+El Bounded Context **Identidad y suscripción** (**Identity & Subscription BC**) concentra las responsabilidades relacionadas con la existencia, acceso y habilitación de las cuentas dentro de Tata. Se implementa como un módulo del backend único y administra el registro de cuentas, la verificación del correo del familiar, el acceso mediante credenciales, el PIN simplificado del adulto mayor y el estado de los planes y suscripciones asociados.
+
+La cuenta del familiar permanece pendiente hasta completar la verificación de correo. Una vez cumplidas las condiciones de habilitación, el contexto publica el evento `AccountEnabled`, utilizado por Vínculo de cuidado para continuar con los procesos que requieren una cuenta habilitada y por Accesibilidad y preferencias para inicializar la configuración del usuario. El servicio externo de correo se mantiene aislado mediante un Anti-Corruption Layer. La gestión del consentimiento específico para establecer el vínculo entre familiar y adulto mayor permanece dentro de Vínculo de cuidado, evitando duplicar esa regla en este contexto.
+
 #### 2.6.3.1. Domain Layer
+
+**Sub-capa Model - Aggregates:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Aggregate Root | Account | Representar la cuenta de acceso a Tata y controlar su habilitación, credenciales y suscripciones | `id`, `type`, `status`, `email`, `emailVerification`, `credentials: List<AccessCredential>`, `subscriptions: List<Subscription>` - `requestEmailVerification()`, `verifyEmail()`, `enable()`, `registerCredential()`, `registerFailedAttempt()`, `activateSubscription()`, `changeSubscription()`, `hasCapability()` | Contiene EmailVerification, AccessCredential y Subscription; publica AccountEnabled cuando la cuenta queda habilitada |
+| Aggregate Root | Plan | Representar una modalidad disponible de Tata y las capacidades habilitadas por ella | `id`, `code`, `name`, `status`, `capabilities: List<PlanCapability>` - `supports()`, `activate()`, `deactivate()` | Es referenciado por Subscription mediante `planId`; permite resolver las capacidades asociadas a una cuenta |
+| Entity | EmailVerification | Mantener el ciclo de vida de una verificación de correo hasta su consumo o expiración | `id`, `tokenHash`, `expiresAt`, `verifiedAt` - `isValid()`, `verify()` | Entidad perteneciente a Account; se utiliza durante US-11 |
+| Entity | AccessCredential | Representar una credencial de acceso y controlar intentos fallidos o bloqueo temporal | `id`, `type`, `secretHash`, `failedAttempts`, `lockedUntil` - `registerFailure()`, `resetFailures()`, `isLocked()` | Entidad perteneciente a Account; soporta el PIN del adulto mayor y las credenciales del familiar |
+| Entity | Subscription | Representar la asociación vigente o histórica entre una cuenta y un plan | `id`, `planId`, `status`, `startedAt`, `changedAt` - `activate()`, `changePlan()`, `cancel()` | Entidad perteneciente a Account; referencia un Plan dentro del mismo Bounded Context |
+
+**Sub-capa Model - Value Objects:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Value Object | EmailAddress | Encapsular una dirección de correo válida utilizada por las cuentas que requieren verificación | `value` - `isValid()` | Usado por Account |
+| Value Object | PlanCapability | Representar una capacidad habilitada por un plan | `code`, `name` | Compuesto por Plan; consultado al verificar funcionalidades disponibles |
+| Enumeration | AccountType | Diferenciar los tipos de cuenta utilizados por Tata | `FAMILY`, `OLDER_ADULT` | Usado por Account |
+| Enumeration | AccountStatus | Representar el estado de habilitación de la cuenta | `PENDING_VERIFICATION`, `ENABLED`, `LOCKED`, `DISABLED` | Controla las operaciones permitidas sobre Account |
+| Enumeration | CredentialType | Identificar el mecanismo de acceso asociado a una credencial | `PASSWORD`, `PIN` | Usado por AccessCredential |
+| Enumeration | SubscriptionStatus | Representar el estado de una suscripción | `ACTIVE`, `INACTIVE`, `CANCELLED` | Usado por Subscription |
+| Enumeration | PlanStatus | Representar la disponibilidad de un plan | `ACTIVE`, `INACTIVE` | Usado por Plan |
+
+**Sub-capa Services y Repositories:**
+
+| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Interface | IAccountRepository | Contrato de persistencia del agregado Account | `save(account)`, `findById(id): Account`, `findByEmail(email): Account` | Implementado en Infrastructure |
+| Interface | IPlanRepository | Contrato de persistencia del catálogo de planes | `findById(id): Plan`, `findActive(): List<Plan>` | Implementado en Infrastructure |
+| Factory | AccountFactory | Crear una cuenta familiar pendiente de verificación o una cuenta de adulto mayor preparada para registrar su credencial de acceso | `createFamily(email): Account`, `createOlderAdult(): Account` | Usado por RegisterFamilyAccountCommandHandler y los flujos de aprovisionamiento correspondientes |
+| Domain Service | AccountAccessPolicy | Evaluar si una cuenta puede iniciar sesión considerando su estado y los bloqueos de seguridad | `canAuthenticate(account, now): boolean` | Consultado por los handlers de autenticación |
 
 #### 2.6.3.2. Interface Layer
 
+**Sub-capa REST - Resources:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Resource | RegisterFamilyAccountResource | Representar los datos necesarios para crear la cuenta del familiar (US-10) |
+| Resource | VerifyEmailResource | Representar la verificación de correo del familiar (US-11) |
+| Resource | SignInResource | Representar las credenciales utilizadas para iniciar una sesión |
+| Resource | RegisterPinResource | Representar el PIN corto que el adulto mayor registra para acceder a Tata (US-01) |
+| Resource | SubscriptionResource | Representar el plan y el estado de la suscripción de una cuenta (US-44) |
+| Resource | ChangeSubscriptionResource | Representar la selección o cambio de plan solicitado por el familiar (US-45) |
+| Resource | PlanResource | Representar un plan disponible y sus capacidades (TS-14) |
+
+**Sub-capa REST - Transform:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Assembler | AccountResourceFromEntityAssembler | Convertir Account en la representación REST correspondiente |
+| Assembler | RegisterFamilyAccountCommandFromResourceAssembler | Convertir RegisterFamilyAccountResource en RegisterFamilyAccountCommand |
+| Assembler | VerifyEmailCommandFromResourceAssembler | Convertir VerifyEmailResource en VerifyEmailCommand |
+| Assembler | ChangeSubscriptionCommandFromResourceAssembler | Convertir ChangeSubscriptionResource en ChangeSubscriptionCommand |
+| Assembler | SubscriptionResourceFromEntityAssembler | Convertir la suscripción activa y su plan en SubscriptionResource |
+
+**Sub-capa REST - Controllers:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Controller | AccountsController | Exponer operaciones de registro y verificación de cuentas (US-10, US-11), enrutadas desde el API Gateway |
+| Controller | SessionsController | Exponer el inicio de sesión del familiar y la autenticación mediante PIN del adulto mayor (US-01, TS-01, TS-07) |
+| Controller | SubscriptionsController | Exponer la consulta del plan actual, el catálogo disponible y la activación o cambio de suscripción (US-44, US-45, TS-14) |
+
+Este Bounded Context no requiere Consumers de eventos provenientes de otros módulos en la versión actual. Su colaboración principal hacia otros contextos se produce mediante el evento `AccountEnabled`.
+
 #### 2.6.3.3. Application Layer
+
+**Sub-capa Internal - CommandServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| CommandHandler | RegisterFamilyAccountCommandHandler | Crear una cuenta familiar en estado `PENDING_VERIFICATION` evitando correos duplicados (US-10, TS-07) |
+| CommandHandler | VerifyEmailCommandHandler | Validar una verificación vigente, marcar el correo como verificado y habilitar la cuenta cuando corresponda (US-11) |
+| CommandHandler | RegisterPinCommandHandler | Registrar de forma segura el PIN corto del adulto mayor habilitado (US-01) |
+| CommandHandler | AuthenticateFamilyCommandHandler | Validar las credenciales de una cuenta familiar habilitada y solicitar una sesión válida (TS-07) |
+| CommandHandler | AuthenticateWithPinCommandHandler | Validar el PIN del adulto mayor, controlar intentos fallidos y solicitar una sesión válida (US-01, TS-01) |
+| CommandHandler | ChangeSubscriptionCommandHandler | Activar o cambiar el plan asociado a la cuenta y actualizar sus capacidades disponibles (US-45, TS-14) |
+
+**Sub-capa Internal - QueryServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| QueryHandler | GetAccountQueryHandler | Obtener la información necesaria de una cuenta autenticada |
+| QueryHandler | GetCurrentSubscriptionQueryHandler | Obtener el plan, estado y capacidades de la suscripción actual (US-44) |
+| QueryHandler | ListAvailablePlansQueryHandler | Obtener el catálogo de planes activos y sus capacidades (TS-14) |
+
+**Sub-capa Internal - OutboundServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Service | IEmailVerificationPort | Puerto para solicitar el envío de mensajes de verificación sin acoplar el dominio al proveedor de correo |
+| Service | ICredentialHashingPort | Puerto para generar y verificar representaciones seguras de credenciales sin exponer el mecanismo criptográfico al dominio |
+| Service | ISessionTokenPort | Puerto para generar una sesión válida después de una autenticación satisfactoria |
+| Service | IDomainEventPublisher | Puerto para publicar `AccountEnabled` dentro del mismo proceso; el evento es consumido por Vínculo de cuidado y Accesibilidad y preferencias |
 
 #### 2.6.3.4. Infrastructure Layer
 
+**Sub-capa Persistence (PostgreSQL):**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Repository | AccountRepository | Implementación de IAccountRepository mediante Spring Data JPA; persiste Account junto con EmailVerification, AccessCredential y Subscription |
+| Repository | PlanRepository | Implementación de IPlanRepository mediante Spring Data JPA; persiste el catálogo de Plan y sus PlanCapability |
+
+**Sub-capa Security:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Adapter | CredentialHashingAdapter | Implementación de ICredentialHashingPort mediante el mecanismo de codificación configurado en Spring Security |
+| Adapter | SessionTokenAdapter | Implementación de ISessionTokenPort; genera la representación de sesión utilizada por las aplicaciones móviles |
+
+**Sub-capa External Services:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Adapter | EmailVerificationAdapter | Implementación de IEmailVerificationPort; actúa como Anti-Corruption Layer frente al servicio externo de correo y traduce el contrato del proveedor a los conceptos de verificación de Tata |
+
+**Sub-capa Domain Events:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Publisher | IdentityDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `AccountEnabled` para los módulos del mismo backend |
+
 #### 2.6.3.5. Bounded Context Software Architecture Component Level Diagrams
+
+El diagrama representa la descomposición interna del módulo **Identity & Subscription BC** dentro del container Backend. `AccountsController`, `SessionsController` y `SubscriptionsController` reciben las peticiones enrutadas por el API Gateway e invocan los Command/Query Handlers correspondientes. Estos operan sobre los agregados `Account` y `Plan` mediante `AccountRepository` y `PlanRepository`. La verificación de correo se realiza mediante `EmailVerificationAdapter`, que actúa como Anti-Corruption Layer frente al servicio externo de correo. La autenticación utiliza `CredentialHashingAdapter` y `SessionTokenAdapter`. Finalmente, `IdentityDomainEventPublisher` publica en memoria el evento `AccountEnabled`, consumido por Vínculo de cuidado y Accesibilidad y preferencias.
+
+![Component Diagram de Identidad y suscripción](assets/bcidentity&subscription.png)
+
+*Figura. Component Diagram (C4 Nivel 3) del Bounded Context Identidad y suscripción.*
 
 #### 2.6.3.6. Bounded Context Software Architecture Code Level Diagrams
 
 ##### 2.6.3.6.1. Bounded Context Domain Layer Class Diagrams
 
+El diagrama de clases del Domain Layer presenta a `Account` como aggregate root, en relaciones de composición con `EmailVerification`, `AccessCredential` y `Subscription`. `Account` utiliza los Value Objects y enumeraciones necesarios para representar el correo, el tipo de cuenta y su estado. `Plan` se mantiene como un segundo aggregate root porque su catálogo posee un ciclo de vida independiente y puede ser compartido por múltiples suscripciones. Se incluyen `IAccountRepository`, `IPlanRepository`, `AccountFactory` y `AccountAccessPolicy`, manteniendo la lógica de acceso y habilitación independiente de PostgreSQL, Spring Security y del proveedor externo de correo.
+
+![Class Diagram del Domain Layer de Identidad y suscripción](assets/identity&subscriptionPlantUML.png)
+
+*Figura. Domain Layer Class Diagram del Bounded Context Identidad y suscripción.*
+
 ##### 2.6.3.6.2. Bounded Context Database Design Diagram
+
+Las tablas de este Bounded Context se encuentran dentro de la misma instancia PostgreSQL utilizada por Tata, pero mantienen la propiedad lógica de sus datos dentro de Identidad y suscripción. No se definen foreign keys físicas hacia Vínculo de cuidado ni hacia otros módulos. Las integraciones externas de correo tampoco forman parte del esquema relacional.
+
+![Database Design Diagram de Identidad y suscripción](assets/identity&subscriptionDBmodel.png)
+
+*Figura. Database Design Diagram del Bounded Context Identidad y suscripción.*
+
+**ACCOUNTS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único de la cuenta |
+| account_type | Tipo de cuenta: FAMILY u OLDER_ADULT |
+| email | Correo asociado cuando corresponde; nullable para cuentas que utilizan únicamente acceso simplificado |
+| status | Estado: PENDING_VERIFICATION, ENABLED, LOCKED o DISABLED |
+| email_verified_at | Fecha de verificación del correo; nullable |
+| created_at / updated_at | Fechas de auditoría |
+
+**EMAIL_VERIFICATIONS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador de la verificación |
+| account_id (FK → ACCOUNTS.id) | Cuenta a la que pertenece |
+| token_hash | Representación segura del token de verificación |
+| expires_at | Fecha de expiración |
+| verified_at | Fecha de consumo correcto; nullable |
+| created_at | Fecha de creación |
+
+**ACCESS_CREDENTIALS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador de la credencial |
+| account_id (FK → ACCOUNTS.id) | Cuenta a la que pertenece |
+| credential_type | PASSWORD o PIN |
+| secret_hash | Representación segura de la credencial |
+| failed_attempts | Número de intentos fallidos consecutivos |
+| locked_until | Fecha hasta la cual el acceso permanece bloqueado; nullable |
+| created_at / updated_at | Fechas de auditoría |
+
+**PLANS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador del plan |
+| code | Código único del plan |
+| name | Nombre comercial |
+| status | ACTIVE o INACTIVE |
+| created_at / updated_at | Fechas de auditoría |
+
+**PLAN_CAPABILITIES**
+
+| Columna | Descripción |
+| --- | --- |
+| plan_id (PK, FK → PLANS.id) | Plan al que pertenece la capacidad |
+| capability_code (PK) | Código de la capacidad habilitada |
+| name | Nombre descriptivo de la capacidad |
+
+**SUBSCRIPTIONS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador de la suscripción |
+| account_id (FK → ACCOUNTS.id) | Cuenta propietaria |
+| plan_id (FK → PLANS.id) | Plan asociado |
+| status | ACTIVE, INACTIVE o CANCELLED |
+| started_at | Fecha de activación |
+| changed_at | Fecha del último cambio de plan; nullable |
+| created_at / updated_at | Fechas de auditoría |
+
+Relaciones: ACCOUNTS (1) - (N) EMAIL_VERIFICATIONS; ACCOUNTS (1) - (N) ACCESS_CREDENTIALS; ACCOUNTS (1) - (N) SUBSCRIPTIONS; PLANS (1) - (N) PLAN_CAPABILITIES; PLANS (1) - (N) SUBSCRIPTIONS.
 
 
 ### 2.6.4. Bounded Context: Vínculo de cuidado
