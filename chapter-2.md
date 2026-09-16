@@ -2465,8 +2465,39 @@ El diagrama representa la descomposición interna del módulo Intake Execution B
 
 ##### 2.6.1.6.1. Bounded Context Domain Layer Class Diagrams
 
+Este Bounded Context concentra su modelo en un único aggregate root: `Intake`. No existen entidades hijas dentro del agregado, ya que tanto los datos del medicamento como el margen de tolerancia se representan como Value Objects embebidos (`MedicationSnapshot` y `ToleranceWindow`), y el estado de confirmación se resuelve mediante las enumeraciones `ConfirmationChannel` e `IntakeStatus`. Se incluyen además `IIntakeRepository`, `IntakeSchedulingService` y `VoiceConfirmationValidationService`, manteniendo la generación del calendario de tomas y la validación de confirmaciones por voz independientes de PostgreSQL y del adaptador externo de reconocimiento de voz.
+
+![IntakeExecutionPlantUML.png](assets/IntakeExecutionPlantUML.png)
+ 
+*Figura. Domain Layer Class Diagram del Bounded Context Ejecución de tomas.*
+
 ##### 2.6.1.6.2. Bounded Context Database Design Diagram
 
+Las tablas de este Bounded Context se encuentran dentro de la misma instancia PostgreSQL utilizada por Tata, pero conservan la propiedad lógica de sus datos dentro de Ejecución de tomas. Al no existir entidades hijas dentro del agregado `Intake`, el modelo se resuelve en una única tabla, donde `MedicationSnapshot` y `ToleranceWindow` se aplanan como columnas propias en lugar de tablas independientes. Las referencias `treatment_id` y `older_adult_id` se mantienen como identificadores lógicos, sin foreign keys físicas hacia Gestión de Medicamentos ni Vínculo de cuidado.
+ 
+![DatabaseDesignIntakeExecution.png](assets/DatabaseDesignIntakeExecution.png)
+ 
+*Figura. Database Design Diagram del Bounded Context Ejecución de tomas.*
+ 
+**INTAKES**
+ 
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único de la toma |
+| treatment_id | Referencia lógica al tratamiento en Gestión de Medicamentos (sin FK física) |
+| older_adult_id | Referencia lógica al adulto mayor (sin FK física) |
+| medication_name | Nombre del medicamento, capturado desde MedicationSnapshot al momento de programar la toma |
+| dose | Dosis indicada, capturada desde MedicationSnapshot |
+| instructions | Instrucciones complementarias, capturadas desde MedicationSnapshot; nullable |
+| scheduled_at | Horario programado de la toma |
+| tolerance_duration | Duración del margen de tolerancia permitido antes de considerarse vencida |
+| status | Estado vigente de la toma: PENDING, CONFIRMED u ESCALATED |
+| reminders_issued | Número de recordatorios emitidos para esta toma |
+| confirmed_at | Fecha y hora de confirmación; nullable mientras la toma permanece pendiente |
+| confirmation_channel | Medio utilizado para confirmar: TAP o VOICE; nullable hasta la confirmación |
+| created_at / updated_at | Fechas de auditoría |
+ 
+No existen relaciones adicionales dentro de este Bounded Context, dado que `Intake` es el único aggregate root y no compone entidades hijas propias; su trazabilidad hacia otros Bounded Contexts se resuelve mediante los identificadores lógicos `treatment_id` y `older_adult_id`, y hacia Adherence Analytics y Omisión y escalamiento mediante los eventos `IntakeHistoryUpdated` e `IntakeToleranceExpired` en lugar de foreign keys.
 
 ### 2.6.2. Bounded Context: Analítica de adherencia
 
