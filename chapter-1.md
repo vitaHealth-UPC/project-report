@@ -2,7 +2,7 @@
 
 | Versión | Fecha | Autor | Descripción de modificación |
 |---------|-------|-------|-----------------------------|
-| AV1 |  | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | (FALTA) |
+| AV1 | 16/09/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | "Para esta primera entrega desarrollamos de manera colaborativa los dos primeros capítulos del informe, definiendo los segmentos objetivo, user stories, bounded contexts y más. |
 
 <br>
 <br>
@@ -12,8 +12,8 @@
 El Project Report del equipo se encuentra alojado en el repositorio de informes
 dentro de la organización de GitHub del equipo:
 
-- **Organización de GitHub:** (FALTA)
-- **Repositorio del Project Report:** (FALTA)
+- **Organización de GitHub:** [https://github.com/orgs/vitaHealth-UPC](https://github.com/orgs/vitaHealth-UPC/repositories)
+- **Repositorio del Project Report:** https://github.com/vitaHealth-UPC/report
   
 El informe se elaboró de manera colaborativa utilizando Git y GitHub como
 plataforma de control de versiones. Cada integrante trabajó las secciones
