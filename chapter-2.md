@@ -249,7 +249,7 @@ Este segmento está conformado por adultos mayores que siguen uno o más tratami
       <td colspan="2"><strong>Duración:</strong> Aproximadamente 12 minutos</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCWQkzyIJcIRY1bHwUpqqfJAUrFoa-oQ_5i2FY5wuGr_VQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=Aa1By5">Ver video</a>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCWQkzyIJcIRY1bHwUpqqfJAUrFoa-oQ_5i2FY5wuGr_VQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=Aa1By5">https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCWQkzyIJcIRY1bHwUpqqfJAUrFoa-oQ_5i2FY5wuGr_VQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=Aa1By5</a>
       </td>
     </tr>
     <tr>
@@ -364,7 +364,7 @@ En cuanto a su contexto digital, utiliza principalmente WhatsApp. No ha utilizad
       <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://example.com/segmento-1-entrevista-3">Ver video</a>
+        <a href="https://example.com/segmento-1-entrevista-3">ENLACE</a>
       </td>
     </tr>
     <tr>
@@ -422,7 +422,7 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
       <td colspan="2"><strong>Duración:</strong>4:50</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQAGYnZf_FOeSpr13EuOgvBGAW-DLQJ_IvvwJbMMOnjjoEE?e=2l9JH8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">Ver video</a>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQAGYnZf_FOeSpr13EuOgvBGAW-DLQJ_IvvwJbMMOnjjoEE?e=2l9JH8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQAGYnZf_FOeSpr13EuOgvBGAW-DLQJ_IvvwJbMMOnjjoEE?e=2l9JH8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D</a>
       </td>
     </tr>
     <tr>
@@ -478,7 +478,7 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
       <td colspan="2"><strong>Duración:</strong> 14:29</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://drive.google.com/file/d/1vmsmti_gVNPKoTYMcTZnCLLsb_3lQmc5/view?usp=drive_link">Ver video</a>
+        <a href="https://drive.google.com/file/d/1vmsmti_gVNPKoTYMcTZnCLLsb_3lQmc5/view?usp=drive_link">https://drive.google.com/file/d/1vmsmti_gVNPKoTYMcTZnCLLsb_3lQmc5/view?usp=drive_link</a>
       </td>
     </tr>
     <tr>
@@ -535,7 +535,7 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
       <td colspan="2"><strong>Duración:</strong> 05:00</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQDpr5ILeBtnSK32ysEfc-RAASL3mfonRwH_TXRCBz-wZF8?e=IYbQDm&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">Ver video</a>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQDpr5ILeBtnSK32ysEfc-RAASL3mfonRwH_TXRCBz-wZF8?e=IYbQDm&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQDpr5ILeBtnSK32ysEfc-RAASL3mfonRwH_TXRCBz-wZF8?e=IYbQDm&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D</a>
       </td>
     </tr>
     <tr>
@@ -629,9 +629,9 @@ Las características fueron clasificadas como objetivas o subjetivas y su recurr
   <tbody>
     <tr>
       <td>Entrevista N.° 1</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Tiene 64 años, es jubilado (ex mecánico y conductor), es viudo y vive solo en San Martín de Porres. Sigue tratamiento para hipertensión (losartán y amlodipino), dolor de columna (celecoxib) y colesterol (atorvastatina), sin un recordatorio fijo. Usa WhatsApp y Facebook, y recibe apoyo esporádico de su único hijo, quien vive en otro distrito.</td>
+      <td>Le preocupa sufrir un evento grave de salud por no medicarse correctamente al vivir solo y sin nadie que lo note a tiempo. Evita aplicaciones nuevas o que percibe como complejas, aunque tiene buena disposición hacia los comandos de voz. Le gustaría contar con un mecanismo de aviso simple, similar a un timbre, que no dependa de la disponibilidad de un familiar.</td>
+      <td>Vivir solo y sin un método fijo de recordatorio lo lleva a olvidar frecuentemente si ya tomó una dosis, dándose cuenta solo cuando aparecen síntomas físicos; necesita un aviso simple e independiente del contacto esporádico con su familiar.</td>
     </tr>
     <tr>
       <td>Entrevista N.° 2</td>
@@ -663,38 +663,38 @@ Las características fueron clasificadas como objetivas o subjetivas y su recurr
   <tbody>
     <tr>
       <td>Objetiva</td>
-      <td>[pendiente]</td>
-      <td>Entrevistas [pendiente]</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Utiliza WhatsApp como principal canal de comunicación digital</td>
+      <td>Entrevistas N.° 1 y N.° 2</td>
+      <td>2/2</td>
+      <td>100%</td>
     </tr>
     <tr>
       <td>Objetiva</td>
-      <td>[pendiente]</td>
-      <td>Entrevistas [pendiente]</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Ha olvidado alguna vez tomar una dosis de su medicación</td>
+      <td>Entrevistas N.° 1 y N.° 2</td>
+      <td>2/2</td>
+      <td>100%</td>
     </tr>
     <tr>
       <td>Subjetiva</td>
-      <td>[pendiente]</td>
-      <td>Entrevistas [pendiente]</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Considera difíciles de utilizar las aplicaciones nuevas o que no comprende bien cómo funcionan</td>
+      <td>Entrevistas N.° 1 y N.° 2</td>
+      <td>2/2</td>
+      <td>100%</td>
     </tr>
     <tr>
       <td>Subjetiva</td>
-      <td>[pendiente]</td>
-      <td>Entrevistas [pendiente]</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Manifiesta interés o buena disposición hacia una herramienta simple que le facilite el recordatorio o seguimiento de su medicación</td>
+      <td>Entrevistas N.° 1 y N.° 2</td>
+      <td>2/2</td>
+      <td>100%</td>
     </tr>
   </tbody>
 </table>
 
 ##### Conclusión del segmento 1
 
-[pendiente]
+Las dos entrevistas registradas hasta el momento para este segmento muestran que los adultos mayores gestionan tratamientos crónicos (hipertensión, dolor de columna, colesterol y crisis de migraña) sin un método fijo de recordatorio, apoyándose en rutinas informales asociadas a los momentos del día. Ambos participantes reportan haber olvidado alguna toma, dándose cuenta generalmente por consecuencias indirectas (síntomas físicos o no poder dormir) más que por un mecanismo de verificación propio. El nivel de apoyo familiar disponible varía: mientras que Manuel vive solo y solo cuenta con recordatorios esporádicos de su hijo, Rosario vive con sus hijas y recibe un acompañamiento más cercano; en ambos casos, sin embargo, el adulto mayor sigue siendo responsable directo de reconocer y ejecutar su toma. En cuanto al contexto digital, ambos utilizan WhatsApp como principal herramienta y evitan aplicaciones nuevas que perciban como complejas, lo que confirma la necesidad de que la interacción con Tata sea extremadamente simple y de baja carga cognitiva. Asimismo, ambos expresan apertura hacia mecanismos de aviso o consulta sencillos (un aviso tipo timbre, información accesible sobre su condición), lo que valida el enfoque de confirmación de toma mediante un toque o por voz que propone la solución. Esta conclusión se ampliará una vez se incorpore la Entrevista N.° 3 pendiente de este segmento.
 
 #### Segmento 2: Familiares o cuidadores
 
@@ -753,44 +753,44 @@ Las características fueron clasificadas como objetivas o subjetivas y su recurr
     <tr>
       <td>Objetiva</td>
       <td>El seguimiento se realiza mediante visitas y comunicación remota</td>
-      <td>Entrevista N.° 2</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Entrevistas N.° 2 y N.° 3</td>
+      <td>2/4</td>
+      <td>50%</td>
     </tr>
     <tr>
       <td>Objetiva</td>
       <td>El familiar utiliza habitualmente aplicaciones móviles</td>
-      <td>Entrevista N.° 2</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Entrevistas N.° 1, N.° 2, N.° 3 y N.° 4</td>
+      <td>4/4</td>
+      <td>100%</td>
     </tr>
     <tr>
       <td>Subjetiva</td>
       <td>Existe incertidumbre sobre el cumplimiento de la medicación</td>
-      <td>Entrevista N.° 2</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Entrevistas N.° 1, N.° 2, N.° 3 y N.° 4</td>
+      <td>4/4</td>
+      <td>100%</td>
     </tr>
     <tr>
       <td>Subjetiva</td>
       <td>Se valora recibir información sin realizar verificaciones constantes</td>
-      <td>Entrevista N.° 2</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Entrevistas N.° 1, N.° 2, N.° 3 y N.° 4</td>
+      <td>4/4</td>
+      <td>100%</td>
     </tr>
     <tr>
       <td>Subjetiva</td>
       <td>Existe preocupación por el cuidado del adulto mayor cuando se encuentra solo</td>
-      <td>Entrevista N.° 2</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Entrevistas N.° 1, N.° 2 y N.° 3</td>
+      <td>3/4</td>
+      <td>75%</td>
     </tr>
   </tbody>
 </table>
 
 ##### Conclusión del segmento 2
 
-[pendiente]
+Las cuatro entrevistas registradas para este segmento evidencian un patrón consistente: el seguimiento de la medicación depende casi exclusivamente de la comunicación directa con el adulto mayor —ya sea presencial, por llamada o por mensaje— y de la confianza en su respuesta, sin un mecanismo objetivo que confirme el cumplimiento. Los cuatro entrevistados relataron al menos un episodio concreto en el que esta dependencia generó una falsa certeza o un descubrimiento tardío de una toma omitida (Valeri, Sebastián, Marvi y Leonardo), lo que confirma que preguntar directamente no es un método confiable, incluso cuando existe convivencia en el mismo hogar. La forma de contacto varía según la cercanía física: quienes conviven con el adulto mayor (Valeri, Leonardo) realizan un seguimiento diario e informal, mientras que quienes no conviven con él (Sebastián, Marvi) dependen de visitas periódicas y llamadas, lo que amplía el tiempo de reacción ante un posible olvido. Todos los participantes usan aplicaciones móviles con soltura y se sienten cómodos configurando alertas y notificaciones, lo que respalda la viabilidad de una solución móvil para este segmento. Asimismo, todos coinciden en preferir recibir información o notificaciones automáticas antes que depender de verificaciones constantes, y la mayoría expresa preocupación explícita por la seguridad del adulto mayor cuando se encuentra solo. En conjunto, estos hallazgos evidencian la necesidad de un mecanismo de monitoreo remoto confiable que reemplace la dependencia actual de la comunicación verbal y reduzca la incertidumbre del cuidador.
 
 ## 2.3. Needfinding
 
@@ -3112,115 +3112,6 @@ Aunque la persistencia de Tata comparte una misma instancia de PostgreSQL, `regi
 | created_at / updated_at | Fechas de auditoría |
 
 Relación: OLDER_ADULT_PROFILES (1) - (N) CARE_LINKS.
-
-### 2.6.5. Bounded Context: Gestión del tratamiento
-
-Siguiendo el modelo de arquitectura **Clean Architecture** combinado con **Domain-Driven Design**, este Bounded Context (**Treatment Management BC**) se organiza en las capas Domain, Interface, Application e Infrastructure, y se implementa como un módulo dentro del backend único de Tata (sección 2.5.3.2). Gestión del tratamiento es responsable de definir la pauta operativa del adulto mayor: qué medicamentos debe tomar, en qué dosis, con qué frecuencia, en qué horarios y bajo qué instrucciones, además de la configuración de sus recordatorios (ver Bounded Context Canvas, sección 2.5.1.3). Su responsabilidad culmina en decidir cuándo un tratamiento queda completamente configurado y puede activarse; no administra la ejecución de cada toma individual, responsabilidad que pertenece a Ejecución de tomas, a quien notifica mediante el evento **Tratamiento activado**.
-
-#### 2.6.5.1. Domain Layer
-
-**Sub-capa Model - Aggregates:**
-
-| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
-| --- | --- | --- | --- | --- |
-| Aggregate Root | Treatment | Representar la pauta completa de un adulto mayor y garantizar que solo se active cuando su configuración esté completa | `id`, `olderAdultId`, `status` (Draft / Active / Paused), `medications: List<Medication>` - `addMedication()`, `activate()`, `pause()`, `isComplete()` | Contiene entidades Medication; referencia al adulto mayor por identificador (Vínculo de cuidado) |
-| Entity | Medication | Representar un medicamento y su pauta de administración dentro de un tratamiento | `id`, `name`, `dose: Dose`, `frequency: Frequency`, `intakeTimes: List<IntakeTime>`, `instructions: Instructions`, `reminderConfig: ReminderConfig`, `active` - `updateDose()`, `updateSchedule()`, `deactivate()` | Entidad hija de Treatment; sus datos alimentan a Ejecución de tomas cuando el tratamiento se activa |
-
-**Sub-capa Model - Value Objects:**
-
-| Tipo | Nombre | Propósito | Atributos principales | Relación con otros elementos |
-| --- | --- | --- | --- | --- |
-| Value Object | Dose | Encapsular la cantidad y unidad de una dosis | `amount`, `unit` | Usado en Medication |
-| Value Object | Frequency | Encapsular la periodicidad de una toma | `timesPerDay`, `intervalHours` | Usado en Medication |
-| Value Object | IntakeTime | Representar un horario programado de toma | `hour`, `minute` | Usado en Medication (colección) |
-| Value Object | Instructions | Encapsular las indicaciones de administración | `text` | Usado en Medication |
-| Value Object | ReminderConfig | Encapsular la configuración de recordatorio de un medicamento | `enabled`, `leadTimeMinutes`, `notificationChannel` | Referencia conceptos del Shared Kernel Accesibilidad y preferencias (canal de notificación) |
-
-**Sub-capa Services y Repositories:**
-
-| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
-| --- | --- | --- | --- | --- |
-| Interface | ICareLinkVerificationPort | Puerto de dominio para verificar que el familiar solicitante posea un vínculo de cuidado activo con el adulto mayor | `isAuthorized(familiarId, olderAdultId): boolean` | Implementado en Infrastructure; invoca en el mismo proceso a Vínculo de cuidado (relación Customer/Supplier, sección 2.5.2) |
-| Factory | TreatmentFactory | Crear un nuevo Treatment en estado Draft asociado a un adulto mayor | `createDraft(olderAdultId): Treatment` | Usado por CreateTreatmentCommandHandler |
-| Interface | ITreatmentRepository | Contrato de persistencia para el agregado Treatment | `save(treatment)`, `findById(id): Treatment`, `findByOlderAdultId(id): List<Treatment>` | Implementado en la capa Infrastructure |
-
-#### 2.6.5.2. Interface Layer
-
-**Sub-capa REST - Resources:**
-
-| Tipo | Nombre | Propósito |
-| --- | --- | --- |
-| Resource | TreatmentResource | Representar un tratamiento completo con sus medicamentos para el cliente |
-| Resource | CreateTreatmentResource | Representar la petición para crear un tratamiento |
-| Resource | RegisterMedicationResource | Representar la petición para registrar un medicamento (dosis, frecuencia, horarios, instrucciones) |
-| Resource | ConfigureReminderResource | Representar la petición para configurar los recordatorios de un medicamento |
-
-**Sub-capa REST - Transform:**
-
-| Tipo | Nombre | Propósito |
-| --- | --- | --- |
-| Assembler | TreatmentResourceFromEntityAssembler | Convertir la entidad Treatment en TreatmentResource |
-| Assembler | CreateTreatmentCommandFromResourceAssembler | Convertir CreateTreatmentResource en CreateTreatmentCommand |
-| Assembler | RegisterMedicationCommandFromResourceAssembler | Convertir RegisterMedicationResource en RegisterMedicationCommand |
-
-**Sub-capa REST - Controllers:**
-
-| Tipo | Nombre | Propósito |
-| --- | --- | --- |
-| Controller | TreatmentsController | Exponer endpoints para crear, consultar, activar y pausar tratamientos (US-14, US-18, US-19), enrutados desde el API Gateway hacia este módulo |
-| Controller | MedicationsController | Exponer endpoints para registrar, editar, desactivar y configurar medicamentos (US-03, US-04, US-15, US-16, US-17) |
-
-Este Bounded Context no requiere Consumers de eventos en esta versión, ya que no reacciona a eventos publicados por otros módulos; únicamente invoca de forma síncrona y en el mismo proceso al módulo Vínculo de cuidado mediante `ICareLinkVerificationPort` (no existe bus de mensajes externo en la arquitectura actual, sección 2.5.3.2).
-
-#### 2.6.5.3. Application Layer
-
-**Sub-capa Internal - CommandServices:**
-
-| Tipo | Nombre | Propósito |
-| --- | --- | --- |
-| CommandHandler | CreateTreatmentCommandHandler | Crear un tratamiento en estado Draft (US-14) |
-| CommandHandler | RegisterMedicationCommandHandler | Registrar un medicamento dentro de un tratamiento (US-03) |
-| CommandHandler | EditMedicationCommandHandler | Editar los datos de un medicamento (US-04) |
-| CommandHandler | DeactivateMedicationCommandHandler | Desactivar un medicamento sin perder su historial (US-04) |
-| CommandHandler | DefineDoseAndFrequencyCommandHandler | Definir dosis y frecuencia de un medicamento (US-15) |
-| CommandHandler | ConfigureScheduleCommandHandler | Configurar horarios e instrucciones de un medicamento (US-16) |
-| CommandHandler | ConfigureRemindersCommandHandler | Configurar los recordatorios de un tratamiento (US-17) |
-| CommandHandler | ActivateTreatmentCommandHandler | Activar un tratamiento validando `isComplete()` y publicar el evento de dominio `TreatmentActivated` (US-18) |
-| CommandHandler | PauseTreatmentCommandHandler | Pausar un tratamiento activo sin eliminar su historial (US-18) |
-
-**Sub-capa Internal - QueryServices:**
-
-| Tipo | Nombre | Propósito |
-| --- | --- | --- |
-| QueryHandler | GetTreatmentDetailQueryHandler | Obtener el detalle completo de un tratamiento (US-19) |
-
-**Sub-capa Internal - OutboundServices:**
-
-| Tipo | Nombre | Propósito |
-| --- | --- | --- |
-| Service | IDomainEventPublisher | Puerto para publicar el evento de dominio `TreatmentActivated` dentro del mismo proceso; según el Domain Message Flow de la sección 2.5.1.2, es consumido por el módulo Ejecución de tomas para programar las tomas correspondientes |
-
-#### 2.6.5.4. Infrastructure Layer
-
-**Sub-capa Persistence (PostgreSQL):**
-
-| Tipo | Nombre | Propósito |
-| --- | --- | --- |
-| Repository | TreatmentRepository | Implementación de ITreatmentRepository (Spring Data JPA); persiste el agregado Treatment junto con sus entidades Medication en la base de datos PostgreSQL central, en las tablas propias de este Bounded Context |
-
-**Sub-capa Module Adapters:**
-
-| Tipo | Nombre | Propósito |
-| --- | --- | --- |
-| Adapter | CareLinkVerificationAdapter | Implementación de ICareLinkVerificationPort; invoca directamente, dentro del mismo proceso, la interfaz pública expuesta por el módulo Vínculo de cuidado |
-
-**Sub-capa Domain Events:**
-
-| Tipo | Nombre | Propósito |
-| --- | --- | --- |
-| Publisher | TreatmentDomainEventPublisher | Implementación de IDomainEventPublisher mediante el mecanismo de eventos de aplicación en memoria (por ejemplo, `ApplicationEventPublisher` de Spring); publica `TreatmentActivated` para que otros módulos del mismo backend lo escuchen |
-
-
 
 ### 2.6.5. Bounded Context: Gestión del tratamiento
 
