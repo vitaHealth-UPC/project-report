@@ -2280,21 +2280,206 @@ La distribución propuesta mantiene una infraestructura acorde con el alcance de
 
 ### 2.6.2. Bounded Context: Analítica de adherencia
 
+El Bounded Context **Analítica de adherencia** (**Adherence Analytics BC**) transforma los resultados acumulados de las tomas del adulto mayor en indicadores de cumplimiento, patrones recurrentes, estimaciones de riesgo e insights que permiten anticipar futuras omisiones. Se implementa como un módulo del backend único de Tata y no participa en la ejecución ni en la resolución de una toma: únicamente consume los resultados ya definidos por Ejecución de tomas y Omisión y escalamiento para consolidarlos en periodos de seguimiento.
+
+El contexto sigue un flujo de cuatro decisiones de negocio encadenadas. Cuando una semana se cierra, se calcula la adherencia del periodo y se publica `AdherenceRateCalculated`. Cuando se detectan omisiones recurrentes dentro del historial, se identifica un patrón y se publica `AdherencePatternDetected`. Cuando ese patrón resulta relevante, se estima su riesgo y se publica `OmissionRiskEstimated`. Finalmente, cuando el riesgo estimado resulta relevante, se genera un insight orientativo y se publica `AdherenceInsightPublished`. Estos cuatro eventos permiten que Seguimiento familiar presente los resultados al familiar o cuidador sin reproducir internamente la lógica analítica.
+
+Para alimentar este flujo, el contexto recibe el evento `IntakeHistoryUpdated` publicado por Ejecución de tomas, con el que actualiza el historial y clasifica cada toma como confirmada a tiempo o tardía según la política de tolerancia definida, y `IntakeOmitted` publicado por Omisión y escalamiento, con el que registra las tomas que finalizaron sin confirmación. Seguimiento familiar también puede consultar directamente, dentro del mismo proceso, el resumen vigente de adherencia mediante la interfaz pública expuesta por este contexto, y el familiar o cuidador puede consultar los resultados analíticos directamente a través del API Gateway.
+
 #### 2.6.2.1. Domain Layer
+
+**Sub-capa Model - Aggregates:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Aggregate Root | AdherenceLedger | Mantener el historial acumulado de resultados de tomas de un adulto mayor, calcular la adherencia de un periodo cerrado y conservar los periodos ya consolidados | `id`, `olderAdultId`, `records: List<IntakeOutcomeRecord>`, `periodSnapshots: List<AdherencePeriodSnapshot>` - `absorbHistoryUpdate(historyUpdate)`, `registerOmitted(intakeId, scheduledAt)`, `closePeriod(period)`, `calculateRate(period): AdherenceSnapshot` | Contiene IntakeOutcomeRecord y AdherencePeriodSnapshot; consultado por AdherencePatternDetectionService para identificar patrones |
+| Entity | IntakeOutcomeRecord | Representar el resultado clasificado de una toma dentro del historial acumulado | `id`, `intakeId`, `scheduledAt`, `resolvedAt`, `status` - `classify(tolerancePolicy)` | Entidad hija de AdherenceLedger; referencia la toma de Ejecución de tomas mediante identificador lógico |
+| Entity | AdherencePeriodSnapshot | Conservar el resultado de adherencia ya calculado para un periodo semanal cerrado | `id`, `snapshot: AdherenceSnapshot`, `closedAt` - `close(snapshot)` | Entidad hija de AdherenceLedger; creada por CalculateAdherenceRateCommandHandler; publica AdherenceRateCalculated; consultada en el historial de adherencia (US-32) |
+| Aggregate Root | AdherencePattern | Representar un patrón recurrente de retraso u omisión detectado a partir del historial, junto con la estimación de riesgo, el insight y la recomendación asociada cuando corresponde | `id`, `adherenceLedgerId`, `olderAdultId`, `timeSlot: TimeSlot`, `occurrences`, `riskLevel`, `riskEstimatedAt`, `insight: Insight`, `recommendation: Recommendation`, `insightPublishedAt`, `detectedAt` - `reinforce(occurrence)`, `isRelevant()`, `estimateRisk(riskLevel)`, `isRiskRelevant()`, `publishInsight(insight, recommendation)` | Mantiene un ciclo de vida independiente de AdherenceLedger, pero lo referencia mediante `adherenceLedgerId`; creado y reforzado por AdherencePatternDetectionService; publica AdherencePatternDetected, OmissionRiskEstimated y AdherenceInsightPublished en sus distintas etapas |
+
+**Sub-capa Model - Value Objects:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Value Object | AdherenceSnapshot | Encapsular los indicadores de adherencia calculados para un periodo determinado | `period`, `scheduledCount`, `confirmedCount`, `lateCount`, `omittedCount`, `adherenceRate` - `hasSufficientData()` | Calculado por AdherenceLedger; embebido en AdherencePeriodSnapshot; retornado por las consultas de resumen y de historial (US-08, US-32) y por IAdherenceSummaryPort hacia Seguimiento familiar |
+| Value Object | TimeSlot | Ubicar la franja horaria en la que se concentra un patrón recurrente | `dayPart`, `hourRange` | Compuesto por AdherencePattern |
+| Value Object | Insight | Describir el hallazgo obtenido a partir del análisis del historial de adherencia | `description` | Compuesto por AdherencePattern; se genera únicamente cuando el riesgo estimado resulta relevante |
+| Value Object | Recommendation | Encapsular el consejo orientativo generado a partir de un patrón con riesgo relevante | `text` | Compuesto por AdherencePattern; nunca sustituye indicaciones médicas (US-34) |
+| Enumeration | IntakeOutcomeStatus | Representar la clasificación de una toma dentro del historial | `CONFIRMED`, `LATE`, `OMITTED` | Usado por IntakeOutcomeRecord |
+| Enumeration | OmissionRiskLevel | Representar la estimación del riesgo de futuras omisiones asociado a un patrón | `LOW`, `MODERATE`, `HIGH` | Usado por AdherencePattern |
+
+**Sub-capa Services y Repositories:**
+
+| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Interface | IAdherenceLedgerRepository | Contrato de persistencia del agregado AdherenceLedger | `save(ledger)`, `findByOlderAdultId(id): AdherenceLedger` | Implementado en Infrastructure |
+| Interface | IAdherencePatternRepository | Contrato de persistencia del agregado AdherencePattern | `save(pattern)`, `findByOlderAdultId(id): List<AdherencePattern>` | Implementado en Infrastructure |
+| Domain Service | AdherenceTolerancePolicy | Determinar si una toma confirmada se clasifica como a tiempo o tardía según su horario programado y el momento de confirmación | `classify(scheduledAt, resolvedAt): IntakeOutcomeStatus` | Consultado por AdherenceLedger al absorber una actualización de historial (US-33) |
+| Domain Service | AdherencePatternDetectionService | Analizar el historial acumulado de un AdherenceLedger y determinar si las omisiones recurrentes cumplen el criterio de recurrencia configurado para identificar o reforzar un patrón | `detect(ledger, criteria): Optional<AdherencePattern>` | Consultado por DetectAdherencePatternCommandHandler (TS-10) |
+| Domain Service | OmissionRiskEstimationService | Estimar el nivel de riesgo de futuras omisiones para un patrón relevante | `estimate(pattern): OmissionRiskLevel` | Consultado por DetectAdherencePatternCommandHandler cuando `AdherencePattern.isRelevant()` |
+| Domain Service | AdherenceInsightGenerationService | Generar el Insight y, cuando corresponde, la Recommendation orientativa asociada a un patrón con riesgo relevante | `generate(pattern): Insight`, `recommend(pattern): Optional<Recommendation>` | Consultado por DetectAdherencePatternCommandHandler cuando `AdherencePattern.isRiskRelevant()` (US-34) |
 
 #### 2.6.2.2. Interface Layer
 
+**Sub-capa REST - Resources:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Resource | WeeklyAdherenceSummaryResource | Representar el resumen semanal de adherencia consultado por el familiar (US-08) |
+| Resource | AdherenceHistoryResource | Representar los indicadores de adherencia calculados para un periodo solicitado (US-32) |
+| Resource | AdherenceInsightResource | Representar un patrón detectado junto con su riesgo estimado, su insight y su recomendación asociada, cuando existen (US-09, US-34) |
+
+**Sub-capa REST - Transform:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Assembler | AdherenceSnapshotResourceFromEntityAssembler | Convertir un AdherenceSnapshot en WeeklyAdherenceSummaryResource o AdherenceHistoryResource según la consulta |
+| Assembler | AdherencePatternResourceFromEntityAssembler | Convertir un AdherencePattern en AdherenceInsightResource |
+
+**Sub-capa REST - Controllers:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Controller | AdherenceSummariesController | Exponer el resumen semanal y la consulta del historial de adherencia por periodo, enrutado desde el API Gateway (US-08, US-32) |
+| Controller | AdherenceInsightsController | Exponer los patrones detectados, el riesgo estimado y las recomendaciones orientativas asociadas (US-09, US-34) |
+
+**Sub-capa Domain Event Listeners:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Consumer | IntakeHistoryUpdatedEventConsumer | Escuchar el evento `IntakeHistoryUpdated` publicado por Ejecución de tomas para actualizar el historial dentro del AdherenceLedger correspondiente |
+| Consumer | IntakeOmittedEventConsumer | Escuchar el evento `IntakeOmitted` publicado por Omisión y escalamiento para registrar la omisión dentro del historial |
+
+Este Bounded Context expone además una interfaz pública de consulta invocada directamente, dentro del mismo proceso, por Seguimiento familiar mediante `IAdherenceSummaryPort`, sin pasar por el API Gateway.
+
 #### 2.6.2.3. Application Layer
+
+**Sub-capa Internal - CommandServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| CommandHandler | ConsolidateWeeklyPeriodCommandHandler | Cerrar el periodo semanal vigente del adulto mayor sobre el AdherenceLedger correspondiente, dejándolo listo para el cálculo de adherencia ("Consolidar semana") |
+| CommandHandler | CalculateAdherenceRateCommandHandler | Calcular el AdherenceSnapshot del periodo recién consolidado, almacenarlo como AdherencePeriodSnapshot y publicar `AdherenceRateCalculated` ("Calcular adherencia", US-08, US-32) |
+| CommandHandler | DetectAdherencePatternCommandHandler | Ejecutar AdherencePatternDetectionService sobre las omisiones recurrentes del historial; al crear o reforzar un AdherencePattern publica `AdherencePatternDetected` y, cuando el patrón resulta relevante, invoca en cascada a OmissionRiskEstimationService (publicando `OmissionRiskEstimated`) y, si el riesgo resulta relevante, a AdherenceInsightGenerationService (publicando `AdherenceInsightPublished`) ("Detectar patrón", TS-10, US-09, US-34) |
+
+**Sub-capa Internal - QueryServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| QueryHandler | GetWeeklyAdherenceSummaryQueryHandler | Obtener el AdherenceSnapshot del periodo semanal vigente del adulto mayor, calculándolo al vuelo si aún no fue consolidado (US-08); invocado también dentro del mismo proceso por Seguimiento familiar mediante `IAdherenceSummaryPort.getWeeklySummary(olderAdultId)` |
+| QueryHandler | GetAdherenceHistoryQueryHandler | Obtener los AdherencePeriodSnapshot ya calculados para los distintos periodos solicitados por el familiar (US-32) |
+| QueryHandler | ListAdherenceInsightsQueryHandler | Obtener los AdherencePattern vigentes junto con su riesgo estimado, su Insight y su Recommendation asociada, cuando existen (US-09, US-34) |
+
+**Sub-capa Internal - EventServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| EventHandler | IntakeHistoryUpdatedEventHandler | Traducir `IntakeHistoryUpdated` en la actualización del AdherenceLedger correspondiente mediante `absorbHistoryUpdate()` |
+| EventHandler | IntakeOmittedEventHandler | Traducir `IntakeOmitted` en el registro de la omisión mediante `registerOmitted()` |
+
+**Sub-capa Internal - OutboundServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Service | IDomainEventPublisher | Puerto para publicar dentro del mismo proceso los eventos `AdherenceRateCalculated`, `AdherencePatternDetected`, `OmissionRiskEstimated` y `AdherenceInsightPublished`; consumidos por Seguimiento familiar |
 
 #### 2.6.2.4. Infrastructure Layer
 
+**Sub-capa Persistence (PostgreSQL):**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Repository | AdherenceLedgerRepository | Implementación de IAdherenceLedgerRepository mediante Spring Data JPA; persiste AdherenceLedger junto con sus IntakeOutcomeRecord y AdherencePeriodSnapshot |
+| Repository | AdherencePatternRepository | Implementación de IAdherencePatternRepository mediante Spring Data JPA; persiste AdherencePattern junto con su riesgo estimado, su Insight y su Recommendation |
+
+**Sub-capa Scheduled Processing:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Scheduler | WeeklyConsolidationScheduler | Ejecutar semanalmente ConsolidateWeeklyPeriodCommandHandler seguido de CalculateAdherenceRateCommandHandler para cada adulto mayor con historial activo ("Semana cerrada") |
+| Scheduler | AdherencePatternDetectionScheduler | Ejecutar periódicamente DetectAdherencePatternCommandHandler como respaldo sobre los adultos mayores con historial reciente, además de la ejecución reactiva inmediatamente después de cada omisión registrada (TS-10) |
+
+**Sub-capa Domain Events:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Listener | IntakeHistoryUpdatedEventListener | Registra IntakeHistoryUpdatedEventConsumer como manejador del evento en memoria publicado por Ejecución de tomas |
+| Listener | IntakeOmittedEventListener | Registra IntakeOmittedEventConsumer como manejador del evento en memoria publicado por Omisión y escalamiento |
+| Publisher | AdherenceDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `AdherenceRateCalculated`, `AdherencePatternDetected`, `OmissionRiskEstimated` y `AdherenceInsightPublished` para Seguimiento familiar |
+
 #### 2.6.2.5. Bounded Context Software Architecture Component Level Diagrams
+
+El diagrama representa la descomposición interna del módulo **Adherence Analytics BC** dentro del container Backend. `IntakeHistoryUpdatedEventListener` e `IntakeOmittedEventListener` reciben los eventos publicados por Ejecución de tomas y por Omisión y escalamiento, respectivamente, y activan sus Consumers y EventHandlers correspondientes para actualizar el agregado `AdherenceLedger` mediante `AdherenceLedgerRepository`. `WeeklyConsolidationScheduler` ejecuta semanalmente el cierre de periodo y el cálculo de adherencia, publicando `AdherenceRateCalculated`. `AdherencePatternDetectionScheduler`, junto con la activación reactiva tras cada omisión, ejecuta `AdherencePatternDetectionService`, que crea o refuerza un `AdherencePattern` mediante `AdherencePatternRepository` y publica `AdherencePatternDetected`; cuando el patrón es relevante, `OmissionRiskEstimationService` estima su riesgo (`OmissionRiskEstimated`) y, si el riesgo resulta relevante, `AdherenceInsightGenerationService` genera el insight y la recomendación (`AdherenceInsightPublished`). `AdherenceSummariesController` y `AdherenceInsightsController` exponen las consultas hacia el familiar, mientras que `AdherenceDomainEventPublisher` publica en memoria los cuatro eventos para Seguimiento familiar.
+
+![AdherenceAnalyticsComponents.png](assets/AdherenceAnalyticsComponents.png)
+
+*Figura. Component Diagram (C4 Nivel 3) del Bounded Context Analítica de adherencia.*
 
 #### 2.6.2.6. Bounded Context Software Architecture Code Level Diagrams
 
 ##### 2.6.2.6.1. Bounded Context Domain Layer Class Diagrams
 
+El diagrama de clases del Domain Layer presenta dos aggregate roots independientes. `AdherenceLedger` mantiene, en relación de composición (1 a 0..*), el historial de `IntakeOutcomeRecord` y los periodos ya cerrados como `AdherencePeriodSnapshot`, cada uno con su `AdherenceSnapshot` calculado. `AdherencePattern` conserva un ciclo de vida propio, ya que un patrón detectado puede persistir, reforzarse, estimar su riesgo o dejar de tener evidencia suficiente independientemente de que continúen llegando nuevos resultados de tomas; sin embargo, referencia mediante identificador (`adherenceLedgerId`) al `AdherenceLedger` sobre el cual fue detectado, dejando explícita su trazabilidad sin que ambos agregados deban modificarse dentro de la misma transacción. `AdherencePattern` compone además los Value Objects `TimeSlot`, `Insight` y `Recommendation`, y utiliza la enumeración `OmissionRiskLevel`. Se incluyen `IAdherenceLedgerRepository`, `IAdherencePatternRepository`, `AdherenceTolerancePolicy`, `AdherencePatternDetectionService`, `OmissionRiskEstimationService` y `AdherenceInsightGenerationService`, manteniendo la lógica de clasificación, detección de patrones, estimación de riesgo y generación de insights independiente de PostgreSQL y de los procesos programados.
+
+![adherenceanalyticsPlantUML.png](assets/adherenceanalyticsPlantUML.png)
+
+*Figura. Domain Layer Class Diagram del Bounded Context Analítica de adherencia.*
+
 ##### 2.6.2.6.2. Bounded Context Database Design Diagram
+
+Las tablas de este Bounded Context se encuentran dentro de la misma instancia PostgreSQL utilizada por Tata, pero conservan la propiedad lógica de sus datos dentro de Analítica de adherencia. Las referencias `intake_id` y `older_adult_id` se mantienen como identificadores lógicos, sin foreign keys físicas hacia Ejecución de tomas, Omisión y escalamiento ni Vínculo de cuidado.
+
+![DatabaseDesignAdherence.png](assets/DatabaseDesignAdherence.png)
+
+*Figura. Database Design Diagram del Bounded Context Analítica de adherencia.*
+
+**ADHERENCE_LEDGERS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del historial acumulado |
+| older_adult_id | Referencia lógica al adulto mayor (sin FK física) |
+| created_at / updated_at | Fechas de auditoría |
+
+**INTAKE_OUTCOME_RECORDS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del registro |
+| adherence_ledger_id (FK → ADHERENCE_LEDGERS.id) | Historial al que pertenece |
+| intake_id | Referencia lógica a la toma en Ejecución de tomas (sin FK física) |
+| scheduled_at | Horario programado de la toma |
+| resolved_at | Fecha de confirmación; nullable cuando la toma fue omitida |
+| status | Clasificación: CONFIRMED, LATE u OMITTED |
+| created_at | Fecha de registro |
+
+**ADHERENCE_PERIOD_SNAPSHOTS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del periodo consolidado |
+| adherence_ledger_id (FK → ADHERENCE_LEDGERS.id) | Historial al que pertenece |
+| period_start / period_end | Rango del periodo semanal calculado |
+| scheduled_count / confirmed_count / late_count / omitted_count | Conteos utilizados para el cálculo de la tasa |
+| adherence_rate | Porcentaje de cumplimiento calculado para el periodo |
+| closed_at | Fecha en la que se consolidó el periodo y se calculó la tasa |
+
+**ADHERENCE_PATTERNS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del patrón |
+| adherence_ledger_id (FK → ADHERENCE_LEDGERS.id) | Historial a partir del cual fue detectado el patrón |
+| time_slot | Franja horaria recurrente asociada al patrón |
+| occurrences | Número de ocurrencias que sustentan el patrón |
+| risk_level | Estimación de riesgo: LOW, MODERATE o HIGH; nullable hasta que el patrón resulta relevante |
+| risk_estimated_at | Fecha de estimación del riesgo; nullable |
+| insight_description | Hallazgo obtenido a partir del análisis; nullable hasta que el riesgo resulta relevante |
+| recommendation_text | Recomendación orientativa; nullable cuando no existe evidencia suficiente |
+| insight_published_at | Fecha de publicación del insight; nullable |
+| detected_at / updated_at | Fechas de detección y de última actualización |
+
+Relaciones: ADHERENCE_LEDGERS (1) - (N) INTAKE_OUTCOME_RECORDS; ADHERENCE_LEDGERS (1) - (N) ADHERENCE_PERIOD_SNAPSHOTS; ADHERENCE_LEDGERS (1) - (N) ADHERENCE_PATTERNS. Aunque `AdherencePattern` conserva su propio ciclo de vida como aggregate root, la foreign key hacia `ADHERENCE_LEDGERS` deja explícita la trazabilidad del historial que originó cada patrón, sin que ambas tablas deban modificarse dentro de la misma transacción.
 
 
 ### 2.6.3. Bounded Context: Identidad y suscripción
