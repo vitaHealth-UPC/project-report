@@ -49,7 +49,7 @@
 
 | Versión | Fecha | Autor | Descripción de modificación |
 |---------|-------|-------|-----------------------------|
-| AV1 | 16/09/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | "Para esta primera entrega desarrollamos de manera colaborativa los dos primeros capítulos del informe, definiendo los segmentos objetivo, user stories, bounded contexts y más. |
+| AV1 | 16/09/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | Para esta primera entrega desarrollamos de manera colaborativa los dos primeros capítulos del informe, definiendo los segmentos objetivo, user stories, bounded contexts y más. |
 
 <br>
 <br>
