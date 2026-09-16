@@ -2389,6 +2389,12 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
 
 #### 2.6.1.5. Bounded Context Software Architecture Component Level Diagrams
 
+El diagrama representa la descomposición interna del módulo Intake Execution BC dentro del container Backend, mostrando cómo `IntakeQueriesController` e `IntakeConfirmationController` reciben las peticiones enrutadas por el API Gateway, invocan a los Command/Query Handlers de la capa Application (`GenerateIntakeScheduleCommandHandler`, `ConfirmIntakeCommandHandler`, `ConfirmIntakeByVoiceCommandHandler`, `GetNextIntakeQueryHandler`, `GetIntakeDetailQueryHandler`, `GetDailyIntakeAgendaQueryHandler`, entre otros), estos operan sobre el agregado `Intake` (capa Domain) a través de `IntakeRepository`, y cómo `VoiceRecognitionAdapter` invoca externamente al servicio de reconocimiento de voz seleccionado en el Spike 1 para resolver las confirmaciones registradas por voz. Se incluyen además los tres schedulers de la capa Infrastructure (`ReminderScheduler`, `ReminderReinforcementScheduler`, `ToleranceExpirationScheduler`), que disparan periódicamente los Command Handlers correspondientes sin pasar por el API Gateway, así como los listeners que consumen en memoria el evento `TreatmentActivated` publicado por Treatment Management. Se incluye también la publicación en memoria de los eventos `IntakeHistoryUpdated`, consumido por Adherence Analytics, e `IntakeToleranceExpired`, consumido por Omisión y escalamiento.
+
+![IntakeExecutionComponents.png](assets/IntakeExecutionComponents.png)
+ 
+*Figura. Component Diagram (C4 Nivel 3) del Bounded Context Ejecución de tomas.*
+
 #### 2.6.1.6. Bounded Context Software Architecture Code Level Diagrams
 
 ##### 2.6.1.6.1. Bounded Context Domain Layer Class Diagrams
