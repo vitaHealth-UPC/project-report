@@ -2523,21 +2523,297 @@ Relaciones: ACCOUNTS (1) - (N) EMAIL_VERIFICATIONS; ACCOUNTS (1) - (N) ACCESS_CR
 
 ### 2.6.4. Bounded Context: Vínculo de cuidado
 
+El Bounded Context **Vínculo de cuidado** (**Care Link BC**) administra la relación autorizada entre un familiar o cuidador y un adulto mayor. Se implementa como un módulo dentro del backend único de Tata y concentra las reglas relacionadas con el registro del perfil del adulto mayor, la generación y vigencia del código de vinculación, la aceptación de la solicitud, el consentimiento, la confirmación del vínculo y la consulta de su estado.
+
+Su responsabilidad comienza cuando un familiar con una cuenta habilitada registra el perfil del adulto mayor. A partir de este perfil puede generarse un `LinkingCode` temporal para iniciar la vinculación. El código solo puede utilizarse mientras se encuentre vigente y no haya sido consumido. La relación no se considera autorizada hasta que el adulto mayor registra su consentimiento y el vínculo queda confirmado. Una vez confirmado, otros Bounded Contexts pueden consultar si un familiar está autorizado para operar sobre un adulto mayor. Gestión del tratamiento utiliza esta capacidad antes de permitir la configuración de un tratamiento, mientras Seguimiento familiar puede consultar la relación y el contacto del adulto mayor.
+
 #### 2.6.4.1. Domain Layer
+
+**Sub-capa Model - Aggregates:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Aggregate Root | OlderAdultProfile | Representar el perfil de cuidado del adulto mayor registrado dentro de Tata | `id`, `registeredByCaregiverId`, `basicData`, `emergencyContact`, `createdAt` - `updateBasicData()`, `associateEmergencyContact()` | Es referenciado por CareLink mediante `olderAdultId`; conserva el contacto de emergencia |
+| Aggregate Root | CareLink | Representar y proteger el ciclo de vida de la relación autorizada entre familiar y adulto mayor | `id`, `caregiverId`, `olderAdultId`, `status`, `linkingCode`, `consent`, `confirmedAt` - `generateCode()`, `accept()`, `registerConsent()`, `confirm()`, `isActive()` | Referencia lógicamente a las cuentas del familiar y adulto mayor; su estado es consultado por Gestión del tratamiento y Seguimiento familiar |
+
+**Sub-capa Model - Value Objects:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Value Object | OlderAdultBasicData | Encapsular los datos básicos utilizados para crear el perfil de cuidado | `fullName`, `birthDate` | Usado por OlderAdultProfile |
+| Value Object | LinkingCode | Encapsular el código temporal de vinculación y su vigencia | `value`, `expiresAt`, `usedAt` - `isValid(now)`, `markUsed()` | Usado por CareLink |
+| Value Object | Consent | Representar la aceptación explícita del adulto mayor para establecer el vínculo | `accepted`, `recordedAt` - `isGranted()` | Usado por CareLink |
+| Value Object | EmergencyContact | Encapsular la información de contacto disponible ante una situación que requiera mayor atención | `name`, `relationship`, `phone` | Usado por OlderAdultProfile |
+| Enumeration | CareLinkStatus | Representar el estado de la relación de cuidado | `PENDING`, `AWAITING_CONSENT`, `CONFIRMED`, `REVOKED` | Controla las transiciones de CareLink |
+
+**Sub-capa Services y Repositories:**
+
+| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Factory | OlderAdultProfileFactory | Crear el perfil inicial de un adulto mayor asociado al familiar que realiza el registro | `create(caregiverId, basicData): OlderAdultProfile` | Usado por RegisterOlderAdultProfileCommandHandler |
+| Factory | CareLinkFactory | Crear un vínculo pendiente entre un familiar y un adulto mayor | `createPending(caregiverId, olderAdultId): CareLink` | Usado por GenerateLinkingCodeCommandHandler |
+| Domain Service | CareLinkConfirmationPolicy | Verificar que el código continúe vigente y que exista consentimiento antes de confirmar la relación | `canConfirm(careLink, now): boolean` | Consultado por ConfirmCareLinkCommandHandler |
+| Interface | IOlderAdultProfileRepository | Contrato de persistencia del perfil del adulto mayor | `save(profile)`, `findById(id): OlderAdultProfile` | Implementado en Infrastructure |
+| Interface | ICareLinkRepository | Contrato de persistencia del agregado CareLink | `save(link)`, `findById(id): CareLink`, `findByCode(code): CareLink`, `findActive(caregiverId, olderAdultId): CareLink` | Implementado en Infrastructure |
+| Interface | IAccountStatusPort | Puerto para comprobar que la cuenta del familiar se encuentre habilitada antes de iniciar una vinculación | `isEnabled(userId): boolean` | Implementado en Infrastructure; consulta Identidad y suscripción dentro del mismo proceso |
 
 #### 2.6.4.2. Interface Layer
 
+**Sub-capa REST - Resources:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Resource | OlderAdultProfileResource | Representar el perfil de cuidado del adulto mayor |
+| Resource | RegisterOlderAdultProfileResource | Representar la petición para registrar los datos básicos y el contacto de emergencia del adulto mayor |
+| Resource | CareLinkResource | Representar el estado actual de un vínculo de cuidado |
+| Resource | GenerateLinkingCodeResource | Representar la solicitud de generación de un código temporal |
+| Resource | AcceptCareLinkResource | Representar la petición de aceptación de la vinculación mediante código |
+| Resource | RegisterConsentResource | Representar la aceptación explícita del adulto mayor |
+
+**Sub-capa REST - Transform:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Assembler | OlderAdultProfileResourceFromEntityAssembler | Convertir OlderAdultProfile en OlderAdultProfileResource |
+| Assembler | CareLinkResourceFromEntityAssembler | Convertir CareLink en CareLinkResource |
+| Assembler | RegisterOlderAdultProfileCommandFromResourceAssembler | Convertir RegisterOlderAdultProfileResource en RegisterOlderAdultProfileCommand |
+| Assembler | AcceptCareLinkCommandFromResourceAssembler | Convertir AcceptCareLinkResource en AcceptCareLinkCommand |
+| Assembler | RegisterConsentCommandFromResourceAssembler | Convertir RegisterConsentResource en RegisterConsentCommand |
+
+**Sub-capa REST - Controllers:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Controller | OlderAdultsController | Exponer endpoints para registrar y consultar el perfil del adulto mayor, incluido su contacto de emergencia (US-12) |
+| Controller | CareLinksController | Exponer endpoints para generar códigos, aceptar la vinculación, registrar consentimiento y consultar el estado del vínculo (US-02, US-13, TS-02) |
+
+**Sub-capa Domain Event Listeners:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Consumer | AccountEnabledEventConsumer | Escuchar el evento `AccountEnabled` publicado por Identidad y suscripción como señal de que el usuario puede iniciar el proceso de vinculación |
+
+La validación definitiva del estado de la cuenta se mantiene mediante `IAccountStatusPort`, evitando duplicar dentro de este Bounded Context el modelo completo de Identidad y suscripción.
+
 #### 2.6.4.3. Application Layer
+
+**Sub-capa Internal - CommandServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| CommandHandler | RegisterOlderAdultProfileCommandHandler | Registrar el perfil de cuidado del adulto mayor y asociar, cuando corresponda, el contacto de emergencia (US-12) |
+| CommandHandler | GenerateLinkingCodeCommandHandler | Crear un vínculo pendiente y generar un código temporal asociado al adulto mayor (US-02) |
+| CommandHandler | AcceptCareLinkCommandHandler | Validar un código vigente y registrar la aceptación de la solicitud de vinculación (US-02, TS-02) |
+| CommandHandler | RegisterConsentCommandHandler | Registrar el consentimiento explícito del adulto mayor (US-13) |
+| CommandHandler | ConfirmCareLinkCommandHandler | Confirmar el vínculo cuando el código y el consentimiento cumplen las reglas de CareLinkConfirmationPolicy (US-02, US-13, TS-02) |
+| CommandHandler | AssociateEmergencyContactCommandHandler | Asociar o actualizar el contacto de emergencia del perfil del adulto mayor (US-12) |
+
+**Sub-capa Internal - QueryServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| QueryHandler | GetCareLinkStatusQueryHandler | Consultar el estado actual de un vínculo |
+| QueryHandler | ValidateActiveCareLinkQueryHandler | Verificar si un familiar posee un vínculo confirmado con un adulto mayor; es utilizado por Gestión del tratamiento |
+| QueryHandler | GetOlderAdultContactQueryHandler | Recuperar el contacto de emergencia asociado al adulto mayor; puede ser utilizado por Seguimiento familiar |
+
+**Sub-capa Internal - EventServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| EventHandler | AccountEnabledEventHandler | Recibir `AccountEnabled` y habilitar el inicio del flujo de vinculación para el usuario sin importar el modelo interno de Identidad y suscripción |
+
+**Sub-capa Internal - OutboundServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Service | IDomainEventPublisher | Puerto para publicar en memoria `OlderAdultProfileRegistered`, `LinkingCodeGenerated` y `CareLinkConfirmed` para los módulos interesados |
 
 #### 2.6.4.4. Infrastructure Layer
 
+**Sub-capa Persistence (PostgreSQL):**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Repository | OlderAdultProfileRepository | Implementación de IOlderAdultProfileRepository mediante Spring Data JPA; persiste OlderAdultProfile y su contacto de emergencia |
+| Repository | CareLinkRepository | Implementación de ICareLinkRepository mediante Spring Data JPA; persiste el vínculo, el código temporal, el consentimiento y su estado |
+
+**Sub-capa Module Adapters:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Adapter | AccountStatusAdapter | Implementación de IAccountStatusPort; consulta directamente la interfaz pública del módulo Identidad y suscripción dentro del mismo proceso |
+
+**Sub-capa Domain Events:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Listener | AccountEnabledEventListener | Registra AccountEnabledEventConsumer como manejador del evento en memoria publicado por Identidad y suscripción |
+| Publisher | CareLinkDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `OlderAdultProfileRegistered`, `LinkingCodeGenerated` y `CareLinkConfirmed` |
+
 #### 2.6.4.5. Bounded Context Software Architecture Component Level Diagrams
+
+El diagrama representa la descomposición interna del módulo **Care Link BC** dentro del container Backend. `OlderAdultsController` y `CareLinksController` reciben las peticiones enrutadas por el API Gateway y activan los Command/Query Handlers correspondientes. `AccountEnabledEventListener` recibe el evento publicado por Identidad y suscripción y lo entrega a `AccountEnabledEventConsumer`. Los casos de uso operan sobre los agregados `OlderAdultProfile` y `CareLink` mediante sus respectivos repositories. `AccountStatusAdapter` consulta el estado autorizado de la cuenta en Identidad y suscripción, mientras `CareLinkDomainEventPublisher` publica en memoria `CareLinkConfirmed`. La interfaz pública de consulta del BC es utilizada por Gestión del tratamiento para validar un vínculo activo y por Seguimiento familiar para recuperar la relación y el contacto del adulto mayor.
+
+![Component Diagram de Vínculo de cuidado](assets/bccarelink.png)
+
+*Figura. Component Diagram (C4 Nivel 3) del Bounded Context Vínculo de cuidado.*
 
 #### 2.6.4.6. Bounded Context Software Architecture Code Level Diagrams
 
 ##### 2.6.4.6.1. Bounded Context Domain Layer Class Diagrams
 
+El diagrama de clases del Domain Layer presenta a `OlderAdultProfile` y `CareLink` como aggregate roots con ciclos de vida independientes dentro del mismo Bounded Context. `OlderAdultProfile` utiliza `OlderAdultBasicData` y `EmergencyContact`, mientras `CareLink` utiliza `LinkingCode`, `Consent` y `CareLinkStatus` para controlar el proceso de vinculación. Se incluyen además `IOlderAdultProfileRepository`, `ICareLinkRepository`, `IAccountStatusPort`, `OlderAdultProfileFactory`, `CareLinkFactory` y `CareLinkConfirmationPolicy`, manteniendo las reglas del vínculo independientes de PostgreSQL y del modelo interno de Identidad y suscripción.
+
+![Class Diagram del Domain Layer de Vínculo de cuidado](assets/carelinkPlantUML.png)
+
+*Figura. Domain Layer Class Diagram del Bounded Context Vínculo de cuidado.*
+
 ##### 2.6.4.6.2. Bounded Context Database Design Diagram
+
+Aunque la persistencia de Tata comparte una misma instancia de PostgreSQL, `registered_by_caregiver_id` y `caregiver_id` se conservan como referencias lógicas sin foreign keys físicas hacia Identidad y suscripción. Las foreign keys se utilizan únicamente entre tablas propias de Vínculo de cuidado, preservando el aislamiento lógico entre Bounded Contexts.
+
+![Database Design Diagram de Vínculo de cuidado](assets/carelinkDBmodel.png)
+
+*Figura. Database Design Diagram del Bounded Context Vínculo de cuidado.*
+
+**OLDER_ADULT_PROFILES**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del perfil del adulto mayor |
+| registered_by_caregiver_id | Identificador lógico del familiar que registró el perfil, sin FK física hacia Identidad y suscripción |
+| full_name | Nombre del adulto mayor utilizado en su perfil de cuidado |
+| birth_date | Fecha de nacimiento registrada en el perfil |
+| emergency_contact_name | Nombre del contacto de emergencia; nullable |
+| emergency_contact_relationship | Relación del contacto con el adulto mayor; nullable |
+| emergency_contact_phone | Número de contacto disponible; nullable |
+| created_at / updated_at | Fechas de auditoría |
+
+**CARE_LINKS**
+
+| Columna | Descripción |
+| --- | --- |
+| id (PK) | Identificador único del vínculo de cuidado |
+| caregiver_id | Identificador lógico del familiar o cuidador, sin FK física hacia Identidad y suscripción |
+| older_adult_id (FK → OLDER_ADULT_PROFILES.id) | Perfil del adulto mayor asociado al vínculo |
+| status | Estado del vínculo: PENDING, AWAITING_CONSENT, CONFIRMED o REVOKED |
+| linking_code | Código temporal utilizado para iniciar la vinculación |
+| code_expires_at | Fecha y hora de expiración del código |
+| code_used_at | Fecha y hora de utilización del código; nullable |
+| consent_granted | Indica si el adulto mayor otorgó consentimiento |
+| consent_recorded_at | Fecha y hora de registro del consentimiento; nullable |
+| confirmed_at | Fecha y hora de confirmación del vínculo; nullable |
+| created_at / updated_at | Fechas de auditoría |
+
+Relación: OLDER_ADULT_PROFILES (1) - (N) CARE_LINKS.
+
+### 2.6.5. Bounded Context: Gestión del tratamiento
+
+Siguiendo el modelo de arquitectura **Clean Architecture** combinado con **Domain-Driven Design**, este Bounded Context (**Treatment Management BC**) se organiza en las capas Domain, Interface, Application e Infrastructure, y se implementa como un módulo dentro del backend único de Tata (sección 2.5.3.2). Gestión del tratamiento es responsable de definir la pauta operativa del adulto mayor: qué medicamentos debe tomar, en qué dosis, con qué frecuencia, en qué horarios y bajo qué instrucciones, además de la configuración de sus recordatorios (ver Bounded Context Canvas, sección 2.5.1.3). Su responsabilidad culmina en decidir cuándo un tratamiento queda completamente configurado y puede activarse; no administra la ejecución de cada toma individual, responsabilidad que pertenece a Ejecución de tomas, a quien notifica mediante el evento **Tratamiento activado**.
+
+#### 2.6.5.1. Domain Layer
+
+**Sub-capa Model - Aggregates:**
+
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Aggregate Root | Treatment | Representar la pauta completa de un adulto mayor y garantizar que solo se active cuando su configuración esté completa | `id`, `olderAdultId`, `status` (Draft / Active / Paused), `medications: List<Medication>` - `addMedication()`, `activate()`, `pause()`, `isComplete()` | Contiene entidades Medication; referencia al adulto mayor por identificador (Vínculo de cuidado) |
+| Entity | Medication | Representar un medicamento y su pauta de administración dentro de un tratamiento | `id`, `name`, `dose: Dose`, `frequency: Frequency`, `intakeTimes: List<IntakeTime>`, `instructions: Instructions`, `reminderConfig: ReminderConfig`, `active` - `updateDose()`, `updateSchedule()`, `deactivate()` | Entidad hija de Treatment; sus datos alimentan a Ejecución de tomas cuando el tratamiento se activa |
+
+**Sub-capa Model - Value Objects:**
+
+| Tipo | Nombre | Propósito | Atributos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Value Object | Dose | Encapsular la cantidad y unidad de una dosis | `amount`, `unit` | Usado en Medication |
+| Value Object | Frequency | Encapsular la periodicidad de una toma | `timesPerDay`, `intervalHours` | Usado en Medication |
+| Value Object | IntakeTime | Representar un horario programado de toma | `hour`, `minute` | Usado en Medication (colección) |
+| Value Object | Instructions | Encapsular las indicaciones de administración | `text` | Usado en Medication |
+| Value Object | ReminderConfig | Encapsular la configuración de recordatorio de un medicamento | `enabled`, `leadTimeMinutes`, `notificationChannel` | Referencia conceptos del Shared Kernel Accesibilidad y preferencias (canal de notificación) |
+
+**Sub-capa Services y Repositories:**
+
+| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Interface | ICareLinkVerificationPort | Puerto de dominio para verificar que el familiar solicitante posea un vínculo de cuidado activo con el adulto mayor | `isAuthorized(familiarId, olderAdultId): boolean` | Implementado en Infrastructure; invoca en el mismo proceso a Vínculo de cuidado (relación Customer/Supplier, sección 2.5.2) |
+| Factory | TreatmentFactory | Crear un nuevo Treatment en estado Draft asociado a un adulto mayor | `createDraft(olderAdultId): Treatment` | Usado por CreateTreatmentCommandHandler |
+| Interface | ITreatmentRepository | Contrato de persistencia para el agregado Treatment | `save(treatment)`, `findById(id): Treatment`, `findByOlderAdultId(id): List<Treatment>` | Implementado en la capa Infrastructure |
+
+#### 2.6.5.2. Interface Layer
+
+**Sub-capa REST - Resources:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Resource | TreatmentResource | Representar un tratamiento completo con sus medicamentos para el cliente |
+| Resource | CreateTreatmentResource | Representar la petición para crear un tratamiento |
+| Resource | RegisterMedicationResource | Representar la petición para registrar un medicamento (dosis, frecuencia, horarios, instrucciones) |
+| Resource | ConfigureReminderResource | Representar la petición para configurar los recordatorios de un medicamento |
+
+**Sub-capa REST - Transform:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Assembler | TreatmentResourceFromEntityAssembler | Convertir la entidad Treatment en TreatmentResource |
+| Assembler | CreateTreatmentCommandFromResourceAssembler | Convertir CreateTreatmentResource en CreateTreatmentCommand |
+| Assembler | RegisterMedicationCommandFromResourceAssembler | Convertir RegisterMedicationResource en RegisterMedicationCommand |
+
+**Sub-capa REST - Controllers:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Controller | TreatmentsController | Exponer endpoints para crear, consultar, activar y pausar tratamientos (US-14, US-18, US-19), enrutados desde el API Gateway hacia este módulo |
+| Controller | MedicationsController | Exponer endpoints para registrar, editar, desactivar y configurar medicamentos (US-03, US-04, US-15, US-16, US-17) |
+
+Este Bounded Context no requiere Consumers de eventos en esta versión, ya que no reacciona a eventos publicados por otros módulos; únicamente invoca de forma síncrona y en el mismo proceso al módulo Vínculo de cuidado mediante `ICareLinkVerificationPort` (no existe bus de mensajes externo en la arquitectura actual, sección 2.5.3.2).
+
+#### 2.6.5.3. Application Layer
+
+**Sub-capa Internal - CommandServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| CommandHandler | CreateTreatmentCommandHandler | Crear un tratamiento en estado Draft (US-14) |
+| CommandHandler | RegisterMedicationCommandHandler | Registrar un medicamento dentro de un tratamiento (US-03) |
+| CommandHandler | EditMedicationCommandHandler | Editar los datos de un medicamento (US-04) |
+| CommandHandler | DeactivateMedicationCommandHandler | Desactivar un medicamento sin perder su historial (US-04) |
+| CommandHandler | DefineDoseAndFrequencyCommandHandler | Definir dosis y frecuencia de un medicamento (US-15) |
+| CommandHandler | ConfigureScheduleCommandHandler | Configurar horarios e instrucciones de un medicamento (US-16) |
+| CommandHandler | ConfigureRemindersCommandHandler | Configurar los recordatorios de un tratamiento (US-17) |
+| CommandHandler | ActivateTreatmentCommandHandler | Activar un tratamiento validando `isComplete()` y publicar el evento de dominio `TreatmentActivated` (US-18) |
+| CommandHandler | PauseTreatmentCommandHandler | Pausar un tratamiento activo sin eliminar su historial (US-18) |
+
+**Sub-capa Internal - QueryServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| QueryHandler | GetTreatmentDetailQueryHandler | Obtener el detalle completo de un tratamiento (US-19) |
+
+**Sub-capa Internal - OutboundServices:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Service | IDomainEventPublisher | Puerto para publicar el evento de dominio `TreatmentActivated` dentro del mismo proceso; según el Domain Message Flow de la sección 2.5.1.2, es consumido por el módulo Ejecución de tomas para programar las tomas correspondientes |
+
+#### 2.6.5.4. Infrastructure Layer
+
+**Sub-capa Persistence (PostgreSQL):**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Repository | TreatmentRepository | Implementación de ITreatmentRepository (Spring Data JPA); persiste el agregado Treatment junto con sus entidades Medication en la base de datos PostgreSQL central, en las tablas propias de este Bounded Context |
+
+**Sub-capa Module Adapters:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Adapter | CareLinkVerificationAdapter | Implementación de ICareLinkVerificationPort; invoca directamente, dentro del mismo proceso, la interfaz pública expuesta por el módulo Vínculo de cuidado |
+
+**Sub-capa Domain Events:**
+
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Publisher | TreatmentDomainEventPublisher | Implementación de IDomainEventPublisher mediante el mecanismo de eventos de aplicación en memoria (por ejemplo, `ApplicationEventPublisher` de Spring); publica `TreatmentActivated` para que otros módulos del mismo backend lo escuchen |
+
 
 
 ### 2.6.5. Bounded Context: Gestión del tratamiento
