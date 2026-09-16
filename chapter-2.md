@@ -2260,14 +2260,132 @@ La distribución propuesta mantiene una infraestructura acorde con el alcance de
 ## 2.6. Tactical-Level Domain-Driven Design
 
 ### 2.6.1. Bounded Context: Ejecución de tomas
-
+ 
+El Bounded Context **Ejecución de tomas** (**Intake Execution BC**) es responsable de generar las tomas programadas a partir de los tratamientos activos, emitir los recordatorios correspondientes, y registrar la confirmación del adulto mayor mediante interacción táctil o por voz. Se implementa como un módulo del backend único de Tata y constituye el punto de origen del ciclo de vida de una toma: desde su programación hasta su confirmación o, en caso de no ser confirmada dentro del periodo de tolerancia, el traspaso de dicha situación hacia Omisión y escalamiento.
+ 
+El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicamentos, generando las tomas futuras correspondientes a la pauta vigente del tratamiento. Cuando la pauta de un tratamiento se modifica, el contexto regenera únicamente las tomas futuras que todavía no poseen un resultado definitivo. Cuando una toma programada alcanza su horario, el contexto emite el recordatorio inicial y, si no existe confirmación dentro del intervalo configurado, emite un recordatorio reforzado. Cuando el adulto mayor confirma una toma, ya sea por interacción táctil o mediante una confirmación de voz validada, el contexto registra el resultado y publica `IntakeHistoryUpdated`, evento que Adherence Analytics consume para clasificar la toma como confirmada a tiempo o tardía. Cuando una toma pendiente supera su periodo de tolerancia sin haber sido confirmada, el contexto publica `IntakeToleranceExpired`, cediendo a Omisión y escalamiento la responsabilidad de registrar la omisión y gestionar la alerta correspondiente al familiar.
+ 
 #### 2.6.1.1. Domain Layer
-
+ 
+**Sub-capa Model - Aggregates:**
+ 
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Aggregate Root | Intake | Representar una toma programada, controlar la emisión de recordatorios y registrar su confirmación dentro del periodo de tolerancia | `id`, `treatmentId`, `olderAdultId`, `medicationSnapshot: MedicationSnapshot`, `scheduledAt`, `tolerance: ToleranceWindow`, `status: IntakeStatus`, `remindersIssued`, `confirmedAt`, `confirmationChannel: ConfirmationChannel` - `issueReminder()`, `reinforceReminder()`, `confirm(channel, confirmedAt)`, `expireTolerance()` | Creado por IntakeSchedulingService a partir de un tratamiento activo; publica ReminderIssued, ReminderReinforced, IntakeHistoryUpdated e IntakeToleranceExpired en sus distintas transiciones |
+ 
+**Sub-capa Model - Value Objects:**
+ 
+| Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Value Object | MedicationSnapshot | Conservar el nombre, dosis e instrucciones del medicamento vigentes al momento de programar la toma, independientemente de cambios posteriores en el tratamiento | `medicationName`, `dose`, `instructions` | Embebido en Intake; se genera a partir de la pauta consultada en Gestión de Medicamentos al momento de la programación |
+| Value Object | ToleranceWindow | Delimitar el intervalo de tiempo dentro del cual una confirmación tardía todavía es válida | `duration` - `hasExpired(now)` | Consultado por Intake al evaluar `expireTolerance()` |
+| Enumeration | ConfirmationChannel | Representar el medio utilizado para confirmar una toma | `TAP`, `VOICE` | Usado por Intake al registrar `confirm()` |
+| Enumeration | IntakeStatus | Representar el estado vigente de una toma dentro de este contexto | `PENDING`, `CONFIRMED`, `ESCALATED` | Usado por Intake; `ESCALATED` marca el traspaso hacia Omisión y escalamiento |
+ 
+**Sub-capa Services y Repositories:**
+ 
+| Tipo | Nombre | Propósito | Firma / Método principal | Relación con otros elementos |
+| --- | --- | --- | --- | --- |
+| Interface | IIntakeRepository | Contrato de persistencia del agregado Intake | `save(intake)`, `findById(id): Intake`, `findNextByOlderAdultId(id): Intake`, `findByOlderAdultIdAndDate(id, date): List<Intake>`, `findPendingWithReminderDue(now): List<Intake>`, `findPendingWithToleranceExpired(now): List<Intake>` | Implementado en Infrastructure |
+| Domain Service | IntakeSchedulingService | Generar las tomas futuras de un tratamiento activo a partir de su pauta (dosis, horarios, días de la semana) | `generateSchedule(treatment): List<Intake>`, `regenerateFutureIntakes(treatment): List<Intake>` | Consultado por GenerateIntakeScheduleCommandHandler (TS-08); solo reemplaza tomas futuras sin resultado definitivo |
+| Domain Service | VoiceConfirmationValidationService | Determinar si una transcripción obtenida del reconocimiento de voz corresponde a una confirmación válida de la toma | `validate(transcription, expectedPhrase): boolean` | Consultado por ConfirmIntakeByVoiceCommandHandler (US-06, TS-11) |
+ 
 #### 2.6.1.2. Interface Layer
-
+ 
+**Sub-capa REST - Resources:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Resource | NextIntakeResource | Representar la próxima toma pendiente del adulto mayor (US-20) |
+| Resource | IntakeDetailResource | Representar el detalle de una toma, incluyendo medicamento, dosis, instrucciones y estado (US-21) |
+| Resource | DailyIntakeAgendaResource | Representar el listado de tomas programadas para un día específico, ordenadas cronológicamente (US-24) |
+| Resource | IntakeConfirmationResource | Representar el resultado de una confirmación registrada, ya sea por toque o por voz (US-06, US-23) |
+ 
+**Sub-capa REST - Transform:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Assembler | IntakeResourceFromEntityAssembler | Convertir un Intake en NextIntakeResource, IntakeDetailResource o DailyIntakeAgendaResource según la consulta |
+| Assembler | IntakeConfirmationResourceFromEntityAssembler | Convertir el resultado de una confirmación en IntakeConfirmationResource |
+ 
+**Sub-capa REST - Controllers:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Controller | IntakeQueriesController | Exponer la próxima toma, el detalle de una toma y la agenda diaria, enrutado desde el API Gateway (US-20, US-21, US-24) |
+| Controller | IntakeConfirmationController | Exponer la confirmación de una toma por interacción táctil o por voz (US-06, US-23, TS-04) |
+ 
+**Sub-capa Domain Event Listeners:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Consumer | TreatmentActivatedEventConsumer | Escuchar el evento `TreatmentActivated` publicado por Gestión de Medicamentos para generar el calendario de tomas del tratamiento |
+| Consumer | TreatmentUpdatedEventConsumer | Escuchar el evento `TreatmentUpdated` publicado por Gestión de Medicamentos para regenerar únicamente las tomas futuras sin resultado definitivo |
+ 
 #### 2.6.1.3. Application Layer
-
+ 
+**Sub-capa Internal - CommandServices:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| CommandHandler | GenerateIntakeScheduleCommandHandler | Ejecutar IntakeSchedulingService sobre un tratamiento activo, persistir las tomas generadas y publicar el evento correspondiente por cada una ("Generar agenda", TS-08) |
+| CommandHandler | IssueReminderCommandHandler | Emitir el recordatorio inicial de una toma pendiente cuando se alcanza su horario programado, publicando `ReminderIssued` ("Emitir recordatorio", US-05) |
+| CommandHandler | ReinforceReminderCommandHandler | Emitir un recordatorio reforzado cuando una toma continúa pendiente tras el intervalo configurado, publicando `ReminderReinforced` ("Reforzar recordatorio", US-22) |
+| CommandHandler | ConfirmIntakeCommandHandler | Registrar la confirmación de una toma pendiente mediante interacción táctil, invocando `Intake.confirm()` y publicando `IntakeHistoryUpdated` ("Confirmar toma", US-06, US-23, TS-04) |
+| CommandHandler | ConfirmIntakeByVoiceCommandHandler | Invocar el reconocimiento de voz mediante IVoiceRecognitionPort, validar la transcripción con VoiceConfirmationValidationService y, si es válida, registrar la confirmación mediante `Intake.confirm()` ("Confirmar por voz", US-06, TS-11) |
+| CommandHandler | ExpireIntakeToleranceCommandHandler | Marcar como escalada una toma pendiente cuyo periodo de tolerancia venció sin confirmación, invocando `Intake.expireTolerance()` y publicando `IntakeToleranceExpired` ("Expirar tolerancia") |
+ 
+**Sub-capa Internal - QueryServices:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| QueryHandler | GetNextIntakeQueryHandler | Obtener la toma pendiente más próxima del adulto mayor (US-20) |
+| QueryHandler | GetIntakeDetailQueryHandler | Obtener el detalle de una toma específica, incluyendo su estado vigente (US-21) |
+| QueryHandler | GetDailyIntakeAgendaQueryHandler | Obtener las tomas programadas para una fecha determinada, ordenadas cronológicamente (US-24) |
+ 
+**Sub-capa Internal - EventServices:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| EventHandler | TreatmentActivatedEventHandler | Traducir `TreatmentActivated` en la ejecución de GenerateIntakeScheduleCommandHandler para el tratamiento correspondiente |
+| EventHandler | TreatmentUpdatedEventHandler | Traducir `TreatmentUpdated` en la regeneración de las tomas futuras aún no resueltas |
+ 
+**Sub-capa Internal - OutboundServices:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Service | IVoiceRecognitionPort | Puerto para invocar el servicio de reconocimiento de voz seleccionado en el Spike 1, devolviendo la transcripción obtenida a partir de un audio |
+| Service | IDomainEventPublisher | Puerto para publicar dentro del mismo proceso los eventos `ReminderIssued`, `ReminderReinforced`, `IntakeHistoryUpdated` e `IntakeToleranceExpired`; consumidos por Adherence Analytics y por Omisión y escalamiento |
+ 
 #### 2.6.1.4. Infrastructure Layer
+ 
+**Sub-capa Persistence (PostgreSQL):**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Repository | IntakeRepository | Implementación de IIntakeRepository mediante Spring Data JPA; persiste Intake junto con su MedicationSnapshot y su estado vigente |
+ 
+**Sub-capa Scheduled Processing:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Scheduler | ReminderScheduler | Ejecutar periódicamente IssueReminderCommandHandler sobre las tomas pendientes que alcanzan su horario programado ("Recordatorio emitido") |
+| Scheduler | ReminderReinforcementScheduler | Ejecutar periódicamente ReinforceReminderCommandHandler sobre las tomas pendientes que superan el intervalo de refuerzo sin confirmación (US-22) |
+| Scheduler | ToleranceExpirationScheduler | Ejecutar periódicamente ExpireIntakeToleranceCommandHandler sobre las tomas pendientes que superan su ToleranceWindow, entregando el caso a Omisión y escalamiento |
+ 
+**Sub-capa External Service Adapters:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Adapter | VoiceRecognitionAdapter | Implementación de IVoiceRecognitionPort mediante el servicio de reconocimiento de voz seleccionado en el Spike 1, encargada de enviar el audio recibido y devolver la transcripción obtenida |
+ 
+**Sub-capa Domain Events:**
+ 
+| Tipo | Nombre | Propósito |
+| --- | --- | --- |
+| Listener | TreatmentActivatedEventListener | Registra TreatmentActivatedEventConsumer como manejador del evento en memoria publicado por Gestión de Medicamentos |
+| Listener | TreatmentUpdatedEventListener | Registra TreatmentUpdatedEventConsumer como manejador del evento en memoria publicado por Gestión de Medicamentos |
+| Publisher | IntakeDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `ReminderIssued`, `ReminderReinforced`, `IntakeHistoryUpdated` e `IntakeToleranceExpired` para Adherence Analytics y Omisión y escalamiento |
 
 #### 2.6.1.5. Bounded Context Software Architecture Component Level Diagrams
 
