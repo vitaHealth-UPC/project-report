@@ -635,9 +635,9 @@ Las características fueron clasificadas como objetivas o subjetivas y su recurr
     </tr>
     <tr>
       <td>Entrevista N.° 2</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
+      <td>Tiene 72 años, es jubilada y vive en el Callao con sus hijas. Utiliza medicamentos para las crisis de migraña y uno de ellos lo toma por las noches para poder dormir. Usa principalmente WhatsApp y recibe apoyo de sus hijas para el seguimiento de su medicación.</td>
+      <td>Le preocupa principalmente cuando presenta una crisis de migraña. Considera que algunas aplicaciones nuevas son difíciles de utilizar cuando no conoce su funcionamiento. Le gustaría tener herramientas accesibles e información disponible sobre su tratamiento y las crisis de migraña.</td>
+      <td>Necesita una herramienta sencilla y fácil de consultar que le permita acceder a información sobre sus crisis de migraña y recordar o verificar las indicaciones de su medicación.</td>
     </tr>
     <tr>
       <td>Entrevista N.° 3</td>
@@ -727,6 +727,12 @@ Las características fueron clasificadas como objetivas o subjetivas y su recurr
       <td>20 años, vive en Comas con sus padres y hermano, estudiante de Psicología. Acompaña a su abuela, a quien visita 2 o 3 veces al mes y contacta por llamada o mensaje el resto del tiempo.</td>
       <td>Le genera ansiedad no saber si su abuela tomó correctamente sus medicamentos o si le ocurrió algo, sintiendo que al estar lejos no siempre puede reaccionar rápido. Cuando tiene dudas, recurre a otro familiar cercano para verificar. Preferiría una app de cuidado dedicada, simple y sin demasiadas opciones.</td>
       <td>La distancia física alarga el tiempo de reacción ante un posible olvido y obliga a depender de terceros para confirmar la toma, generando incertidumbre prolongada.</td>
+    </tr>
+<tr>
+      <td>Entrevista N.° 4: Leonardo López</td>
+      <td>Tiene 23 años y vive con su abuela, mamá y papá. Mantiene contacto frecuente con su familiar adulto mayor. Actualmente realiza el seguimiento preguntándole si tomó sus medicamentos y recordándole los horarios. Utiliza WhatsApp, Instagram, Facebook y YouTube.</td>
+      <td>Le preocupa que su abuela no siga una buena alimentación, olvide tomar sus medicamentos o no se cuide adecuadamente. Considera importante poder saber con certeza si tomó sus pastillas y se siente cómodo configurando alertas y notificaciones.</td>
+      <td>Necesita una herramienta que permita confirmar si su familiar tomó su medicación y enviarle una notificación, reduciendo la incertidumbre y facilitando el seguimiento a distancia.</td>
     </tr>
   </tbody>
 </table>
