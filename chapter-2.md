@@ -3928,3 +3928,16 @@ Las referencias `intake_id` y `older_adult_id` se conservan como identificadores
 
 Relaciones: OMISSION_CASES (1) - (N) CARE_ALERTS; OMISSION_CASES (1) - (N) ESCALATION_RECORDS.
 
+
+# Conclusiones
+
+
+# Conclusiones y recomendaciones.
+
+
+# Bibliografía
+
+
+# Anexos
+
+
