@@ -272,7 +272,7 @@ Este segmento está conformado por adultos mayores que siguen uno o más tratami
     </tr>
     <tr>
       <td colspan="4" align="center">
-        <img src="assets/interviews/segmento-1-entrevista-2.png" alt="Entrevista del segmento 1, participante 2" width="900">
+        <img src="assets/entrevistarosario.jpeg" alt="Entrevista del segmento 1, participante 2" width="900">
       </td>
     </tr>
     <tr>
@@ -281,39 +281,42 @@ Este segmento está conformado por adultos mayores que siguen uno o más tratami
     </tr>
     <tr>
       <td><strong>Nombre completo</strong></td>
-      <td>[pendiente]</td>
+      <td>Rosario Santolalla</td>
       <td><strong>Tratamiento o medicación</strong></td>
-      <td>[pendiente]</td>
+      <td>Medicamentos para las crisis de migraña y un medicamento nocturno para poder descansar y dormir.</td>
     </tr>
     <tr>
       <td><strong>Edad</strong></td>
-      <td>[pendiente]</td>
+      <td>72 años</td>
       <td><strong>Gestión actual de las tomas</strong></td>
-      <td>[pendiente]</td>
+      <td>Tiene en cuenta las pastillas que debe tomar cuando presenta una crisis. En ocasiones ha olvidado el medicamento nocturno.</td>
     </tr>
     <tr>
       <td><strong>Distrito</strong></td>
-      <td>[pendiente]</td>
+      <td>Callao</td>
       <td><strong>Apoyo familiar</strong></td>
-      <td>[pendiente]</td>
+      <td>Sus hijas conocen sus medicamentos y están pendientes de lo que debe tomar. Se comunican mediante llamadas o de manera presencial</td>
     </tr>
     <tr>
       <td><strong>Ocupación o situación actual</strong></td>
-      <td>[pendiente]</td>
+      <td>Jubilada; actualmente se dedica a las labores del hogar</td>
       <td><strong>Contexto digital</strong></td>
-      <td>[pendiente]</td>
+      <td>Utiliza principalmente WhatsApp. No tiene experiencia con comandos de voz y algunas aplicaciones nuevas le resultan difíciles cuando no conoce bien cómo funcionan.</td>
     </tr>
     <tr>
-      <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
+      <td colspan="2"><strong>Duración:</strong> 06:35 </td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://example.com/segmento-1-entrevista-2">Ver video</a>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a195_upc_edu_pe/IQBdCy6U5C1ZSpFyAyOY_7FkAXMOTn4f9aqEPRm3X95WfmI?e=WsgaQA">https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a195_upc_edu_pe/IQBdCy6U5C1ZSpFyAyOY_7FkAXMOTn4f9aqEPRm3X95WfmI?e=WsgaQA</a>
       </td>
     </tr>
     <tr>
       <td colspan="4">
         <strong>Resumen de la entrevista</strong>
-        <p>[pendiente]</p>
+        <p>Rosario Santolalla Solano (72 años, jubilada, distrito del Callao) vive actualmente con sus hijas. Antes de jubilarse trabajaba como facturadora y actualmente se dedica principalmente a las labores del hogar. Su día a día consiste en realizar sus actividades como ama de casa. En cuanto a su tratamiento, utiliza medicamentos principalmente para controlar sus crisis de migraña y también cuenta con un medicamento que toma por las noches para poder descansar y dormir.
+Para recordar sus medicamentos, tiene en cuenta las pastillas que necesita cuando presenta una crisis de migraña. Mencionó que en algunas ocasiones ha olvidado tomar su medicamento nocturno, lo que ocasiona que pase la noche sin poder dormir. Sus hijas conocen los medicamentos que consume y se mantienen al tanto de lo que debe tomar, realizando el seguimiento mediante llamadas o estando pendientes de ella debido a sus necesidades de salud.
+En cuanto a su contexto digital, utiliza principalmente WhatsApp. No ha utilizado comandos de voz en su celular y manifestó que algunas aplicaciones nuevas pueden resultarle difíciles cuando no está suficientemente informada sobre cómo funcionan, llegando incluso a cerrarlas o anularlas. Sin embargo, mostró interés en contar con herramientas nuevas que pueda tener a la mano para verificar información y conocer mejor qué debe hacer. Su principal preocupación está relacionada con las crisis de migraña y la necesidad de tener su medicación disponible cuando estas aparecen. Como funcionalidad ideal, le gustaría contar con un programa que le proporcione herramientas e información sobre sus crisis de migraña, de manera que pueda conocer más sobre su condición y tener esta información fácilmente disponible.
+</p>
       </td>
     </tr>
   </tbody>
@@ -493,7 +496,7 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
 <table>
   <tbody>
     <tr>
-      <td colspan="4" align="center"><strong>Entrevista N.° 2</strong></td>
+      <td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td>
     </tr>
     <tr>
       <td colspan="4" align="center">
@@ -546,6 +549,63 @@ Este segmento está conformado por familiares o cuidadores que realizan algún t
   </tbody>
 </table>
 
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 4</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">
+        <img src="assets/entrevistaleo.jpeg" alt="Entrevista del segmento 2, participante 4" width="900">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de seguimiento</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td>Leonardo López</td>
+      <td><strong>Adulto mayor acompañado</strong></td>
+      <td>Su abuela</td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td>23 años</td>
+      <td><strong>Frecuencia de contacto</strong></td>
+      <td>Frecuente, principalmente cuando está en casa.</td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td>Callao</td>
+      <td><strong>Seguimiento actual</strong></td>
+      <td>Pregunta directamente si su familiar tomó la medicación y le recuerda durante la tarde</td>
+    </tr>
+    <tr>
+      <td><strong>Ocupación</strong></td>
+      <td>Estudiante de Ingenieria de Sistemas</td>
+      <td><strong>Contexto digital</strong></td>
+      <td>Usa WhatsApp, Instagram, Facebook y YouTube. Se siente cómodo configurando alertas y notificaciones.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Duración:</strong> 03:47 </td>
+      <td colspan="2">
+        <strong>URL de grabación:</strong>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a195_upc_edu_pe/IQCTICYc0qcaTJq-wuA0bfsPARkNXpr37NWUhfkv5UahKdA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=srf1cK">https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a195_upc_edu_pe/IQCTICYc0qcaTJq-wuA0bfsPARkNXpr37NWUhfkv5UahKdA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=srf1cK</a>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de la entrevista</strong>
+        <p> Leonardo López (23 años, estudiante, reside en el Callao) vive con su abuela, su mamá y su papá. Mantiene una comunicación frecuente con su familiar adulto mayor, principalmente cuando se encuentra en casa. Su método actual de seguimiento consiste en preguntarle directamente a su abuela si tomó sus medicamentos y recordarle durante la tarde que debe tomarlos. Este seguimiento le toma aproximadamente 10 minutos al día, dependiendo de si su familiar ha tomado o no sus medicamentos.
+Relató que en varias ocasiones su abuela olvidó tomar sus pastillas, especialmente durante la noche mientras estaban comiendo, y se enteraron del olvido después de la comida, momento en el que su abuela terminó tomando la medicación. Debido a estas situaciones, actualmente consideran necesario recordarle cada cierto tiempo durante la tarde. En cuanto a su contexto digital, utiliza principalmente WhatsApp, Instagram, Facebook y YouTube. Nunca ha utilizado una aplicación específica para el cuidado de un familiar, pero se siente cómodo configurando alertas y notificaciones en aplicaciones móviles.
+Su principal preocupación respecto al cuidado de su familiar es que no siga una buena alimentación, que olvide tomar sus medicamentos o que no se cuide adecuadamente en general. Como funcionalidad ideal, le gustaría contar con una herramienta que permita saber de alguna manera cuándo su familiar ha tomado sus pastillas y que pueda notificarle esta información, brindándole mayor seguridad sobre el cumplimiento de la medicación.
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### 2.2.3. Análisis de entrevistas
 
