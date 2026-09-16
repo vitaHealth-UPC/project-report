@@ -186,11 +186,9 @@ de las actividades por cada entrega.
 - [Video About the team](#video-about-the-team)
 - [Glosario](#glosario)
 - [Bibliografía](#bibliografía)
-- [Anexos](#anexos)
+- [Anexos](#anexos) 
 
-> **Nota de implementación:** los enlaces se generan a partir del texto exacto de cada encabezado (formato de slug de GitHub: minúsculas, espacios por guiones, tildes conservadas, símbolos como `&` eliminados o reemplazados). Al fusionar este índice con el resto del informe, verificar que el texto de cada encabezado (`#`, `##`, `###`, etc.) coincida literalmente con el usado aquí; de lo contrario el enlace no saltará a la sección. Las secciones de los Capítulos III y IV, los videos y el Glosario todavía no están redactadas en el cuerpo del informe (se incorporan en TB1/AV2/TB2 según el cronograma de evaluación); igual se incluyen completas en este índice porque así fue lo pedido, pero sus enlaces quedarán "muertos" hasta que esas secciones se agreguen al documento.
-
-# Student Outcome (ver anexo A)
+# Student Outcome
 
 Cada participante del equipo debe sustentar evidencia de cómo las actividades realizadas en el trabajo final han ayudado a desarrollar las dimensiones del student outcome. Por ello en esta sección debe haber una subsección por cada alumno donde éste describa por escrito la relación entre el outcome, sus dimensiones y el trabajo que ha realizado. Esto se complementa con lo reflejado en los testimonios expuestos que forman parte del video About The Team.
 
