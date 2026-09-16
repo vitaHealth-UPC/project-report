@@ -203,7 +203,7 @@ Las entrevistas se realizaron con representantes de los dos segmentos objetivo d
 
 Para cada participante se registraron sus datos principales, una captura de la sesión, la duración de la entrevista y el enlace de acceso. Además, se elaboró un resumen descriptivo con los aspectos más relevantes obtenidos durante la conversación.
 
-#### Segmento 1: Adultos mayores
+## Segmento 1: Adultos mayores
 
 Este segmento está conformado por adultos mayores que siguen uno o más tratamientos y gestionan directamente sus medicamentos. Las entrevistas buscan conocer sus rutinas actuales, las dificultades que experimentan para recordar o confirmar una toma y su relación con el uso de dispositivos móviles.
 
@@ -322,61 +322,7 @@ En cuanto a su contexto digital, utiliza principalmente WhatsApp. No ha utilizad
   </tbody>
 </table>
 
-<table>
-  <tbody>
-    <tr>
-      <td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td>
-    </tr>
-    <tr>
-      <td colspan="4" align="center">
-        <img src="assets/interviews/segmento-1-entrevista-3.png" alt="Entrevista del segmento 1, participante 3" width="900">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
-      <td colspan="2" align="center"><strong>Contexto de la entrevista</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Nombre completo</strong></td>
-      <td>[pendiente]</td>
-      <td><strong>Tratamiento o medicación</strong></td>
-      <td>[pendiente]</td>
-    </tr>
-    <tr>
-      <td><strong>Edad</strong></td>
-      <td>[pendiente]</td>
-      <td><strong>Gestión actual de las tomas</strong></td>
-      <td>[pendiente]</td>
-    </tr>
-    <tr>
-      <td><strong>Distrito</strong></td>
-      <td>[pendiente]</td>
-      <td><strong>Apoyo familiar</strong></td>
-      <td>[pendiente]</td>
-    </tr>
-    <tr>
-      <td><strong>Ocupación o situación actual</strong></td>
-      <td>[pendiente]</td>
-      <td><strong>Contexto digital</strong></td>
-      <td>[pendiente]</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>Duración:</strong> [pendiente]</td>
-      <td colspan="2">
-        <strong>URL de grabación:</strong>
-        <a href="https://example.com/segmento-1-entrevista-3">ENLACE</a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <strong>Resumen de la entrevista</strong>
-        <p>[pendiente]</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-#### Segmento 2: Familiares o cuidadores
+## Segmento 2: Familiares o cuidadores
 
 Este segmento está conformado por familiares o cuidadores que realizan algún tipo de seguimiento a un adulto mayor, especialmente cuando no pueden acompañarlo presencialmente durante todo el día. Las entrevistas buscan comprender cómo obtienen información sobre la medicación, qué dificultades encuentran y qué situaciones generan mayor preocupación durante el cuidado a distancia.
 
@@ -669,7 +615,7 @@ El análisis de las entrevistas se organizó por segmento objetivo. Primero se i
 
 Las características fueron clasificadas como objetivas o subjetivas y su recurrencia será expresada mediante frecuencias y porcentajes. Estos resultados servirán como base para la definición y ajuste de los User Persona de Tata.
 
-#### Segmento 1: Adultos mayores
+## Segmento 1: Adultos mayores
 
 ##### Hallazgos por entrevista
 
@@ -694,12 +640,6 @@ Las características fueron clasificadas como objetivas o subjetivas y su recurr
       <td>Tiene 72 años, es jubilada y vive en el Callao con sus hijas. Utiliza medicamentos para las crisis de migraña y uno de ellos lo toma por las noches para poder dormir. Usa principalmente WhatsApp y recibe apoyo de sus hijas para el seguimiento de su medicación.</td>
       <td>Le preocupa principalmente cuando presenta una crisis de migraña. Considera que algunas aplicaciones nuevas son difíciles de utilizar cuando no conoce su funcionamiento. Le gustaría tener herramientas accesibles e información disponible sobre su tratamiento y las crisis de migraña.</td>
       <td>Necesita una herramienta sencilla y fácil de consultar que le permita acceder a información sobre sus crisis de migraña y recordar o verificar las indicaciones de su medicación.</td>
-    </tr>
-    <tr>
-      <td>Entrevista N.° 3</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
-      <td>[pendiente]</td>
     </tr>
   </tbody>
 </table>
