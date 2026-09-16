@@ -18,10 +18,10 @@
 <h4 align="center"><b>Kevin Edgar Salazar Ruiz</b></h4>
   
 <h4 align="center">Equipo</h4>
-<h4 align="center"><b>FALTA</b></h4>
+<h4 align="center"><b>VitaHealth</b></h4>
   
 <h4 align="center">Proyecto</h4>
-<h4 align="center"><b>FALTA</b></h4>
+<h4 align="center"><b>Tata</b></h4>
   
   <br>
 
