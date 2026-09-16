@@ -3931,9 +3931,18 @@ Relaciones: OMISSION_CASES (1) - (N) CARE_ALERTS; OMISSION_CASES (1) - (N) ESCAL
 
 # Conclusiones
 
-
 # Conclusiones y recomendaciones.
 
+A partir del trabajo realizado hasta esta entrega (AV1), correspondiente a la Presentación de la startup VitaHealth y su producto Tata (Capítulo I), y al Requirements Development and Software Solution Design (Capítulo II), el equipo llega a las siguientes conclusiones preliminares:
+
+- El **Lean UX Problem Statement** planteado —la dificultad de las familias limeñas para verificar la adherencia al tratamiento médico de sus adultos mayores a distancia— fue confirmado mediante las entrevistas realizadas a ambos segmentos objetivo (adultos mayores y familiares/cuidadores), que evidenciaron de forma consistente la ausencia de un mecanismo confiable de confirmación de tomas y la dependencia actual de la comunicación verbal.
+- Los **Business, User y Feature Assumptions** definidos en el Lean UX Canvas se mantienen como hipótesis razonables luego del análisis competitivo y de las entrevistas, en particular la necesidad de una interfaz de baja carga cognitiva (voz o un toque) para el adulto mayor y de un panel de monitoreo remoto en tiempo real para el familiar; sin embargo, estos assumptions aún deben contrastarse con datos cuantitativos de uso una vez la aplicación esté disponible, lo cual se abordará en las Validation Interviews de entregas posteriores.
+- Los **Hypothesis Statements** planteados encuentran sustento inicial en los hallazgos de las entrevistas (100% de los adultos mayores entrevistados olvidó alguna toma; 100% de los familiares entrevistados reportó incertidumbre sobre el cumplimiento del tratamiento), lo que refuerza la pertinencia de las funcionalidades priorizadas en el Product Backlog para el Sprint 1 (recordatorios, confirmación accesible y alertas al cuidador).
+- El **análisis competitivo** confirmó que ningún competidor directo combina simultáneamente accesibilidad extrema para el adulto mayor con anticipación de olvidos mediante detección de patrones, validando el enfoque diferenciador de Tata.
+- El **diseño estratégico de Domain-Driven Design** (EventStorming, Bounded Context Canvases, Context Mapping) permitió establecer nueve Bounded Contexts con responsabilidades claras y patrones de relación explícitos (Customer/Supplier, Conformist, Shared Kernel, Anti-Corruption Layer), sentando una base sólida para el diseño táctico y la arquitectura de software que se detalla en el Capítulo II.
+- Como siguientes pasos, el equipo recomienda completar la Entrevista N.° 3 pendiente del Segmento 1 (adultos mayores), iniciar la implementación de las User Stories priorizadas para el Sprint 1 y preparar las primeras Validation Interviews con el prototipo del flujo de confirmación de tomas, a fin de contrastar los criterios de éxito establecidos en el proceso de Lean UX con datos reales de uso.
+
+---
 
 # Bibliografía
 
