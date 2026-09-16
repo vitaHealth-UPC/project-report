@@ -607,6 +607,62 @@ Su principal preocupación respecto al cuidado de su familiar es que no siga una
   </tbody>
 </table>
 
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 5: Matías Carrillo</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">
+        <img src="assets/segmento-2-entrevista-5-matias-carrillo.png" alt="Entrevista a Matías Carrillo" width="900">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de seguimiento</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td>Matías Carrillo</td>
+      <td><strong>Adulto mayor acompañado</strong></td>
+      <td>Su abuela (enfermedades: artritis e hipertensión)</td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td>25 años</td>
+      <td><strong>Frecuencia de contacto</strong></td>
+      <td>Dos visitas semanales y llamadas casi a diario</td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td>San Miguel</td>
+      <td><strong>Seguimiento actual</strong></td>
+      <td>Pregunta directamente a su abuela por llamada o en persona y normalmente confía en su respuesta; si la nota dudosa o no contesta, la vuelve a llamar más tarde o pide a otro familiar que se acerque. Dedica en promedio entre 40 minutos y 1 hora a la semana a este seguimiento.</td>
+    </tr>
+    <tr>
+      <td><strong>Ocupación</strong></td>
+      <td>Diseñador gráfico freelance</td>
+      <td><strong>Contexto digital</strong></td>
+      <td>Utiliza smartphone, WhatsApp, Instagram y Yape con frecuencia. Nunca ha usado una app específica para el cuidado de un familiar; se siente muy cómodo configurando alertas y recordatorios, ya que los usa habitualmente para su trabajo.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Duración:</strong> 5:03</td>
+      <td colspan="2">
+        <strong>URL de grabación:</strong>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a267_upc_edu_pe/IQCvb0DcKq0PSL6IAvUGOXn9AVWJqkj8WyzFVrpEdhryL7k?e=wSH7II&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a267_upc_edu_pe/IQCvb0DcKq0PSL6IAvUGOXn9AVWJqkj8WyzFVrpEdhryL7k?e=wSH7II&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D</a>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de la entrevista</strong>
+        <p>Matías Carrillo tiene 25 años, vive en San Miguel con sus padres y trabaja como diseñador gráfico freelance, lo que le da un horario flexible para acompañar a su abuela, quien vive sola a pocas cuadras de su casa y padece artritis e hipertensión. La visita dos veces por semana y la llama casi a diario para preguntarle por su estado. Su método actual de seguimiento consiste en preguntarle directamente, por llamada o en persona, si ya tomó sus medicamentos; cuando la nota dudosa al responder o no logra contactarla, la vuelve a llamar más tarde o pide a otro familiar que se acerque a verificar. Este seguimiento le toma entre 40 minutos y una hora a la semana.</p>
+        <p>Relató un episodio en el que su abuela le confirmó por teléfono haber tomado su pastilla para la presión, pero al visitarla al día siguiente notó que la pastilla del día anterior seguía en el pastillero, dándose cuenta casi 24 horas después de que en realidad no la había tomado. En cuanto a su contexto digital, utiliza con frecuencia WhatsApp, Instagram y Yape, nunca ha usado una aplicación de cuidado familiar, pero se siente muy cómodo configurando alertas y recordatorios, pues los usa habitualmente en su trabajo.</p>
+        <p>Su principal fuente de ansiedad es que, dado el riesgo asociado a la hipertensión de su abuela, un olvido de medicación no es un asunto menor, y al vivir sola, un evento grave podría no ser detectado a tiempo. Como funcionalidad ideal, mencionó que le gustaría recibir un aviso automático que confirme si su abuela tomó su medicación en el horario correspondiente o si se le pasó la hora, para reducir la necesidad de llamarla constantemente y solo intervenir cuando realmente sea necesario.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ### 2.2.3. Análisis de entrevistas
 
 El análisis de las entrevistas se organizó por segmento objetivo. Primero se identificaron los principales hallazgos obtenidos de cada participante y luego se contrastaron sus respuestas para reconocer características comunes.
@@ -734,6 +790,12 @@ Las dos entrevistas registradas hasta el momento para este segmento muestran que
       <td>Le preocupa que su abuela no siga una buena alimentación, olvide tomar sus medicamentos o no se cuide adecuadamente. Considera importante poder saber con certeza si tomó sus pastillas y se siente cómodo configurando alertas y notificaciones.</td>
       <td>Necesita una herramienta que permita confirmar si su familiar tomó su medicación y enviarle una notificación, reduciendo la incertidumbre y facilitando el seguimiento a distancia.</td>
     </tr>
+        <tr>
+  <td>Entrevista N.° 5: Matías Carrillo</td>
+  <td>25 años, vive en San Miguel con sus padres, diseñador gráfico freelance con horario flexible. Acompaña a su abuela, a quien visita dos veces por semana y contacta por llamada casi a diario el resto del tiempo.</td>
+  <td>Considera que, dado el riesgo asociado a la hipertensión de su abuela, un olvido de medicación no es menor, y al vivir sola un evento grave podría no detectarse a tiempo. Cuando tiene dudas sobre una toma, recurre a otro familiar cercano para verificar. Se siente muy cómodo configurando alertas y recordatorios.</td>
+  <td>Incluso con contacto casi diario, confiar en la respuesta verbal del adulto mayor generó una falsa certeza sobre el cumplimiento de una toma, descubierta casi un día después.</td>
+</tr>
   </tbody>
 </table>
 
@@ -753,44 +815,44 @@ Las dos entrevistas registradas hasta el momento para este segmento muestran que
     <tr>
       <td>Objetiva</td>
       <td>El seguimiento se realiza mediante visitas y comunicación remota</td>
-      <td>Entrevistas N.° 2 y N.° 3</td>
-      <td>2/4</td>
-      <td>50%</td>
+      <td>Entrevistas N.° 2, N.° 3 y N.° 5</td>
+      <td>3/5</td>
+      <td>60%</td>
     </tr>
     <tr>
       <td>Objetiva</td>
       <td>El familiar utiliza habitualmente aplicaciones móviles</td>
-      <td>Entrevistas N.° 1, N.° 2, N.° 3 y N.° 4</td>
-      <td>4/4</td>
+      <td>Entrevistas N.° 1, N.° 2, N.° 3, N.° 4 y N.° 5</td>
+      <td>5/5</td>
       <td>100%</td>
     </tr>
     <tr>
       <td>Subjetiva</td>
       <td>Existe incertidumbre sobre el cumplimiento de la medicación</td>
-      <td>Entrevistas N.° 1, N.° 2, N.° 3 y N.° 4</td>
-      <td>4/4</td>
+      <td>Entrevistas N.° 1, N.° 2, N.° 3, N.° 4 y N.° 5</td>
+      <td>5/5</td>
       <td>100%</td>
     </tr>
     <tr>
       <td>Subjetiva</td>
       <td>Se valora recibir información sin realizar verificaciones constantes</td>
-      <td>Entrevistas N.° 1, N.° 2, N.° 3 y N.° 4</td>
-      <td>4/4</td>
+      <td>Entrevistas N.° 1, N.° 2, N.° 3, N.° 4 y N.° 5</td>
+      <td>5/5</td>
       <td>100%</td>
     </tr>
     <tr>
       <td>Subjetiva</td>
       <td>Existe preocupación por el cuidado del adulto mayor cuando se encuentra solo</td>
-      <td>Entrevistas N.° 1, N.° 2 y N.° 3</td>
-      <td>3/4</td>
-      <td>75%</td>
+      <td>Entrevistas N.° 1, N.° 2, N.° 3 y N.° 5</td>
+      <td>4/5</td>
+      <td>80%</td>
     </tr>
   </tbody>
 </table>
 
 ##### Conclusión del segmento 2
 
-Las cuatro entrevistas registradas para este segmento evidencian un patrón consistente: el seguimiento de la medicación depende casi exclusivamente de la comunicación directa con el adulto mayor —ya sea presencial, por llamada o por mensaje— y de la confianza en su respuesta, sin un mecanismo objetivo que confirme el cumplimiento. Los cuatro entrevistados relataron al menos un episodio concreto en el que esta dependencia generó una falsa certeza o un descubrimiento tardío de una toma omitida (Valeri, Sebastián, Marvi y Leonardo), lo que confirma que preguntar directamente no es un método confiable, incluso cuando existe convivencia en el mismo hogar. La forma de contacto varía según la cercanía física: quienes conviven con el adulto mayor (Valeri, Leonardo) realizan un seguimiento diario e informal, mientras que quienes no conviven con él (Sebastián, Marvi) dependen de visitas periódicas y llamadas, lo que amplía el tiempo de reacción ante un posible olvido. Todos los participantes usan aplicaciones móviles con soltura y se sienten cómodos configurando alertas y notificaciones, lo que respalda la viabilidad de una solución móvil para este segmento. Asimismo, todos coinciden en preferir recibir información o notificaciones automáticas antes que depender de verificaciones constantes, y la mayoría expresa preocupación explícita por la seguridad del adulto mayor cuando se encuentra solo. En conjunto, estos hallazgos evidencian la necesidad de un mecanismo de monitoreo remoto confiable que reemplace la dependencia actual de la comunicación verbal y reduzca la incertidumbre del cuidador.
+Las cinco entrevistas registradas para este segmento evidencian un patrón consistente: el seguimiento de la medicación depende casi exclusivamente de la comunicación directa con el adulto mayor —ya sea presencial, por llamada o por mensaje— y de la confianza en su respuesta, sin un mecanismo objetivo que confirme el cumplimiento. Los cinco entrevistados relataron al menos un episodio concreto en el que esta dependencia generó una falsa certeza o un descubrimiento tardío de una toma omitida (Valeri, Sebastián, Marvi, Leonardo y Matías), lo que confirma que preguntar directamente no es un método confiable, incluso cuando existe convivencia en el mismo hogar o contacto casi diario. La forma de contacto varía según la cercanía física: quienes conviven con el adulto mayor (Valeri, Leonardo) realizan un seguimiento diario e informal, mientras que quienes no conviven con él (Sebastián, Marvi, Matías) dependen de visitas periódicas y llamadas, lo que amplía el tiempo de reacción ante un posible olvido. Todos los participantes usan aplicaciones móviles con soltura y se sienten cómodos configurando alertas y notificaciones, lo que respalda la viabilidad de una solución móvil para este segmento. Asimismo, todos coinciden en preferir recibir información o notificaciones automáticas antes que depender de verificaciones constantes, y la mayoría expresa preocupación explícita por la seguridad del adulto mayor cuando se encuentra solo. En conjunto, estos hallazgos evidencian la necesidad de un mecanismo de monitoreo remoto confiable que reemplace la dependencia actual de la comunicación verbal y reduzca la incertidumbre del cuidador.
 
 ## 2.3. Needfinding
 
