@@ -249,7 +249,7 @@ Este segmento está conformado por adultos mayores que siguen uno o más tratami
       <td colspan="2"><strong>Duración:</strong> Aproximadamente 12 minutos</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://example.com/segmento-1-entrevista-1">Ver video</a>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCWQkzyIJcIRY1bHwUpqqfJAUrFoa-oQ_5i2FY5wuGr_VQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=Aa1By5">Ver video</a>
       </td>
     </tr>
     <tr>
