@@ -69,7 +69,7 @@ lo cual queda evidenciado en los analíticos de colaboración de GitHub y en el
 Registro de Versiones del Informe. A continuación, se describe el desarrollo
 de las actividades por cada entrega.
 
-![Foto de la colaboración](FALTA)
+![Foto de la colaboración]()
 
 
 ---
