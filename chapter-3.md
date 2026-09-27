@@ -92,6 +92,24 @@ El CTA principal (56-64 dp) es más alto que el touch target mínimo para reduci
 
 #### 3.1.2.3. SEO Tags and Meta Tags
 
+**Landing Page**
+
+| Meta tag | Contenido |
+| --- | --- |
+| Title | Tata - Adherencia a la medicación para adultos mayores |
+| Description | App que ayuda a adultos mayores a confirmar su medicación y a sus familiares a monitorear el tratamiento en tiempo real. |
+| Keywords | adherencia al tratamiento, medicación adultos mayores, cuidado remoto, recordatorio de medicamentos, salud digital Perú |
+| Author | VitaHealth |
+
+**Aplicaciones móviles (ASO)**
+
+| Elemento ASO | Contenido |
+| --- | --- |
+| App Title | Tata: Medicación y Cuidado |
+| App subtitle | Confirma tus medicinas, cuida a tu familia |
+| App keywords | medicación, adulto mayor, recordatorio, adherencia, cuidado familiar, salud |
+| App description | Tata ayuda a adultos mayores a confirmar sus medicamentos con un solo toque o por voz, y permite a sus familiares monitorear el tratamiento desde cualquier lugar. Recibe alertas si una toma no se confirma y accede a reportes de adherencia para actuar a tiempo. |
+
 #### 3.1.2.4. Searching Systems
 
 #### 3.1.2.5. Navigation Systems
