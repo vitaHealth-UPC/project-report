@@ -292,6 +292,175 @@ Las convenciones siguen lo ya definido en los Database Design Diagrams de la sec
 
 ### 4.1.4. Software Deployment Configuration
 
+En esta sección el equipo especifica la configuración y los pasos para desplegar o publicar cada producto digital de Tata a partir de su repositorio de código fuente. La solución comprende cuatro productos desplegables y una base de datos:
+
+| Producto | Repositorio | Plataforma de despliegue | Rama que se despliega | URL / forma de acceso |
+| --- | --- | --- | --- | --- |
+| Landing Page |  | GitHub Pages | `main` |  |
+| Web Services (API Gateway y módulos de los 9 Bounded Contexts) |  | Render, como Web Service con Docker | `main` |  |
+| Base de datos central | — | Render PostgreSQL | — | Solo accesible desde el backend, por URL interna |
+| Aplicación Android nativa (Kotlin) |  | Firebase App Distribution | `main` | Invitación por correo a los testers |
+| Aplicación multiplataforma (Flutter) |  | Firebase App Distribution | `main` | Invitación por correo a los testers |
+
+**Relación con el flujo de trabajo.** De acuerdo con el modelo GitFlow descrito en la sección 4.1.2, solo la rama `main` se despliega en producción. El trabajo diario se integra en `develop` y se prueba en local. Cuando una versión está lista, se crea la rama `release/x.y.z`, se integra en `main` y se etiqueta como `vx.y.z` siguiendo Semantic Versioning. Esa integración en `main` es la que dispara o habilita cada despliegue descrito a continuación.
+
+**Manejo de credenciales.** Ningún repositorio contiene contraseñas, API keys ni keystores de firma. Estos valores se configuran como variables de entorno en Render o se guardan fuera del repositorio (archivos incluidos en `.gitignore`) y se comparten solo entre los integrantes del equipo.
+
+#### Landing Page: GitHub Pages
+
+El Landing Page es un sitio estático (HTML5, CSS3 y JavaScript), por lo que se publica directamente desde su repositorio sin un proceso de compilación.
+
+1. Verificar que el repositorio del Landing Page sea **público** dentro de la organización `vitaHealth-UPC`, ya que GitHub Pages para organizaciones con plan gratuito solo publica repositorios públicos.
+2. Verificar que `index.html` se encuentre en la raíz de la rama `main`.
+3. Verificar que las rutas a estilos, scripts e imágenes sean **relativas** (`assets/css/styles.css` y no `/assets/css/styles.css`). GitHub Pages sirve el sitio bajo la subruta `/<repositorio>/`, y las rutas absolutas dejarían el sitio sin estilos.
+4. En el repositorio, ir a **Settings → Pages → Build and deployment**, seleccionar **Source: Deploy from a branch**, elegir la rama `main` y la carpeta `/ (root)`, y guardar.
+5. GitHub ejecuta automáticamente el workflow `pages-build-deployment`, cuyo avance puede verse en la pestaña **Actions**. Al terminar, el sitio queda disponible en `https://vitahealth-upc.github.io/<repositorio>/`.
+6. Cada nueva integración en `main` vuelve a publicar el sitio automáticamente. Después de cada publicación se verifica en el navegador que carguen las secciones del Landing Page y que las meta tags de la sección 3.1.2.3 aparezcan en el código fuente de la página.
+
+#### Web Services: Render y PostgreSQL
+
+Según la sección 2.5.3.3, el API Gateway y los módulos de los nueve Bounded Contexts se ejecutan juntos en un único desplegable. Por ello el backend se publica como **un solo Web Service** en Render, conectado a **una instancia de PostgreSQL** administrada por la misma plataforma. Render no ofrece un entorno nativo para Java, así que el despliegue se realiza mediante una imagen Docker construida desde el repositorio.
+
+**Configuración requerida en el repositorio del backend:**
+
+a) Un `Dockerfile` en la raíz, que compila el proyecto con Maven y ejecuta el `.jar` resultante:
+
+```dockerfile
+# Etapa 1: compilación
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn -q clean package -DskipTests
+
+# Etapa 2: ejecución
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
+
+El proyecto se gestiona con Maven, por lo que la compilación usa el `pom.xml` de la raíz. Las imágenes base (`eclipse-temurin-21`) deben coincidir con la versión de Java elegida al crear el proyecto en Spring Initializr; si se elige Java 17, se reemplaza `21` por `17` en ambas etapas.
+
+b) Un archivo `application-prod.properties` que toma la configuración de variables de entorno, en lugar de valores escritos en el código:
+
+```properties
+server.port=${PORT:8080}
+spring.datasource.url=${DATABASE_URL}
+spring.datasource.username=${DATABASE_USERNAME}
+spring.datasource.password=${DATABASE_PASSWORD}
+spring.jpa.hibernate.ddl-auto=update
+management.endpoints.web.exposure.include=health
+```
+
+c) Las dependencias `springdoc-openapi-starter-webmvc-ui`, que publica la documentación Swagger/OpenAPI indicada en la sección 4.1.1, y `spring-boot-starter-actuator`, que expone `/actuator/health` para que Render verifique el estado del servicio.
+
+**Pasos en Render:**
+
+1. Crear la cuenta del equipo en Render iniciando sesión con GitHub, y autorizar el acceso de Render al repositorio del backend dentro de la organización `vitaHealth-UPC`.
+2. Crear la base de datos desde **New → PostgreSQL**, con el nombre `tata-db`. Elegir la región y anotarla, porque el Web Service debe crearse en la misma región.
+3. Una vez creada la base de datos, copiar desde su panel el host, el nombre de la base, el usuario y la contraseña. Render entrega la URL con el formato `postgresql://usuario:contraseña@host/base`, pero Spring Boot requiere el formato JDBC, por lo que `DATABASE_URL` se arma como `jdbc:postgresql://<host>:5432/<base>`. Se usa el **host interno**, ya que el backend y la base de datos están en la misma región.
+4. Crear el servicio desde **New → Web Service**, seleccionando el repositorio del backend, la rama `main` y el entorno **Docker**. Render detecta el `Dockerfile` de la raíz.
+5. En la sección **Environment**, registrar las variables de entorno:
+
+| Variable | Valor |
+| --- | --- |
+| `SPRING_PROFILES_ACTIVE` | `prod` |
+| `DATABASE_URL` | `jdbc:postgresql://<host interno>:5432/<base>` |
+| `DATABASE_USERNAME` | Usuario de `tata-db` |
+| `DATABASE_PASSWORD` | Contraseña de `tata-db` |
+| `JWT_SECRET` | Clave de firma de tokens para la autenticación del familiar y la validación del PIN del adulto mayor |
+| `FIREBASE_CREDENTIALS` | Credenciales de la cuenta de servicio de Firebase para el envío de notificaciones push mediante Firebase Cloud Messaging |
+| `SPEECH_TO_TEXT_API_KEY` | API key del servicio Speech-to-Text seleccionado en el Spike 1 |
+| `MAIL_USERNAME` / `MAIL_PASSWORD` | Credenciales del servicio de correo usado para la verificación de cuentas |
+
+Las variables de los servicios externos se registran en el momento en que se integra cada servicio en el backend; mientras tanto, el Web Service funciona solo con las variables de base de datos y autenticación.
+
+6. En **Advanced**, configurar el **Health Check Path** como `/actuator/health` y dejar **Auto-Deploy** activado, para que cada integración en `main` genere un nuevo despliegue.
+7. Ejecutar el primer despliegue y revisar los logs en el panel de Render hasta ver que Spring Boot inició correctamente. La variable `PORT` la define Render y la aplicación la toma mediante `server.port=${PORT:8080}`.
+8. Verificar el despliegue abriendo la documentación en `https://<servicio>.onrender.com/swagger-ui/index.html` y ejecutando desde ella una operación de prueba, por ejemplo la consulta de la próxima toma (US-20).
+
+**Consideraciones del plan gratuito de Render:**
+- El Web Service se suspende tras un periodo sin tráfico y la primera solicitud posterior puede tardar cerca de un minuto. Antes de cada sustentación y de las entrevistas de validación, el equipo abre la URL del backend para activarlo.
+- La base de datos PostgreSQL gratuita tiene una duración limitada. El equipo verifica la fecha de expiración en el panel de Render y, antes de que venza, exporta los datos con `pg_dump` y los restaura en una nueva instancia (o migra a un plan de pago) para llegar al TB2 con la información intacta.
+
+#### Aplicaciones móviles: Firebase App Distribution
+
+Las dos aplicaciones móviles se distribuyen como archivos APK firmados mediante **Firebase App Distribution**, que es el servicio que el enunciado exige para el TB2. Se usa un único proyecto de Firebase para Tata, que también provee Firebase Cloud Messaging para las notificaciones push. Dentro de ese proyecto se registran dos aplicaciones Android con identificadores distintos, para que ambas puedan instalarse en el mismo dispositivo.
+
+**Preparación común (una sola vez):**
+
+1. En la consola de Firebase, crear el proyecto de Tata con la cuenta del equipo.
+2. Registrar la aplicación Android nativa con el identificador `com.vitahealth.tata.android` y la aplicación Flutter con `com.vitahealth.tata.flutter`, y descargar el archivo `google-services.json` de cada una.
+3. En **App Distribution**, crear el grupo de testers `vitahealth-team` con los correos de los seis integrantes, y el grupo `validation-users` para los participantes de las entrevistas de validación (sección 4.3).
+4. Generar una llave de firma (*keystore*) por aplicación. El archivo `.jks` y sus contraseñas se guardan **fuera del repositorio** y se comparten solo dentro del equipo, porque cada versión nueva de una app debe firmarse con la misma llave para poder instalarse sobre la anterior.
+
+**Aplicación Android nativa (Kotlin):**
+
+1. Copiar `google-services.json` en la carpeta `app/`.
+2. Definir la URL del backend según el tipo de compilación en `app/build.gradle.kts`: en `debug` apunta al backend local y en `release` al backend desplegado en Render.
+
+```kotlin
+android {
+    buildFeatures { buildConfig = true }
+    buildTypes {
+        debug {
+            buildConfigField("String", "API_BASE_URL", "\"http://10.0.2.2:8080/api/v1/\"")
+        }
+        release {
+            buildConfigField("String", "API_BASE_URL", "\"https://<servicio>.onrender.com/api/v1/\"")
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+}
+```
+
+3. Configurar `signingConfigs.release` para que lea la ruta y las contraseñas de la llave desde un archivo `keystore.properties`, incluido en `.gitignore`.
+4. Actualizar `versionName` con la versión semántica de la release (por ejemplo, `1.0.0`) e incrementar `versionCode` en cada distribución.
+5. Generar el APK firmado con `./gradlew assembleRelease`. El archivo se genera en `app/build/outputs/apk/release/app-release.apk`.
+6. En **Firebase → App Distribution**, seleccionar la aplicación `com.vitahealth.tata.android`, subir el APK, escribir las notas de versión con las User Stories incluidas y distribuirlo a los grupos correspondientes.
+7. Cada tester recibe un correo de invitación, acepta la distribución e instala el APK en su dispositivo físico, habilitando la instalación de aplicaciones de origen desconocido. Este es el dispositivo que se usa en la sustentación, como exige el enunciado.
+
+**Aplicación multiplataforma (Flutter):**
+
+1. Copiar `google-services.json` en `android/app/`.
+2. Declarar la versión en `pubspec.yaml` con el formato `version: 1.0.0+1`, donde la parte anterior al `+` es la versión semántica y la posterior es el número de compilación, que se incrementa en cada distribución.
+3. Leer la URL del backend en tiempo de compilación, para no escribirla dentro del código:
+
+```dart
+const apiBaseUrl = String.fromEnvironment(
+  'API_BASE_URL',
+  defaultValue: 'http://10.0.2.2:8080/api/v1',
+);
+```
+
+4. Configurar la firma en `android/app/build.gradle.kts` a partir de un archivo `android/key.properties`, incluido en `.gitignore`, siguiendo la guía oficial de Flutter para compilaciones Android de release.
+5. Generar el APK firmado con `flutter build apk --release --dart-define=API_BASE_URL=https://<servicio>.onrender.com/api/v1`. El archivo se genera en `build/app/outputs/flutter-apk/app-release.apk`.
+6. Subir el APK en **Firebase → App Distribution** para la aplicación `com.vitahealth.tata.flutter` y distribuirlo igual que la aplicación nativa.
+
+En el alcance actual, ambas aplicaciones se distribuyen como APK para Android, que es la plataforma de los dispositivos físicos usados en la sustentación y en las entrevistas de validación. La distribución de una compilación para iOS requiere una cuenta de Apple Developer Program y no forma parte de esta configuración.
+
+#### Deployment Diagram
+
+El siguiente Deployment Diagram del C4 Model, presentado inicialmente en la sección 2.5.3.3, muestra la distribución de los productos de Tata en producción. Con la configuración descrita en esta sección, los nodos del diagrama corresponden a las siguientes plataformas:
+
+| Nodo del diagrama | Plataforma elegida |
+| --- | --- |
+| Hosting web estático / CDN | GitHub Pages |
+| Plataforma de aplicaciones en la nube (API Gateway y módulos de los Bounded Contexts) | Render Web Service (Docker) |
+| Servicio administrado de PostgreSQL | Render PostgreSQL |
+| Dispositivo Android / Dispositivo móvil multiplataforma | Dispositivos físicos de los testers, con las apps instaladas desde Firebase App Distribution |
+| Servicio de notificaciones | Firebase Cloud Messaging |
+| Servicio Speech-to-Text | Proveedor seleccionado en el Spike 1, consumido desde Intake Execution BC |
+| Servicio de correo | Proveedor de correo transaccional, consumido desde Identity & Subscription BC |
+
+![Diagrama de Despliegue de Tata](assets/software-architecture-deployment-diagram.svg)
+
+*Figura. Deployment Diagram de Tata en producción.*
+
+Las evidencias de la ejecución de estos pasos en cada Sprint (creación de cuentas, configuración de recursos y capturas de los despliegues) se presentan en la sección *Software Deployment Evidence for Sprint Review* del Sprint correspondiente.
+
 
  
 ## 4.2. Landing Page & Mobile Application Implementation
