@@ -27,6 +27,91 @@
 
 ### 4.1.2. Source Code Management
 
+Para el control de versiones de todos los productos de VitaHealth (Tata) se utiliza Git gestionado desde GitHub, aplicando GitFlow como workflow, Semantic Versioning para los releases y Conventional Commits para los mensajes de commit.
+ 
+## Repositorios
+ 
+| Producto | Repositorio | Contenido |
+|---|---|---|
+| Landing Page | `https://github.com/<org>/<landing-page>` | Sitio estático (HTML5, CSS3, JavaScript), publicado en GitHub Pages |
+| Web Services | `https://github.com/<org>/<back-end>` | Proyecto del backend (RESTful API), pruebas unitarias y pruebas de integración/aceptación (archivos `.feature`) |
+| Mobile Application | `https://github.com/<org>/<mobile-app>` | App Tata en Kotlin (Android) |
+| Frontend Web Application | `https://github.com/<org>/<web-app>` | Aplicación web (si aplica a su alcance) |
+ 
+## GitFlow Workflow
+ 
+Se trabaja con dos ramas de vida larga y tres tipos de ramas de apoyo.
+ 
+### Ramas permanentes
+ 
+- **`main`**: contiene únicamente código estable y listo para producción. Cada merge a `main` corresponde a un release y se etiqueta con su versión.
+- **`develop`**: rama de integración. Recibe todas las features terminadas y es la base de los release branches.
+### Ramas de apoyo
+ 
+#### Feature branches
+ 
+- Se crean desde `develop` y se fusionan de vuelta a `develop` mediante Pull Request.
+- Convención: `feature/<descripcion-corta-en-kebab-case>`
+- Ejemplos: `feature/medication-reminders`, `feature/user-login`, `feature/caregiver-linking`
+- Se eliminan después del merge.
+#### Release branches
+ 
+- Se crean desde `develop` cuando el conjunto de features del sprint está completo. Solo admiten correcciones menores, ajustes de versión y documentación.
+- Convención: `release/<MAJOR.MINOR.PATCH>`, por ejemplo `release/1.0.0`
+- Se fusionan a `main` (con tag `vX.Y.Z`) y de vuelta a `develop`.
+#### Hotfix branches
+ 
+- Se crean desde `main` para corregir errores críticos detectados en producción.
+- Convención: `hotfix/<MAJOR.MINOR.PATCH>` con el siguiente PATCH, por ejemplo `hotfix/1.0.1`
+- Se fusionan a `main` (con nuevo tag) y a `develop`.
+### Reglas de colaboración
+ 
+- No se hace push directo a `main` ni a `develop`; todo cambio entra por Pull Request con al menos una revisión de otro integrante.
+- Las ramas de feature se actualizan desde `develop` antes de abrir el PR para minimizar conflictos.
+## Semantic Versioning 2.0.0
+ 
+Los releases siguen el formato `MAJOR.MINOR.PATCH`:
+ 
+- **MAJOR**: cambios incompatibles con versiones anteriores (por ejemplo, cambios que rompen la API).
+- **MINOR**: nueva funcionalidad compatible hacia atrás.
+- **PATCH**: corrección de errores compatible hacia atrás.
+Los tags se nombran `v1.0.0`, `v1.1.0`, `v1.1.1`. Las versiones previas a producción pueden usar sufijos como `v0.1.0` o `v1.0.0-beta.1`.
+ 
+## Conventional Commits
+ 
+Los mensajes siguen la estructura:
+ 
+```
+<type>(<scope opcional>): <descripción en inglés, en imperativo>
+ 
+<cuerpo opcional>
+ 
+<footer opcional>
+```
+ 
+| Type | Uso |
+|---|---|
+| `feat` | Nueva funcionalidad |
+| `fix` | Corrección de un error |
+| `docs` | Cambios en documentación |
+| `style` | Formato, sin cambio de lógica |
+| `refactor` | Reestructuración de código sin cambiar comportamiento |
+| `test` | Creación o modificación de pruebas |
+| `chore` | Tareas de mantenimiento, configuración, dependencias |
+| `ci` | Cambios en integración/despliegue continuo |
+ 
+Ejemplos:
+ 
+- `feat(medication): add daily reminder scheduling`
+- `fix(auth): correct token expiration handling`
+- `test(medication): add acceptance scenarios for dose confirmation`
+- `feat(api)!: rename patient endpoint` (el `!` indica breaking change)
+## Evidencia de commits
+ 
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
+|---|---|---|---|---|---|
+| user/repositoryname | feature/... | `abc1234` | `feat: ...` | ... | dd/mm/aaaa |
+
 ### 4.1.3. Source Code Style Guide & Conventions
 
 En esta sección el equipo establece las guías de estilo y convenciones de código que se aplican en todos los productos de Tata. El objetivo es que el código escrito por los seis integrantes se lea como si lo hubiera escrito una sola persona, y que los nombres usados en el código correspondan a los conceptos definidos en el Ubiquitous Language (sección 2.3.6) y en el Tactical-Level Domain-Driven Design (sección 2.6).
