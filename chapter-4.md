@@ -556,6 +556,47 @@ Las evidencias de la ejecución de estos pasos en cada Sprint (creación de cuen
 #### 4.2.1.4. Development Evidence for Sprint Review
 #### 4.2.1.5. Testing Suite Evidence for Sprint Review
 #### 4.2.1.6. Execution Evidence for Sprint Review
+
+
 #### 4.2.1.7. Services Documentation Evidence for Sprint Review
+
+En el Sprint 1 el backend de Tata se documenta con OpenAPI mediante Swagger UI, según lo definido en las secciones 4.1.1 y 4.1.4. A la fecha de este informe se está implementando la estructura del proyecto y los endpoints se agregan progresivamente, por lo que la tabla siguiente se completa a medida que cada endpoint queda documentado. (FALTA: resumen de los logros de documentación al cierre del Sprint)
+
+Repositorio de Web Services: https://github.com/vitaHealth-UPC/web-services
+
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| (FALTA) | (FALTA) | (FALTA) | (FALTA) | (FALTA) | (FALTA) | (FALTA) | (FALTA: URL de Swagger UI o URL local `http://localhost:8080/swagger-ui/index.html`) |
+
+**Capturas de la documentación**
+
+(FALTA: capturas de Swagger UI con datos de muestra y su explicación)
+
+**Commits de documentación del Sprint**
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
+| --- | --- | --- | --- | --- | --- |
+| vitaHealth-UPC/web-services | (FALTA) | (FALTA) | (FALTA) | (FALTA) | (FALTA) |
+
 #### 4.2.1.8. Software Deployment Evidence for Sprint Review
+
+En el Sprint 1 se desplegó el Landing Page en GitHub Pages. El backend y la base de datos PostgreSQL se desplegarán en Render y aún no están desplegados. Las aplicaciones móviles no forman parte del despliegue de este Sprint. Los pasos de configuración de cada plataforma están descritos en la sección 4.1.4.
+
+| Producto | Plataforma | Estado en el Sprint 1 | URL |
+| --- | --- | --- | --- |
+| Landing Page | GitHub Pages | Desplegado | (FALTA) |
+| Web Services | Render (Web Service con Docker) | Pendiente | (FALTA) |
+| Base de datos | Render PostgreSQL | Pendiente | (FALTA) |
+
+**Landing Page: GitHub Pages**
+
+(FALTA: capturas y explicación de los pasos realizados)
+
+**Web Services y base de datos: Render**
+
+(FALTA: capturas y explicación de los pasos realizados)
+
+
+
+
 #### 4.2.1.9. Team Collaboration Insights during Sprint
