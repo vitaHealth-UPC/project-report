@@ -2327,11 +2327,18 @@ La distribución propuesta mantiene una infraestructura acorde con el alcance de
 
 ## 2.6. Tactical-Level Domain-Driven Design
 
+
+#### Alineación con implementación — 6 de octubre de 2026
+
+Los IDs de Account, OlderAdult, CareLink, Medication, Treatment e Intake son UUID representados por String. Toda referencia entre BC conserva el tipo del propietario. Los IDs internos numéricos de Omission y Family Monitoring pueden mantenerse como BIGINT. Inventory TS-12 ya usa IDs String en su rama; no debe convertirse a Long para coincidir con diagramas anteriores.
+
+Esta revisión alinea Intake y Treatment y sus dos diagramas físicos. Los diagramas restantes y las vistas C4/clases aún requieren revisión; representan el diseño objetivo y no acreditan funcionalidades terminadas. Voice, productores automáticos de omisión, autorización transversal, proyecciones reales de Monitoring y el consumidor Inventory siguen pendientes. El registro de consumos de TS-12 debe probar concurrencia además de retries secuenciales antes de integrarse.
+
 ### 2.6.1. Bounded Context: Ejecución de tomas
  
 El Bounded Context **Ejecución de tomas** (**Intake Execution BC**) es responsable de generar las tomas programadas a partir de los tratamientos activos, emitir los recordatorios correspondientes, y registrar la confirmación del adulto mayor mediante interacción táctil o por voz. Se implementa como un módulo del backend único de Tata y constituye el punto de origen del ciclo de vida de una toma: desde su programación hasta su confirmación o, en caso de no ser confirmada dentro del periodo de tolerancia, el traspaso de dicha situación hacia Omisión y escalamiento.
  
-El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicamentos, generando las tomas futuras correspondientes a la pauta vigente del tratamiento. Cuando la pauta de un tratamiento se modifica, el contexto regenera únicamente las tomas futuras que todavía no poseen un resultado definitivo. Cuando una toma programada alcanza su horario, el contexto emite el recordatorio inicial y, si no existe confirmación dentro del intervalo configurado, emite un recordatorio reforzado. Cuando el adulto mayor confirma una toma, ya sea por interacción táctil o mediante una confirmación de voz validada, el contexto registra el resultado y publica `IntakeHistoryUpdated`, evento que Adherence Analytics consume para clasificar la toma como confirmada a tiempo o tardía. Cuando una toma pendiente supera su periodo de tolerancia sin haber sido confirmada, el contexto publica `IntakeToleranceExpired`, cediendo a Omisión y escalamiento la responsabilidad de registrar la omisión y gestionar la alerta correspondiente al familiar.
+El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicamentos, generando las tomas futuras correspondientes a la pauta vigente del tratamiento. Cuando la pauta de un tratamiento se modifica, el contexto regenera únicamente las tomas futuras que todavía no poseen un resultado definitivo. Cuando una toma programada alcanza su horario, el contexto emite el recordatorio inicial y, si no existe confirmación dentro del intervalo configurado, emite un recordatorio reforzado. Cuando el adulto mayor confirma una toma, ya sea por interacción táctil o mediante una confirmación de voz validada, el contexto registra el resultado y publica `IntakeConfirmed`, evento que Adherence Analytics consume para clasificar la toma como confirmada a tiempo o tardía. Cuando una toma pendiente supera su periodo de tolerancia sin haber sido confirmada, el contexto publica `IntakeUnconfirmed`, cediendo a Omisión y escalamiento la responsabilidad de registrar la omisión y gestionar la alerta correspondiente al familiar.
  
 #### 2.6.1.1. Domain Layer
  
@@ -2339,7 +2346,7 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
  
 | Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
 | --- | --- | --- | --- | --- |
-| Aggregate Root | Intake | Representar una toma programada, controlar la emisión de recordatorios y registrar su confirmación dentro del periodo de tolerancia | `id`, `treatmentId`, `olderAdultId`, `medicationSnapshot: MedicationSnapshot`, `scheduledAt`, `tolerance: ToleranceWindow`, `status: IntakeStatus`, `remindersIssued`, `confirmedAt`, `confirmationChannel: ConfirmationChannel` - `issueReminder()`, `reinforceReminder()`, `confirm(channel, confirmedAt)`, `expireTolerance()` | Creado por IntakeSchedulingService a partir de un tratamiento activo; publica ReminderIssued, ReminderReinforced, IntakeHistoryUpdated e IntakeToleranceExpired en sus distintas transiciones |
+| Aggregate Root | Intake | Representar una toma programada, controlar la emisión de recordatorios y registrar su confirmación dentro del periodo de tolerancia | `id`, `treatmentId`, `olderAdultId`, `medicationSnapshot: MedicationSnapshot`, `scheduledAt`, `tolerance: ToleranceWindow`, `status: IntakeStatus`, `remindersIssued`, `confirmedAt`, `confirmationChannel: ConfirmationChannel` - `issueReminder()`, `reinforceReminder()`, `confirm(channel, confirmedAt)`, `expireTolerance()` | Creado por IntakeSchedulingService a partir de un tratamiento activo; publica ReminderIssued, ReminderReinforced, IntakeConfirmed e IntakeUnconfirmed en sus distintas transiciones |
  
 **Sub-capa Model - Value Objects:**
  
@@ -2347,8 +2354,8 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
 | --- | --- | --- | --- | --- |
 | Value Object | MedicationSnapshot | Conservar el nombre, dosis e instrucciones del medicamento vigentes al momento de programar la toma, independientemente de cambios posteriores en el tratamiento | `medicationName`, `dose`, `instructions` | Embebido en Intake; se genera a partir de la pauta consultada en Gestión de Medicamentos al momento de la programación |
 | Value Object | ToleranceWindow | Delimitar el intervalo de tiempo dentro del cual una confirmación tardía todavía es válida | `duration` - `hasExpired(now)` | Consultado por Intake al evaluar `expireTolerance()` |
-| Enumeration | ConfirmationChannel | Representar el medio utilizado para confirmar una toma | `TAP`, `VOICE` | Usado por Intake al registrar `confirm()` |
-| Enumeration | IntakeStatus | Representar el estado vigente de una toma dentro de este contexto | `PENDING`, `CONFIRMED`, `ESCALATED` | Usado por Intake; `ESCALATED` marca el traspaso hacia Omisión y escalamiento |
+| Enumeration | ConfirmationChannel | Representar el medio utilizado para confirmar una toma | `TOUCH`, `VOICE` | Usado por Intake al registrar `confirm()` |
+| Enumeration | IntakeStatus | Representar el estado vigente de una toma dentro de este contexto | `PENDING`, `CONFIRMED`, `LATE`, `OMITTED` | Intake conserva el resultado; el escalamiento pertenece a OmissionCase |
  
 **Sub-capa Services y Repositories:**
  
@@ -2399,9 +2406,9 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
 | CommandHandler | GenerateIntakeScheduleCommandHandler | Ejecutar IntakeSchedulingService sobre un tratamiento activo, persistir las tomas generadas y publicar el evento correspondiente por cada una ("Generar agenda", TS-08) |
 | CommandHandler | IssueReminderCommandHandler | Emitir el recordatorio inicial de una toma pendiente cuando se alcanza su horario programado, publicando `ReminderIssued` ("Emitir recordatorio", US-05) |
 | CommandHandler | ReinforceReminderCommandHandler | Emitir un recordatorio reforzado cuando una toma continúa pendiente tras el intervalo configurado, publicando `ReminderReinforced` ("Reforzar recordatorio", US-22) |
-| CommandHandler | ConfirmIntakeCommandHandler | Registrar la confirmación de una toma pendiente mediante interacción táctil, invocando `Intake.confirm()` y publicando `IntakeHistoryUpdated` ("Confirmar toma", US-06, US-23, TS-04) |
+| CommandHandler | ConfirmIntakeCommandHandler | Registrar la confirmación de una toma pendiente mediante interacción táctil, invocando `Intake.confirm()` y publicando `IntakeConfirmed` ("Confirmar toma", US-06, US-23, TS-04) |
 | CommandHandler | ConfirmIntakeByVoiceCommandHandler | Invocar el reconocimiento de voz mediante IVoiceRecognitionPort, validar la transcripción con VoiceConfirmationValidationService y, si es válida, registrar la confirmación mediante `Intake.confirm()` ("Confirmar por voz", US-06, TS-11) |
-| CommandHandler | ExpireIntakeToleranceCommandHandler | Marcar como escalada una toma pendiente cuyo periodo de tolerancia venció sin confirmación, invocando `Intake.expireTolerance()` y publicando `IntakeToleranceExpired` ("Expirar tolerancia") |
+| CommandHandler | ExpireIntakeToleranceCommandHandler | Marcar como escalada una toma pendiente cuyo periodo de tolerancia venció sin confirmación, invocando `Intake.expireTolerance()` y publicando `IntakeUnconfirmed` ("Expirar tolerancia") |
  
 **Sub-capa Internal - QueryServices:**
  
@@ -2423,7 +2430,7 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
 | Tipo | Nombre | Propósito |
 | --- | --- | --- |
 | Service | IVoiceRecognitionPort | Puerto para invocar el servicio de reconocimiento de voz seleccionado en el Spike 1, devolviendo la transcripción obtenida a partir de un audio |
-| Service | IDomainEventPublisher | Puerto para publicar dentro del mismo proceso los eventos `ReminderIssued`, `ReminderReinforced`, `IntakeHistoryUpdated` e `IntakeToleranceExpired`; consumidos por Adherence Analytics y por Omisión y escalamiento |
+| Service | IDomainEventPublisher | Puerto para publicar dentro del mismo proceso los eventos `ReminderIssued`, `ReminderReinforced`, `IntakeConfirmed` e `IntakeUnconfirmed`; consumidos por Adherence Analytics y por Omisión y escalamiento |
  
 #### 2.6.1.4. Infrastructure Layer
  
@@ -2453,11 +2460,11 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
 | --- | --- | --- |
 | Listener | TreatmentActivatedEventListener | Registra TreatmentActivatedEventConsumer como manejador del evento en memoria publicado por Gestión de Medicamentos |
 | Listener | TreatmentUpdatedEventListener | Registra TreatmentUpdatedEventConsumer como manejador del evento en memoria publicado por Gestión de Medicamentos |
-| Publisher | IntakeDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `ReminderIssued`, `ReminderReinforced`, `IntakeHistoryUpdated` e `IntakeToleranceExpired` para Adherence Analytics y Omisión y escalamiento |
+| Publisher | IntakeDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `ReminderIssued`, `ReminderReinforced`, `IntakeConfirmed` e `IntakeUnconfirmed` para Adherence Analytics y Omisión y escalamiento |
 
 #### 2.6.1.5. Bounded Context Software Architecture Component Level Diagrams
 
-El diagrama representa la descomposición interna del módulo Intake Execution BC dentro del container Backend, mostrando cómo `IntakeQueriesController` e `IntakeConfirmationController` reciben las peticiones enrutadas por el API Gateway, invocan a los Command/Query Handlers de la capa Application (`GenerateIntakeScheduleCommandHandler`, `ConfirmIntakeCommandHandler`, `ConfirmIntakeByVoiceCommandHandler`, `GetNextIntakeQueryHandler`, `GetIntakeDetailQueryHandler`, `GetDailyIntakeAgendaQueryHandler`, entre otros), estos operan sobre el agregado `Intake` (capa Domain) a través de `IntakeRepository`, y cómo `VoiceRecognitionAdapter` invoca externamente al servicio de reconocimiento de voz seleccionado en el Spike 1 para resolver las confirmaciones registradas por voz. Se incluyen además los tres schedulers de la capa Infrastructure (`ReminderScheduler`, `ReminderReinforcementScheduler`, `ToleranceExpirationScheduler`), que disparan periódicamente los Command Handlers correspondientes sin pasar por el API Gateway, así como los listeners que consumen en memoria el evento `TreatmentActivated` publicado por Treatment Management. Se incluye también la publicación en memoria de los eventos `IntakeHistoryUpdated`, consumido por Adherence Analytics, e `IntakeToleranceExpired`, consumido por Omisión y escalamiento.
+El diagrama representa la descomposición interna del módulo Intake Execution BC dentro del container Backend, mostrando cómo `IntakeQueriesController` e `IntakeConfirmationController` reciben las peticiones enrutadas por el API Gateway, invocan a los Command/Query Handlers de la capa Application (`GenerateIntakeScheduleCommandHandler`, `ConfirmIntakeCommandHandler`, `ConfirmIntakeByVoiceCommandHandler`, `GetNextIntakeQueryHandler`, `GetIntakeDetailQueryHandler`, `GetDailyIntakeAgendaQueryHandler`, entre otros), estos operan sobre el agregado `Intake` (capa Domain) a través de `IntakeRepository`, y cómo `VoiceRecognitionAdapter` invoca externamente al servicio de reconocimiento de voz seleccionado en el Spike 1 para resolver las confirmaciones registradas por voz. Se incluyen además los tres schedulers de la capa Infrastructure (`ReminderScheduler`, `ReminderReinforcementScheduler`, `ToleranceExpirationScheduler`), que disparan periódicamente los Command Handlers correspondientes sin pasar por el API Gateway, así como los listeners que consumen en memoria el evento `TreatmentActivated` publicado por Treatment Management. Se incluye también la publicación en memoria de los eventos `IntakeConfirmed`, consumido por Adherence Analytics, e `IntakeUnconfirmed`, consumido por Omisión y escalamiento.
 
 ![IntakeExecutionComponents.png](assets/IntakeExecutionComponents.png)
  
@@ -2481,25 +2488,21 @@ Las tablas de este Bounded Context se encuentran dentro de la misma instancia Po
  
 *Figura. Database Design Diagram del Bounded Context Ejecución de tomas.*
  
-**INTAKES**
- 
+**intake_intakes (modelo físico de la implementación)**
+
 | Columna | Descripción |
 | --- | --- |
-| id (PK) | Identificador único de la toma |
-| treatment_id | Referencia lógica al tratamiento en Gestión de Medicamentos (sin FK física) |
-| older_adult_id | Referencia lógica al adulto mayor (sin FK física) |
-| medication_name | Nombre del medicamento, capturado desde MedicationSnapshot al momento de programar la toma |
-| dose | Dosis indicada, capturada desde MedicationSnapshot |
-| instructions | Instrucciones complementarias, capturadas desde MedicationSnapshot; nullable |
-| scheduled_at | Horario programado de la toma |
-| tolerance_duration | Duración del margen de tolerancia permitido antes de considerarse vencida |
-| status | Estado vigente de la toma: PENDING, CONFIRMED u ESCALATED |
-| reminders_issued | Número de recordatorios emitidos para esta toma |
-| confirmed_at | Fecha y hora de confirmación; nullable mientras la toma permanece pendiente |
-| confirmation_channel | Medio utilizado para confirmar: TAP o VOICE; nullable hasta la confirmación |
-| created_at / updated_at | Fechas de auditoría |
- 
-No existen relaciones adicionales dentro de este Bounded Context, dado que `Intake` es el único aggregate root y no compone entidades hijas propias; su trazabilidad hacia otros Bounded Contexts se resuelve mediante los identificadores lógicos `treatment_id` y `older_adult_id`, y hacia Adherence Analytics y Omisión y escalamiento mediante los eventos `IntakeHistoryUpdated` e `IntakeToleranceExpired` en lugar de foreign keys.
+| id (PK) | UUID String, varchar(36) |
+| treatment_id / medication_id / older_adult_id | Referencias lógicas UUID, varchar(36), sin FK física entre BC |
+| medication_name / dose / instructions | Snapshot de nombre, dosis e instrucciones; instructions admite null |
+| scheduled_at | Instant almacenado como timestamptz |
+| status | PENDING, CONFIRMED, LATE u OMITTED |
+| confirmed_at / confirmation_channel | Hora UTC y canal TOUCH/VOICE de la primera confirmación; nullable antes de confirmar |
+| created_at | Fecha de creación, timestamptz |
+
+El contrato de integración es `IntakeConfirmed(String intakeId, String medicationId, String olderAdultId, Instant confirmedAt)` y `IntakeUnconfirmed(String intakeId, String olderAdultId, String medicationName, Instant scheduledAt)`. La confirmación se serializa mediante bloqueo de la fila y no repite eventos ni modifica hora/canal al reintentar. Omission resuelve el caso usando la hora del evento.
+
+El diseño objetivo incluye tolerancia y recordatorios; `tolerance_duration`, `reminders_issued` y `updated_at` todavía no son columnas de Intake JPA. La clasificación tardía y el productor automático de IntakeUnconfirmed siguen pendientes. No se considera que los listeners, por sí solos, implementen TS-05.
 
 ### 2.6.2. Bounded Context: Analítica de adherencia
 
@@ -2507,7 +2510,7 @@ El Bounded Context **Analítica de adherencia** (**Adherence Analytics BC**) tra
 
 El contexto sigue un flujo de cuatro decisiones de negocio encadenadas. Cuando una semana se cierra, se calcula la adherencia del periodo y se publica `AdherenceRateCalculated`. Cuando se detectan omisiones recurrentes dentro del historial, se identifica un patrón y se publica `AdherencePatternDetected`. Cuando ese patrón resulta relevante, se estima su riesgo y se publica `OmissionRiskEstimated`. Finalmente, cuando el riesgo estimado resulta relevante, se genera un insight orientativo y se publica `AdherenceInsightPublished`. Estos cuatro eventos permiten que Seguimiento familiar presente los resultados al familiar o cuidador sin reproducir internamente la lógica analítica.
 
-Para alimentar este flujo, el contexto recibe el evento `IntakeHistoryUpdated` publicado por Ejecución de tomas, con el que actualiza el historial y clasifica cada toma como confirmada a tiempo o tardía según la política de tolerancia definida, y `IntakeOmitted` publicado por Omisión y escalamiento, con el que registra las tomas que finalizaron sin confirmación. Seguimiento familiar también puede consultar directamente, dentro del mismo proceso, el resumen vigente de adherencia mediante la interfaz pública expuesta por este contexto, y el familiar o cuidador puede consultar los resultados analíticos directamente a través del API Gateway.
+Para alimentar este flujo, el contexto recibe el evento `IntakeConfirmed` publicado por Ejecución de tomas, con el que actualiza el historial y clasifica cada toma como confirmada a tiempo o tardía según la política de tolerancia definida, y `IntakeOmitted` publicado por Omisión y escalamiento, con el que registra las tomas que finalizaron sin confirmación. Seguimiento familiar también puede consultar directamente, dentro del mismo proceso, el resumen vigente de adherencia mediante la interfaz pública expuesta por este contexto, y el familiar o cuidador puede consultar los resultados analíticos directamente a través del API Gateway.
 
 #### 2.6.2.1. Domain Layer
 
@@ -2570,7 +2573,7 @@ Para alimentar este flujo, el contexto recibe el evento `IntakeHistoryUpdated` p
 
 | Tipo | Nombre | Propósito |
 | --- | --- | --- |
-| Consumer | IntakeHistoryUpdatedEventConsumer | Escuchar el evento `IntakeHistoryUpdated` publicado por Ejecución de tomas para actualizar el historial dentro del AdherenceLedger correspondiente |
+| Consumer | IntakeConfirmedEventConsumer | Escuchar el evento `IntakeConfirmed` publicado por Ejecución de tomas para actualizar el historial dentro del AdherenceLedger correspondiente |
 | Consumer | IntakeOmittedEventConsumer | Escuchar el evento `IntakeOmitted` publicado por Omisión y escalamiento para registrar la omisión dentro del historial |
 
 Este Bounded Context expone además una interfaz pública de consulta invocada directamente, dentro del mismo proceso, por Seguimiento familiar mediante `IAdherenceSummaryPort`, sin pasar por el API Gateway.
@@ -2597,7 +2600,7 @@ Este Bounded Context expone además una interfaz pública de consulta invocada d
 
 | Tipo | Nombre | Propósito |
 | --- | --- | --- |
-| EventHandler | IntakeHistoryUpdatedEventHandler | Traducir `IntakeHistoryUpdated` en la actualización del AdherenceLedger correspondiente mediante `absorbHistoryUpdate()` |
+| EventHandler | IntakeConfirmedEventHandler | Traducir `IntakeConfirmed` en la actualización del AdherenceLedger correspondiente mediante `absorbHistoryUpdate()` |
 | EventHandler | IntakeOmittedEventHandler | Traducir `IntakeOmitted` en el registro de la omisión mediante `registerOmitted()` |
 
 **Sub-capa Internal - OutboundServices:**
@@ -2626,13 +2629,13 @@ Este Bounded Context expone además una interfaz pública de consulta invocada d
 
 | Tipo | Nombre | Propósito |
 | --- | --- | --- |
-| Listener | IntakeHistoryUpdatedEventListener | Registra IntakeHistoryUpdatedEventConsumer como manejador del evento en memoria publicado por Ejecución de tomas |
+| Listener | IntakeConfirmedEventListener | Registra IntakeConfirmedEventConsumer como manejador del evento en memoria publicado por Ejecución de tomas |
 | Listener | IntakeOmittedEventListener | Registra IntakeOmittedEventConsumer como manejador del evento en memoria publicado por Omisión y escalamiento |
 | Publisher | AdherenceDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `AdherenceRateCalculated`, `AdherencePatternDetected`, `OmissionRiskEstimated` y `AdherenceInsightPublished` para Seguimiento familiar |
 
 #### 2.6.2.5. Bounded Context Software Architecture Component Level Diagrams
 
-El diagrama representa la descomposición interna del módulo **Adherence Analytics BC** dentro del container Backend. `IntakeHistoryUpdatedEventListener` e `IntakeOmittedEventListener` reciben los eventos publicados por Ejecución de tomas y por Omisión y escalamiento, respectivamente, y activan sus Consumers y EventHandlers correspondientes para actualizar el agregado `AdherenceLedger` mediante `AdherenceLedgerRepository`. `WeeklyConsolidationScheduler` ejecuta semanalmente el cierre de periodo y el cálculo de adherencia, publicando `AdherenceRateCalculated`. `AdherencePatternDetectionScheduler`, junto con la activación reactiva tras cada omisión, ejecuta `AdherencePatternDetectionService`, que crea o refuerza un `AdherencePattern` mediante `AdherencePatternRepository` y publica `AdherencePatternDetected`; cuando el patrón es relevante, `OmissionRiskEstimationService` estima su riesgo (`OmissionRiskEstimated`) y, si el riesgo resulta relevante, `AdherenceInsightGenerationService` genera el insight y la recomendación (`AdherenceInsightPublished`). `AdherenceSummariesController` y `AdherenceInsightsController` exponen las consultas hacia el familiar, mientras que `AdherenceDomainEventPublisher` publica en memoria los cuatro eventos para Seguimiento familiar.
+El diagrama representa la descomposición interna del módulo **Adherence Analytics BC** dentro del container Backend. `IntakeConfirmedEventListener` e `IntakeOmittedEventListener` reciben los eventos publicados por Ejecución de tomas y por Omisión y escalamiento, respectivamente, y activan sus Consumers y EventHandlers correspondientes para actualizar el agregado `AdherenceLedger` mediante `AdherenceLedgerRepository`. `WeeklyConsolidationScheduler` ejecuta semanalmente el cierre de periodo y el cálculo de adherencia, publicando `AdherenceRateCalculated`. `AdherencePatternDetectionScheduler`, junto con la activación reactiva tras cada omisión, ejecuta `AdherencePatternDetectionService`, que crea o refuerza un `AdherencePattern` mediante `AdherencePatternRepository` y publica `AdherencePatternDetected`; cuando el patrón es relevante, `OmissionRiskEstimationService` estima su riesgo (`OmissionRiskEstimated`) y, si el riesgo resulta relevante, `AdherenceInsightGenerationService` genera el insight y la recomendación (`AdherenceInsightPublished`). `AdherenceSummariesController` y `AdherenceInsightsController` exponen las consultas hacia el familiar, mientras que `AdherenceDomainEventPublisher` publica en memoria los cuatro eventos para Seguimiento familiar.
 
 ![AdherenceAnalyticsComponents.png](assets/AdherenceAnalyticsComponents.png)
 
@@ -3125,8 +3128,8 @@ Siguiendo el modelo de arquitectura **Clean Architecture** combinado con **Domai
 
 | Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
 | --- | --- | --- | --- | --- |
-| Aggregate Root | Treatment | Representar la pauta completa de un adulto mayor y garantizar que solo se active cuando su configuración esté completa | `id`, `olderAdultId`, `status` (Draft / Active / Paused), `medications: List<Medication>` - `addMedication()`, `activate()`, `pause()`, `isComplete()` | Contiene entidades Medication; referencia al adulto mayor por identificador (Vínculo de cuidado) |
-| Entity | Medication | Representar un medicamento y su pauta de administración dentro de un tratamiento | `id`, `name`, `dose: Dose`, `frequency: Frequency`, `intakeTimes: List<IntakeTime>`, `instructions: Instructions`, `reminderConfig: ReminderConfig`, `active` - `updateDose()`, `updateSchedule()`, `deactivate()` | Entidad hija de Treatment; sus datos alimentan a Ejecución de tomas cuando el tratamiento se activa |
+| Aggregate Root | Treatment | Representar la pauta completa de un adulto mayor y garantizar que solo se active cuando su configuración esté completa | `id`, `olderAdultId`, `status` (Draft / Active / Paused), `medicationId`, `dose`, `frequency`, `scheduledTimes`, `instructions`, `reminderLeadMinutes` - `activate()`, `pause()`, `resume()` | Referencia al agregado independiente Medication; referencia al adulto mayor por identificador (Vínculo de cuidado) |
+| Aggregate Root | Medication | Registrar el medicamento antes de configurar un tratamiento | `id`, `olderAdultId`, `name`, `presentation`, `active` - `deactivate()` | Treatment referencia medicationId; el snapshot de la pauta alimenta Intake |
 
 **Sub-capa Model - Value Objects:**
 
@@ -3208,7 +3211,7 @@ Este Bounded Context no requiere Consumers de eventos en esta versión, ya que n
 
 | Tipo | Nombre | Propósito |
 | --- | --- | --- |
-| Repository | TreatmentRepository | Implementación de ITreatmentRepository (Spring Data JPA); persiste el agregado Treatment junto con sus entidades Medication en la base de datos PostgreSQL central, en las tablas propias de este Bounded Context |
+| Repository | TreatmentRepository | Implementación de ITreatmentRepository (Spring Data JPA); persiste Treatment; Medication tiene repositorio y agregado independientes en la base de datos PostgreSQL central, en las tablas propias de este Bounded Context |
 
 **Sub-capa Module Adapters:**
 
@@ -3234,7 +3237,7 @@ El diagrama representa la descomposición interna del módulo **Treatment Manage
 
 ##### 2.6.5.6.1. Bounded Context Domain Layer Class Diagrams
 
-El diagrama de clases del Domain Layer muestra a `Treatment` como aggregate root en una relación de composición (1 a 0..*) con la entidad `Medication`, la cual a su vez compone los Value Objects `Dose`, `Frequency`, `IntakeTime` (0..*), `Instructions` y `ReminderConfig`. Se incluyen además la enumeración `TreatmentStatus`, la interfaz `ITreatmentRepository` (que gestiona la persistencia del agregado) y la interfaz `ICareLinkVerificationPort`, junto con `TreatmentFactory` como responsable de la creación de nuevos tratamientos.
+El modelo implementado contiene dos agregados independientes: `Medication`, registrado primero, y `Treatment`, que referencia `medicationId` y posee la pauta con múltiples `scheduledTimes`. El diagrama de clases siguiente pertenece al diseño previo y está pendiente de regeneración; no representa composición vigente de Medication dentro de Treatment. Se incluyen además la enumeración `TreatmentStatus`, la interfaz `ITreatmentRepository` (que gestiona la persistencia del agregado) y la interfaz `ICareLinkVerificationPort`, junto con `TreatmentFactory` como responsable de la creación de nuevos tratamientos.
 
 ![Class Diagram del Domain Layer de Gestión del tratamiento](assets/treatmentPlantUML.png)
 
@@ -3248,39 +3251,34 @@ Aunque toda la persistencia comparte la misma instancia de PostgreSQL (sección 
 
 *Figura. Database Design Diagram del Bounded Context Gestión del tratamiento.*
 
-**TREATMENTS**
+**treatment_medications**
 
 | Columna | Descripción |
 | --- | --- |
-| id (PK) | Identificador único del tratamiento |
-| older_adult_id | Identificador del adulto mayor propietario del tratamiento (referencia lógica al Bounded Context Vínculo de cuidado, sin FK física) |
-| status | Estado del tratamiento: DRAFT, ACTIVE o PAUSED |
-| created_at / updated_at | Fechas de auditoría |
+| id (PK) | UUID String (JPA actual usa varchar(255) por defecto) |
+| older_adult_id | Referencia lógica UUID, varchar(36), sin FK hacia Care Link |
+| name / presentation / active | Identidad descriptiva del medicamento y estado |
+| created_at | timestamptz |
 
-**MEDICATIONS**
-
-| Columna | Descripción |
-| --- | --- |
-| id (PK) | Identificador único del medicamento |
-| treatment_id (FK → TREATMENTS.id) | Tratamiento al que pertenece el medicamento |
-| name | Nombre del medicamento |
-| dose_amount / dose_unit | Cantidad y unidad de la dosis |
-| frequency_times_per_day | Número de tomas al día |
-| instructions | Indicaciones de administración |
-| reminder_enabled / reminder_lead_minutes | Configuración del recordatorio |
-| active | Indica si el medicamento está activo |
-| created_at / updated_at | Fechas de auditoría |
-
-**INTAKE_SCHEDULES**
+**treatment_treatments**
 
 | Columna | Descripción |
 | --- | --- |
-| id (PK) | Identificador único del horario |
-| medication_id (FK → MEDICATIONS.id) | Medicamento al que pertenece el horario |
-| intake_hour | Hora programada de la toma |
+| id (PK) | UUID String (JPA actual usa varchar(255) por defecto) |
+| older_adult_id / medication_id | Referencias lógicas UUID, varchar(36) |
+| name / status | Nombre y DRAFT / ACTIVE / PAUSED |
+| dose / frequency / instructions / reminder_lead_minutes | Pauta del tratamiento; admite valores incompletos mientras sea DRAFT |
+| created_at | timestamptz |
 
-Relaciones: TREATMENTS (1) - (N) MEDICATIONS; MEDICATIONS (1) - (N) INTAKE_SCHEDULES.
+**treatment_schedule_times**
 
+| Columna | Descripción |
+| --- | --- |
+| treatment_id (FK) | Referencia al tratamiento dentro del mismo BC |
+| schedule_order | Índice de la lista persistida |
+| scheduled_time | Hora local, tipo time |
+
+Treatment conserva una lista ordenada de horarios; Medication no es una entidad hija. La única FK física descrita aquí une los horarios con Treatment dentro del mismo BC. medicationId es una referencia lógica. El ancho de las PK UUID de Treatment todavía requiere normalización a varchar(36); no debe confundirse su ancho físico actual con su semántica UUID.
 
 ### 2.6.6. Bounded Context: Inventario y reposición
 
