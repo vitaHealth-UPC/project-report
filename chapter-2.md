@@ -1,2204 +1,192 @@
-# CapÃ­tulo II: Requirements Development and Software Solution Design
-## 2.1. Competidores
-
-Para el anÃ¡lisis competitivo de Tata se identificaron tres soluciones digitales relacionadas con el cuidado remoto y la adherencia al tratamiento mÃ©dico de personas mayores. Se consideraron competidores directos cuyo nucleo del producto sea el recordatorio de medicaciÃ³n con alertas al cuidador, asÃ­ como un competidor indirecto orientado a la coordinaciÃ³n familiar del cuidado en general.
-
-**Competidor 1: Medisafe** <br>
-AplicaciÃ³n de recordatorio de medicamentos con mÃ¡s de 10 millones de usuarios a nivel global. Permite programar dosis, registrar la toma y, mediante su funciÃ³n "Medfriend", notificar a un familiar cuando una dosis fue omitida. Cuenta con un plan gratuito limitado y un plan premium mensual/anual con reportes de adherencia ilimitados.
-
-**Competidor 2: MyTherapy** <br>
-AplicaciÃ³n gratuita desarrollada por la empresa alemana smartpatient GmbH, orientada a recordatorios de medicaciÃ³n y diario de salud (sÃ­ntomas, mediciones). No requiere suscripciÃ³n de pago y opera bajo estÃ¡ndares de privacidad GDPR, pero su funciÃ³n de monitoreo remoto para un familiar es limitada frente a soluciones especializadas en cuidado a distancia.
-
-**Competidor 3: Caring Village** <br>
-Plataforma de coordinaciÃ³n de cuidado familiar que integra listas de tareas, calendario compartido, almacenamiento de documentos y recordatorios de medicaciÃ³n bÃ¡sicos dentro de un "cÃ­rculo de cuidado" con mÃºltiples cuidadores. Su enfoque es mÃ¡s amplio que la sola adherencia a medicamentos, por lo que no estÃ¡ optimizada para la simplicidad de uso que requiere un adulto mayor con baja alfabetizaciÃ³n digital.
-
-### 2.1.1. AnÃ¡lisis competitivo
-
-<table>
-  <tr>
-    <th colspan="2" style="background-color: #f6f8fa; text-align: left;">Â¿Por quÃ© llevar a cabo este anÃ¡lisis?</th>
-    <td colspan="4">Se busca contrastar la propuesta de valor de Tata frente a soluciones existentes de recordatorio de medicaciÃ³n y coordinaciÃ³n de cuidado, identificando vacÃ­os que Tata puede cubrir, particularmente en la combinaciÃ³n de accesibilidad para el adulto mayor y anticipaciÃ³n de olvidos mediante detecciÃ³n de patrones.</td>
-  </tr>
-
-  <tr align="center">
-    <th width="12%">Perfil / Criterio</th>
-    <th width="18%">Subcriterio</th>
-    <th width="17.5%">
-      <img src="./assets/Tata.png" alt="Tata Logo" width="50"><br>
-      <b>Tata (VitaHealth)</b>
-    </th>
-    <th width="17.5%">
-      <img src="./assets/Medisafe.png" alt="Medisafe Logo" width="50"><br>
-      <b>Medisafe</b>
-    </th>
-    <th width="17.5%">
-      <img src="./assets/MyTheraphy.jpg" alt="MyTherapy Logo" width="50"><br>
-      <b>MyTherapy</b>
-    </th>
-    <th width="17.5%">
-      <img src="./assets/CaringVillage.png" alt="Caring Village Logo" width="50"><br>
-      <b>Caring Village</b>
-    </th>
-  </tr>
-
-  <tr>
-    <td colspan="2"><b>Overview  Perfil</b></td>
-    <td>AplicaciÃ³n mÃ³vil enfocada en la adherencia a medicamentos para adultos mayores con baja alfabetizaciÃ³n digital, mediante confirmaciÃ³n por voz o un solo toque, y un panel de monitoreo en tiempo real para la familia.</td>
-    <td>AplicaciÃ³n de recordatorio de medicaciÃ³n con funciÃ³n de alerta al cuidador (Medfriend) ante dosis omitidas.</td>
-    <td>AplicaciÃ³n gratuita de recordatorio de medicaciÃ³n y diario de salud, sin foco especÃ­fico en cuidadores remotos.</td>
-    <td>Plataforma de coordinaciÃ³n del cuidado familiar con mÃºltiples cuidadores, calendario y tareas compartidas.</td>
-  </tr>
-
-  <tr>
-    <td colspan="2"><b>Ventaja competitiva / Â¿QuÃ© valor ofrece a los clientes?</b></td>
-    <td>Interfaz ultra simplificada (voz/un toque) diseÃ±ada para adultos mayores + anticipaciÃ³n de olvidos mediante detecciÃ³n de patrones.</td>
-    <td>Amplia base de usuarios y robusta base de datos sobre interacciones entre medicamentos.</td>
-    <td>Gratuita sin lÃ­mites, enfoque integral en salud (no solo enfocado en medicaciÃ³n).</td>
-    <td>CoordinaciÃ³n entre varios cuidadores familiares, no solo un contacto de alerta.</td>
-  </tr>
-
-  <tr>
-    <td rowspan="2" align="center" style="vertical-align: middle;"><b>Perfil de Marketing</b></td>
-    <td><b>Mercado objetivo</b></td>
-    <td>Familias limeÃ±as con adultos mayores de 68-85 aÃ±os que viven solos o con poca compaÃ±Ã­a.</td>
-    <td>Usuarios individuales a nivel global con tratamientos crÃ³nicos, con opciÃ³n de compartir informaciÃ³n con un familiar.</td>
-    <td>Personas que gestionan su propia medicaciÃ³n y buscan una alternativa gratuita.</td>
-    <td>Familias con mÃºltiples cuidadores que coordinan el cuidado integral de un adulto mayor.</td>
-  </tr>
-  <tr>
-    <td><b>Estrategias de marketing</b></td>
-    <td>CercanÃ­a local, alianzas estratÃ©gicas con clÃ­nicas, farmacias y aseguradoras (canal B2B2C).</td>
-    <td>Marketing digital masivo y posicionamiento orgÃ¡nico/pagado en app stores globales.</td>
-    <td>Posicionamiento por gratuidad y cumplimiento estricto de privacidad (GDPR).</td>
-    <td>Posicionamiento en comunidades de cuidadores familiares (blogs, guÃ­as de soporte).</td>
-  </tr>
-
-  <tr>
-    <td rowspan="3" align="center" style="vertical-align: middle;"><b>Perfil de Producto</b></td>
-    <td><b>Productos & Servicios</b></td>
-    <td>AplicaciÃ³n mÃ³vil (adulto mayor + familiar) + reconocimiento de voz + detecciÃ³n de patrones de olvido.</td>
-    <td>AplicaciÃ³n mÃ³vil de recordatorios + seguimiento de interacciones + reportes de adherencia.</td>
-    <td>AplicaciÃ³n mÃ³vil de recordatorios + diario de salud + sincronizaciÃ³n con Apple Health / Google Fit.</td>
-    <td>AplicaciÃ³n mÃ³vil de coordinaciÃ³n de cuidado + recordatorios bÃ¡sicos + almacenamiento de documentos.</td>
-  </tr>
-  <tr>
-    <td><b>Precios & Costos</b></td>
-    <td>Modelo freemium con suscripciÃ³n mensual para el familiar (plan premium).</td>
-    <td>Gratuito (limitado a 2 medicamentos) / Premium a USD 4.99 mensual o USD 39.99 anual.</td>
-    <td>Gratis, sin muro de pago.</td>
-    <td>Gratis.</td>
-  </tr>
-  <tr>
-    <td><b>Canales de distribuciÃ³n (Web y/o MÃ³vil)</b></td>
-    <td>AplicaciÃ³n mÃ³vil nativa (Android/iOS) + Sitio web (Landing Page).</td>
-    <td>AplicaciÃ³n mÃ³vil (iOS/Android).</td>
-    <td>AplicaciÃ³n mÃ³vil (iOS/Android).</td>
-    <td>AplicaciÃ³n mÃ³vil (iOS/Android) + versiÃ³n web.</td>
-  </tr>
-  
-  <tr>
-    <td rowspan="4" align="center" style="vertical-align: middle;"><b>AnÃ¡lisis SWOT</b></td>
-    <td><b>Fortalezas</b></td>
-    <td>Interfaz diseÃ±ada especÃ­ficamente para baja alfabetizaciÃ³n digital (voz/un toque); detecciÃ³n de patrones de olvido como diferenciador Ãºnico.</td>
-    <td>Base de usuarios masiva (+10M) y robustez en el seguimiento de interacciones medicamentosas.</td>
-    <td>Gratuidad total sin muro de pago; buen posicionamiento en privacidad de datos (cumplimiento GDPR).</td>
-    <td>CoordinaciÃ³n entre mÃºltiples cuidadores familiares, no solo un contacto Ãºnico de alerta.</td>
-  </tr>
-  <tr>
-    <td><b>Debilidades</b></td>
-    <td>Startup nueva sin base de usuarios ni reconocimiento de marca; recursos limitados frente a aplicaciones consolidadas.</td>
-    <td>Interfaz no optimizada para adultos mayores con baja alfabetizaciÃ³n digital; versiÃ³n gratuita limitada a 2 medicamentos.</td>
-    <td>Monitoreo remoto para el familiar limitado; sin funciÃ³n de anticipaciÃ³n de olvidos.</td>
-    <td>Enfoque generalista que diluye la especializaciÃ³n en medicaciÃ³n; no diseÃ±ada para uso autÃ³nomo del adulto mayor.</td>
-  </tr>
-  <tr>
-    <td><b>Oportunidades</b></td>
-    <td>Mercado peruano de salud digital para adultos mayores poco atendido; alianzas B2B2C con clÃ­nicas y aseguradoras.</td>
-    <td>ExpansiÃ³n a mercados latinoamericanos no explotados.</td>
-    <td>Ampliar funciones dirigidas al cuidador a futuro.</td>
-    <td>Integrar funciones mÃ¡s especÃ­ficas de salud y seguimiento clÃ­nico.</td>
-  </tr>
-  <tr>
-    <td><b>Amenazas</b></td>
-    <td>Aplicaciones globales gratuitas que reducen la disposiciÃ³n a pagar; posible entrada de competidores locales con mayor respaldo.</td>
-    <td>Soluciones locales mÃ¡s simples y econÃ³micas orientadas especÃ­ficamente al segmento de adultos mayores.</td>
-    <td>Al ser gratuita, presiona a Tata a justificar claramente el valor monetario de su modelo freemium.</td>
-    <td>Aplicaciones especializadas como Tata, con foco exclusivo en medicaciÃ³n, pueden captar al segmento que busca esa profundidad.</td>
-  </tr>
-</table>
-
-### 2.1.2. Estrategias y tÃ¡cticas frente a competidores
-
-Para posicionar a **Tata** de manera sÃ³lida frente a las alternativas del mercado, se establecen estrategias especÃ­ficas segÃºn el perfil de cada competidor, complementadas con una tÃ¡ctica transversal de adquisiciÃ³n local:
-
-* **Frente a Medisafe (DiferenciaciÃ³n por accesibilidad extrema):** Mientras Medisafe se enfoca en el seguimiento clÃ­nico avanzado y un alto volumen de usuarios, Tata centrarÃ¡ su propuesta en eliminar barreras de uso. Se aplicarÃ¡ un testeo continuo de la interfaz de confirmaciÃ³n por voz y un solo toque con adultos mayores reales del segmento objetivo, evitando la sobrecarga de funciones que dificulta la adopciÃ³n autÃ³noma en plataformas complejas.
-
-* **Frente a MyTherapy (Posicionamiento por valor agregado vs. gratuidad):** Ante la ventaja de gratuidad total de MyTherapy, Tata no competirÃ¡ por precio, sino por el valor diferencial de la detecciÃ³n de patrones de olvido y el panel de monitoreo familiar en tiempo real. Esta propuesta se comunicarÃ¡ claramente en la Landing Page y la app para justificar el modelo *freemium*.
-
-* **Frente a Caring Village (EspecializaciÃ³n exclusiva):** Dado que Caring Village se orienta a la coordinaciÃ³n general del cuidado (calendario, tareas y documentos), Tata mantendrÃ¡ su foco exclusivo en la adherencia a medicamentos. Esta tÃ¡ctica evita la dispersiÃ³n funcional y atiende de forma directa el problema central identificado en la investigaciÃ³n.
-
-* **TÃ¡ctica transversal de adquisiciÃ³n (Canal B2B2C local):** Se establecerÃ¡n alianzas estratÃ©gicas con clÃ­nicas geriÃ¡tricas y farmacias en Lima Metropolitana para acelerar la captura de usuarios a travÃ©s de un canal local que ninguno de los tres competidores internacionales aprovecha actualmente.
-
-## 2.2. Entrevistas
-
-### 2.2.1. DiseÃ±o de entrevistas
-
-Para cada segmento objetivo se diseÃ±Ã³ una guÃ­a de entrevista semiestructurada. Esta se compone de preguntas principales que abordan directamente los objetivos de la investigaciÃ³n y preguntas complementarias que permiten profundizar segÃºn las respuestas del entrevistado.
-
-El diseÃ±o busca recolectar informaciÃ³n de ambos segmentos sobre:
-* **Datos demogrÃ¡ficos y contexto:** GÃ©nero, edad, distrito de residencia, estado civil, composiciÃ³n familiar y ocupaciÃ³n.
-* **Perfil cualitativo:** Personalidad, habilidades, afinidad por marcas, influencias y dispositivos preferidos.
-* **Comportamiento digital:** Canales digitales de interacciÃ³n y uso de asistentes o comandos de voz.
-* **Dominio del problema:** Objetivos, frustraciones y antecedentes o biografÃ­a relevante vinculada a la adherencia a la medicaciÃ³n y el cuidado remoto.
-
----
-
-#### GuÃ­a de entrevista - Segmento Adulto Mayor
-
-**Preguntas demogrÃ¡ficas y de contexto** <br>
-**1.** Â¿PodrÃ­a contarme un poco sobre usted: su edad, distrito donde vive y con quiÃ©n vive actualmente? <br>
-**2.** Â¿A quÃ© se dedicaba antes de jubilarse, y cÃ³mo describirÃ­a un dÃ­a tÃ­pico suyo actualmente? <br>
-
-**Preguntas sobre el problema (medicaciÃ³n)** <br>
-**3.** Â¿QuÃ© medicamentos toma actualmente y con quÃ© frecuencia? <br>
-**4.** Â¿CÃ³mo recuerda usted la hora en que debe tomar cada medicamento? <br>
-**5.** Â¿Le ha pasado alguna vez olvidarse de tomar un medicamento? Â¿QuÃ© ocurriÃ³ despuÃ©s? <br>
-**6.** Â¿Alguien de su familia le pregunta o verifica si tomÃ³ sus medicamentos? Â¿CÃ³mo lo hace (llamada, visita, mensaje)? <br>
-
-**Preguntas sobre tecnologÃ­a** <br>
-**7.** Â¿QuÃ© tipo de celular usa (bÃ¡sico o smartphone) y quÃ© aplicaciones usa con mÃ¡s frecuencia? <br>
-**8.** Â¿Ha usado alguna vez comandos de voz en su celular (como asistentes de voz)? Â¿CÃ³mo fue esa experiencia? <br>
-**9.** Â¿QuÃ© le resulta difÃ­cil o incÃ³modo al usar aplicaciones nuevas en su celular? <br>
-
-**Preguntas sobre frustraciones y objetivos** <br>
-**10.** Â¿QuÃ© es lo que mÃ¡s le preocupa en relaciÃ³n con su salud y su tratamiento mÃ©dico? <br>
-**11.** Â¿QuÃ© le gustarÃ­a que fuera mÃ¡s fÃ¡cil en su dÃ­a a dÃ­a respecto al cuidado de su salud? <br>
-
----
-
-#### GuÃ­a de entrevista - Segmento Familiar
-
-**Preguntas demogrÃ¡ficas y de contexto** <br>
-**1.** Â¿PodrÃ­a contarme sobre usted: edad, distrito donde vive, ocupaciÃ³n y composiciÃ³n de su familia? <br>
-**2.** Â¿Con quÃ© frecuencia ve o se comunica con su familiar adulto mayor? <br>
-
-**Preguntas sobre el problema (supervisiÃ³n remota)** <br>
-**3.** Â¿CÃ³mo se entera usted si su familiar tomÃ³ su medicaciÃ³n en el horario indicado? <br>
-**4.** Â¿QuÃ© hace cuando no estÃ¡ seguro de si la tomÃ³ (llama, envÃ­a mensaje, pide a alguien que lo visite)? <br>
-**5.** Â¿CuÃ¡nto tiempo dirÃ­a que le toma, en promedio, hacer este tipo de seguimiento a la semana? <br>
-**6.** CuÃ©nteme sobre alguna vez en la que se enterÃ³ tarde de que su familiar no tomÃ³ su medicamento. Â¿QuÃ© pasÃ³? <br>
-
-**Preguntas sobre tecnologÃ­a** <br>
-**7.** Â¿QuÃ© aplicaciones usa habitualmente en su celular (redes sociales, mensajerÃ­a, salud)? <br>
-**8.** Â¿Ha usado alguna aplicaciÃ³n para el cuidado de un familiar? Â¿CuÃ¡l y quÃ© le pareciÃ³? <br>
-**9.** Â¿QuÃ© tan cÃ³modo se siente configurando alertas o notificaciones en aplicaciones mÃ³viles? <br>
-
-**Preguntas sobre frustraciones y objetivos** <br>
-**10.** Â¿QuÃ© es lo que mÃ¡s le genera ansiedad o preocupaciÃ³n respecto al cuidado de su familiar a distancia? <br>
-**11.** Si pudiera tener una herramienta ideal para este problema, Â¿quÃ© es lo primero que le gustarÃ­a que le mostrara o le avisara? <br>
-
-### 2.2.2. Registro de entrevistas
-
-Las entrevistas se realizaron con representantes de los dos segmentos objetivo de Tata. El propÃ³sito fue conocer cÃ³mo gestionan actualmente la medicaciÃ³n, quÃ© dificultades aparecen durante este proceso y cÃ³mo intervienen los familiares cuando el seguimiento se realiza a distancia.
-
-Para cada participante se registraron sus datos principales, una captura de la sesiÃ³n, la duraciÃ³n de la entrevista y el enlace de acceso. AdemÃ¡s, se elaborÃ³ un resumen descriptivo con los aspectos mÃ¡s relevantes obtenidos durante la conversaciÃ³n.
-
-## Segmento 1: Adultos mayores
-
-Este segmento estÃ¡ conformado por adultos mayores que siguen uno o mÃ¡s tratamientos y gestionan directamente sus medicamentos. Las entrevistas buscan conocer sus rutinas actuales, las dificultades que experimentan para recordar o confirmar una toma y su relaciÃ³n con el uso de dispositivos mÃ³viles.
-
-<table>
-  <tbody>
-    <tr>
-      <td colspan="4" align="center"><strong>Entrevista N.Â° 1</strong></td>
-    </tr>
-    <tr>
-      <td colspan="4" align="center">
-        <img src="assets/segmento-1-entrevista-1-manuel-torres.png" alt="Entrevista del segmento 1, participante 1" width="900">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center"><strong>InformaciÃ³n del entrevistado</strong></td>
-      <td colspan="2" align="center"><strong>Contexto de la entrevista</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Nombre completo</strong></td>
-      <td>Manuel Alberto Torres HuamanÃ­</td>
-      <td><strong>Tratamiento o medicaciÃ³n</strong></td>
-      <td>LosartÃ¡n (maÃ±ana) y amlodipino (tarde) para hipertensiÃ³n; celecoxib 200mg ante dolor de columna; atorvastatina para colesterol</td>
-    </tr>
-    <tr>
-      <td><strong>Edad</strong></td>
-      <td>64 aÃ±os</td>
-      <td><strong>GestiÃ³n actual de las tomas</strong></td>
-      <td>Sigue una rutina informal (maÃ±ana/tarde) sin recordatorio fijo; frecuentemente no recuerda si ya tomÃ³ la dosis</td>
-    </tr>
-    <tr>
-      <td><strong>Distrito</strong></td>
-      <td>San MartÃ­n de Porres</td>
-      <td><strong>Apoyo familiar</strong></td>
-      <td>Su Ãºnico hijo (vive en Los Olivos) lo llama o envÃ­a mensajes de forma esporÃ¡dica para recordarle, sin frecuencia fija</td>
-    </tr>
-    <tr>
-      <td><strong>OcupaciÃ³n o situaciÃ³n actual</strong></td>
-      <td>Jubilado (ex mecÃ¡nico y conductor); vive solo, es viudo</td>
-      <td><strong>Contexto digital</strong></td>
-      <td>Smartphone gama media (Honor); usa WhatsApp y Facebook; usa apps de pago de recibos (agua/luz/telÃ©fono) pero evita apps nuevas o complejas; no usa comandos de voz pero los conoce y les tiene buena disposiciÃ³n</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>DuraciÃ³n:</strong> Aproximadamente 12 minutos</td>
-      <td colspan="2">
-        <strong>URL de grabaciÃ³n:</strong>
-        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCWQkzyIJcIRY1bHwUpqqfJAUrFoa-oQ_5i2FY5wuGr_VQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=Aa1By5">https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCWQkzyIJcIRY1bHwUpqqfJAUrFoa-oQ_5i2FY5wuGr_VQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=Aa1By5</a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <strong>Resumen de la entrevista</strong>
-        <p>Manuel Alberto Torres HuamanÃ­ es un adulto mayor de 64 aÃ±os, viudo, residente en San MartÃ­n de Porres. Vive solo, ya que su Ãºnico hijo reside en el distrito de Los Olivos y lo visita principalmente los fines de semana, segÃºn su disponibilidad laboral. TrabajÃ³ la mayor parte de su vida como mecÃ¡nico y conductor; actualmente no realiza actividad laboral por limitaciones fÃ­sicas asociadas a la edad, y su rutina diaria se centra en caminatas cortas y permanecer en casa.</p>
-        <p>Es hipertenso y toma losartÃ¡n en la maÃ±ana y amlodipino en la tarde; adicionalmente maneja dolor de columna con celecoxib 200mg ante episodios de dolor, y atorvastatina para el control del colesterol. No cuenta con un mÃ©todo fijo de recordatorio: sigue una rutina informal asociada a los momentos del dÃ­a, pero reconoce olvidarse con frecuencia de si ya tomÃ³ una dosis, dÃ¡ndose cuenta generalmente solo cuando aparecen sÃ­ntomas fÃ­sicos (dolor de cabeza asociado al antihipertensivo, mareos asociados a la atorvastatina).</p>
-        <p>El apoyo familiar existente es esporÃ¡dico: su hijo lo llama o le escribe ocasionalmente para recordarle tomar su medicaciÃ³n, pero sin una frecuencia constante debido a sus propias responsabilidades laborales y familiares. Manuel expresa que, al vivir solo, no existe alguien presente que note si algo sale mal.</p>
-        <p>En cuanto a tecnologÃ­a, usa un smartphone gama media (Honor) y limita su uso principalmente a WhatsApp y Facebook para comunicarse con familiares y conocidos. Utiliza aplicaciones de pago de servicios (agua, luz, telÃ©fono) por necesidad, pero evita explorar aplicaciones nuevas que perciba como complejas. No ha usado comandos de voz personalmente, pero los conoce por observar a personas mÃ¡s jÃ³venes de su entorno, y expresa una actitud favorable hacia esta forma de interacciÃ³n, ya que la percibe como mÃ¡s prÃ¡ctica que escribir.</p>
-        <p>Su principal preocupaciÃ³n de salud es sufrir un evento grave (menciona explÃ­citamente el riesgo de un infarto) por no medicarse correctamente mientras vive solo, sin nadie que lo note a tiempo. SeÃ±ala ademÃ¡s la preocupaciÃ³n de convertirse en una carga para su familia. Como necesidad ideal, describe un mecanismo de aviso simple lo compara con un timbre que no dependa de la disponibilidad de un familiar para recordarle su medicaciÃ³n.</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr>
-      <td colspan="4" align="center"><strong>Entrevista N.Â° 2</strong></td>
-    </tr>
-    <tr>
-      <td colspan="4" align="center">
-        <img src="assets/entrevistarosario.jpeg" alt="Entrevista del segmento 1, participante 2" width="900">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center"><strong>InformaciÃ³n del entrevistado</strong></td>
-      <td colspan="2" align="center"><strong>Contexto de la entrevista</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Nombre completo</strong></td>
-      <td>Rosario Santolalla</td>
-      <td><strong>Tratamiento o medicaciÃ³n</strong></td>
-      <td>Medicamentos para las crisis de migraÃ±a y un medicamento nocturno para poder descansar y dormir.</td>
-    </tr>
-    <tr>
-      <td><strong>Edad</strong></td>
-      <td>72 aÃ±os</td>
-      <td><strong>GestiÃ³n actual de las tomas</strong></td>
-      <td>Tiene en cuenta las pastillas que debe tomar cuando presenta una crisis. En ocasiones ha olvidado el medicamento nocturno.</td>
-    </tr>
-    <tr>
-      <td><strong>Distrito</strong></td>
-      <td>Callao</td>
-      <td><strong>Apoyo familiar</strong></td>
-      <td>Sus hijas conocen sus medicamentos y estÃ¡n pendientes de lo que debe tomar. Se comunican mediante llamadas o de manera presencial</td>
-    </tr>
-    <tr>
-      <td><strong>OcupaciÃ³n o situaciÃ³n actual</strong></td>
-      <td>Jubilada; actualmente se dedica a las labores del hogar</td>
-      <td><strong>Contexto digital</strong></td>
-      <td>Utiliza principalmente WhatsApp. No tiene experiencia con comandos de voz y algunas aplicaciones nuevas le resultan difÃ­ciles cuando no conoce bien cÃ³mo funcionan.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>DuraciÃ³n:</strong> 06:35 </td>
-      <td colspan="2">
-        <strong>URL de grabaciÃ³n:</strong>
-        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a195_upc_edu_pe/IQBdCy6U5C1ZSpFyAyOY_7FkAXMOTn4f9aqEPRm3X95WfmI?e=WsgaQA">https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a195_upc_edu_pe/IQBdCy6U5C1ZSpFyAyOY_7FkAXMOTn4f9aqEPRm3X95WfmI?e=WsgaQA</a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <strong>Resumen de la entrevista</strong>
-        <p>Rosario Santolalla Solano (72 aÃ±os, jubilada, distrito del Callao) vive actualmente con sus hijas. Antes de jubilarse trabajaba como facturadora y actualmente se dedica principalmente a las labores del hogar. Su dÃ­a a dÃ­a consiste en realizar sus actividades como ama de casa. En cuanto a su tratamiento, utiliza medicamentos principalmente para controlar sus crisis de migraÃ±a y tambiÃ©n cuenta con un medicamento que toma por las noches para poder descansar y dormir.
-Para recordar sus medicamentos, tiene en cuenta las pastillas que necesita cuando presenta una crisis de migraÃ±a. MencionÃ³ que en algunas ocasiones ha olvidado tomar su medicamento nocturno, lo que ocasiona que pase la noche sin poder dormir. Sus hijas conocen los medicamentos que consume y se mantienen al tanto de lo que debe tomar, realizando el seguimiento mediante llamadas o estando pendientes de ella debido a sus necesidades de salud.
-En cuanto a su contexto digital, utiliza principalmente WhatsApp. No ha utilizado comandos de voz en su celular y manifestÃ³ que algunas aplicaciones nuevas pueden resultarle difÃ­ciles cuando no estÃ¡ suficientemente informada sobre cÃ³mo funcionan, llegando incluso a cerrarlas o anularlas. Sin embargo, mostrÃ³ interÃ©s en contar con herramientas nuevas que pueda tener a la mano para verificar informaciÃ³n y conocer mejor quÃ© debe hacer. Su principal preocupaciÃ³n estÃ¡ relacionada con las crisis de migraÃ±a y la necesidad de tener su medicaciÃ³n disponible cuando estas aparecen. Como funcionalidad ideal, le gustarÃ­a contar con un programa que le proporcione herramientas e informaciÃ³n sobre sus crisis de migraÃ±a, de manera que pueda conocer mÃ¡s sobre su condiciÃ³n y tener esta informaciÃ³n fÃ¡cilmente disponible.
-</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-## Segmento 2: Familiares o cuidadores
-
-Este segmento estÃ¡ conformado por familiares o cuidadores que realizan algÃºn tipo de seguimiento a un adulto mayor, especialmente cuando no pueden acompaÃ±arlo presencialmente durante todo el dÃ­a. Las entrevistas buscan comprender cÃ³mo obtienen informaciÃ³n sobre la medicaciÃ³n, quÃ© dificultades encuentran y quÃ© situaciones generan mayor preocupaciÃ³n durante el cuidado a distancia.
-
-<table>
-  <tbody>
-    <tr>
-      <td colspan="4" align="center"><strong>Entrevista N.Â° 1</strong></td>
-    </tr>
-    <tr>
-      <td colspan="4" align="center">
-        <img src="assets/segmento-2-valeri-rojas.png" alt="Entrevista del segmento 2, participante 1" width="900">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center"><strong>InformaciÃ³n del entrevistado</strong></td>
-      <td colspan="2" align="center"><strong>Contexto de seguimiento</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Nombre completo</strong></td>
-      <td>Valeri Rojas</td>
-      <td><strong>Adulto mayor acompaÃ±ado</strong></td>
-      <td>Abuela (enfermedad: diabetes)</td>
-    </tr>
-    <tr>
-      <td><strong>Edad</strong></td>
-      <td>22 aÃ±os</td>
-      <td><strong>Frecuencia de contacto</strong></td>
-      <td>Diaria (vive en el mismo hogar que su abuela)</td>
-    </tr>
-    <tr>
-      <td><strong>Distrito</strong></td>
-      <td>Los Olivos</td>
-      <td><strong>Seguimiento actual</strong></td>
-      <td>Le pregunta directamente si ya tomÃ³ sus medicamentos; si no estÃ¡ en casa, la llama para verificar. Dedica en promedio 10 minutos a la semana a este seguimiento.</td>
-    </tr>
-    <tr>
-      <td><strong>OcupaciÃ³n</strong></td>
-      <td>Estudiante universitaria</td>
-      <td><strong>Contexto digital</strong></td>
-      <td>Usa habitualmente WhatsApp, Instagram y TikTok. Nunca ha usado una app especÃ­fica para el cuidado de un familiar; se siente cÃ³moda configurando alertas y notificaciones en apps mÃ³viles. Su abuela no usa WhatsApp, solo llamadas.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>DuraciÃ³n:</strong>4:50</td>
-      <td colspan="2">
-        <strong>URL de grabaciÃ³n:</strong>
-        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQAGYnZf_FOeSpr13EuOgvBGAWiWci6cX4I-SBPDGk_tv34?e=S8sHJi&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQAGYnZf_FOeSpr13EuOgvBGAWiWci6cX4I-SBPDGk_tv34?e=S8sHJi&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D</a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <strong>Resumen de la entrevista</strong>
-        <p>
-          Valeri (22 aÃ±os, estudiante universitaria, distrito de Los Olivos) vive con sus padres y su abuela, quien tiene diabetes y requiere seguimiento constante de su medicaciÃ³n. Al vivir juntas, la ve y conversa con ella todos los dÃ­as, y su mÃ©todo actual de seguimiento es preguntarle directamente si ya tomÃ³ sus medicamentos o, si no estÃ¡ en casa, llamarla para confirmarlo. Este seguimiento le toma en promedio unos 10 minutos a la semana. RelatÃ³ un episodio en el que la familia asumiÃ³ que su abuelita ya habÃ­a tomado el medicamento y luego se dieron cuenta de que no fue asÃ­, lo que generÃ³ preocupaciÃ³n y llevÃ³ a reforzar las indicaciones del doctor. Su principal fuente de ansiedad es no enterarse a tiempo cuando estÃ¡ fuera de casa y su abuelita olvida tomar la medicaciÃ³n, dado que estÃ¡ relacionada a su condiciÃ³n de diabetes. En cuanto a contexto digital, usa a diario WhatsApp, Instagram y TikTok, nunca ha probado una aplicaciÃ³n de cuidado familiar, y se siente cÃ³moda configurando alertas o notificaciones. Como funcionalidad ideal, mencionÃ³ que le gustarÃ­a recibir un aviso cuando su abuelita ya tomÃ³ sus medicamentos y una alerta si se olvida o se retrasa, seÃ±alando que esto serÃ­a especialmente Ãºtil porque su abuelita no usa WhatsApp, solo llamadas.
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr>
-      <td colspan="4" align="center"><strong>Entrevista N.Â° 2: SebastiÃ¡n VÃ¡squez</strong></td>
-    </tr>
-    <tr>
-      <td colspan="4" align="center">
-        <img src="assets/segmento-2-entrevista-2-sebastian-vasquez.png" alt="Entrevista a SebastiÃ¡n VÃ¡squez" width="900">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center"><strong>InformaciÃ³n del entrevistado</strong></td>
-      <td colspan="2" align="center"><strong>Contexto de seguimiento</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Nombre completo</strong></td>
-      <td>SebastiÃ¡n VÃ¡squez</td>
-      <td><strong>Adulto mayor acompaÃ±ado</strong></td>
-      <td>Su abuelo</td>
-    </tr>
-    <tr>
-      <td><strong>Edad</strong></td>
-      <td>26 aÃ±os</td>
-      <td><strong>Frecuencia de contacto</strong></td>
-      <td>Una visita semanal y alrededor de dos llamadas o videollamadas por semana</td>
-    </tr>
-    <tr>
-      <td><strong>Distrito</strong></td>
-      <td>Magdalena, Lima</td>
-      <td><strong>Seguimiento actual</strong></td>
-      <td>Pregunta directamente a su abuelo y normalmente confÃ­a en su respuesta</td>
-    </tr>
-    <tr>
-      <td><strong>OcupaciÃ³n</strong></td>
-      <td>Estudiante y supervisor de un pequeÃ±o proyecto de software</td>
-      <td><strong>Contexto digital</strong></td>
-      <td>Utiliza smartphone, WhatsApp, Telegram, banca mÃ³vil, Yape, TikTok y llamadas telefÃ³nicas</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>DuraciÃ³n:</strong> 14:29</td>
-      <td colspan="2">
-        <strong>URL de grabaciÃ³n:</strong>
-        <a href="https://drive.google.com/file/d/1vmsmti_gVNPKoTYMcTZnCLLsb_3lQmc5/view?usp=drive_link">https://drive.google.com/file/d/1vmsmti_gVNPKoTYMcTZnCLLsb_3lQmc5/view?usp=drive_link</a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <strong>Resumen de la entrevista</strong>
-        <p>SebastiÃ¡n tiene 26 aÃ±os, vive en Magdalena y combina sus estudios con un trabajo que realiza desde casa. Vive solo y se encarga de acompaÃ±ar a su abuelo debido a que ambos son actualmente los integrantes de su familia que se encuentran en Lima. Su abuelo sufriÃ³ una caÃ­da aproximadamente dos aÃ±os atrÃ¡s y quedÃ³ con molestias permanentes en la espalda, por lo que realiza ejercicios de rehabilitaciÃ³n y utiliza medicamentos para el dolor y vitaminas.</p>
-        <p>Intenta visitarlo al menos una vez por semana y tambiÃ©n mantiene contacto mediante llamadas o videollamadas, aunque seÃ±ala que su abuelo presenta poca familiaridad con la tecnologÃ­a. En relaciÃ³n con los medicamentos, SebastiÃ¡n no dispone de un mecanismo de seguimiento constante. Normalmente pregunta si realizÃ³ la toma y debe confiar en la respuesta que recibe, incluso cuando percibe cierta duda.</p>
-        <p>Durante la entrevista recordÃ³ una situaciÃ³n en la que su abuelo afirmÃ³ inicialmente haber tomado sus medicamentos, pero despuÃ©s de varias preguntas reconociÃ³ que no lo habÃ­a hecho. Aunque no ocurriÃ³ una consecuencia inmediata, la situaciÃ³n generÃ³ preocupaciÃ³n dentro de la familia. SebastiÃ¡n considera conveniente recibir informaciÃ³n que reduzca esta incertidumbre y evite depender de consultas constantes para conocer si una toma fue realizada.</p>
-        <p>Su preocupaciÃ³n por el cuidado a distancia tambiÃ©n incluye la posibilidad de que su abuelo vuelva a sufrir un accidente cuando se encuentra solo. Al referirse a una herramienta ideal, mencionÃ³ que le resultarÃ­a Ãºtil conocer algunas actividades bÃ¡sicas del adulto mayor y disponer de un mecanismo sencillo de solicitud de ayuda ante una emergencia.</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr>
-      <td colspan="4" align="center"><strong>Entrevista N.Â° 3</strong></td>
-    </tr>
-    <tr>
-      <td colspan="4" align="center">
-        <img src="assets/Entrevista-02.png" alt="Entrevista del segmento 2, participante 2" width="900">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center"><strong>InformaciÃ³n del entrevistado</strong></td>
-      <td colspan="2" align="center"><strong>Contexto de seguimiento</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Nombre completo</strong></td>
-      <td>Marvi AlarcÃ³n</td>
-      <td><strong>Adulto mayor acompaÃ±ado</strong></td>
-      <td>Su abuela</td>
-    </tr>
-    <tr>
-      <td><strong>Edad</strong></td>
-      <td>20 aÃ±os</td>
-      <td><strong>Frecuencia de contacto</strong></td>
-      <td>Aproximadamente 2 o 3 veces por mes en persona; cuando no puede visitarla se comunica por llamada o mensaje.</td>
-    </tr>
-    <tr>
-      <td><strong>Distrito</strong></td>
-      <td>Comas</td>
-      <td><strong>Seguimiento actual</strong></td>
-      <td>Le pregunta directamente por llamada o mensaje y trata de recordarle los horarios de medicaciÃ³n. Si no contesta o quedan dudas, contacta a otro familiar cercano para verificar. Dedica en promedio entre 1 y 2 horas a la semana a este seguimiento.</td>
-    </tr>
-    <tr>
-      <td><strong>OcupaciÃ³n</strong></td>
-      <td>Estudiante de PsicologÃ­a</td>
-      <td><strong>Contexto digital</strong></td>
-      <td>Usa habitualmente WhatsApp y llamadas para comunicarse con su familia, ademÃ¡s de Instagram y YouTube. Nunca ha usado una app especÃ­fica para el cuidado de un familiar; se siente cÃ³moda configurando alarmas, recordatorios y notificaciones.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>DuraciÃ³n:</strong> 05:00</td>
-      <td colspan="2">
-        <strong>URL de grabaciÃ³n:</strong>
-        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQDpr5ILeBtnSK32ysEfc-RAASL3mfonRwH_TXRCBz-wZF8?e=IYbQDm&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">https://upcedupe-my.sharepoint.com/:v:/g/personal/u202324623_upc_edu_pe/IQDpr5ILeBtnSK32ysEfc-RAASL3mfonRwH_TXRCBz-wZF8?e=IYbQDm&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D</a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <strong>Resumen de la entrevista</strong>
-        <p>
-          Marvi (20 aÃ±os, estudiante de PsicologÃ­a, distrito de Comas) vive con sus padres y su hermano, mientras que su abuela vive en otro lugar. La visita aproximadamente 2 o 3 veces al mes y, cuando no puede hacerlo en persona, se comunica por llamada o mensaje. Su mÃ©todo actual de seguimiento es preguntarle directamente si tomÃ³ su medicaciÃ³n y recordarle los horarios; cuando no estÃ¡ segura o su abuela no contesta, contacta a otro familiar cercano para que verifique. Este seguimiento le toma entre 1 y 2 horas a la semana, dependiendo de cuÃ¡ntos medicamentos debe tomar su abuela. RelatÃ³ un episodio en el que su abuela olvidÃ³ una dosis por estar realizando otras actividades, y ella se enterÃ³ varias horas despuÃ©s, lo que le generÃ³ preocupaciÃ³n al no saber cuÃ¡nto tiempo habÃ­a pasado, y tuvo que comunicarse con otro familiar para decidir quÃ© hacer. En cuanto a contexto digital, usa WhatsApp y llamadas para hablar con su familia, ademÃ¡s de Instagram y YouTube para otros fines; nunca ha usado una aplicaciÃ³n de cuidado familiar, pero se siente cÃ³moda configurando alarmas, recordatorios y notificaciones, y preferirÃ­a una app de cuidado dedicada que sea sencilla y sin demasiadas opciones. Su principal fuente de ansiedad es no saber si su abuela tomÃ³ correctamente sus medicamentos o si le ocurriÃ³ algo, ya que al estar lejos siente que no siempre puede reaccionar rÃ¡pidamente. Como funcionalidad ideal, mencionÃ³ que le gustarÃ­a que la app le avise si su familiar tomÃ³ o no el medicamento en el horario establecido, y que le llegue una alerta cuando se olvide de tomarlo, para poder saber rÃ¡pidamente si todo estÃ¡ bien.
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-
-<table>
-  <tbody>
-    <tr>
-      <td colspan="4" align="center"><strong>Entrevista N.Â° 4</strong></td>
-    </tr>
-    <tr>
-      <td colspan="4" align="center">
-        <img src="assets/entrevistaleo.jpeg" alt="Entrevista del segmento 2, participante 4" width="900">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center"><strong>InformaciÃ³n del entrevistado</strong></td>
-      <td colspan="2" align="center"><strong>Contexto de seguimiento</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Nombre completo</strong></td>
-      <td>Leonardo LÃ³pez</td>
-      <td><strong>Adulto mayor acompaÃ±ado</strong></td>
-      <td>Su abuela</td>
-    </tr>
-    <tr>
-      <td><strong>Edad</strong></td>
-      <td>23 aÃ±os</td>
-      <td><strong>Frecuencia de contacto</strong></td>
-      <td>Frecuente, principalmente cuando estÃ¡ en casa.</td>
-    </tr>
-    <tr>
-      <td><strong>Distrito</strong></td>
-      <td>Callao</td>
-      <td><strong>Seguimiento actual</strong></td>
-      <td>Pregunta directamente si su familiar tomÃ³ la medicaciÃ³n y le recuerda durante la tarde</td>
-    </tr>
-    <tr>
-      <td><strong>OcupaciÃ³n</strong></td>
-      <td>Estudiante de Ingenieria de Sistemas</td>
-      <td><strong>Contexto digital</strong></td>
-      <td>Usa WhatsApp, Instagram, Facebook y YouTube. Se siente cÃ³modo configurando alertas y notificaciones.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>DuraciÃ³n:</strong> 03:47 </td>
-      <td colspan="2">
-        <strong>URL de grabaciÃ³n:</strong>
-        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a195_upc_edu_pe/IQCTICYc0qcaTJq-wuA0bfsPARkNXpr37NWUhfkv5UahKdA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=srf1cK">https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a195_upc_edu_pe/IQCTICYc0qcaTJq-wuA0bfsPARkNXpr37NWUhfkv5UahKdA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=srf1cK</a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <strong>Resumen de la entrevista</strong>
-        <p> Leonardo LÃ³pez (23 aÃ±os, estudiante, reside en el Callao) vive con su abuela, su mamÃ¡ y su papÃ¡. Mantiene una comunicaciÃ³n frecuente con su familiar adulto mayor, principalmente cuando se encuentra en casa. Su mÃ©todo actual de seguimiento consiste en preguntarle directamente a su abuela si tomÃ³ sus medicamentos y recordarle durante la tarde que debe tomarlos. Este seguimiento le toma aproximadamente 10 minutos al dÃ­a, dependiendo de si su familiar ha tomado o no sus medicamentos.
-RelatÃ³ que en varias ocasiones su abuela olvidÃ³ tomar sus pastillas, especialmente durante la noche mientras estaban comiendo, y se enteraron del olvido despuÃ©s de la comida, momento en el que su abuela terminÃ³ tomando la medicaciÃ³n. Debido a estas situaciones, actualmente consideran necesario recordarle cada cierto tiempo durante la tarde. En cuanto a su contexto digital, utiliza principalmente WhatsApp, Instagram, Facebook y YouTube. Nunca ha utilizado una aplicaciÃ³n especÃ­fica para el cuidado de un familiar, pero se siente cÃ³modo configurando alertas y notificaciones en aplicaciones mÃ³viles.
-Su principal preocupaciÃ³n respecto al cuidado de su familiar es que no siga una buena alimentaciÃ³n, que olvide tomar sus medicamentos o que no se cuide adecuadamente en general. Como funcionalidad ideal, le gustarÃ­a contar con una herramienta que permita saber de alguna manera cuÃ¡ndo su familiar ha tomado sus pastillas y que pueda notificarle esta informaciÃ³n, brindÃ¡ndole mayor seguridad sobre el cumplimiento de la medicaciÃ³n.
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr>
-      <td colspan="4" align="center"><strong>Entrevista N.Â° 5: MatÃ­as Carrillo</strong></td>
-    </tr>
-    <tr>
-      <td colspan="4" align="center">
-        <img src="assets/segmento-2-entrevista-5-matias-carrillo.png" alt="Entrevista a MatÃ­as Carrillo" width="900">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center"><strong>InformaciÃ³n del entrevistado</strong></td>
-      <td colspan="2" align="center"><strong>Contexto de seguimiento</strong></td>
-    </tr>
-    <tr>
-      <td><strong>Nombre completo</strong></td>
-      <td>MatÃ­as Carrillo</td>
-      <td><strong>Adulto mayor acompaÃ±ado</strong></td>
-      <td>Su abuela (enfermedades: artritis e hipertensiÃ³n)</td>
-    </tr>
-    <tr>
-      <td><strong>Edad</strong></td>
-      <td>25 aÃ±os</td>
-      <td><strong>Frecuencia de contacto</strong></td>
-      <td>Dos visitas semanales y llamadas casi a diario</td>
-    </tr>
-    <tr>
-      <td><strong>Distrito</strong></td>
-      <td>San Miguel</td>
-      <td><strong>Seguimiento actual</strong></td>
-      <td>Pregunta directamente a su abuela por llamada o en persona y normalmente confÃ­a en su respuesta; si la nota dudosa o no contesta, la vuelve a llamar mÃ¡s tarde o pide a otro familiar que se acerque. Dedica en promedio entre 40 minutos y 1 hora a la semana a este seguimiento.</td>
-    </tr>
-    <tr>
-      <td><strong>OcupaciÃ³n</strong></td>
-      <td>DiseÃ±ador grÃ¡fico freelance</td>
-      <td><strong>Contexto digital</strong></td>
-      <td>Utiliza smartphone, WhatsApp, Instagram y Yape con frecuencia. Nunca ha usado una app especÃ­fica para el cuidado de un familiar; se siente muy cÃ³modo configurando alertas y recordatorios, ya que los usa habitualmente para su trabajo.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><strong>DuraciÃ³n:</strong> 5:03</td>
-      <td colspan="2">
-        <strong>URL de grabaciÃ³n:</strong>
-        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a267_upc_edu_pe/IQCvb0DcKq0PSL6IAvUGOXn9AVWJqkj8WyzFVrpEdhryL7k?e=wSH7II&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a267_upc_edu_pe/IQCvb0DcKq0PSL6IAvUGOXn9AVWJqkj8WyzFVrpEdhryL7k?e=wSH7II&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D</a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <strong>Resumen de la entrevista</strong>
-        <p>MatÃ­as Carrillo tiene 25 aÃ±os, vive en San Miguel con sus padres y trabaja como diseÃ±ador grÃ¡fico freelance, lo que le da un horario flexible para acompaÃ±ar a su abuela, quien vive sola a pocas cuadras de su casa y padece artritis e hipertensiÃ³n. La visita dos veces por semana y la llama casi a diario para preguntarle por su estado. Su mÃ©todo actual de seguimiento consiste en preguntarle directamente, por llamada o en persona, si ya tomÃ³ sus medicamentos; cuando la nota dudosa al responder o no logra contactarla, la vuelve a llamar mÃ¡s tarde o pide a otro familiar que se acerque a verificar. Este seguimiento le toma entre 40 minutos y una hora a la semana.</p>
-        <p>RelatÃ³ un episodio en el que su abuela le confirmÃ³ por telÃ©fono haber tomado su pastilla para la presiÃ³n, pero al visitarla al dÃ­a siguiente notÃ³ que la pastilla del dÃ­a anterior seguÃ­a en el pastillero, dÃ¡ndose cuenta casi 24 horas despuÃ©s de que en realidad no la habÃ­a tomado. En cuanto a su contexto digital, utiliza con frecuencia WhatsApp, Instagram y Yape, nunca ha usado una aplicaciÃ³n de cuidado familiar, pero se siente muy cÃ³modo configurando alertas y recordatorios, pues los usa habitualmente en su trabajo.</p>
-        <p>Su principal fuente de ansiedad es que, dado el riesgo asociado a la hipertensiÃ³n de su abuela, un olvido de medicaciÃ³n no es un asunto menor, y al vivir sola, un evento grave podrÃ­a no ser detectado a tiempo. Como funcionalidad ideal, mencionÃ³ que le gustarÃ­a recibir un aviso automÃ¡tico que confirme si su abuela tomÃ³ su medicaciÃ³n en el horario correspondiente o si se le pasÃ³ la hora, para reducir la necesidad de llamarla constantemente y solo intervenir cuando realmente sea necesario.</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-### 2.2.3. AnÃ¡lisis de entrevistas
-
-El anÃ¡lisis de las entrevistas se organizÃ³ por segmento objetivo. Primero se identificaron los principales hallazgos obtenidos de cada participante y luego se contrastaron sus respuestas para reconocer caracterÃ­sticas comunes.
-
-Las caracterÃ­sticas fueron clasificadas como objetivas o subjetivas y su recurrencia serÃ¡ expresada mediante frecuencias y porcentajes. Estos resultados servirÃ¡n como base para la definiciÃ³n y ajuste de los User Persona de Tata.
-
-## Segmento 1: Adultos mayores
-
-##### Hallazgos por entrevista
-
-<table>
-  <thead>
-    <tr>
-      <th>Entrevista</th>
-      <th>CaracterÃ­sticas objetivas</th>
-      <th>CaracterÃ­sticas subjetivas</th>
-      <th>Hallazgo principal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Entrevista N.Â° 1</td>
-      <td>Tiene 64 aÃ±os, es jubilado (ex mecÃ¡nico y conductor), es viudo y vive solo en San MartÃ­n de Porres. Sigue tratamiento para hipertensiÃ³n (losartÃ¡n y amlodipino), dolor de columna (celecoxib) y colesterol (atorvastatina), sin un recordatorio fijo. Usa WhatsApp y Facebook, y recibe apoyo esporÃ¡dico de su Ãºnico hijo, quien vive en otro distrito.</td>
-      <td>Le preocupa sufrir un evento grave de salud por no medicarse correctamente al vivir solo y sin nadie que lo note a tiempo. Evita aplicaciones nuevas o que percibe como complejas, aunque tiene buena disposiciÃ³n hacia los comandos de voz. Le gustarÃ­a contar con un mecanismo de aviso simple, similar a un timbre, que no dependa de la disponibilidad de un familiar.</td>
-      <td>Vivir solo y sin un mÃ©todo fijo de recordatorio lo lleva a olvidar frecuentemente si ya tomÃ³ una dosis, dÃ¡ndose cuenta solo cuando aparecen sÃ­ntomas fÃ­sicos; necesita un aviso simple e independiente del contacto esporÃ¡dico con su familiar.</td>
-    </tr>
-    <tr>
-      <td>Entrevista N.Â° 2</td>
-      <td>Tiene 72 aÃ±os, es jubilada y vive en el Callao con sus hijas. Utiliza medicamentos para las crisis de migraÃ±a y uno de ellos lo toma por las noches para poder dormir. Usa principalmente WhatsApp y recibe apoyo de sus hijas para el seguimiento de su medicaciÃ³n.</td>
-      <td>Le preocupa principalmente cuando presenta una crisis de migraÃ±a. Considera que algunas aplicaciones nuevas son difÃ­ciles de utilizar cuando no conoce su funcionamiento. Le gustarÃ­a tener herramientas accesibles e informaciÃ³n disponible sobre su tratamiento y las crisis de migraÃ±a.</td>
-      <td>Necesita una herramienta sencilla y fÃ¡cil de consultar que le permita acceder a informaciÃ³n sobre sus crisis de migraÃ±a y recordar o verificar las indicaciones de su medicaciÃ³n.</td>
-    </tr>
-  </tbody>
-</table>
-
-##### CaracterÃ­sticas representativas del segmento
-
-<table>
-  <thead>
-    <tr>
-      <th>Tipo</th>
-      <th>CaracterÃ­stica</th>
-      <th>Evidencia</th>
-      <th>Frecuencia</th>
-      <th>Porcentaje</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Objetiva</td>
-      <td>Utiliza WhatsApp como principal canal de comunicaciÃ³n digital</td>
-      <td>Entrevistas N.Â° 1 y N.Â° 2</td>
-      <td>2/2</td>
-      <td>100%</td>
-    </tr>
-    <tr>
-      <td>Objetiva</td>
-      <td>Ha olvidado alguna vez tomar una dosis de su medicaciÃ³n</td>
-      <td>Entrevistas N.Â° 1 y N.Â° 2</td>
-      <td>2/2</td>
-      <td>100%</td>
-    </tr>
-    <tr>
-      <td>Subjetiva</td>
-      <td>Considera difÃ­ciles de utilizar las aplicaciones nuevas o que no comprende bien cÃ³mo funcionan</td>
-      <td>Entrevistas N.Â° 1 y N.Â° 2</td>
-      <td>2/2</td>
-      <td>100%</td>
-    </tr>
-    <tr>
-      <td>Subjetiva</td>
-      <td>Manifiesta interÃ©s o buena disposiciÃ³n hacia una herramienta simple que le facilite el recordatorio o seguimiento de su medicaciÃ³n</td>
-      <td>Entrevistas N.Â° 1 y N.Â° 2</td>
-      <td>2/2</td>
-      <td>100%</td>
-    </tr>
-  </tbody>
-</table>
-
-##### ConclusiÃ³n del segmento 1
-
-Las dos entrevistas registradas hasta el momento para este segmento muestran que los adultos mayores gestionan tratamientos crÃ³nicos (hipertensiÃ³n, dolor de columna, colesterol y crisis de migraÃ±a) sin un mÃ©todo fijo de recordatorio, apoyÃ¡ndose en rutinas informales asociadas a los momentos del dÃ­a. Ambos participantes reportan haber olvidado alguna toma, dÃ¡ndose cuenta generalmente por consecuencias indirectas (sÃ­ntomas fÃ­sicos o no poder dormir) mÃ¡s que por un mecanismo de verificaciÃ³n propio. El nivel de apoyo familiar disponible varÃ­a: mientras que Manuel vive solo y solo cuenta con recordatorios esporÃ¡dicos de su hijo, Rosario vive con sus hijas y recibe un acompaÃ±amiento mÃ¡s cercano; en ambos casos, sin embargo, el adulto mayor sigue siendo responsable directo de reconocer y ejecutar su toma. En cuanto al contexto digital, ambos utilizan WhatsApp como principal herramienta y evitan aplicaciones nuevas que perciban como complejas, lo que confirma la necesidad de que la interacciÃ³n con Tata sea extremadamente simple y de baja carga cognitiva. Asimismo, ambos expresan apertura hacia mecanismos de aviso o consulta sencillos (un aviso tipo timbre, informaciÃ³n accesible sobre su condiciÃ³n), lo que valida el enfoque de confirmaciÃ³n de toma mediante un toque o por voz que propone la soluciÃ³n. Esta conclusiÃ³n se ampliarÃ¡ una vez se incorpore la Entrevista N.Â° 3 pendiente de este segmento.
-
-#### Segmento 2: Familiares o cuidadores
-
-##### Hallazgos por entrevista
-
-<table>
-  <thead>
-    <tr>
-      <th>Entrevista</th>
-      <th>CaracterÃ­sticas objetivas</th>
-      <th>CaracterÃ­sticas subjetivas</th>
-      <th>Hallazgo principal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Entrevista N.Â° 1: Valeri Rojas</td>
-      <td>22 aÃ±os, vive en Los Olivos con sus padres y su abuela (con diabetes), estudiante universitaria. Vive en el mismo hogar que su abuela y la ve/conversa con ella todos los dÃ­as.</td>
-      <td>Considera que preguntar directamente no siempre es suficiente: hubo una ocasiÃ³n en que la familia asumiÃ³ que su abuela ya habÃ­a tomado el medicamento y luego se dieron cuenta de que no fue asÃ­. Valora recibir un aviso automÃ¡tico de la toma y una alerta ante olvidos o retrasos, sobre todo porque su abuela no usa WhatsApp, solo llamadas.</td>
-      <td>Incluso viviendo bajo el mismo techo, el seguimiento depende de la memoria y honestidad de las respuestas del adulto mayor, lo que puede generar falsas certezas sobre si la medicaciÃ³n fue tomada.</td>
-    </tr>
-    <tr>
-      <td>Entrevista N.Â° 2: SebastiÃ¡n VÃ¡squez</td>
-      <td>26 aÃ±os, vive en Magdalena, estudia y trabaja desde casa. AcompaÃ±a a su abuelo y mantiene contacto mediante visitas, llamadas y videollamadas.</td>
-      <td>Considera poco confiable depender Ãºnicamente de la respuesta de su abuelo para comprobar una toma. Valora recibir informaciÃ³n sin realizar verificaciones constantes.</td>
-      <td>El seguimiento a distancia genera incertidumbre porque no existe un mecanismo confiable para conocer si la medicaciÃ³n fue cumplida.</td>
-    </tr>
-    <tr>
-      <td>Entrevista N.Â° 3: Marvi AlarcÃ³n</td>
-      <td>20 aÃ±os, vive en Comas con sus padres y hermano, estudiante de PsicologÃ­a. AcompaÃ±a a su abuela, a quien visita 2 o 3 veces al mes y contacta por llamada o mensaje el resto del tiempo.</td>
-      <td>Le genera ansiedad no saber si su abuela tomÃ³ correctamente sus medicamentos o si le ocurriÃ³ algo, sintiendo que al estar lejos no siempre puede reaccionar rÃ¡pido. Cuando tiene dudas, recurre a otro familiar cercano para verificar. PreferirÃ­a una app de cuidado dedicada, simple y sin demasiadas opciones.</td>
-      <td>La distancia fÃ­sica alarga el tiempo de reacciÃ³n ante un posible olvido y obliga a depender de terceros para confirmar la toma, generando incertidumbre prolongada.</td>
-    </tr>
-<tr>
-      <td>Entrevista N.Â° 4: Leonardo LÃ³pez</td>
-      <td>Tiene 23 aÃ±os y vive con su abuela, mamÃ¡ y papÃ¡. Mantiene contacto frecuente con su familiar adulto mayor. Actualmente realiza el seguimiento preguntÃ¡ndole si tomÃ³ sus medicamentos y recordÃ¡ndole los horarios. Utiliza WhatsApp, Instagram, Facebook y YouTube.</td>
-      <td>Le preocupa que su abuela no siga una buena alimentaciÃ³n, olvide tomar sus medicamentos o no se cuide adecuadamente. Considera importante poder saber con certeza si tomÃ³ sus pastillas y se siente cÃ³modo configurando alertas y notificaciones.</td>
-      <td>Necesita una herramienta que permita confirmar si su familiar tomÃ³ su medicaciÃ³n y enviarle una notificaciÃ³n, reduciendo la incertidumbre y facilitando el seguimiento a distancia.</td>
-    </tr>
-        <tr>
-  <td>Entrevista N.Â° 5: MatÃ­as Carrillo</td>
-  <td>25 aÃ±os, vive en San Miguel con sus padres, diseÃ±ador grÃ¡fico freelance con horario flexible. AcompaÃ±a a su abuela, a quien visita dos veces por semana y contacta por llamada casi a diario el resto del tiempo.</td>
-  <td>Considera que, dado el riesgo asociado a la hipertensiÃ³n de su abuela, un olvido de medicaciÃ³n no es menor, y al vivir sola un evento grave podrÃ­a no detectarse a tiempo. Cuando tiene dudas sobre una toma, recurre a otro familiar cercano para verificar. Se siente muy cÃ³modo configurando alertas y recordatorios.</td>
-  <td>Incluso con contacto casi diario, confiar en la respuesta verbal del adulto mayor generÃ³ una falsa certeza sobre el cumplimiento de una toma, descubierta casi un dÃ­a despuÃ©s.</td>
-</tr>
-  </tbody>
-</table>
-
-##### CaracterÃ­sticas representativas del segmento
-
-<table>
-  <thead>
-    <tr>
-      <th>Tipo</th>
-      <th>CaracterÃ­stica</th>
-      <th>Evidencia</th>
-      <th>Frecuencia</th>
-      <th>Porcentaje</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Objetiva</td>
-      <td>El seguimiento se realiza mediante visitas y comunicaciÃ³n remota</td>
-      <td>Entrevistas N.Â° 2, N.Â° 3 y N.Â° 5</td>
-      <td>3/5</td>
-      <td>60%</td>
-    </tr>
-    <tr>
-      <td>Objetiva</td>
-      <td>El familiar utiliza habitualmente aplicaciones mÃ³viles</td>
-      <td>Entrevistas N.Â° 1, N.Â° 2, N.Â° 3, N.Â° 4 y N.Â° 5</td>
-      <td>5/5</td>
-      <td>100%</td>
-    </tr>
-    <tr>
-      <td>Subjetiva</td>
-      <td>Existe incertidumbre sobre el cumplimiento de la medicaciÃ³n</td>
-      <td>Entrevistas N.Â° 1, N.Â° 2, N.Â° 3, N.Â° 4 y N.Â° 5</td>
-      <td>5/5</td>
-      <td>100%</td>
-    </tr>
-    <tr>
-      <td>Subjetiva</td>
-      <td>Se valora recibir informaciÃ³n sin realizar verificaciones constantes</td>
-      <td>Entrevistas N.Â° 1, N.Â° 2, N.Â° 3, N.Â° 4 y N.Â° 5</td>
-      <td>5/5</td>
-      <td>100%</td>
-    </tr>
-    <tr>
-      <td>Subjetiva</td>
-      <td>Existe preocupaciÃ³n por el cuidado del adulto mayor cuando se encuentra solo</td>
-      <td>Entrevistas N.Â° 1, N.Â° 2, N.Â° 3 y N.Â° 5</td>
-      <td>4/5</td>
-      <td>80%</td>
-    </tr>
-  </tbody>
-</table>
-
-##### ConclusiÃ³n del segmento 2
-
-Las cinco entrevistas registradas para este segmento evidencian un patrÃ³n consistente: el seguimiento de la medicaciÃ³n depende casi exclusivamente de la comunicaciÃ³n directa con el adulto mayor â€”ya sea presencial, por llamada o por mensajeâ€” y de la confianza en su respuesta, sin un mecanismo objetivo que confirme el cumplimiento. Los cinco entrevistados relataron al menos un episodio concreto en el que esta dependencia generÃ³ una falsa certeza o un descubrimiento tardÃ­o de una toma omitida (Valeri, SebastiÃ¡n, Marvi, Leonardo y MatÃ­as), lo que confirma que preguntar directamente no es un mÃ©todo confiable, incluso cuando existe convivencia en el mismo hogar o contacto casi diario. La forma de contacto varÃ­a segÃºn la cercanÃ­a fÃ­sica: quienes conviven con el adulto mayor (Valeri, Leonardo) realizan un seguimiento diario e informal, mientras que quienes no conviven con Ã©l (SebastiÃ¡n, Marvi, MatÃ­as) dependen de visitas periÃ³dicas y llamadas, lo que amplÃ­a el tiempo de reacciÃ³n ante un posible olvido. Todos los participantes usan aplicaciones mÃ³viles con soltura y se sienten cÃ³modos configurando alertas y notificaciones, lo que respalda la viabilidad de una soluciÃ³n mÃ³vil para este segmento. Asimismo, todos coinciden en preferir recibir informaciÃ³n o notificaciones automÃ¡ticas antes que depender de verificaciones constantes, y la mayorÃ­a expresa preocupaciÃ³n explÃ­cita por la seguridad del adulto mayor cuando se encuentra solo. En conjunto, estos hallazgos evidencian la necesidad de un mecanismo de monitoreo remoto confiable que reemplace la dependencia actual de la comunicaciÃ³n verbal y reduzca la incertidumbre del cuidador.
-
-## 2.3. Needfinding
-
-A partir de la informaciÃ³n recolectada en el proceso de entrevistas y del anÃ¡lisis competitivo desarrollado previamente, el equipo procedera a realizar el Needfinding, con el objetivo de construir una comprensiÃ³n profunda y estructurada de los dos segmentos objetivo de Tata. Esta secciÃ³n incluye la elaboraciÃ³n de los User Personas que representan a cada segmento, el User Task Matrix que consolida las tareas relevantes que estos realizan, los User Journey Maps en su versiÃ³n As-Is, los Empathy Maps por cada arquetipo, el Big Picture EventStorming del dominio del negocio, y el glosario de Ubiquitous Language que unifica el vocabulario del equipo en torno al dominio del problema.
-
-### 2.3.1. User Personas
-
-**Segmento 1: Adultos mayores**
-<p align="center">
-  <img src="assets/User_Persona1.png" alt="user_persona_valentina" width="500"/>
-</p>
-
-**Segmento 2: Familiares o cuidadores de adultos mayores**
-<p align="center">
-  <img src="assets/User_Persona2.png" alt="user_persona_andrea" width="500"/>
-</p>
-
-### 2.3.2. User Task Matrix
-
-#### Segmento 1: Adultos mayores
-
-<div align="center"> <table> <thead> <tr> <th>Tarea</th> <th>Frecuencia</th> <th>Importancia</th> </tr> </thead> <tbody> <tr> <td>Recordar los medicamentos que debe tomar</td> <td>Often</td> <td>High</td> </tr> <tr> <td>Identificar cuÃ¡ndo debe tomar un medicamento</td> <td>Often</td> <td>High</td> </tr> <tr> <td>Tener sus medicamentos disponibles cuando los necesita</td> <td>Often</td> <td>High</td> </tr> <tr> <td>Tomar sus medicamentos durante una crisis de salud</td> <td>Sometimes</td> <td>High</td> </tr> <tr> <td>Tomar el medicamento indicado antes de dormir</td> <td>Often</td> <td>High</td> </tr> <tr> <td>Recordar si ya realizÃ³ una toma</td> <td>Sometimes</td> <td>High</td> </tr> <tr> <td>Consultar a sus familiares sobre aspectos relacionados con sus medicamentos</td> <td>Sometimes</td> <td>Medium</td> </tr> <tr> <td>Informar a sus familiares sobre su estado de salud</td> <td>Sometimes</td> <td>Medium</td> </tr> <tr> <td>Buscar informaciÃ³n sobre sus problemas de salud</td> <td>Sometimes</td> <td>Medium</td> </tr> <tr> <td>Aprender a utilizar nuevas herramientas para el cuidado de su salud</td> <td>Rarely</td> <td>Medium</td> </tr> </tbody> </table> </div>
-
-#### Segmento 2: Familiares o cuidadores de adultos mayores
-
-<div align="center"> <table> <thead> <tr> <th>Tarea</th> <th>Frecuencia</th> <th>Importancia</th> </tr> </thead> <tbody> <tr> <td>Comunicarse con el adulto mayor para conocer su estado de salud</td> <td>Often</td> <td>High</td> </tr> <tr> <td>Preguntar al adulto mayor si tomÃ³ sus medicamentos</td> <td>Often</td> <td>High</td> </tr> <tr> <td>Recordar al adulto mayor que debe tomar sus medicamentos</td> <td>Often</td> <td>High</td> </tr> <tr> <td>Verificar que el adulto mayor haya tomado sus medicamentos</td> <td>Often</td> <td>High</td> </tr> <tr> <td>Realizar seguimiento del tratamiento del adulto mayor</td> <td>Often</td> <td>High</td> </tr> <tr> <td>Detectar cuando el adulto mayor olvida una toma</td> <td>Sometimes</td> <td>High</td> </tr> <tr> <td>Recordar periÃ³dicamente los horarios de medicaciÃ³n</td> <td>Often</td> <td>High</td> </tr> <tr> <td>Consultar directamente al adulto mayor cuando existe duda sobre una toma</td> <td>Sometimes</td> <td>Medium</td> </tr> <tr> <td>Dedicar tiempo diario al seguimiento de la medicaciÃ³n</td> <td>Often</td> <td>Medium</td> </tr> <tr> <td>Preocuparse por el cuidado general del adulto mayor cuando no estÃ¡ presente</td> <td>Often</td> <td>High</td> </tr> </tbody> </table> </div>
-
-#### AnÃ¡lisis del User Task Matrix
-
-Las tareas con mayor frecuencia e importancia para el segmento de adultos mayores estÃ¡n relacionadas con recordar y realizar correctamente sus tomas de medicamentos. Destacan recordar los medicamentos que debe tomar, identificar cuÃ¡ndo debe tomarlos, tenerlos disponibles y realizar las tomas correspondientes, principalmente calificadas como Often y High. La entrevista evidencia que el cumplimiento de la medicaciÃ³n puede estar relacionado con su bienestar, especialmente en situaciones como las crisis de migraÃ±a o la toma de medicamentos durante la noche. Asimismo, existe una necesidad de contar con herramientas sencillas que puedan ser comprendidas y utilizadas sin generar dificultades.
-
-Para el segmento de familiares o cuidadores, las tareas de mayor frecuencia e importancia son preguntar si el adulto mayor tomÃ³ sus medicamentos, recordarle que debe tomarlos, verificar que la toma se haya realizado y realizar seguimiento del tratamiento. Estas tareas muestran que actualmente el familiar depende principalmente de la comunicaciÃ³n directa con el adulto mayor para conocer si cumpliÃ³ con su medicaciÃ³n. AdemÃ¡s, el entrevistado indicÃ³ que dedica aproximadamente 10 minutos diarios a realizar este tipo de seguimiento.
-
-Una de las principales coincidencias entre ambos segmentos es que ambos participan en el cumplimiento y seguimiento de la medicaciÃ³n. El adulto mayor realiza las acciones relacionadas directamente con sus medicamentos, mientras que el familiar participa mediante recordatorios, preguntas y verificaciÃ³n. Por ello, una misma situaciÃ³n puede generar una tarea para ambos usuarios: mientras el adulto mayor necesita recordar y realizar una toma, el familiar necesita comprobar que esta se haya realizado.
-
-La principal diferencia se encuentra en el rol que desempeÃ±a cada segmento dentro del proceso. El adulto mayor es quien ejecuta directamente la toma y necesita una forma sencilla de recordar sus medicamentos y horarios. En cambio, el familiar o cuidador cumple un rol de supervisiÃ³n, dedicando tiempo a comunicarse con el adulto mayor y verificar que el tratamiento se estÃ© siguiendo correctamente.
-
-Finalmente, las tareas identificadas muestran que existe una necesidad de reducir la dependencia de la comunicaciÃ³n verbal para comprobar las tomas. Mientras que actualmente el familiar debe preguntar directamente al adulto mayor y confiar en su respuesta, el adulto mayor necesita una manera sencilla de indicar que ya realizÃ³ su toma. Esta relaciÃ³n entre ambos segmentos es fundamental para TATA, ya que permite plantear una soluciÃ³n que facilite el cumplimiento del tratamiento para el adulto mayor y, al mismo tiempo, reduzca la incertidumbre del familiar.
-
-### 2.3.3. User Journey Mapping
-
-#### Segmento 1: Adultos mayores
-
-![journeymap1.png](assets/journeymap1.png)
-
-#### Segmento 2: Familiares o cuidadores de adultos mayores
-
-![journeymap2.png](assets/journeymap2.png)
-
-### 2.3.4. Empathy Mapping
-
-#### Segmento 1: Adultos mayores
-
-![empathymap1.png](assets/empathymap1.png)
-
-#### Segmento 2: Familiares o cuidadores de adultos mayores
-
-![empathymap2.png](assets/empathymap2.png)
-
-### 2.3.5. Big Picture EventStorming
-
-El Big Picture EventStorming permitiÃ³ representar de forma general cÃ³mo se desarrolla el dominio de Tata, desde el registro y la vinculaciÃ³n de los usuarios hasta el seguimiento de las tomas, la generaciÃ³n de alertas y el anÃ¡lisis de la adherencia. El modelo se construyÃ³ principalmente a partir de eventos de dominio expresados como hechos ya ocurridos y organizados segÃºn su secuencia dentro del negocio.
-
-Para facilitar su lectura, el dominio se dividiÃ³ en cuatro grupos principales: **Cuenta y cuidado**, **Tratamiento y toma**, **OmisiÃ³n, seguimiento y analÃ­tica**, y **Continuidad y accesibilidad**. Los eventos principales se representaron mediante notas naranjas, mientras que las barras verticales identifican eventos pivote que marcan cambios relevantes dentro del flujo. TambiÃ©n se incorporaron puntos problemÃ¡ticos para mantener visibles situaciones que requieren mayor anÃ¡lisis o validaciÃ³n durante el desarrollo del proyecto.
-
-![Big Picture EventStorming de Tata](assets/big-picture-eventstorming.png)
-
-*Figura. Big Picture EventStorming de Tata.*
-
-#### Cuenta y cuidado
-
-Este flujo representa la incorporaciÃ³n inicial de los usuarios al ecosistema de Tata y el establecimiento de la relaciÃ³n de cuidado. Comienza con la creaciÃ³n y verificaciÃ³n de la cuenta del familiar o cuidador, continÃºa con su habilitaciÃ³n y la activaciÃ³n del plan correspondiente.
-
-Posteriormente, se registra el perfil del adulto mayor y se genera el mecanismo de vinculaciÃ³n entre ambas partes. El flujo culmina cuando se registra el consentimiento y se confirma el vÃ­nculo de cuidado. Este Ãºltimo evento resulta importante porque permite continuar con la configuraciÃ³n y seguimiento del tratamiento asociado al adulto mayor.
-
-Los eventos pivote permiten distinguir momentos relevantes dentro del proceso, como la habilitaciÃ³n de la cuenta y la confirmaciÃ³n del vÃ­nculo. Asimismo, los puntos problemÃ¡ticos asociados permiten mantener visibles aspectos que todavÃ­a pueden requerir validaciÃ³n, como la seguridad del proceso de vinculaciÃ³n y el consentimiento del adulto mayor.
-
-![Cuenta y cuidado](assets/big-picture-cuenta-cuidado.png)
-
-*Figura. Flujo de cuenta y cuidado.*
-
-#### Tratamiento y toma
-
-Este grupo describe el flujo principal relacionado con la configuraciÃ³n del tratamiento y la ejecuciÃ³n cotidiana de una toma. Inicialmente se registra el tratamiento, el medicamento, la dosis, el horario y los recordatorios necesarios. Cuando la configuraciÃ³n se encuentra completa, el tratamiento pasa a un estado activo y Tata puede calcular las prÃ³ximas tomas programadas.
-
-Al acercarse el horario establecido, se envÃ­a el recordatorio y se abre una ventana para que el adulto mayor registre la confirmaciÃ³n. A partir de este punto aparecen dos resultados principales. Si la toma es confirmada, se registra el evento correspondiente y se actualiza el historial diario. Si no existe confirmaciÃ³n dentro del periodo esperado, el flujo continÃºa hacia el proceso de gestiÃ³n de omisiones.
-
-La separaciÃ³n entre **Tratamiento activado** y los eventos correspondientes a una toma concreta permite distinguir la configuraciÃ³n general del tratamiento de su ejecuciÃ³n diaria. De igual forma, la bifurcaciÃ³n entre una toma confirmada y una toma no confirmada representa uno de los principales cambios de comportamiento dentro del dominio.
-
-![Tratamiento y toma](assets/big-picture-tratamiento-toma.png)
-
-*Figura. Flujo de tratamiento y toma.*
-
-#### OmisiÃ³n, seguimiento y analÃ­tica
-
-Este flujo representa lo que ocurre cuando una toma permanece sin confirmaciÃ³n y requiere atenciÃ³n adicional. Tata puede emitir un recordatorio reforzado y mantener abierta una ventana de tolerancia. Si el periodo definido finaliza sin una confirmaciÃ³n, la toma se registra como omitida y se genera una alerta dirigida al familiar o cuidador.
-
-La alerta puede continuar mediante los canales configurados y, cuando corresponde, iniciar un proceso de escalamiento. Posteriormente, el familiar recibe informaciÃ³n sobre la situaciÃ³n y puede realizar el seguimiento correspondiente. De esta forma, Tata no se limita a recordar una toma, sino que tambiÃ©n permite informar al responsable del cuidado cuando se produce una situaciÃ³n relevante.
-
-Los registros generados durante las tomas tambiÃ©n alimentan el anÃ¡lisis de adherencia. Con el historial acumulado se pueden consolidar periodos de seguimiento, calcular indicadores e identificar patrones recurrentes, como horarios en los que aparecen retrasos u omisiones con mayor frecuencia. A partir de estos resultados, Tata puede mostrar recomendaciones orientadas a mejorar la continuidad del tratamiento.
-
-![OmisiÃ³n, seguimiento y analÃ­tica](assets/big-picture-omision-seguimiento-analitica.png)
-
-*Figura. Flujo de omisiÃ³n, seguimiento y analÃ­tica.*
-
-#### Continuidad y accesibilidad
-
-Este Ãºltimo grupo reÃºne dos capacidades complementarias del dominio: la accesibilidad de la experiencia y la continuidad del tratamiento.
-
-En cuanto a la accesibilidad, el usuario puede adaptar determinados aspectos de interacciÃ³n de acuerdo con sus necesidades. Entre los eventos considerados se encuentran el ajuste del tamaÃ±o del texto, la habilitaciÃ³n de la confirmaciÃ³n por voz y el almacenamiento de las preferencias de accesibilidad. Estas configuraciones buscan reducir las barreras de interacciÃ³n para adultos mayores con distintos niveles de familiaridad con dispositivos mÃ³viles.
-
-Por otro lado, el flujo de continuidad considera el seguimiento de la disponibilidad de medicamentos. Tata puede recalcular el stock restante y detectar cuÃ¡ndo la cantidad disponible comienza a ser insuficiente. A partir de ello se puede emitir un recordatorio de reabastecimiento e iniciar el registro de la reposiciÃ³n. Una vez confirmada y registrado el nuevo lote, la agenda de tomas puede actualizarse para mantener la continuidad del tratamiento.
-
-Aunque ambos flujos responden a necesidades diferentes, se incluyen dentro de esta vista general porque complementan el objetivo principal de Tata: facilitar una gestiÃ³n de la medicaciÃ³n que pueda mantenerse en el tiempo y que resulte accesible para el adulto mayor.
-
-![Continuidad y accesibilidad](assets/big-picture-continuidad-accesibilidad.png)
-
-*Figura. Flujos de continuidad y accesibilidad.*
-
-En conjunto, el Big Picture EventStorming permitiÃ³ identificar una secuencia global que parte de la incorporaciÃ³n y vinculaciÃ³n de los usuarios, continÃºa con la configuraciÃ³n y ejecuciÃ³n del tratamiento y se extiende hacia el manejo de omisiones, el seguimiento familiar, el anÃ¡lisis de la adherencia y la continuidad del tratamiento. Esta vista general sirve como base para profundizar posteriormente en los procesos del dominio mediante el EventStorming desarrollado en la secciÃ³n de Strategic-Level Domain-Driven Design.
-
-Enlace a la versiÃ³n del Big Picture EventStorming: [https://miro.com/app/board/uXjVHq5Jc9w=/](https://miro.com/app/board/uXjVHq5Jc9w=/)
-
-#### 2.3.6. Ubiquitous Language
-
-El Ubiquitous Language se definiÃ³ a partir de los conceptos identificados durante el anÃ¡lisis del dominio y el desarrollo del EventStorming. Su propÃ³sito es establecer un vocabulario comÃºn entre los integrantes del equipo y reducir interpretaciones diferentes sobre los elementos que forman parte de Tata. Los tÃ©rminos se redactan en inglÃ©s, incluyendo su equivalente en espaÃ±ol entre parÃ©ntesis, mientras que la definiciÃ³n correspondiente se mantiene en espaÃ±ol.
-
-Debido a que un mismo tÃ©rmino puede adquirir un significado particular segÃºn el contexto en el que se utiliza, el vocabulario se organizÃ³ de acuerdo con los Bounded Contexts identificados. Esto permite mantener definiciones precisas dentro de cada parte del dominio y facilita la posterior especificaciÃ³n de reglas, eventos y relaciones.
-
-##### Identidad y suscripciÃ³n
-
-| TÃ©rmino | DefiniciÃ³n |
-| --- | --- |
-| Account (Cuenta) | Registro de acceso de un usuario en Tata. |
-| User (Usuario) | Persona autenticada que utiliza la aplicaciÃ³n. |
-| Account status (Estado de cuenta) | CondiciÃ³n que indica si la cuenta se encuentra habilitada. |
-| Plan (Plan) | Conjunto de funcionalidades asociado a una modalidad de uso. |
-| Subscription (SuscripciÃ³n) | RelaciÃ³n vigente entre una cuenta y un plan. |
-| Consent (Consentimiento) | AutorizaciÃ³n registrada para el uso de datos y funcionalidades relacionadas con el cuidado. |
-| Verified email (Correo verificado) | Correo cuya propiedad fue confirmada por el usuario. |
-
-##### VÃ­nculo de cuidado
-
-| TÃ©rmino | DefiniciÃ³n |
-| --- | --- |
-| Older adult (Adulto mayor) | Persona cuyo tratamiento es acompaÃ±ado mediante Tata. |
-| Family member (Familiar) | Persona cercana que consulta y acompaÃ±a el seguimiento del adulto mayor. |
-| Caregiver (Cuidador) | Usuario autorizado para supervisar informaciÃ³n relacionada con el adulto mayor. |
-| Care link (VÃ­nculo de cuidado) | RelaciÃ³n autorizada entre un cuidador y un adulto mayor. |
-| Linking code (CÃ³digo de vinculaciÃ³n) | CÃ³digo temporal utilizado para iniciar la asociaciÃ³n entre usuarios. |
-| Consent (Consentimiento) | AceptaciÃ³n del adulto mayor para establecer la relaciÃ³n de cuidado. |
-| Emergency contact (Contacto de emergencia) | InformaciÃ³n de contacto disponible para situaciones que requieren mayor atenciÃ³n. |
-
-##### GestiÃ³n del tratamiento
-
-| TÃ©rmino | DefiniciÃ³n |
-| --- | --- |
-| Treatment (Tratamiento) | Conjunto de reglas que define cÃ³mo debe administrarse un medicamento. |
-| Medication (Medicamento) | Producto asociado a una pauta de tratamiento. |
-| Dose (Dosis) | Cantidad indicada para una toma. |
-| Frequency (Frecuencia) | Periodicidad con la que debe realizarse una toma. |
-| Intake time (Horario de toma) | Hora programada para administrar una dosis. |
-| Instructions (Instrucciones) | Indicaciones asociadas a la administraciÃ³n del medicamento. |
-| Reminder (Recordatorio) | Aviso programado relacionado con una toma futura. |
-| Active treatment (Tratamiento activo) | Tratamiento completo y habilitado para generar tomas programadas. |
-
-##### EjecuciÃ³n de tomas
-
-| TÃ©rmino | DefiniciÃ³n |
-| --- | --- |
-| Intake (Toma) | Instancia concreta de una dosis programada. |
-| Next intake (PrÃ³xima toma) | Siguiente toma pendiente segÃºn la programaciÃ³n vigente. |
-| Scheduled intake (Toma programada) | Toma asociada a una fecha y hora determinadas. |
-| Confirmation window (Ventana de confirmaciÃ³n) | Intervalo disponible para registrar la confirmaciÃ³n de una toma. |
-| Confirmation (ConfirmaciÃ³n) | Registro realizado por el usuario para indicar que completÃ³ una toma. |
-| Voice confirmation (ConfirmaciÃ³n por voz) | ConfirmaciÃ³n registrada a partir de una frase reconocida por el sistema. |
-| Tap confirmation (ConfirmaciÃ³n por toque) | ConfirmaciÃ³n registrada mediante una interacciÃ³n tÃ¡ctil. |
-| Daily history (Historial diario) | Registro de las tomas y sus estados correspondientes a un dÃ­a. |
-
-##### OmisiÃ³n y escalamiento
-
-| TÃ©rmino | DefiniciÃ³n |
-| --- | --- |
-| Unconfirmed intake (Toma no confirmada) | Toma que no posee una confirmaciÃ³n dentro de la ventana inicial. |
-| Grace period (Tolerancia) | Tiempo adicional disponible antes de considerar una omisiÃ³n. |
-| Pending (Pendiente) | Estado temporal previo a determinar que una toma fue omitida. |
-| Omission (OmisiÃ³n) | Toma que permanece sin confirmaciÃ³n despuÃ©s de finalizar el periodo permitido. |
-| Alert (Alerta) | Aviso generado para comunicar una situaciÃ³n que requiere atenciÃ³n del cuidador. |
-| Escalation (Escalamiento) | Incremento del nivel de atenciÃ³n cuando una situaciÃ³n continÃºa sin respuesta. |
-| Omission case (Caso de omisiÃ³n) | Seguimiento de una omisiÃ³n desde su detecciÃ³n hasta su cierre. |
-
-##### Seguimiento familiar
-
-| TÃ©rmino | DefiniciÃ³n |
-| --- | --- |
-| Family summary (Resumen familiar) | Vista consolidada del estado reciente del adulto mayor. |
-| Follow-up (Seguimiento) | Conjunto de acciones realizadas por el familiar o cuidador para acompaÃ±ar al adulto mayor. |
-| Older adult status (Estado del adulto) | SituaciÃ³n reciente obtenida a partir de las tomas, confirmaciones y alertas disponibles. |
-| Alert (Alerta) | SituaciÃ³n presentada al familiar porque requiere su atenciÃ³n. |
-| Caregiver note (Nota del cuidador) | Registro textual asociado a una intervenciÃ³n o situaciÃ³n observada. |
-| Contact (Contacto) | Canal disponible para comunicarse con el adulto mayor. |
-| Intervention (IntervenciÃ³n) | AcciÃ³n realizada por el cuidador ante un estado, alerta o necesidad de seguimiento. |
-
-##### Accesibilidad y preferencias
-
-| TÃ©rmino | DefiniciÃ³n |
-| --- | --- |
-| Text size (TamaÃ±o de texto) | Escala visual aplicada a los textos de la aplicaciÃ³n. |
-| Contrast (Contraste) | Nivel de diferenciaciÃ³n visual aplicado a los elementos de la interfaz. |
-| Reduced motion (ReducciÃ³n de movimiento) | Preferencia que disminuye animaciones y transiciones de la aplicaciÃ³n. |
-| Voice confirmation (ConfirmaciÃ³n por voz) | Preferencia que habilita el uso de la voz como mecanismo de confirmaciÃ³n de una toma. |
-| Reading assistance (Ayuda de lectura) | Soporte destinado a facilitar la comprensiÃ³n del contenido presentado. |
-| Quiet hours (Horario de silencio) | Intervalo en el que se restringen determinadas notificaciones no crÃ­ticas. |
-| Notification channel (Canal de notificaciÃ³n) | Medio habilitado para recibir avisos. |
-| Preferences (Preferencias) | Conjunto de configuraciones asociadas a la experiencia de un usuario. |
-
-##### AnalÃ­tica de adherencia
-
-| TÃ©rmino | DefiniciÃ³n |
-| --- | --- |
-| Adherence (Adherencia) | Grado de cumplimiento del tratamiento durante un periodo determinado. |
-| Adherence rate (Tasa de adherencia) | Porcentaje de tomas cumplidas respecto de las tomas esperadas durante un periodo. |
-| Late intake (Toma tardÃ­a) | Toma confirmada despuÃ©s de su horario previsto, pero dentro del periodo considerado vÃ¡lido. |
-| Omission (OmisiÃ³n) | Toma que no fue confirmada dentro del periodo establecido. |
-| Time pattern (PatrÃ³n horario) | Tendencia recurrente asociada a determinadas franjas de tiempo. |
-| Omission risk (Riesgo de omisiÃ³n) | EstimaciÃ³n de la posibilidad de que se produzcan futuras omisiones. |
-| Insight (Insight) | Hallazgo obtenido a partir del anÃ¡lisis del historial de adherencia. |
-| Recommendation (RecomendaciÃ³n) | Consejo orientativo generado a partir de los resultados del anÃ¡lisis. |
-
-##### Inventario y reposiciÃ³n
-
-| TÃ©rmino | DefiniciÃ³n |
-| --- | --- |
-| Inventory (Inventario) | Cantidad disponible de un medicamento. |
-| Remaining stock (Stock restante) | NÃºmero de unidades disponibles en un momento determinado. |
-| Low stock (Stock bajo) | Estado alcanzado cuando las unidades disponibles llegan al umbral establecido. |
-| Replenishment threshold (Umbral de reposiciÃ³n) | Cantidad mÃ­nima que provoca la generaciÃ³n de un aviso de reabastecimiento. |
-| Batch (Lote) | Conjunto de unidades incorporadas al inventario durante una reposiciÃ³n. |
-| Replenishment request (Solicitud de reposiciÃ³n) | Registro de la necesidad de reabastecer un medicamento. |
-| Continuity (Continuidad) | CondiciÃ³n en la que el tratamiento puede mantenerse sin interrupciones por falta de medicamento. |
-| Restocking (Reabastecimiento) | Incremento del stock disponible despuÃ©s de una reposiciÃ³n. |
-
-Algunos tÃ©rminos aparecen en mÃ¡s de un contexto, como **Consent (Consentimiento)**, **Voice confirmation (ConfirmaciÃ³n por voz)**, **Omission (OmisiÃ³n)** y **Alert (Alerta)**. Esta repeticiÃ³n responde a que su significado depende de la responsabilidad del contexto. Por ejemplo, una omisiÃ³n (omission) representa el estado de una toma no confirmada dentro de **OmisiÃ³n y escalamiento**, mientras que en **AnalÃ­tica de adherencia** se utiliza como un dato histÃ³rico para calcular indicadores y detectar patrones. Mantener estas diferencias permite utilizar el mismo vocabulario de manera consistente sin mezclar responsabilidades entre los modelos del dominio.
-
-## 2.4. Requirements specification
-
-Durante la etapa de investigaciÃ³n, el equipo pudo confirmar algo que ya se intuÃ­a desde el planteamiento inicial del proyecto: muchos adultos mayores tienen dificultades para llevar un control constante de su medicaciÃ³n, y sus familiares, al no vivir con ellos o no tener cÃ³mo verificarlo, terminan preocupados sin una forma real de saber si todo estÃ¡ bien. A partir de esos hallazgos, en esta secciÃ³n se definen los requisitos de **Tata**, buscando que cada funcionalidad responda a una necesidad concreta detectada en las entrevistas y no simplemente a una idea aislada del equipo.
- 
-Para ordenar este trabajo, la secciÃ³n se divide en cuatro partes:
- 
-- **To-Be Scenario Mapping**, donde se compara cÃ³mo se vive hoy el problema (As-Is) frente a cÃ³mo deberÃ­a sentirse la experiencia una vez que la app estÃ© funcionando (To-Be).
-- **User Stories**, con las funcionalidades descritas desde la perspectiva de cada usuario, tanto el adulto mayor como el familiar que lo acompaÃ±a.
-- **Impact Map**, que conecta el objetivo del negocio con los actores y los cambios de comportamiento que se busca lograr en ellos.
-- **Product Backlog**, donde finalmente se ordenan y priorizan las historias de usuario e historias tÃ©cnicas que se van a desarrollar.
-
-### 2.4.1. User Stories
-
-A partir de los requisitos identificados durante la investigaciÃ³n y el modelado del dominio, el equipo tradujo las necesidades de los segmentos objetivo en historias de usuario agrupadas en Epics. Las historias consideran las funciones destinadas al adulto mayor, al familiar o cuidador y al visitante del Landing Page.
-
-TambiÃ©n se incorporaron Technical Stories para las capacidades que no presentan una interacciÃ³n directa con el usuario final, como servicios REST, procesamiento automÃ¡tico, almacenamiento local e integraciones externas. Finalmente, se definieron Spike Stories para aquellas funcionalidades que requieren reducir incertidumbre tÃ©cnica antes de su implementaciÃ³n.
-
-Cada User Story y Technical Story mantiene el formato Story ID, User, Priority y Epic. La descripciÃ³n sigue la estructura Como, quiero, para y los criterios de aceptaciÃ³n utilizan Given, When y Then mediante sus equivalentes Dado, Cuando y Entonces.
-
-#### Epics identificadas
-
-| Epic ID | Nombre | DescripciÃ³n breve |
-| --- | --- | --- |
-| EPIC-01 | AutenticaciÃ³n y VinculaciÃ³n de Cuentas | Gestiona las cuentas del familiar y adulto mayor, su acceso, verificaciÃ³n y relaciÃ³n de cuidado. |
-| EPIC-02 | GestiÃ³n de Medicamentos y Tratamientos | Permite registrar medicamentos y definir la pauta que determina dosis, frecuencia, horarios e instrucciones. |
-| EPIC-03 | Recordatorios y ConfirmaciÃ³n de Tomas | Gestiona la agenda de tomas, recordatorios, ventanas de confirmaciÃ³n y registro de cumplimiento. |
-| EPIC-04 | Monitoreo, Alertas y Seguimiento Familiar | Permite al familiar conocer el estado de las tomas, recibir alertas relevantes y registrar acciones de seguimiento. |
-| EPIC-05 | AnalÃ­tica de Adherencia y Patrones | Consolida el historial de tomas, calcula adherencia e identifica tendencias recurrentes. |
-| EPIC-06 | Accesibilidad y Preferencias | Permite adaptar la experiencia a las necesidades del usuario y configurar determinadas preferencias de interacciÃ³n. |
-| EPIC-07 | Inventario y ReposiciÃ³n | Permite controlar la disponibilidad de medicamentos y registrar su reposiciÃ³n. |
-| EPIC-08 | Planes y SuscripciÃ³n | Gestiona el plan asociado al familiar y las funcionalidades disponibles segÃºn la suscripciÃ³n. |
-| EPIC-09 | Landing Page y CaptaciÃ³n | Presenta Tata, su propuesta de valor, funcionalidades, planes y medios para continuar con el producto. |
-
-#### User Stories
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-01</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Ingreso simplificado a la aplicaciÃ³n</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero ingresar a la aplicaciÃ³n mediante un PIN corto, para acceder sin recordar una contraseÃ±a compleja.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el adulto mayor tiene un perfil habilitado y todavÃ­a no cuenta con un PIN, cuando registra cuatro dÃ­gitos vÃ¡lidos, entonces el sistema guarda su credencial de acceso.<br>
-2. Dado que el adulto mayor posee un PIN registrado, cuando ingresa el valor correcto, entonces el sistema inicia su sesiÃ³n.<br>
-3. Dado que se producen intentos incorrectos consecutivos, cuando se alcanza el lÃ­mite configurado, entonces el sistema restringe temporalmente nuevos intentos.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-02</td><td>Familiar</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> VinculaciÃ³n con la cuenta del adulto mayor</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero vincular mi cuenta con la de un adulto mayor mediante un cÃ³digo, para realizar su seguimiento desde mi cuenta.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un adulto mayor registrado, cuando se solicita una vinculaciÃ³n, entonces el sistema genera un cÃ³digo temporal asociado a su perfil.<br>
-2. Dado que el familiar ingresa un cÃ³digo vigente, cuando el adulto mayor acepta la vinculaciÃ³n, entonces el sistema registra la relaciÃ³n de cuidado.<br>
-3. Dado que el cÃ³digo ha expirado o ya fue utilizado, cuando se intenta utilizar nuevamente, entonces el sistema rechaza la vinculaciÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-03</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Registro de un nuevo medicamento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar un medicamento del adulto mayor, para incorporarlo a su tratamiento.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el familiar se encuentra vinculado al adulto mayor, cuando registra los datos obligatorios de un medicamento, entonces el sistema almacena el medicamento asociado al adulto.<br>
-2. Dado que falta informaciÃ³n obligatoria, cuando el familiar intenta registrar el medicamento, entonces el sistema rechaza la operaciÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-04</td><td>Familiar</td><td>Media</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> EdiciÃ³n y desactivaciÃ³n de un medicamento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero modificar o desactivar un medicamento registrado, para mantener actualizado el tratamiento sin perder su historial.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un medicamento activo, cuando el familiar modifica sus datos, entonces el sistema conserva la nueva informaciÃ³n para las programaciones futuras.<br>
-2. Dado que existe un medicamento activo, cuando el familiar lo desactiva, entonces no se generan nuevas tomas y se conserva el historial previo.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-05</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Recordatorio de toma de medicamento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero recibir un recordatorio cuando corresponde una toma, para disminuir la posibilidad de olvidarla.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe una toma programada, cuando se alcanza su horario, entonces el sistema genera el recordatorio correspondiente.<br>
-2. Dado que la toma ya fue confirmada antes de la ejecuciÃ³n del recordatorio, cuando llega el horario programado, entonces el sistema evita generar un recordatorio innecesario.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-06</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ConfirmaciÃ³n accesible de una toma</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero confirmar una toma mediante una acciÃ³n sencilla por toque o por voz, para registrar su realizaciÃ³n sin escribir informaciÃ³n.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe una toma pendiente, cuando el adulto mayor confirma mediante interacciÃ³n tÃ¡ctil, entonces el sistema registra la toma como confirmada.<br>
-2. Dado que existe una toma pendiente, cuando una confirmaciÃ³n de voz es reconocida y validada, entonces el sistema registra la toma como confirmada.<br>
-3. Dado que la toma ya fue confirmada, cuando se intenta confirmarla nuevamente, entonces el sistema evita crear un segundo registro.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-07</td><td>Familiar</td><td>Alta</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Alerta ante una toma no confirmada</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero recibir una alerta cuando una toma permanece sin confirmar o es registrada como omitida, para intervenir cuando sea necesario.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que una toma supera el periodo de confirmaciÃ³n establecido, cuando el sistema detecta la falta de respuesta, entonces genera una alerta asociada al adulto mayor.<br>
-2. Dado que una toma es registrada como omitida, cuando existe un familiar vinculado con notificaciones habilitadas, entonces el sistema solicita el envÃ­o de la alerta correspondiente.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-08</td><td>Familiar</td><td>Media</td><td>EPIC-05</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Resumen semanal de adherencia</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar un resumen semanal de adherencia, para comprender el nivel general de cumplimiento del tratamiento.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existen tomas programadas durante el periodo, cuando el familiar consulta el resumen semanal, entonces el sistema calcula las tomas confirmadas, tardÃ­as y omitidas.<br>
-2. Dado que no existen tomas durante el periodo, cuando se solicita el resumen, entonces el sistema informa que no existen datos suficientes para calcular adherencia.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-09</td><td>Familiar</td><td>Media</td><td>EPIC-05</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Alerta de patrÃ³n de olvido recurrente</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero conocer cuando se detecta un patrÃ³n recurrente de omisiones, para revisar los recordatorios y realizar un seguimiento mÃ¡s oportuno.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el historial cumple el criterio configurado de recurrencia, cuando el sistema analiza las tomas, entonces registra un patrÃ³n asociado al horario o medicamento correspondiente.<br>
-2. Dado que existe un patrÃ³n identificado, cuando el familiar consulta sus insights, entonces el sistema presenta la informaciÃ³n que sustenta el hallazgo.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-10</td><td>Familiar</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Registro de cuenta del familiar</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero crear una cuenta en Tata, para administrar el seguimiento de un adulto mayor.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el familiar proporciona los datos requeridos, cuando confirma el registro, entonces el sistema crea una cuenta pendiente de verificaciÃ³n.<br>
-2. Dado que el correo ya pertenece a una cuenta existente, cuando se intenta registrar nuevamente, entonces el sistema evita crear una cuenta duplicada.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-11</td><td>Familiar</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> VerificaciÃ³n del correo del familiar</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero verificar mi correo, para habilitar mi cuenta y continuar con el proceso de vinculaciÃ³n.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe una cuenta pendiente, cuando el familiar utiliza una verificaciÃ³n vigente, entonces el sistema registra el correo como verificado.<br>
-2. Dado que la verificaciÃ³n ha expirado, cuando se intenta utilizar, entonces el sistema rechaza la operaciÃ³n y permite solicitar una nueva.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-12</td><td>Familiar</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Registro del perfil del adulto mayor</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar los datos bÃ¡sicos del adulto mayor, para preparar su perfil de cuidado dentro de Tata.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el familiar posee una cuenta habilitada, cuando registra los datos requeridos del adulto mayor, entonces el sistema crea su perfil.<br>
-2. Dado que se proporciona un contacto de emergencia vÃ¡lido, cuando se completa el perfil, entonces el sistema lo asocia al adulto mayor.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-13</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consentimiento para establecer el vÃ­nculo de cuidado</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero aceptar la relaciÃ³n de cuidado con un familiar, para autorizar el acceso a la informaciÃ³n necesaria para mi seguimiento.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe una solicitud de vinculaciÃ³n vigente, cuando el adulto mayor registra su aceptaciÃ³n, entonces el sistema almacena el consentimiento asociado.<br>
-2. Dado que no existe consentimiento registrado, cuando el familiar intenta acceder al seguimiento del adulto, entonces el sistema mantiene restringido dicho acceso.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-14</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> CreaciÃ³n de un tratamiento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero crear un tratamiento para el adulto mayor, para agrupar los medicamentos y pautas que debe seguir.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un vÃ­nculo activo, cuando el familiar crea un tratamiento, entonces el sistema lo asocia al adulto mayor.<br>
-2. Dado que el tratamiento aÃºn no contiene una pauta completa, cuando se crea, entonces permanece inactivo hasta completar su configuraciÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-15</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> DefiniciÃ³n de dosis y frecuencia</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero definir la dosis y frecuencia de un medicamento, para representar correctamente su pauta de administraciÃ³n.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un medicamento dentro de un tratamiento, cuando se registra una dosis y frecuencia vÃ¡lidas, entonces el sistema conserva la pauta.<br>
-2. Dado que la informaciÃ³n proporcionada es incompleta, cuando se intenta guardar la pauta, entonces el sistema rechaza la configuraciÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-16</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ConfiguraciÃ³n de horarios e instrucciones</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero definir los horarios e instrucciones de un medicamento, para que cada toma contenga la informaciÃ³n necesaria.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe una pauta registrada, cuando el familiar aÃ±ade uno o mÃ¡s horarios, entonces el sistema los asocia al medicamento.<br>
-2. Dado que se registran instrucciones complementarias, cuando se genera una toma, entonces estas permanecen asociadas a la programaciÃ³n correspondiente.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-17</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ConfiguraciÃ³n de recordatorios</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero configurar los recordatorios de un tratamiento, para establecer cÃ³mo se avisarÃ¡ al adulto mayor antes de una toma.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un tratamiento configurado, cuando el familiar habilita sus recordatorios, entonces el sistema registra la configuraciÃ³n correspondiente.<br>
-2. Dado que los recordatorios son modificados, cuando existen tomas futuras, entonces la nueva configuraciÃ³n se aplica a las programaciones pendientes.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-18</td><td>Familiar</td><td>Alta</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ActivaciÃ³n y pausa de un tratamiento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero activar o pausar un tratamiento, para controlar cuÃ¡ndo debe generar nuevas tomas.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que un tratamiento contiene la informaciÃ³n obligatoria, cuando el familiar lo activa, entonces el sistema permite generar sus tomas futuras.<br>
-2. Dado que el tratamiento estÃ¡ activo, cuando el familiar lo pausa, entonces el sistema deja de generar nuevas tomas sin eliminar el historial existente.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-19</td><td>Familiar</td><td>Media</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta del detalle de un tratamiento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar la pauta completa de un tratamiento, para verificar la configuraciÃ³n vigente del adulto mayor.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un tratamiento registrado, cuando el familiar consulta su detalle, entonces el sistema proporciona medicamentos, dosis, frecuencia, horarios, instrucciones y estado.<br>
-2. Dado que el tratamiento no pertenece a un adulto mayor vinculado al familiar, cuando se intenta consultarlo, entonces el sistema rechaza el acceso.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-20</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta de la prÃ³xima toma</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero conocer cuÃ¡l es mi prÃ³xima toma, para saber quÃ© medicamento debo tomar y cuÃ¡ndo.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existen tomas futuras, cuando el adulto mayor consulta su prÃ³xima toma, entonces el sistema devuelve la mÃ¡s cercana segÃºn la programaciÃ³n.<br>
-2. Dado que no existen tomas pendientes, cuando se realiza la consulta, entonces el sistema informa que no hay una prÃ³xima toma programada.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-21</td><td>Adulto mayor</td><td>Media</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta del detalle de una toma</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero consultar los datos de una toma, para recordar la dosis y las instrucciones asociadas.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe una toma programada, cuando se consulta su detalle, entonces el sistema proporciona medicamento, dosis, horario e instrucciones disponibles.<br>
-2. Dado que la toma ya posee un estado, cuando se consulta, entonces el sistema informa si estÃ¡ pendiente, confirmada, tardÃ­a u omitida.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-22</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Recordatorio reforzado por falta de confirmaciÃ³n</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero recibir un nuevo recordatorio cuando una toma continÃºa pendiente, para tener otra oportunidad de recordar la medicaciÃ³n.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el primer recordatorio fue enviado y la toma continÃºa pendiente, cuando se alcanza el intervalo configurado, entonces el sistema genera un recordatorio reforzado.<br>
-2. Dado que la toma ya fue confirmada, cuando llega el momento del refuerzo, entonces el sistema no genera otro recordatorio.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-23</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ConfirmaciÃ³n dentro del periodo de tolerancia</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero poder confirmar una toma durante el periodo de tolerancia, para registrar correctamente una toma realizada con retraso.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que la hora programada ya pasÃ³ y la tolerancia continÃºa vigente, cuando se registra la confirmaciÃ³n, entonces el sistema clasifica la toma segÃºn el retraso correspondiente.<br>
-2. Dado que el periodo permitido terminÃ³ y la toma fue registrada como omitida, cuando se intenta una confirmaciÃ³n posterior, entonces el sistema no reemplaza automÃ¡ticamente la omisiÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-24</td><td>Adulto mayor</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta de agenda diaria de tomas</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero consultar las tomas programadas para el dÃ­a, para conocer mi rutina de medicaciÃ³n.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existen tomas en la fecha consultada, cuando el adulto mayor solicita su agenda, entonces el sistema devuelve las tomas ordenadas cronolÃ³gicamente.<br>
-2. Dado que algunas tomas ya poseen un resultado, cuando se consulta la agenda, entonces cada toma conserva su estado correspondiente.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-25</td><td>Familiar</td><td>Alta</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta del estado reciente del adulto mayor</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar el estado reciente de las tomas del adulto mayor, para conocer su situaciÃ³n sin tener que llamarlo constantemente.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un vÃ­nculo de cuidado activo, cuando el familiar consulta el estado del adulto, entonces el sistema proporciona la prÃ³xima toma y los Ãºltimos resultados registrados.<br>
-2. Dado que existe una alerta activa, cuando se consulta el estado, entonces el sistema incluye la situaciÃ³n pendiente de atenciÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-26</td><td>Familiar</td><td>Alta</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta del historial reciente de tomas</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero revisar las tomas recientes del adulto mayor, para identificar confirmaciones, retrasos u omisiones.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existen tomas registradas, cuando el familiar consulta el historial reciente, entonces el sistema devuelve las tomas con fecha, medicamento y estado.<br>
-2. Dado que no existen registros dentro del periodo solicitado, cuando se realiza la consulta, entonces el sistema informa la ausencia de resultados.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-27</td><td>Familiar</td><td>Alta</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta del detalle de una alerta</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar el detalle de una alerta, para comprender quÃ© toma requiere mi atenciÃ³n.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe una alerta asociada a una toma, cuando el familiar consulta su detalle, entonces el sistema proporciona medicamento, horario, estado y motivo de la alerta.<br>
-2. Dado que la alerta presenta acciones de seguimiento registradas, cuando se consulta nuevamente, entonces el sistema conserva la informaciÃ³n correspondiente.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-28</td><td>Familiar</td><td>Media</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ConfiguraciÃ³n de preferencias de notificaciÃ³n</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero seleccionar quÃ© avisos deseo recibir, para mantener un seguimiento Ãºtil sin recibir notificaciones innecesarias.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el familiar posee un vÃ­nculo activo, cuando modifica las categorÃ­as de notificaciÃ³n permitidas, entonces el sistema guarda sus preferencias.<br>
-2. Dado que ocurre un evento no habilitado por el familiar y no corresponde a una alerta crÃ­tica, cuando se evalÃºa el envÃ­o, entonces el sistema respeta la preferencia configurada.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-29</td><td>Familiar</td><td>Media</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Contacto con el adulto mayor ante una alerta</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero utilizar el contacto registrado del adulto mayor cuando existe una alerta, para comunicarme con Ã©l y verificar la situaciÃ³n.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un contacto disponible, cuando el familiar decide comunicarse ante una alerta, entonces el sistema proporciona el canal de contacto correspondiente.<br>
-2. Dado que no existe informaciÃ³n de contacto vÃ¡lida, cuando se solicita la acciÃ³n, entonces el sistema informa que el contacto no se encuentra disponible.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-30</td><td>Familiar</td><td>Baja</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Registro de una nota de seguimiento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar una nota sobre una intervenciÃ³n, para conservar informaciÃ³n relevante sobre el seguimiento realizado.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un vÃ­nculo activo, cuando el familiar registra una nota vÃ¡lida, entonces el sistema la almacena con la fecha y el usuario responsable.<br>
-2. Dado que existe una nota registrada, cuando se consulta el seguimiento correspondiente, entonces la nota permanece disponible.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-31</td><td>Familiar</td><td>Media</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ActualizaciÃ³n del seguimiento de una alerta</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar que una alerta fue atendida, para diferenciar las situaciones resueltas de aquellas que todavÃ­a requieren intervenciÃ³n.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe una alerta abierta, cuando el familiar registra una intervenciÃ³n, entonces el sistema actualiza su seguimiento.<br>
-2. Dado que la situaciÃ³n se considera atendida, cuando el familiar registra su cierre, entonces la alerta deja de aparecer como pendiente sin eliminar su historial.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-32</td><td>Familiar</td><td>Media</td><td>EPIC-05</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta del historial de adherencia</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar la adherencia de distintos periodos, para observar cÃ³mo evoluciona el cumplimiento del tratamiento.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe historial suficiente, cuando el familiar selecciona un periodo vÃ¡lido, entonces el sistema calcula los indicadores correspondientes.<br>
-2. Dado que se consultan periodos diferentes, cuando existen registros para ambos, entonces cada resultado se calcula utilizando Ãºnicamente las tomas de su periodo.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-33</td><td>Familiar</td><td>Media</td><td>EPIC-05</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> IdentificaciÃ³n de tomas tardÃ­as y omitidas</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero distinguir las tomas tardÃ­as y omitidas dentro del historial, para comprender mejor dÃ³nde aparecen dificultades de adherencia.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que una toma se confirma despuÃ©s del horario programado pero dentro del periodo permitido, cuando se procesa su resultado, entonces el sistema la clasifica como tardÃ­a.<br>
-2. Dado que una toma termina el periodo permitido sin confirmaciÃ³n, cuando se procesa su estado, entonces el sistema la clasifica como omitida.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-34</td><td>Familiar</td><td>Media</td><td>EPIC-05</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Recomendaciones a partir de patrones de adherencia</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero recibir recomendaciones orientativas a partir de patrones de adherencia, para mejorar la forma en que realizo el seguimiento.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un patrÃ³n con evidencia suficiente, cuando el sistema genera una recomendaciÃ³n, entonces esta se relaciona con recordatorios, horarios o seguimiento y no modifica indicaciones mÃ©dicas.<br>
-2. Dado que no existe evidencia suficiente, cuando se ejecuta el anÃ¡lisis, entonces el sistema evita presentar una recomendaciÃ³n concluyente.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-35</td><td>Adulto mayor</td><td>Media</td><td>EPIC-06</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Ajuste del tamaÃ±o de texto</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero aumentar el tamaÃ±o del texto, para leer la informaciÃ³n con mayor facilidad.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el adulto mayor modifica el tamaÃ±o de texto permitido, cuando guarda la preferencia, entonces el sistema conserva el valor seleccionado.<br>
-2. Dado que existe una preferencia guardada, cuando el usuario vuelve a utilizar la aplicaciÃ³n, entonces el sistema aplica dicha configuraciÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-36</td><td>Adulto mayor</td><td>Media</td><td>EPIC-06</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ActivaciÃ³n de mayor contraste</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero utilizar una configuraciÃ³n de mayor contraste, para distinguir mejor la informaciÃ³n presentada.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que la configuraciÃ³n de contraste estÃ¡ disponible, cuando el adulto mayor la activa, entonces el sistema conserva la preferencia.<br>
-2. Dado que la preferencia se encuentra activa, cuando el usuario inicia una nueva sesiÃ³n, entonces el sistema mantiene la configuraciÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-37</td><td>Adulto mayor</td><td>Baja</td><td>EPIC-06</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ReducciÃ³n de movimiento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero reducir animaciones y movimientos no esenciales, para utilizar Tata con menos distracciones visuales.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el usuario habilita la reducciÃ³n de movimiento, cuando el sistema presenta transiciones no esenciales, entonces utiliza una alternativa reducida.<br>
-2. Dado que la preferencia fue guardada, cuando el usuario vuelve a ingresar, entonces el sistema mantiene la configuraciÃ³n seleccionada.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-38</td><td>Adulto mayor</td><td>Media</td><td>EPIC-06</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ActivaciÃ³n de ayuda de lectura</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como adulto mayor, quiero disponer de ayuda para comprender la informaciÃ³n relevante de mis tomas, para reducir dificultades de lectura.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que la ayuda de lectura estÃ¡ habilitada, cuando existe contenido compatible, entonces el sistema proporciona el apoyo correspondiente.<br>
-2. Dado que la ayuda se encuentra deshabilitada, cuando se consulta la misma informaciÃ³n, entonces el sistema mantiene el comportamiento estÃ¡ndar.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-39</td><td>Familiar</td><td>Media</td><td>EPIC-06</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ConfiguraciÃ³n de horario de silencio y canales</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero definir horarios de silencio y canales de aviso, para adaptar las notificaciones no crÃ­ticas a mi disponibilidad.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el familiar configura un horario de silencio vÃ¡lido, cuando se genera un aviso no crÃ­tico dentro de dicho periodo, entonces el sistema respeta la configuraciÃ³n.<br>
-2. Dado que el familiar habilita o deshabilita un canal disponible, cuando se genera una notificaciÃ³n compatible, entonces el sistema utiliza Ãºnicamente los canales permitidos.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-40</td><td>Familiar</td><td>Media</td><td>EPIC-07</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Registro de inventario inicial</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar la cantidad disponible de un medicamento, para comenzar a controlar su stock.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un medicamento activo, cuando el familiar registra una cantidad inicial vÃ¡lida, entonces el sistema crea su inventario.<br>
-2. Dado que se intenta registrar una cantidad invÃ¡lida, cuando se procesa la operaciÃ³n, entonces el sistema rechaza el valor.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-41</td><td>Familiar</td><td>Media</td><td>EPIC-07</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta de stock restante</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero conocer el stock restante de un medicamento, para estimar cuÃ¡ndo serÃ¡ necesario reponerlo.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un inventario registrado, cuando el familiar consulta el medicamento, entonces el sistema proporciona la cantidad restante calculada.<br>
-2. Dado que existe una pauta activa, cuando se consulta el stock, entonces el sistema puede estimar los dÃ­as de disponibilidad a partir de la informaciÃ³n registrada.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-42</td><td>Familiar</td><td>Alta</td><td>EPIC-07</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Aviso de stock bajo</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero recibir un aviso cuando un medicamento se aproxima al umbral de reposiciÃ³n, para evitar interrupciones por falta de stock.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el stock alcanza o queda por debajo del umbral configurado, cuando el sistema recalcula el inventario, entonces genera un aviso de reposiciÃ³n.<br>
-2. Dado que el stock vuelve a superar el umbral despuÃ©s de una reposiciÃ³n, cuando se recalcula el inventario, entonces el sistema deja de considerarlo bajo.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-43</td><td>Familiar</td><td>Media</td><td>EPIC-07</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Registro de reposiciÃ³n de medicamento</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero registrar una reposiciÃ³n y la cantidad incorporada, para actualizar el inventario disponible.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un medicamento con inventario, cuando el familiar registra una reposiciÃ³n vÃ¡lida, entonces el sistema incrementa el stock disponible.<br>
-2. Dado que la reposiciÃ³n incluye informaciÃ³n de un nuevo lote, cuando se confirma el registro, entonces el sistema conserva dicha informaciÃ³n junto con el movimiento.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-44</td><td>Familiar</td><td>Baja</td><td>EPIC-08</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta del plan actual</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero consultar el plan asociado a mi cuenta, para conocer las funcionalidades disponibles en Tata.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que la cuenta posee un plan asociado, cuando el familiar consulta su suscripciÃ³n, entonces el sistema proporciona el plan y su estado.<br>
-2. Dado que una funcionalidad depende del plan contratado, cuando se consulta la suscripciÃ³n, entonces el sistema informa si dicha capacidad se encuentra disponible.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-45</td><td>Familiar</td><td>Media</td><td>EPIC-08</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ActivaciÃ³n o cambio de suscripciÃ³n</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como familiar, quiero seleccionar o cambiar mi plan, para utilizar la modalidad de Tata que mejor se adapte a mis necesidades.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existen planes disponibles, cuando el familiar selecciona uno vÃ¡lido, entonces el sistema registra la suscripciÃ³n asociada a su cuenta.<br>
-2. Dado que la suscripciÃ³n cambia de plan, cuando la operaciÃ³n es confirmada, entonces el sistema actualiza las capacidades asociadas.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-46</td><td>Visitante</td><td>Alta</td><td>EPIC-09</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta de la propuesta de valor de Tata</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como visitante, quiero conocer el problema que aborda Tata y sus principales beneficios, para evaluar si la soluciÃ³n es relevante para mi familia.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el visitante accede al Landing Page, cuando se carga el contenido principal, entonces se presenta la propuesta de valor de Tata.<br>
-2. Dado que el visitante revisa la informaciÃ³n del producto, cuando continÃºa explorando el contenido, entonces puede reconocer a quÃ© segmentos estÃ¡ dirigida la soluciÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-47</td><td>Visitante</td><td>Media</td><td>EPIC-09</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Consulta de funcionalidades principales</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como visitante, quiero conocer las principales funcionalidades de Tata, para comprender cÃ³mo facilita la adherencia y el seguimiento familiar.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el visitante consulta la informaciÃ³n del producto, cuando revisa sus funcionalidades, entonces se presentan las capacidades principales de Tata.<br>
-2. Dado que existen funcionalidades destinadas a diferentes segmentos, cuando son descritas, entonces el contenido diferencia las relacionadas con el adulto mayor y el familiar.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-48</td><td>Visitante</td><td>Media</td><td>EPIC-09</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ComparaciÃ³n de planes disponibles</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como visitante, quiero conocer las alternativas de suscripciÃ³n de Tata, para comparar sus beneficios antes de registrarme.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existen planes disponibles, cuando el visitante consulta la informaciÃ³n comercial, entonces se muestran sus principales diferencias.<br>
-2. Dado que una funcionalidad pertenece Ãºnicamente a una modalidad especÃ­fica, cuando se comparan los planes, entonces dicha diferencia queda identificada.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-49</td><td>Visitante</td><td>Alta</td><td>EPIC-09</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> ContinuaciÃ³n hacia registro o contacto</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como visitante, quiero disponer de una forma de continuar hacia el registro, descarga o contacto, para comenzar a utilizar Tata o solicitar mÃ¡s informaciÃ³n.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el visitante decide continuar con Tata, cuando selecciona una alternativa disponible, entonces el sistema lo dirige al destino correspondiente.<br>
-2. Dado que una alternativa externa no se encuentra disponible, cuando se intenta acceder a ella, entonces el sistema evita dirigir al visitante hacia un recurso invÃ¡lido.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>US-50</td><td>Visitante</td><td>Alta</td><td>EPIC-09</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Acceso adaptable al Landing Page</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como visitante, quiero consultar el Landing Page desde distintos tamaÃ±os de pantalla, para acceder a la informaciÃ³n sin perder contenido relevante.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que el visitante utiliza un dispositivo mÃ³vil o de escritorio, cuando accede al Landing Page, entonces el contenido permanece disponible y comprensible.<br>
-2. Dado que el visitante navega mediante teclado o tecnologÃ­as de asistencia compatibles, cuando interactÃºa con elementos funcionales, entonces puede acceder a las acciones disponibles.
-</td></tr>
-</table>
-
-#### Technical Stories
-
-Las Technical Stories representan capacidades que soportan las funcionalidades del producto sin corresponder directamente a una interacciÃ³n de los segmentos objetivo. Cuando una historia expone un servicio REST, los criterios consideran los principales escenarios de request y response.
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-01</td><td>Developer</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Servicio de autenticaciÃ³n mediante PIN</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar la validaciÃ³n del PIN del adulto mayor, para autenticar sus solicitudes de manera controlada.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un request con una credencial vÃ¡lida, cuando se procesa la autenticaciÃ³n, entonces el servicio responde 200 y genera una sesiÃ³n vÃ¡lida.<br>
-2. Dado un request con una credencial incorrecta, cuando se procesa la autenticaciÃ³n, entonces el servicio responde 401 y no genera una sesiÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-02</td><td>Developer</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> API de vinculaciÃ³n de cuidado</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar las operaciones necesarias para crear y validar una vinculaciÃ³n entre familiar y adulto mayor, para mantener la relaciÃ³n de cuidado.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un cÃ³digo vigente y un consentimiento vÃ¡lido, cuando se confirma la vinculaciÃ³n, entonces la API persiste la relaciÃ³n y responde con el recurso creado.<br>
-2. Dado un cÃ³digo invÃ¡lido o expirado, cuando se solicita la vinculaciÃ³n, entonces la API rechaza la operaciÃ³n sin crear la relaciÃ³n.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-03</td><td>Developer</td><td>Alta</td><td>EPIC-02</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> API de medicamentos y tratamientos</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero proporcionar operaciones REST para medicamentos y tratamientos, para persistir la configuraciÃ³n administrada desde la aplicaciÃ³n del familiar.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un request vÃ¡lido de creaciÃ³n, cuando se registra un medicamento o tratamiento, entonces la API persiste el recurso y responde 201.<br>
-2. Dado un recurso existente, cuando se solicita su actualizaciÃ³n o desactivaciÃ³n, entonces la API conserva el cambio y responde correctamente.<br>
-3. Dado un identificador inexistente, cuando se intenta modificar el recurso, entonces la API responde 404.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-04</td><td>Developer</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> API de confirmaciÃ³n de tomas</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar una operaciÃ³n que registre la confirmaciÃ³n de una toma, para actualizar su estado de forma idempotente.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un request vÃ¡lido para una toma pendiente, cuando se registra la confirmaciÃ³n, entonces la API actualiza su estado y responde 200.<br>
-2. Dado que la toma ya posee una confirmaciÃ³n, cuando se recibe nuevamente la misma operaciÃ³n, entonces la API evita crear un registro duplicado.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-05</td><td>Developer</td><td>Alta</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Proceso automÃ¡tico de tomas sin confirmar</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero ejecutar un proceso que evalÃºe las tomas pendientes, para identificar vencimientos, registrar omisiones y generar los eventos correspondientes.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que una toma supera el periodo permitido sin confirmaciÃ³n, cuando el proceso automÃ¡tico la evalÃºa, entonces actualiza su estado segÃºn las reglas vigentes.<br>
-2. Dado que la misma toma ya fue procesada, cuando el proceso vuelve a ejecutarse, entonces no genera una segunda omisiÃ³n ni una segunda transiciÃ³n equivalente.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-06</td><td>Developer</td><td>Alta</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> IntegraciÃ³n del servicio de notificaciones push</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero integrar un servicio de notificaciones push, para entregar recordatorios y alertas a los dispositivos registrados.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existe un dispositivo registrado y un evento notificable, cuando se solicita el envÃ­o, entonces la integraciÃ³n entrega la solicitud al proveedor configurado.<br>
-2. Dado que el proveedor rechaza el envÃ­o o el dispositivo ya no es vÃ¡lido, cuando se procesa la respuesta, entonces el sistema registra el resultado sin interrumpir el proceso principal.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-07</td><td>Developer</td><td>Alta</td><td>EPIC-01</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> API de cuenta y sesiÃ³n del familiar</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero implementar el registro, verificaciÃ³n e inicio de sesiÃ³n del familiar, para proporcionar acceso autenticado a sus recursos.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un request de registro vÃ¡lido, cuando se procesa, entonces la API crea la cuenta pendiente de verificaciÃ³n.<br>
-2. Dadas credenciales vÃ¡lidas de una cuenta habilitada, cuando se solicita iniciar sesiÃ³n, entonces la API genera una sesiÃ³n vÃ¡lida.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-08</td><td>Developer</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Servicio de generaciÃ³n de agenda de tomas</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero generar las tomas futuras a partir de los tratamientos activos, para mantener la agenda de medicaciÃ³n actualizada.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un tratamiento activo con una pauta vÃ¡lida, cuando se procesa la programaciÃ³n, entonces el servicio genera las tomas futuras correspondientes.<br>
-2. Dado que una pauta cambia, cuando se regenera la programaciÃ³n, entonces se actualizan Ãºnicamente las tomas futuras que todavÃ­a no poseen un resultado definitivo.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-09</td><td>Developer</td><td>Alta</td><td>EPIC-04</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> API de resumen familiar e historial</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero proporcionar el estado reciente, historial y alertas del adulto mayor, para soportar las consultas de seguimiento del familiar.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un vÃ­nculo activo, cuando se consulta el resumen del adulto mayor, entonces la API responde con sus datos recientes autorizados.<br>
-2. Dado que el solicitante no posee un vÃ­nculo vÃ¡lido, cuando intenta consultar dichos datos, entonces la API rechaza el acceso.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-10</td><td>Developer</td><td>Media</td><td>EPIC-05</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Servicio de cÃ¡lculo de adherencia y detecciÃ³n de patrones</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero analizar el historial de tomas, para calcular indicadores e identificar patrones de adherencia.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un periodo con tomas registradas, cuando se ejecuta el cÃ¡lculo, entonces el servicio obtiene indicadores a partir de confirmaciones, retrasos y omisiones.<br>
-2. Dado que el historial cumple los criterios configurados de recurrencia, cuando se procesa el anÃ¡lisis, entonces el servicio registra el patrÃ³n identificado.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-11</td><td>Developer</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> IntegraciÃ³n de reconocimiento de voz</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero integrar el mecanismo seleccionado de reconocimiento de voz, para convertir una confirmaciÃ³n hablada en informaciÃ³n utilizable por Tata.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un audio vÃ¡lido, cuando se procesa mediante la alternativa seleccionada, entonces la integraciÃ³n devuelve la transcripciÃ³n y la informaciÃ³n disponible sobre su reconocimiento.<br>
-2. Dado que la entrada no puede reconocerse con suficiente confiabilidad, cuando finaliza el procesamiento, entonces el sistema no registra automÃ¡ticamente una toma como confirmada.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-12</td><td>Developer</td><td>Media</td><td>EPIC-07</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> API de inventario y reposiciÃ³n</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero proporcionar operaciones de inventario y reposiciÃ³n, para mantener el stock asociado a cada medicamento.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado un medicamento vÃ¡lido, cuando se registra un inventario o una reposiciÃ³n, entonces la API persiste el movimiento y actualiza el stock.<br>
-2. Dado que el stock alcanza el umbral configurado, cuando se recalcula la disponibilidad, entonces el servicio genera la condiciÃ³n de stock bajo.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-13</td><td>Developer</td><td>Alta</td><td>EPIC-03</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> Almacenamiento local y sincronizaciÃ³n de informaciÃ³n esencial</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero conservar localmente la informaciÃ³n necesaria para la experiencia mÃ³vil y sincronizarla cuando exista conectividad, para mantener continuidad ante interrupciones temporales de red.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que la aplicaciÃ³n pierde conectividad despuÃ©s de haber sincronizado informaciÃ³n esencial, cuando el usuario consulta dichos datos, entonces la aplicaciÃ³n puede recuperar la informaciÃ³n local disponible.<br>
-2. Dado que existen cambios pendientes y se restablece la conectividad, cuando se ejecuta la sincronizaciÃ³n, entonces el sistema procesa los cambios evitando duplicados.
-</td></tr>
-</table>
-
-<table>
-<tr><th>Story ID</th><th>User</th><th>Priority</th><th>Epic</th></tr>
-<tr><td>TS-14</td><td>Developer</td><td>Media</td><td>EPIC-08</td></tr>
-<tr><td colspan="4"><strong>Title:</strong> API de planes y suscripciones</td></tr>
-<tr><td colspan="4"><strong>Description</strong><br>Como developer, quiero gestionar planes y suscripciones mediante el backend, para determinar las capacidades disponibles para cada cuenta.</td></tr>
-<tr><td colspan="4"><strong>Acceptance Criteria</strong><br>
-1. Dado que existen planes configurados, cuando se consulta el catÃ¡logo, entonces la API responde con sus caracterÃ­sticas vigentes.<br>
-2. Dada una cuenta con una suscripciÃ³n vÃ¡lida, cuando se consulta su estado, entonces la API proporciona el plan y las capacidades asociadas.
-</td></tr>
-</table>
-
-#### Spike Stories
-
-##### Spike 1: InvestigaciÃ³n de reconocimiento de voz para confirmaciÃ³n de tomas
-
-**Contexto**
-
-La confirmaciÃ³n mediante voz busca reducir la necesidad de interacciÃ³n tÃ¡ctil o escritura para el adulto mayor. El equipo necesita determinar quÃ© alternativa proporciona una integraciÃ³n viable y un nivel de reconocimiento suficiente en espaÃ±ol.
-
-**Spike Story**
-
-Como equipo de desarrollo, quiero investigar y prototipar alternativas de reconocimiento de voz, para seleccionar una opciÃ³n viable para la confirmaciÃ³n de tomas.
-
-**Criterios de AceptaciÃ³n**
-
-1. Dado que existen distintas alternativas de reconocimiento de voz, cuando se investigan al menos dos opciones, entonces el equipo documenta sus ventajas, restricciones, costos y requisitos de integraciÃ³n.
-2. Dado que se selecciona una alternativa candidata, cuando se desarrolla un prototipo, entonces este procesa distintas frases de confirmaciÃ³n en espaÃ±ol.
-3. Dado que se completan las pruebas, cuando el equipo analiza sus resultados, entonces registra la alternativa recomendada y sus limitaciones.
-
-**Timebox:** 8 horas.
-
-##### Spike 2: InvestigaciÃ³n de detecciÃ³n de patrones de olvido
-
-**Contexto**
-
-Tata busca identificar tendencias recurrentes dentro del historial de tomas. Antes de implementar esta capacidad es necesario determinar si un enfoque estadÃ­stico basado en reglas o una tÃ©cnica de clasificaciÃ³n sencilla resulta adecuada para el alcance del proyecto.
-
-**Spike Story**
-
-Como equipo de desarrollo, quiero investigar y prototipar alternativas para detectar patrones de omisiÃ³n, para seleccionar un enfoque comprensible y viable para Tata.
-
-**Criterios de AceptaciÃ³n**
-
-1. Dado que existen distintas alternativas de anÃ¡lisis, cuando se comparan al menos un enfoque basado en reglas y otro basado en clasificaciÃ³n, entonces se documentan sus diferencias y complejidad.
-2. Dado un conjunto de datos de prueba con confirmaciones y omisiones, cuando se ejecuta el prototipo, entonces este identifica los patrones conocidos incluidos en los datos.
-3. Dado que se obtienen resultados, cuando se finaliza el anÃ¡lisis, entonces el equipo registra el enfoque recomendado y sus limitaciones.
-
-**Timebox:** 8 horas.
-
-##### Spike 3: InvestigaciÃ³n de recordatorios y ejecuciÃ³n en segundo plano
-
-**Contexto**
-
-Los recordatorios constituyen una capacidad central de Tata y deben continuar funcionando bajo las restricciones propias de los sistemas operativos mÃ³viles. El equipo necesita evaluar cÃ³mo manejar programaciones y notificaciones cuando la aplicaciÃ³n no se encuentra activa.
-
-**Spike Story**
-
-Como equipo de desarrollo, quiero investigar los mecanismos disponibles para programar recordatorios y ejecutar tareas necesarias en segundo plano, para seleccionar una estrategia confiable para las aplicaciones mÃ³viles de Tata.
-
-**Criterios de AceptaciÃ³n**
-
-1. Dado que Android y la alternativa multiplataforma presentan mecanismos distintos de ejecuciÃ³n en segundo plano, cuando se revisa su documentaciÃ³n, entonces se registran restricciones y alternativas aplicables.
-2. Dado que se selecciona una estrategia candidata, cuando se realiza una prueba con la aplicaciÃ³n cerrada, entonces el equipo documenta el comportamiento observado.
-3. Dado que finalizan las pruebas, cuando se comparan los resultados, entonces se registra la estrategia recomendada para el proyecto.
-
-**Timebox:** 8 horas.
-
-### 2.4.2. Impact Mapping
-
-El Impact Mapping permitiÃ³ relacionar los objetivos de negocio de Tata con los cambios esperados en el comportamiento de sus segmentos objetivo. Para ello se utilizaron los User Persona definidos previamente, identificando los impactos que pueden contribuir al cumplimiento de cada objetivo, los entregables necesarios para producir dichos impactos y las User Stories relacionadas.
-
-#### Impact Mapping: DoÃ±a Carmen RodrÃ­guez
-
-El primer Impact Map corresponde al segmento de adultos mayores y utiliza a DoÃ±a Carmen RodrÃ­guez como User Persona. El objetivo se orienta a reducir las tomas que permanecen sin confirmar mediante recordatorios, consulta de la agenda, mecanismos accesibles de confirmaciÃ³n y configuraciones que faciliten el uso de la aplicaciÃ³n.
-
-![Impact Mapping de DoÃ±a Carmen RodrÃ­guez](assets/impact-mapping-dona-carmen-rodriguez.png)
-
-*Figura. Impact Mapping correspondiente al User Persona DoÃ±a Carmen RodrÃ­guez.*
-
-El mapa muestra que el cumplimiento del objetivo no depende de una sola funcionalidad. Los recordatorios buscan disminuir los olvidos, mientras que la agenda permite anticipar las prÃ³ximas tomas. La confirmaciÃ³n accesible facilita registrar la acciÃ³n realizada y las configuraciones de accesibilidad reducen las barreras de interacciÃ³n que podrÃ­an dificultar el uso autÃ³nomo de Tata.
-
-#### Impact Mapping: Diego Dani Mendoza
-
-El segundo Impact Map corresponde al segmento de familiares o cuidadores y utiliza a Diego Dani Mendoza como User Persona. En este caso, el objetivo se concentra en incrementar el uso del seguimiento remoto y disminuir la dependencia de verificaciones manuales constantes.
-
-![Impact Mapping de Diego Dani Mendoza](assets/impact-mapping-diego-dani-mendoza.png)
-
-*Figura. Impact Mapping correspondiente al User Persona Diego Dani Mendoza.*
-
-En este mapa, los impactos se concentran en reducir la incertidumbre del familiar durante el seguimiento remoto. El resumen y el historial permiten consultar informaciÃ³n sin depender exclusivamente de llamadas, mientras que las alertas facilitan identificar situaciones que requieren atenciÃ³n. La analÃ­tica complementa este seguimiento mediante la identificaciÃ³n de retrasos, omisiones y patrones recurrentes que pueden orientar futuras acciones.
-
-### 2.4.3. Product Backlog
-
-El Product Backlog de Tata organiza los requisitos funcionales y tÃ©cnicos identificados para el producto. La prioridad se estableciÃ³ considerando primero el valor que cada funcionalidad proporciona a los segmentos objetivo y no Ãºnicamente el orden tÃ©cnico requerido para su implementaciÃ³n.
-
-Las estimaciones utilizan Story Points de 1, 2, 3, 5 y 8. La columna Sprint representa una asignaciÃ³n inicial que podrÃ¡ revisarse posteriormente durante los Sprint Planning segÃºn la capacidad del equipo, los resultados de las iteraciones previas y las dependencias encontradas durante el desarrollo.
-
-Las historias correspondientes al Landing Page se incluyen desde el Sprint 1. Las Technical Stories y Spike Stories se mantienen dentro del mismo Product Backlog porque representan trabajo necesario para habilitar funcionalidades del producto o reducir incertidumbre tÃ©cnica.
-
-| # Orden | Story ID | TÃ­tulo | Epic | Story Points | Sprint |
-| ---: | --- | --- | --- | ---: | --- |
-| 1 | US-05 | Recordatorio de toma de medicamento | EPIC-03 | 3 | Sprint 1 |
-| 2 | US-06 | ConfirmaciÃ³n accesible de una toma | EPIC-03 | 5 | Sprint 2 |
-| 3 | US-03 | Registro de un nuevo medicamento | EPIC-02 | 5 | Sprint 1 |
-| 4 | US-02 | VinculaciÃ³n con la cuenta del adulto mayor | EPIC-01 | 5 | Sprint 1 |
-| 5 | US-07 | Alerta ante una toma no confirmada | EPIC-04 | 5 | Sprint 2 |
-| 6 | US-25 | Consulta del estado reciente del adulto mayor | EPIC-04 | 3 | Sprint 2 |
-| 7 | US-14 | CreaciÃ³n de un tratamiento | EPIC-02 | 3 | Sprint 1 |
-| 8 | US-15 | DefiniciÃ³n de dosis y frecuencia | EPIC-02 | 3 | Sprint 1 |
-| 9 | US-16 | ConfiguraciÃ³n de horarios e instrucciones | EPIC-02 | 3 | Sprint 1 |
-| 10 | US-17 | ConfiguraciÃ³n de recordatorios | EPIC-02 | 3 | Sprint 1 |
-| 11 | US-20 | Consulta de la prÃ³xima toma | EPIC-03 | 2 | Sprint 1 |
-| 12 | US-24 | Consulta de agenda diaria de tomas | EPIC-03 | 3 | Sprint 2 |
-| 13 | US-26 | Consulta del historial reciente de tomas | EPIC-04 | 3 | Sprint 2 |
-| 14 | US-08 | Resumen semanal de adherencia | EPIC-05 | 3 | Sprint 3 |
-| 15 | US-27 | Consulta del detalle de una alerta | EPIC-04 | 2 | Sprint 2 |
-| 16 | US-22 | Recordatorio reforzado por falta de confirmaciÃ³n | EPIC-03 | 3 | Sprint 2 |
-| 17 | US-23 | ConfirmaciÃ³n dentro del periodo de tolerancia | EPIC-03 | 3 | Sprint 2 |
-| 18 | US-18 | ActivaciÃ³n y pausa de un tratamiento | EPIC-02 | 3 | Sprint 2 |
-| 19 | US-04 | EdiciÃ³n y desactivaciÃ³n de un medicamento | EPIC-02 | 3 | Sprint 2 |
-| 20 | US-21 | Consulta del detalle de una toma | EPIC-03 | 2 | Sprint 2 |
-| 21 | US-19 | Consulta del detalle de un tratamiento | EPIC-02 | 2 | Sprint 2 |
-| 22 | US-09 | Alerta de patrÃ³n de olvido recurrente | EPIC-05 | 5 | Sprint 3 |
-| 23 | US-32 | Consulta del historial de adherencia | EPIC-05 | 3 | Sprint 3 |
-| 24 | US-33 | IdentificaciÃ³n de tomas tardÃ­as y omitidas | EPIC-05 | 3 | Sprint 3 |
-| 25 | US-34 | Recomendaciones a partir de patrones | EPIC-05 | 5 | Sprint 3 |
-| 26 | US-29 | Contacto con el adulto mayor ante una alerta | EPIC-04 | 2 | Sprint 2 |
-| 27 | US-31 | ActualizaciÃ³n del seguimiento de una alerta | EPIC-04 | 3 | Sprint 3 |
-| 28 | US-28 | ConfiguraciÃ³n de preferencias de notificaciÃ³n | EPIC-04 | 3 | Sprint 3 |
-| 29 | US-35 | Ajuste del tamaÃ±o de texto | EPIC-06 | 2 | Sprint 2 |
-| 30 | US-36 | ActivaciÃ³n de mayor contraste | EPIC-06 | 2 | Sprint 2 |
-| 31 | US-38 | ActivaciÃ³n de ayuda de lectura | EPIC-06 | 3 | Sprint 3 |
-| 32 | US-39 | ConfiguraciÃ³n de horario de silencio y canales | EPIC-06 | 3 | Sprint 3 |
-| 33 | US-37 | ReducciÃ³n de movimiento | EPIC-06 | 2 | Sprint 3 |
-| 34 | US-42 | Aviso de stock bajo | EPIC-07 | 3 | Sprint 4 |
-| 35 | US-41 | Consulta de stock restante | EPIC-07 | 2 | Sprint 4 |
-| 36 | US-40 | Registro de inventario inicial | EPIC-07 | 3 | Sprint 4 |
-| 37 | US-43 | Registro de reposiciÃ³n de medicamento | EPIC-07 | 3 | Sprint 4 |
-| 38 | US-46 | Consulta de la propuesta de valor de Tata | EPIC-09 | 2 | Sprint 1 |
-| 39 | US-47 | Consulta de funcionalidades principales | EPIC-09 | 2 | Sprint 1 |
-| 40 | US-49 | ContinuaciÃ³n hacia registro o contacto | EPIC-09 | 2 | Sprint 1 |
-| 41 | US-50 | Acceso adaptable al Landing Page | EPIC-09 | 3 | Sprint 1 |
-| 42 | US-48 | ComparaciÃ³n de planes disponibles | EPIC-09 | 2 | Sprint 1 |
-| 43 | US-10 | Registro de cuenta del familiar | EPIC-01 | 3 | Sprint 1 |
-| 44 | US-11 | VerificaciÃ³n del correo del familiar | EPIC-01 | 2 | Sprint 1 |
-| 45 | US-01 | Ingreso simplificado a la aplicaciÃ³n | EPIC-01 | 3 | Sprint 1 |
-| 46 | US-12 | Registro del perfil del adulto mayor | EPIC-01 | 3 | Sprint 1 |
-| 47 | US-13 | Consentimiento para establecer el vÃ­nculo | EPIC-01 | 3 | Sprint 1 |
-| 48 | US-44 | Consulta del plan actual | EPIC-08 | 2 | Sprint 4 |
-| 49 | US-45 | ActivaciÃ³n o cambio de suscripciÃ³n | EPIC-08 | 5 | Sprint 4 |
-| 50 | US-30 | Registro de una nota de seguimiento | EPIC-04 | 2 | Sprint 4 |
-| 51 | TS-03 | API de medicamentos y tratamientos | EPIC-02 | 5 | Sprint 1 |
-| 52 | TS-08 | Servicio de generaciÃ³n de agenda de tomas | EPIC-03 | 5 | Sprint 1 |
-| 53 | TS-04 | API de confirmaciÃ³n de tomas | EPIC-03 | 5 | Sprint 2 |
-| 54 | TS-02 | API de vinculaciÃ³n de cuidado | EPIC-01 | 5 | Sprint 1 |
-| 55 | TS-09 | API de resumen familiar e historial | EPIC-04 | 5 | Sprint 2 |
-| 56 | TS-05 | Proceso automÃ¡tico de tomas sin confirmar | EPIC-04 | 5 | Sprint 2 |
-| 57 | TS-06 | IntegraciÃ³n del servicio de notificaciones push | EPIC-04 | 5 | Sprint 2 |
-| 58 | TS-11 | IntegraciÃ³n de reconocimiento de voz | EPIC-03 | 5 | Sprint 2 |
-| 59 | TS-13 | Almacenamiento local y sincronizaciÃ³n | EPIC-03 | 8 | Sprint 2 |
-| 60 | TS-10 | Servicio de cÃ¡lculo de adherencia y patrones | EPIC-05 | 8 | Sprint 3 |
-| 61 | TS-07 | API de cuenta y sesiÃ³n del familiar | EPIC-01 | 5 | Sprint 1 |
-| 62 | TS-01 | Servicio de autenticaciÃ³n mediante PIN | EPIC-01 | 3 | Sprint 1 |
-| 63 | TS-12 | API de inventario y reposiciÃ³n | EPIC-07 | 5 | Sprint 4 |
-| 64 | TS-14 | API de planes y suscripciones | EPIC-08 | 5 | Sprint 4 |
-| 65 | SP-01 | InvestigaciÃ³n de reconocimiento de voz | EPIC-03 | 3 | Sprint 1 |
-| 66 | SP-03 | InvestigaciÃ³n de ejecuciÃ³n en segundo plano | EPIC-03 | 3 | Sprint 1 |
-| 67 | SP-02 | InvestigaciÃ³n de detecciÃ³n de patrones de olvido | EPIC-05 | 5 | Sprint 2 |
-
-#### Evidencia del Product Backlog
-
-![Product Backlog de Tata](assets/product-backlog-tata.png)
-
-*Figura. Product Backlog de Tata.*
-
-Enlace pÃºblico al Product Backlog: https://trello.com/b/wuHmMypU/apps-moviles
-
-### 2.5. Strategic-Level Domain-Driven Design
-
-El Strategic-Level Domain-Driven Design se utilizÃ³ para organizar el dominio de Tata a partir de las responsabilidades, reglas y conceptos identificados durante las etapas anteriores del proyecto. El objetivo de esta etapa no es definir todavÃ­a componentes fÃ­sicos de software, sino establecer lÃ­mites conceptuales que permitan mantener modelos coherentes y reducir el acoplamiento entre distintas Ã¡reas del dominio.
-
-Para ello, se profundizÃ³ el EventStorming desarrollado previamente, incorporando actores, comandos, polÃ­ticas, modelos de lectura, sistemas externos y agregados. A partir de estos elementos se identificaron candidatos a Bounded Context, se analizaron los mensajes relevantes que atraviesan sus lÃ­mites y se documentÃ³ la responsabilidad interna de cada contexto mediante Bounded Context Canvases.
-
-Este anÃ¡lisis permite pasar de una representaciÃ³n general del comportamiento de Tata hacia una estructura estratÃ©gica del dominio que posteriormente servirÃ¡ como base para el Context Mapping y las decisiones de arquitectura de software.
-
-### 2.5.1. EventStorming
-
-El EventStorming se utilizÃ³ para profundizar los procesos identificados previamente en el Big Picture EventStorming. Mientras el Big Picture permitiÃ³ observar de forma global quÃ© ocurre dentro del dominio de Tata, esta etapa incorporÃ³ mayor detalle sobre las acciones que originan los eventos, las reglas que reaccionan ante ellos y los conceptos responsables de mantener el estado y las reglas del negocio.
-
-El modelado se desarrollÃ³ de manera progresiva. Inicialmente se organizaron los eventos de dominio segÃºn su secuencia temporal y se identificaron puntos problemÃ¡ticos y eventos pivote. Posteriormente se incorporaron comandos y actores para representar quÃ© acciones originan cada cambio dentro del dominio.
-
-A medida que el modelo fue refinado, se aÃ±adieron polÃ­ticas para representar comportamientos automÃ¡ticos, modelos de lectura para identificar la informaciÃ³n requerida antes de ejecutar determinadas acciones y sistemas externos que participan en los distintos procesos. Finalmente, los comandos y eventos relacionados se organizaron alrededor de agregados, lo que permitiÃ³ comenzar a reconocer responsabilidades y lÃ­mites conceptuales dentro del dominio.
-
-![EventStorming de Tata](assets/eventstorming-tata.png)
-
-*Figura. EventStorming del dominio de Tata.*
-
-Enlace a la versiÃ³n del EventStorming: [https://miro.com/app/board/uXjVHq5Jc9w=/](https://miro.com/app/board/uXjVHq5Jc9w=/)
-
-#### EvoluciÃ³n del EventStorming
-
-La construcciÃ³n progresiva del EventStorming permitiÃ³ aumentar el nivel de detalle sin perder la secuencia principal del dominio. Los primeros pasos estuvieron orientados a comprender el comportamiento y sus principales problemas, mientras que las etapas posteriores incorporaron los elementos necesarios para analizar las reglas y responsabilidades involucradas.
-
-![EvoluciÃ³n del EventStorming](assets/eventstorming-evolucion1.png)
-
-*Figura. EvoluciÃ³n del EventStorming de Tata Pain Points.*
-
-![EvoluciÃ³n del EventStorming](assets/eventstorming-evolucion2.png)
-
-*Figura. EvoluciÃ³n del EventStorming de Tata Commands.*
-
-![EvoluciÃ³n del EventStorming](assets/eventstorming-evolucion3.png)
-
-*Figura. EvoluciÃ³n del EventStorming de Tata Aggregates.*
-
-#### 2.5.1.1. Candidate Context Discovery
-
-A partir del EventStorming refinado se analizaron grupos de eventos, comandos, polÃ­ticas y agregados que compartÃ­an un mismo lenguaje y conjunto de responsabilidades. El propÃ³sito fue identificar Ã¡reas del dominio que requieren mantener un modelo propio y cuyos conceptos pueden evolucionar de forma relativamente independiente.
-
-La agrupaciÃ³n no se realizÃ³ Ãºnicamente por proximidad dentro del tablero. Se consideraron principalmente las responsabilidades asumidas por cada conjunto de elementos, las reglas que gobiernan su comportamiento y los cambios de significado que aparecen al pasar de un proceso a otro.
-
-Por ejemplo, **GestiÃ³n del tratamiento** administra la definiciÃ³n del medicamento, dosis, frecuencia y horario, mientras que **EjecuciÃ³n de tomas** administra cada instancia concreta generada a partir de esa configuraciÃ³n. Aunque ambos contextos trabajan con informaciÃ³n relacionada, responden a preguntas diferentes dentro del dominio y poseen ciclos de vida distintos.
-
-![Candidate Context Discovery](assets/candidate-context-discovery.png)
-
-*Figura. Descubrimiento de candidatos a Bounded Context.*
-
-Enlace a la version de Eventstorming Bounded Context: [https://miro.com/app/board/uXjVHq5Jc9w=/](https://miro.com/app/board/uXjVHq5Jc9w=/)
-
-Como resultado se identificaron los siguientes candidatos:
-
-| Candidate Context | Responsabilidad principal |
-| --- | --- |
-| Identidad y suscripciÃ³n | Gestionar la existencia, acceso y habilitaciÃ³n de los usuarios |
-| VÃ­nculo de cuidado | Administrar la relaciÃ³n autorizada entre familiar y adulto mayor |
-| GestiÃ³n del tratamiento | Definir medicamentos, dosis, horarios e instrucciones |
-| EjecuciÃ³n de tomas | Gestionar cada toma programada y su confirmaciÃ³n |
-| OmisiÃ³n y escalamiento | Administrar tomas no confirmadas, alertas y escalamiento |
-| Seguimiento familiar | Presentar informaciÃ³n y registrar las intervenciones del cuidador |
-| Accesibilidad y preferencias | Adaptar la interacciÃ³n y las preferencias del usuario |
-| AnalÃ­tica de adherencia | Calcular indicadores, patrones e insights de adherencia |
-| Inventario y reposiciÃ³n | Mantener la disponibilidad y continuidad de los medicamentos |
-
-Estos lÃ­mites se consideran candidatos dentro de esta etapa y no implican que cada contexto deba implementarse posteriormente como un microservicio independiente.
-
-#### 2.5.1.2. Domain Message Flows Modeling
-
-El Domain Message Flows Modeling se utilizÃ³ para representar las interacciones que ocurren entre los actores, Bounded Contexts y sistemas externos que participan en los principales procesos de Tata. A diferencia del EventStorming, donde se estudia el comportamiento interno del dominio mediante eventos, comandos y polÃ­ticas, en esta etapa el interÃ©s se centra en los mensajes que atraviesan los lÃ­mites previamente identificados.
-
-El modelado se desarrollÃ³ a partir de escenarios concretos del dominio. Cada escenario representa una situaciÃ³n relevante de uso y muestra la secuencia de mensajes intercambiados entre sus participantes. Los mensajes se clasificaron como **Commands**, cuando solicitan la ejecuciÃ³n de una acciÃ³n; **Events**, cuando comunican un hecho que ya ocurriÃ³; y **Queries**, cuando un participante requiere informaciÃ³n para continuar con una decisiÃ³n o proceso.
-
-Para mantener los diagramas legibles, cada escenario fue modelado de manera independiente. Las relaciones representan dependencias conceptuales del dominio y no establecen todavÃ­a el mecanismo tÃ©cnico mediante el cual se implementarÃ¡ la comunicaciÃ³n.
-
-##### Registro y vinculaciÃ³n del adulto mayor
-
-Este escenario representa el proceso mediante el cual un familiar o cuidador ingresa a Tata y establece una relaciÃ³n de cuidado con un adulto mayor. El flujo comienza con la creaciÃ³n y verificaciÃ³n de la cuenta, continÃºa con el registro del adulto mayor y finaliza cuando la vinculaciÃ³n es aceptada y confirmada.
-
-En este proceso participan principalmente **Identidad y suscripciÃ³n** y **VÃ­nculo de cuidado**. El primero administra el estado de la cuenta, mientras que el segundo mantiene la relaciÃ³n autorizada entre ambos usuarios. El servicio de correo interviene como sistema externo durante la verificaciÃ³n de la cuenta.
-
-![Domain Message Flow - Registro y vinculaciÃ³n](assets/domain-message-flow-registro-vinculacion.png)
-
-*Figura. Domain Message Flow para el registro y vinculaciÃ³n del adulto mayor.*
-
-##### ConfiguraciÃ³n y activaciÃ³n del tratamiento
-
-Este escenario describe la configuraciÃ³n inicial de un tratamiento asociado al adulto mayor. El familiar registra el medicamento y define los datos necesarios para su administraciÃ³n, como la dosis, frecuencia, horario e instrucciones de toma.
-
-Antes de realizar determinadas operaciones, **GestiÃ³n del tratamiento** puede consultar a **VÃ­nculo de cuidado** para verificar que el familiar se encuentre autorizado para administrar la informaciÃ³n del adulto mayor. Una vez completa la configuraciÃ³n, la activaciÃ³n del tratamiento genera informaciÃ³n necesaria para que **EjecuciÃ³n de tomas** pueda comenzar a programar las tomas correspondientes.
-
-![Domain Message Flow - ConfiguraciÃ³n del tratamiento](assets/domain-message-flow-configuracion-tratamiento.png)
-
-*Figura. Domain Message Flow para la configuraciÃ³n y activaciÃ³n del tratamiento.*
-
-##### ConfirmaciÃ³n de una toma mediante un toque
-
-Este escenario representa el camino esperado cuando el adulto mayor recibe un recordatorio y confirma correctamente una toma mediante interacciÃ³n tÃ¡ctil.
-
-El adulto puede consultar la prÃ³xima toma programada y posteriormente registrar su confirmaciÃ³n. Una vez aceptada, **EjecuciÃ³n de tomas** comunica el resultado a otros contextos interesados. **AnalÃ­tica de adherencia** utiliza el evento para actualizar las mÃ©tricas del adulto, mientras que **Seguimiento familiar** puede utilizarlo para actualizar el estado mostrado al familiar o cuidador.
-
-![Domain Message Flow - ConfirmaciÃ³n por toque](assets/domain-message-flow-confirmacion-toque.png)
-
-*Figura. Domain Message Flow para la confirmaciÃ³n de una toma mediante un toque.*
-
-##### ConfirmaciÃ³n de una toma mediante voz
-
-Este escenario representa la alternativa accesible mediante la cual el adulto mayor puede registrar la confirmaciÃ³n utilizando su voz. En este flujo, **EjecuciÃ³n de tomas** coordina la interacciÃ³n con un servicio externo de reconocimiento de voz para procesar el audio recibido.
-
-Si la transcripciÃ³n puede ser validada, se registra la confirmaciÃ³n y se generan los mismos eventos de dominio empleados por el flujo tÃ¡ctil. De esta manera, el mÃ©todo utilizado para interactuar puede variar sin modificar el significado principal del evento **Toma confirmada** para los demÃ¡s contextos.
-
-![Domain Message Flow - ConfirmaciÃ³n por voz](assets/domain-message-flow-confirmacion-voz.png)
-
-*Figura. Domain Message Flow para la confirmaciÃ³n de una toma mediante voz.*
-
-##### Toma no confirmada, omisiÃ³n y escalamiento
-
-Este escenario representa el flujo alternativo que se inicia cuando el adulto mayor no confirma una toma dentro del periodo esperado.
-
-Al finalizar la ventana inicial, **EjecuciÃ³n de tomas** comunica la ausencia de confirmaciÃ³n a **OmisiÃ³n y escalamiento**. Este contexto administra los recordatorios reforzados y la ventana de tolerancia. Si el tiempo establecido concluye sin una respuesta, se registra la omisiÃ³n y se genera una alerta.
-
-La omisiÃ³n tambiÃ©n es comunicada a **AnalÃ­tica de adherencia**, mientras que **Seguimiento familiar** recibe la informaciÃ³n necesaria para advertir al familiar o cuidador. Los servicios externos de notificaciÃ³n permiten posteriormente entregar la alerta mediante los canales habilitados.
-
-![Domain Message Flow - OmisiÃ³n y escalamiento](assets/domain-message-flow-omision-escalamiento.png)
-
-*Figura. Domain Message Flow para una toma no confirmada, omisiÃ³n y escalamiento.*
-
-##### Seguimiento familiar ante una alerta
-
-Este escenario describe las acciones disponibles para el familiar despuÃ©s de recibir informaciÃ³n sobre una situaciÃ³n que requiere atenciÃ³n. El familiar puede consultar el resumen del adulto mayor, revisar las tomas recientes y acceder a los indicadores de adherencia disponibles.
-
-**Seguimiento familiar** reÃºne informaciÃ³n proporcionada por otros contextos sin asumir sus responsabilidades internas. Cuando el familiar necesita intervenir, puede registrar una nota, iniciar una llamada o utilizar otro canal disponible para comunicarse con el adulto mayor.
-
-![Domain Message Flow - Seguimiento familiar](assets/domain-message-flow-seguimiento-familiar.png)
-
-*Figura. Domain Message Flow para el seguimiento familiar ante una alerta.*
-
-##### ConsolidaciÃ³n de adherencia y detecciÃ³n de patrones
-
-Este escenario representa el procesamiento de los resultados acumulados durante la ejecuciÃ³n de las tomas. **AnalÃ­tica de adherencia** recibe informaciÃ³n acerca de las tomas confirmadas, tardÃ­as u omitidas y la utiliza para consolidar periodos de seguimiento.
-
-A partir de estos registros se calculan indicadores de adherencia y se pueden identificar patrones recurrentes relacionados con determinados horarios o periodos. Los resultados relevantes son publicados para que **Seguimiento familiar** pueda mostrarlos posteriormente al cuidador sin tener que reproducir internamente la lÃ³gica analÃ­tica.
-
-![Domain Message Flow - AnalÃ­tica de adherencia](assets/domain-message-flow-analitica-adherencia.png)
-
-*Figura. Domain Message Flow para la consolidaciÃ³n de adherencia y detecciÃ³n de patrones.*
-
-##### ReposiciÃ³n y continuidad del tratamiento
-
-Este escenario representa el seguimiento del stock disponible de un medicamento y las acciones relacionadas con su reposiciÃ³n. **Inventario y reposiciÃ³n** permite consultar las unidades restantes y detectar situaciones en las que el medicamento puede agotarse antes de las prÃ³ximas tomas.
-
-Cuando se alcanza el umbral definido, se puede generar un aviso al familiar. DespuÃ©s de registrar una reposiciÃ³n o un nuevo lote, el contexto comunica los cambios necesarios para mantener actualizada la planificaciÃ³n de futuras tomas y conservar la continuidad del tratamiento.
-
-![Domain Message Flow - ReposiciÃ³n y continuidad](assets/domain-message-flow-reposicion-continuidad.png)
-
-*Figura. Domain Message Flow para la reposiciÃ³n y continuidad del tratamiento.*
-
-En conjunto, los escenarios permitieron identificar los principales intercambios de informaciÃ³n entre los lÃ­mites del dominio de Tata. El modelado muestra que los Bounded Contexts colaboran mediante mensajes especÃ­ficos sin compartir directamente sus reglas internas. Este resultado tambiÃ©n sirve como entrada para documentar con mayor precisiÃ³n las responsabilidades, mensajes y dependencias de cada contexto mediante los Bounded Context Canvases.
-
-Enlace a la version del Domain Message Flow: [https://miro.com/app/board/uXjVHq5Jc9w=/](https://miro.com/app/board/uXjVHq5Jc9w=/)
-
-#### 2.5.1.3. Bounded Context Canvases
-
-Los Bounded Context Canvases se utilizaron para documentar individualmente los contextos identificados durante el Candidate Context Discovery. Mientras el EventStorming permitiÃ³ reconocer los posibles lÃ­mites y el Domain Message Flows Modeling mostrÃ³ las interacciones entre ellos, los canvases permitieron precisar el propÃ³sito y las responsabilidades que corresponden a cada contexto.
-
-Cada canvas documenta su descripciÃ³n, clasificaciÃ³n estratÃ©gica, caracterÃ­sticas del modelo, decisiones de negocio y tÃ©rminos principales del Ubiquitous Language. Asimismo, se especifican los Commands, Events y Queries que el contexto consume o produce, ademÃ¡s de sus principales proveedores y consumidores de informaciÃ³n.
-
-Esta representaciÃ³n permitiÃ³ revisar que cada contexto mantuviera responsabilidades coherentes y que las colaboraciones necesarias pudieran realizarse mediante mensajes explÃ­citos, evitando que diferentes Ã¡reas del dominio dependieran de los detalles internos de otras.
-
-##### Identidad y suscripciÃ³n
-
-El Bounded Context **Identidad y suscripciÃ³n** concentra las responsabilidades relacionadas con la existencia y habilitaciÃ³n de una cuenta dentro de Tata. Incluye la creaciÃ³n del usuario, la verificaciÃ³n de su informaciÃ³n bÃ¡sica y el estado del plan asociado.
-
-Sus reglas determinan cuÃ¡ndo una cuenta puede considerarse habilitada y quÃ© informaciÃ³n puede ser utilizada posteriormente por otros contextos. Entre los conceptos principales de su lenguaje se encuentran **Cuenta**, **Usuario**, **Plan**, **SuscripciÃ³n**, **Consentimiento** y **Estado de cuenta**.
-
-Una de sus principales salidas es el evento **Cuenta habilitada**, que permite que el contexto de VÃ­nculo de cuidado continÃºe con el registro de la relaciÃ³n entre el familiar y el adulto mayor.
-
-![Bounded Context Canvas - Identidad y suscripciÃ³n](assets/bounded-context-canvas-identidad-suscripcion.png)
-
-*Figura. Bounded Context Canvas de Identidad y suscripciÃ³n.*
-
-##### VÃ­nculo de cuidado
-
-El contexto **VÃ­nculo de cuidado** administra la relaciÃ³n autorizada entre el adulto mayor y el familiar o cuidador encargado de su seguimiento.
-
-Su modelo mantiene informaciÃ³n relacionada con el adulto mayor, los cÃ³digos de vinculaciÃ³n, el consentimiento y el estado de la relaciÃ³n. Entre sus principales decisiones se encuentra validar que una cuenta pueda iniciar una vinculaciÃ³n y que el consentimiento requerido haya sido registrado antes de habilitar el seguimiento.
-
-El evento **VÃ­nculo de cuidado confirmado** representa uno de sus resultados mÃ¡s importantes, ya que permite que otros contextos reconozcan que el familiar posee una relaciÃ³n vÃ¡lida con el adulto mayor.
-
-![Bounded Context Canvas - VÃ­nculo de cuidado](assets/bounded-context-canvas-vinculo-cuidado.png)
-
-*Figura. Bounded Context Canvas de VÃ­nculo de cuidado.*
-
-##### GestiÃ³n del tratamiento
-
-El contexto **GestiÃ³n del tratamiento** mantiene la definiciÃ³n operativa del tratamiento del adulto mayor. Dentro de este lÃ­mite se gestionan el medicamento, la dosis, frecuencia, horario, instrucciones y configuraciÃ³n de recordatorios.
-
-Su responsabilidad termina en definir **quÃ© tratamiento debe seguirse**. No administra cada ejecuciÃ³n concreta de una dosis, ya que esa responsabilidad pertenece a EjecuciÃ³n de tomas.
-
-Cuando la configuraciÃ³n requerida se encuentra completa, el contexto puede publicar el evento **Tratamiento activado**, que proporciona la informaciÃ³n necesaria para generar las futuras tomas.
-
-![Bounded Context Canvas - GestiÃ³n del tratamiento](assets/bounded-context-canvas-gestion-tratamiento.png)
-
-*Figura. Bounded Context Canvas de GestiÃ³n del tratamiento.*
-
-##### EjecuciÃ³n de tomas
-
-El contexto **EjecuciÃ³n de tomas** administra las instancias concretas generadas a partir de un tratamiento activo. Su responsabilidad comienza cuando debe programarse una toma y continÃºa hasta que esta queda confirmada o se detecta que permanece sin confirmaciÃ³n.
-
-Dentro de este contexto se manejan conceptos como **Toma**, **PrÃ³xima toma**, **Ventana de confirmaciÃ³n**, **ConfirmaciÃ³n por toque** y **ConfirmaciÃ³n por voz**.
-
-TambiÃ©n coordina servicios externos necesarios para determinadas interacciones, como el reconocimiento de voz o las notificaciones. Sus principales eventos de salida incluyen **Toma confirmada**, **Toma no confirmada** e **Historial diario actualizado**.
-
-![Bounded Context Canvas - EjecuciÃ³n de tomas](assets/bounded-context-canvas-ejecucion-tomas.png)
-
-*Figura. Bounded Context Canvas de EjecuciÃ³n de tomas.*
-
-##### OmisiÃ³n y escalamiento
-
-El contexto **OmisiÃ³n y escalamiento** administra las situaciones excepcionales originadas cuando una toma permanece sin confirmaciÃ³n.
-
-Este contexto controla la ventana de tolerancia, los recordatorios reforzados, el registro de una omisiÃ³n, la generaciÃ³n de alertas y el escalamiento cuando corresponde. De esta manera, la lÃ³gica de excepciÃ³n no queda mezclada con la ejecuciÃ³n normal de una toma.
-
-Entre sus eventos principales se encuentran **Toma omitida registrada**, **Alerta al cuidador generada** y **Escalamiento ejecutado**. Estos eventos pueden ser consumidos posteriormente por AnalÃ­tica de adherencia y Seguimiento familiar.
-
-![Bounded Context Canvas - OmisiÃ³n y escalamiento](assets/bounded-context-canvas-omision-escalamiento.png)
-
-*Figura. Bounded Context Canvas de OmisiÃ³n y escalamiento.*
-
-##### Seguimiento familiar
-
-El contexto **Seguimiento familiar** representa la visiÃ³n del dominio orientada al familiar o cuidador. Su responsabilidad es reunir y presentar la informaciÃ³n necesaria para conocer el estado reciente del adulto mayor y facilitar una intervenciÃ³n cuando sea necesaria.
-
-Este contexto recibe informaciÃ³n producida por EjecuciÃ³n de tomas, OmisiÃ³n y escalamiento y AnalÃ­tica de adherencia. A partir de ella permite construir un resumen familiar, consultar informaciÃ³n relevante y registrar acciones como notas del cuidador.
-
-El contexto no recalcula la adherencia ni decide cuÃ¡ndo una toma se convierte en una omisiÃ³n; consume los resultados generados por los contextos responsables de esas reglas.
-
-![Bounded Context Canvas - Seguimiento familiar](assets/bounded-context-canvas-seguimiento-familiar.png)
-
-*Figura. Bounded Context Canvas de Seguimiento familiar.*
-
-##### Accesibilidad y preferencias
-
-El contexto **Accesibilidad y preferencias** administra las configuraciones que permiten adaptar la interacciÃ³n con Tata segÃºn las necesidades de cada usuario.
-
-Incluye elementos como el tamaÃ±o de texto, contraste reforzado, reducciÃ³n de movimiento, confirmaciÃ³n por voz, ayuda de lectura, horario de silencio y canales de notificaciÃ³n.
-
-Estas preferencias poseen un carÃ¡cter transversal debido a que pueden condicionar el comportamiento de otras Ã¡reas del producto. Sin embargo, mantenerlas dentro de un modelo propio evita que cada contexto deba definir nuevamente las reglas relacionadas con la configuraciÃ³n personal del usuario.
+YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éí×Nıßtèµ©hºÚn¶X§zÍHÈØ\0ë][ÈRNˆ™\]Z\™[Y[È]™[ÜY[[™ÛÙØ\™HÛÛ][Ûˆ\ÚYÛƒBˆÈÈ‹ŒKˆÛÛ\]YÜ™\ÃBƒB”\˜H[[°è[\Ú\ÈÛÛ\]]]›ÈH]HÙHY[YšXØ\›Ûˆ™\ÈÛÛXÚ[Û™\ÈYÚ][\È™[XÚ[Û˜Y\ÈÛÛˆ[İZYYÈ™[[İÈHHY\™[˜ÚXH[˜][ZY[ÈpêYXÛÈH\œÛÛ˜\ÈX^[Ü™\ËˆÙHÛÛœÚY\˜\›ÛˆÛÛ\]YÜ™\È\™XİÜÈİ^[ÈXÛ[È[›ÙXİÈÙXH[™XÛÜ™]Üš[ÈHYYXØXÚpìÛˆÛÛˆ[\\È[İZYYÜ‹\ğëHÛÛ[È[ˆÛÛ\]YÜˆ[™\™XİÈÜšY[YÈHHÛÛÜ™[˜XÚpìÛˆ˜[Z[X\ˆ[İZYYÈ[ˆÙ[™\˜[ƒBƒBŠŠÛÛ\]YÜˆNˆYY\ØY™JŠˆœƒB\XØXÚpìÛˆH™XÛÜ™]Üš[ÈHYYXØ[Y[ÜÈÛÛˆpè\ÈHLZ[Û™\ÈH\İX\š[ÜÈHš]™[ÛØ˜[ˆ\›Z]H›ÙÜ˜[X\ˆÜÚ\Ë™YÚ\İ˜\ˆHÛXHKYYX[HİH[˜ÚpìÛˆ“YYœšY[™‹›İYšXØ\ˆH[ˆ˜[Z[X\ˆİX[™È[˜HÜÚ\ÈYHÛZ]YKˆİY[HÛÛˆ[ˆ[ˆÜ˜]Z]È[Z]YÈH[ˆ[ˆ™[Z][HY[œİX[Ø[X[ÛÛˆ™\Ü\ÈHY\™[˜ÚXH[[Z]YÜËƒBƒBŠŠÛÛ\]YÜˆˆ^U\˜\JŠˆœƒB\XØXÚpìÛˆÜ˜]Z]H\Ø\œ›ÛYHÜˆH[\™\ØH[[X[˜HÛX\]Y[ÛX’ÜšY[YHH™XÛÜ™]Üš[ÜÈHYYXØXÚpìÛˆHX\š[ÈHØ[Y
+ğë[ÛX\ËYYXÚ[Û™\ÊKˆ›È™\]ZY\™Hİ\ØÜš\ÚpìÛˆHYÛÈHÜ\˜H˜Z›È\İ0è[™\™\ÈHš]˜XÚYYÑ‹\›ÈİH[˜ÚpìÛˆH[Ûš]Ü™[È™[[İÈ\˜H[ˆ˜[Z[X\ˆ\È[Z]YHœ™[HHÛÛXÚ[Û™\È\ÜXÚX[^˜Y\È[ˆİZYYÈH\İ[˜ÚXKƒBƒBŠŠÛÛ\]YÜˆÎˆØ\š[™Èš[YÙJŠˆœƒB”]Y›Ü›XHHÛÛÜ™[˜XÚpìÛˆHİZYYÈ˜[Z[X\ˆ]YH[YÜ˜H\İ\ÈH\™X\ËØ[[™\š[ÈÛÛ\\YË[XXÙ[˜[ZY[ÈHØİ[Y[ÜÈH™XÛÜ™]Üš[ÜÈHYYXØXÚpìÛˆ°è\ÚXÛÜÈ[›ÈH[ˆ˜ğë\˜İ[ÈHİZYYÈˆÛÛˆpî›\\ÈİZYYÜ™\ËˆİH[™›Ü]YH\Èpè\È[\[È]YHHÛÛHY\™[˜ÚXHHYYXØ[Y[ÜËÜˆÈ]YH›È\İ0èHÜ[Z^˜YH\˜HHÚ[\XÚYYH\ÛÈ]YH™\]ZY\™H[ˆY[ÈX^[ÜˆÛÛˆ˜Z˜H[˜X™]^˜XÚpìÛˆYÚ][ƒBƒBˆÈÈÈ‹ŒKŒKˆ[°è[\Ú\ÈÛÛ\]]]›ÃBƒBX›OƒBˆƒBˆÛÛÜ[HŒˆˆİ[OH˜˜XÚÙÜ›İ[™XÛÛÜˆÙ™˜NÈ^X[YÛˆYÈ°¯ÔÜˆ]pêH]˜\ˆHØX›È\İH[°è[\Ú\ÏÏİƒBˆÛÛÜ[H”ÙH\ØØHÛÛ˜\İ\ˆH›ÜY\İHH˜[ÜˆH]Hœ™[HHÛÛXÚ[Û™\È^\İ[\ÈH™XÛÜ™]Üš[ÈHYYXØXÚpìÛˆHÛÛÜ™[˜XÚpìÛˆHİZYYËY[YšXØ[™È˜Xğë[ÜÈ]YH]HYYHİXœš\‹\Xİ[\›Y[H[ˆHÛÛXš[˜XÚpìÛˆHXØÙ\ÚXš[YY\˜H[Y[ÈX^[ÜˆH[XÚ\XÚpìÛˆHÛšYÜÈYYX[H]XØÚpìÛˆH]›Û™\ËİƒBˆİƒBƒBˆˆ[YÛH˜Ù[\ˆƒBˆÚYHŒL‰H”\™š[ÈÜš]\š[ÏİƒBˆÚYHŒN	H”İX˜Üš]\š[ÏİƒBˆÚYHŒMËIHƒBˆ[YÈÜ˜ÏH‹‹Ø\ÜÙ]ËÕ]Kœ™Èˆ[H•]HÙÛÈˆÚYHLœƒBˆ•]H
+š]RX[
+OØƒBˆİƒBˆÚYHŒMËIHƒBˆ[YÈÜ˜ÏH‹‹Ø\ÜÙ]ËÓYY\ØY™Kœ™Èˆ[H“YY\ØY™HÙÛÈˆÚYHLœƒBˆ“YY\ØY™OØƒBˆİƒBˆÚYHŒMËIHƒBˆ[YÈÜ˜ÏH‹‹Ø\ÜÙ]ËÓ^U\˜\KšœÈˆ[H“^U\˜\HÙÛÈˆÚYHLœƒBˆ“^U\˜\OØƒBˆİƒBˆÚYHŒMËIHƒBˆ[YÈÜ˜ÏH‹‹Ø\ÜÙ]ËĞØ\š[™Õš[YÙKœ™Èˆ[HØ\š[™Èš[YÙHÙÛÈˆÚYHLœƒBˆØ\š[™Èš[YÙOØƒBˆİƒBˆİƒBƒBˆƒBˆÛÛÜ[HŒˆ“İ™\šY]È\™š[ØİƒBˆ\XØXÚpìÛˆpìİš[[™›ØØYH[ˆHY\™[˜ÚXHHYYXØ[Y[ÜÈ\˜HY[ÜÈX^[Ü™\ÈÛÛˆ˜Z˜H[˜X™]^˜XÚpìÛˆYÚ][YYX[HÛÛ™š\›XXÚpìÛˆÜˆ›ŞˆÈ[ˆÛÛÈÜ]YKH[ˆ[™[H[Ûš]Ü™[È[ˆY[\È™X[\˜HH˜[Z[XKİƒBˆ\XØXÚpìÛˆH™XÛÜ™]Üš[ÈHYYXØXÚpìÛˆÛÛˆ[˜ÚpìÛˆH[\H[İZYYÜˆ
+YYœšY[™
+H[HÜÚ\ÈÛZ]Y\ËİƒBˆ\XØXÚpìÛˆÜ˜]Z]HH™XÛÜ™]Üš[ÈHYYXØXÚpìÛˆHX\š[ÈHØ[YÚ[ˆ›ØÛÈ\ÜXğëYšXÛÈ[ˆİZYYÜ™\È™[[İÜËİƒBˆ”]Y›Ü›XHHÛÛÜ™[˜XÚpìÛˆ[İZYYÈ˜[Z[X\ˆÛÛˆpî›\\ÈİZYYÜ™\ËØ[[™\š[ÈH\™X\ÈÛÛ\\Y\ËİƒBˆİƒBƒBˆƒBˆÛÛÜ[HŒˆ•™[Z˜HÛÛ\]]]˜HÈ0¯Ô]pêH˜[ÜˆÙœ™XÙHHÜÈÛY[\ÏÏØİƒBˆ’[\™˜^ˆ[˜HÚ[\YšXØYH
+›Ş‹İ[ˆÜ]YJH\ÙpìXYH\˜HY[ÜÈX^[Ü™\È
+È[XÚ\XÚpìÛˆHÛšYÜÈYYX[H]XØÚpìÛˆH]›Û™\ËİƒBˆ[\XH˜\ÙHH\İX\š[ÜÈH›Ø\İH˜\ÙHH]ÜÈÛØœ™H[\˜XØÚ[Û™\È[™HYYXØ[Y[ÜËİƒBˆ‘Ü˜]Z]HÚ[ˆ0ë[Z]\Ë[™›Ü]YH[YÜ˜[[ˆØ[Y
+›ÈÛÛÈ[™›ØØYÈ[ˆYYXØXÚpìÛŠKİƒBˆÛÛÜ™[˜XÚpìÛˆ[™H˜\š[ÜÈİZYYÜ™\È˜[Z[X\™\Ë›ÈÛÛÈ[ˆÛÛXİÈH[\KİƒBˆİƒBƒBˆƒBˆ›İÜÜ[HŒˆˆ[YÛH˜Ù[\ˆˆİ[OH™\XØ[X[YÛˆZYNÈ”\™š[HX\šÙ][™ÏØİƒBˆ“Y\˜ØYÈØš™]]›ÏØİƒBˆ‘˜[Z[X\È[YpìX\ÈÛÛˆY[ÜÈX^[Ü™\ÈHNHpì[ÜÈ]YHš]™[ˆÛÛÜÈÈÛÛˆØØHÛÛ\pìpëXKİƒBˆ•\İX\š[ÜÈ[™]šYX[\ÈHš]™[ÛØ˜[ÛÛˆ˜][ZY[ÜÈÜ°ìÛšXÛÜËÛÛˆÜÚpìÛˆHÛÛ\\\ˆ[™›Ü›XXÚpìÛˆÛÛˆ[ˆ˜[Z[X\‹İƒBˆ”\œÛÛ˜\È]YHÙ\İ[Û˜[ˆİH›ÜXHYYXØXÚpìÛˆH\ØØ[ˆ[˜H[\›˜]]˜HÜ˜]Z]KİƒBˆ‘˜[Z[X\ÈÛÛˆpî›\\ÈİZYYÜ™\È]YHÛÛÜ™[˜[ˆ[İZYYÈ[YÜ˜[H[ˆY[ÈX^[Ü‹İƒBˆİƒBˆƒBˆ‘\İ˜]YÚX\ÈHX\šÙ][™ÏØİƒBˆÙ\˜Ø[°ëXHØØ[[X[˜\È\İ˜]0êYÚXØ\ÈÛÛˆÛ0ë[šXØ\Ë˜\›XXÚX\ÈH\ÙYİ\˜YÜ˜\È
+Ø[˜[ŒŒÊKİƒBˆ“X\šÙ][™ÈYÚ][X\Ú]›ÈHÜÚXÚ[Û˜[ZY[ÈÜ™ğè[šXÛËÜYØYÈ[ˆ\İÜ™\ÈÛØ˜[\ËİƒBˆ”ÜÚXÚ[Û˜[ZY[ÈÜˆÜ˜]ZYYHİ[\[ZY[È\İšXİÈHš]˜XÚYY
+ÑŠKİƒBˆ”ÜÚXÚ[Û˜[ZY[È[ˆÛÛ][šYY\ÈHİZYYÜ™\È˜[Z[X\™\È
+›ÙÜËİpëX\ÈHÛÜÜJKİƒBˆİƒBƒBˆƒBˆ›İÜÜ[HŒÈˆ[YÛH˜Ù[\ˆˆİ[OH™\XØ[X[YÛˆZYNÈ”\™š[H›ÙXİÏØİƒBˆ”›ÙXİÜÈ	ˆÙ\šXÚ[ÜÏØİƒBˆ\XØXÚpìÛˆpìİš[
+Y[ÈX^[Üˆ
+È˜[Z[X\ŠH
+È™XÛÛ›ØÚ[ZY[ÈH›Şˆ
+È]XØÚpìÛˆH]›Û™\ÈHÛšYËİƒBˆ\XØXÚpìÛˆpìİš[H™XÛÜ™]Üš[ÜÈ
+ÈÙYİZ[ZY[ÈH[\˜XØÚ[Û™\È
+È™\Ü\ÈHY\™[˜ÚXKİƒBˆ\XØXÚpìÛˆpìİš[H™XÛÜ™]Üš[ÜÈ
+ÈX\š[ÈHØ[Y
+ÈÚ[˜Ü›Ûš^˜XÚpìÛˆÛÛˆ\HX[ÈÛÛÙÛHš]İƒBˆ\XØXÚpìÛˆpìİš[HÛÛÜ™[˜XÚpìÛˆHİZYYÈ
+È™XÛÜ™]Üš[ÜÈ°è\ÚXÛÜÈ
+È[XXÙ[˜[ZY[ÈHØİ[Y[ÜËİƒBˆİƒBˆƒBˆ”™XÚ[ÜÈ	ˆÛÜİÜÏØİƒBˆ“[Ù[Èœ™Y[Z][HÛÛˆİ\ØÜš\ÚpìÛˆY[œİX[\˜H[˜[Z[X\ˆ
+[ˆ™[Z][JKİƒBˆ‘Ü˜]Z]È
+[Z]YÈHˆYYXØ[Y[ÜÊHÈ™[Z][HHTÑNHY[œİX[ÈTÑÎKNH[X[İƒBˆ‘Ü˜]\ËÚ[ˆ]\›ÈHYÛËİƒBˆ‘Ü˜]\ËİƒBˆİƒBˆƒBˆØ[˜[\ÈH\İšXXÚpìÛˆ
+ÙXˆKÛÈpìİš[
+OØİƒBˆ\XØXÚpìÛˆpìİš[˜]]˜H
+[™›ÚYÚSÔÊH
+ÈÚ][ÈÙXˆ
+[™[™ÈYÙJKİƒBˆ\XØXÚpìÛˆpìİš[
+SÔËĞ[™›ÚY
+KİƒBˆ\XØXÚpìÛˆpìİš[
+SÔËĞ[™›ÚY
+KİƒBˆ\XØXÚpìÛˆpìİš[
+SÔËĞ[™›ÚY
+H
+È™\œÚpìÛˆÙX‹İƒBˆİƒBˆBˆƒBˆ›İÜÜ[Hˆ[YÛH˜Ù[\ˆˆİ[OH™\XØ[X[YÛˆZYNÈ[°è[\Ú\ÈÕÓÕØİƒBˆ‘›Ü[^˜\ÏØİƒBˆ’[\™˜^ˆ\ÙpìXYH\ÜXğëYšXØ[Y[H\˜H˜Z˜H[˜X™]^˜XÚpìÛˆYÚ][
+›Ş‹İ[ˆÜ]YJNÈ]XØÚpìÛˆH]›Û™\ÈHÛšYÈÛÛ[ÈY™\™[˜ÚXYÜˆ0î›šXÛËİƒBˆ˜\ÙHH\İX\š[ÜÈX\Ú]˜H
+
+ÌLJHH›Ø\İ^ˆ[ˆ[ÙYİZ[ZY[ÈH[\˜XØÚ[Û™\ÈYYXØ[Y[ÜØ\ËİƒBˆ‘Ü˜]ZYYİ[Ú[ˆ]\›ÈHYÛÎÈY[ˆÜÚXÚ[Û˜[ZY[È[ˆš]˜XÚYYH]ÜÈ
+İ[\[ZY[ÈÑŠKİƒBˆÛÛÜ™[˜XÚpìÛˆ[™Hpî›\\ÈİZYYÜ™\È˜[Z[X\™\Ë›ÈÛÛÈ[ˆÛÛXİÈ0î›šXÛÈH[\KİƒBˆİƒBˆƒBˆ‘Xš[YY\ÏØİƒBˆ”İ\\Y]˜HÚ[ˆ˜\ÙHH\İX\š[ÜÈšH™XÛÛ›ØÚ[ZY[ÈHX\˜ØNÈ™Xİ\œÛÜÈ[Z]YÜÈœ™[HH\XØXÚ[Û™\ÈÛÛœÛÛYY\ËİƒBˆ’[\™˜^ˆ›ÈÜ[Z^˜YH\˜HY[ÜÈX^[Ü™\ÈÛÛˆ˜Z˜H[˜X™]^˜XÚpìÛˆYÚ][È™\œÚpìÛˆÜ˜]Z]H[Z]YHHˆYYXØ[Y[ÜËİƒBˆ“[Ûš]Ü™[È™[[İÈ\˜H[˜[Z[X\ˆ[Z]YÎÈÚ[ˆ[˜ÚpìÛˆH[XÚ\XÚpìÛˆHÛšYÜËİƒBˆ‘[™›Ü]YHÙ[™\˜[\İH]YH[^YHH\ÜXÚX[^˜XÚpìÛˆ[ˆYYXØXÚpìÛÈ›È\ÙpìXYH\˜H\ÛÈ]]0ìÛ›Û[È[Y[ÈX^[Ü‹İƒBˆİƒBˆƒBˆ“ÜÜ[šYY\ÏØİƒBˆ“Y\˜ØYÈ\X[›ÈHØ[YYÚ][\˜HY[ÜÈX^[Ü™\ÈØÛÈ][™YÎÈ[X[˜\ÈŒŒÈÛÛˆÛ0ë[šXØ\ÈH\ÙYİ\˜YÜ˜\ËİƒBˆ‘^[œÚpìÛˆHY\˜ØYÜÈ][›Ø[Y\šXØ[›ÜÈ›È^İYÜËİƒBˆ[\X\ˆ[˜Ú[Û™\È\šYÚY\È[İZYYÜˆH]\›ËİƒBˆ’[YÜ˜\ˆ[˜Ú[Û™\Èpè\È\ÜXğëYšXØ\ÈHØ[YHÙYİZ[ZY[ÈÛ0ë[šXÛËİƒBˆİƒBˆƒBˆ[Y[˜^˜\ÏØİƒBˆ\XØXÚ[Û™\ÈÛØ˜[\ÈÜ˜]Z]\È]YH™YXÙ[ˆH\ÜÜÚXÚpìÛˆHYØ\ÈÜÚX›H[˜YHHÛÛ\]YÜ™\ÈØØ[\ÈÛÛˆX^[Üˆ™\Ü[ËİƒBˆ”ÛÛXÚ[Û™\ÈØØ[\Èpè\ÈÚ[\\ÈHXÛÛ°ìÛZXØ\ÈÜšY[Y\È\ÜXğëYšXØ[Y[H[ÙYÛY[ÈHY[ÜÈX^[Ü™\ËİƒBˆ[Ù\ˆÜ˜]Z]K™\Ú[Û˜HH]HH\İYšXØ\ˆÛ\˜[Y[H[˜[Üˆ[Û™]\š[ÈHİH[Ù[Èœ™Y[Z][KİƒBˆ\XØXÚ[Û™\È\ÜXÚX[^˜Y\ÈÛÛ[È]KÛÛˆ›ØÛÈ^Û\Ú]›È[ˆYYXØXÚpìÛ‹YY[ˆØ\\ˆ[ÙYÛY[È]YH\ØØH\ØH›Ù[™YYİƒBˆİƒBİX›OƒBƒBˆÈÈÈ‹ŒKŒ‹ˆ\İ˜]YÚX\ÈH0èXİXØ\Èœ™[HHÛÛ\]YÜ™\ÃBƒB”\˜HÜÚXÚ[Û˜\ˆH
+Š•]JŠˆHX[™\˜HğìÛYHœ™[HH\È[\›˜]]˜\È[Y\˜ØYËÙH\İX›XÙ[ˆ\İ˜]YÚX\È\ÜXğëYšXØ\ÈÙYğî›ˆ[\™š[HØYHÛÛ\]YÜ‹ÛÛ\[Y[Y\ÈÛÛˆ[˜H0èXİXØH˜[œİ™\œØ[HY]Z\ÚXÚpìÛˆØØ[ƒBƒBŠˆ
+Š‘œ™[HHYY\ØY™H
+Y™\™[˜ÚXXÚpìÛˆÜˆXØÙ\ÚXš[YY^™[XJNŠŠˆZY[˜\ÈYY\ØY™HÙH[™›ØØH[ˆ[ÙYİZ[ZY[ÈÛ0ë[šXÛÈ]˜[˜YÈH[ˆ[È›Û[Y[ˆH\İX\š[ÜË]HÙ[˜\°èHİH›ÜY\İH[ˆ[[Z[˜\ˆ˜\œ™\˜\ÈH\ÛËˆÙH\XØ\°èH[ˆ\İ[ÈÛÛ[[ÈHH[\™˜^ˆHÛÛ™š\›XXÚpìÛˆÜˆ›ŞˆH[ˆÛÛÈÜ]YHÛÛˆY[ÜÈX^[Ü™\È™X[\È[ÙYÛY[ÈØš™]]›Ë]š][™ÈHÛØœ™XØ\™ØHH[˜Ú[Û™\È]YHYšXİ[HHYÜÚpìÛˆ]]0ìÛ›ÛXH[ˆ]Y›Ü›X\ÈÛÛ\Z˜\ËƒBƒBŠˆ
+Š‘œ™[HH^U\˜\H
+ÜÚXÚ[Û˜[ZY[ÈÜˆ˜[ÜˆYÜ™YØYÈœËˆÜ˜]ZYY
+NŠŠˆ[HH™[Z˜HHÜ˜]ZYYİ[H^U\˜\K]H›ÈÛÛ\]\°èHÜˆ™XÚ[ËÚ[›ÈÜˆ[˜[ÜˆY™\™[˜ÚX[HH]XØÚpìÛˆH]›Û™\ÈHÛšYÈH[[™[H[Ûš]Ü™[È˜[Z[X\ˆ[ˆY[\È™X[ˆ\İH›ÜY\İHÙHÛÛ][šXØ\°èHÛ\˜[Y[H[ˆH[™[™ÈYÙHHH\\˜H\İYšXØ\ˆ[[Ù[È
+™œ™Y[Z][J‹ƒBƒBŠˆ
+Š‘œ™[HHØ\š[™Èš[YÙH
+\ÜXÚX[^˜XÚpìÛˆ^Û\Ú]˜JNŠŠˆYÈ]YHØ\š[™Èš[YÙHÙHÜšY[HHHÛÛÜ™[˜XÚpìÛˆÙ[™\˜[[İZYYÈ
+Ø[[™\š[Ë\™X\ÈHØİ[Y[ÜÊK]HX[[™°èHİH›ØÛÈ^Û\Ú]›È[ˆHY\™[˜ÚXHHYYXØ[Y[ÜËˆ\İH0èXİXØH]š]HH\Ü\œÚpìÛˆ[˜Ú[Û˜[H]Y[™HH›Ü›XH\™XİH[›Ø›[XHÙ[˜[Y[YšXØYÈ[ˆH[™\İYØXÚpìÛ‹ƒBƒBŠˆ
+Š•0èXİXØH˜[œİ™\œØ[HY]Z\ÚXÚpìÛˆ
+Ø[˜[ŒŒÈØØ[
+NŠŠˆÙH\İX›XÙ\°è[ˆ[X[˜\È\İ˜]0êYÚXØ\ÈÛÛˆÛ0ë[šXØ\ÈÙ\špè]šXØ\ÈH˜\›XXÚX\È[ˆ[XHY]›ÜÛ][˜H\˜HXÙ[\˜\ˆHØ\\˜HH\İX\š[ÜÈH˜]°ê\ÈH[ˆØ[˜[ØØ[]YHš[™İ[›ÈHÜÈ™\ÈÛÛ\]YÜ™\È[\›˜XÚ[Û˜[\È\›İ™XÚHXİX[Y[KƒBƒBˆÈÈ‹Œ‹ˆ[™]š\İ\ÃBƒBˆÈÈÈ‹Œ‹ŒKˆ\Ùpì[ÈH[™]š\İ\ÃBƒB”\˜HØYHÙYÛY[ÈØš™]]›ÈÙH\ÙpìpìÈ[˜HİpëXHH[™]š\İHÙ[ZY\İXİ\˜YKˆ\İHÙHÛÛ\Û™HH™Yİ[\Èš[˜Ú\[\È]YHX›Ü™[ˆ\™Xİ[Y[HÜÈØš™]]›ÜÈHH[™\İYØXÚpìÛˆH™Yİ[\ÈÛÛ\[Y[\šX\È]YH\›Z][ˆ›Ù[™^˜\ˆÙYğî›ˆ\È™\ÜY\İ\È[[™]š\İYËƒBƒB‘[\Ùpì[È\ØØH™XÛÛXİ\ˆ[™›Ü›XXÚpìÛˆH[X›ÜÈÙYÛY[ÜÈÛØœ™NƒBŠˆ
+Š‘]ÜÈ[[ÙÜ°èYšXÛÜÈHÛÛ^ÎŠŠˆğê[™\›ËYY\İš]ÈH™\ÚY[˜ÚXK\İYÈÚ]š[ÛÛ\ÜÚXÚpìÛˆ˜[Z[X\ˆHØİ\XÚpìÛ‹ƒBŠˆ
+Š”\™š[İX[]]]›ÎŠŠˆ\œÛÛ˜[YYXš[YY\ËYš[šYYÜˆX\˜Ø\Ë[™›Y[˜ÚX\ÈH\ÜÜÚ]]›ÜÈ™Y™\šYÜËƒBŠˆ
+ŠÛÛ\Ü[ZY[ÈYÚ][ŠŠˆØ[˜[\ÈYÚ][\ÈH[\˜XØÚpìÛˆH\ÛÈH\Ú\İ[\ÈÈÛÛX[™ÜÈH›Ş‹ƒBŠˆ
+Š‘ÛZ[š[È[›Ø›[XNŠŠˆØš™]]›ÜËœ\İ˜XÚ[Û™\ÈH[XÙY[\ÈÈš[ÙÜ˜Y°ëXH™[]˜[Hš[˜İ[YHHHY\™[˜ÚXHHHYYXØXÚpìÛˆH[İZYYÈ™[[İËƒBƒB‹KKCBƒBˆÈÈÈÈİpëXHH[™]š\İHHÙYÛY[ÈY[ÈX^[ÜƒBƒBŠŠ”™Yİ[\È[[ÙÜ°èYšXØ\ÈHHÛÛ^ÊŠˆœƒBŠŠŒKŠŠˆ0¯ÔÙ°ëXHÛÛ\›YH[ˆØÛÈÛØœ™H\İYˆİHYY\İš]ÈÛ™Hš]™HHÛÛˆ]Zpê[ˆš]™HXİX[Y[OÈœƒBŠŠŒ‹ŠŠˆ0¯ĞH]pêHÙHYXØX˜H[\ÈHXš[\œÙKHğìÛ[È\ØÜšXš\°ëXH[ˆ0ëXH0ë\XÛÈİ^[ÈXİX[Y[OÈœƒBƒBŠŠ”™Yİ[\ÈÛØœ™H[›Ø›[XH
+YYXØXÚpìÛŠJŠˆœƒBŠŠŒËŠŠˆ0¯Ô]pêHYYXØ[Y[ÜÈÛXHXİX[Y[HHÛÛˆ]pêHœ™XİY[˜ÚXOÈœƒBŠŠŠŠˆ0¯ĞğìÛ[È™XİY\™H\İYHÜ˜H[ˆ]YHX™HÛX\ˆØYHYYXØ[Y[ÏÈœƒBŠŠKŠŠˆ0¯ÓHH\ØYÈ[İ[˜H™^ˆÛšY\œÙHHÛX\ˆ[ˆYYXØ[Y[ÏÈ0¯Ô]pêHØİ\œšpìÈ\Üpê\ÏÈœƒBŠŠ‹ŠŠˆ0¯Ğ[İZY[ˆHİH˜[Z[XHH™Yİ[HÈ™\šYšXØHÚHÛpìÈİ\ÈYYXØ[Y[ÜÏÈ0¯ĞğìÛ[ÈÈXÙH
+[XYKš\Ú]KY[œØZ™JOÈœƒBƒBŠŠ”™Yİ[\ÈÛØœ™HXÛ›ÛÙğëXJŠˆœƒBŠŠËŠŠˆ0¯Ô]pêH\ÈHÙ[[\ˆ\ØH
+°è\ÚXÛÈÈÛX\Û™JHH]pêH\XØXÚ[Û™\È\ØHÛÛˆpè\Èœ™XİY[˜ÚXOÈœƒBŠŠŠŠˆ0¯ÒH\ØYÈ[İ[˜H™^ˆÛÛX[™ÜÈH›Şˆ[ˆİHÙ[[\ˆ
+ÛÛ[È\Ú\İ[\ÈH›ŞŠOÈ0¯ĞğìÛ[ÈYH\ØH^\šY[˜ÚXOÈœƒBŠŠKŠŠˆ0¯Ô]pêHH™\İ[HY°ëXÚ[È[˜ğìÛ[ÙÈ[\Ø\ˆ\XØXÚ[Û™\ÈY]˜\È[ˆİHÙ[[\ÈœƒBƒBŠŠ”™Yİ[\ÈÛØœ™Hœ\İ˜XÚ[Û™\ÈHØš™]]›ÜÊŠˆœƒBŠŠŒLŠŠˆ0¯Ô]pêH\ÈÈ]YHpè\ÈH™[Øİ\H[ˆ™[XÚpìÛˆÛÛˆİHØ[YHİH˜][ZY[ÈpêYXÛÏÈœƒBŠŠŒLKŠŠˆ0¯Ô]pêHHİ\İ\°ëXH]YHY\˜Hpè\È°èXÚ[[ˆİH0ëXHH0ëXH™\ÜXİÈ[İZYYÈHİHØ[YÈœƒBƒB‹KKCBƒBˆÈÈÈÈİpëXHH[™]š\İHHÙYÛY[È˜[Z[X\ƒBƒBŠŠ”™Yİ[\È[[ÙÜ°èYšXØ\ÈHHÛÛ^ÊŠˆœƒBŠŠŒKŠŠˆ0¯ÔÙ°ëXHÛÛ\›YHÛØœ™H\İYˆYY\İš]ÈÛ™Hš]™KØİ\XÚpìÛˆHÛÛ\ÜÚXÚpìÛˆHİH˜[Z[XOÈœƒBŠŠŒ‹ŠŠˆ0¯ĞÛÛˆ]pêHœ™XİY[˜ÚXH™HÈÙHÛÛ][šXØHÛÛˆİH˜[Z[X\ˆY[ÈX^[ÜÈœƒBƒBŠŠ”™Yİ[\ÈÛØœ™H[›Ø›[XH
+İ\\š\ÚpìÛˆ™[[İJJŠˆœƒBŠŠŒËŠŠˆ0¯ĞğìÛ[ÈÙH[\˜H\İYÚHİH˜[Z[X\ˆÛpìÈİHYYXØXÚpìÛˆ[ˆ[Ü˜\š[È[™XØYÏÈœƒBŠŠŠŠˆ0¯Ô]pêHXÙHİX[™È›È\İ0èHÙYİ\›ÈHÚHHÛpìÈ
+[XK[°ëXHY[œØZ™KYHH[İZY[ˆ]YHÈš\Ú]JOÈœƒBŠŠKŠŠˆ0¯Ğİpè[ÈY[\È\°ëXH]YHHÛXK[ˆ›ÛYY[ËXÙ\ˆ\İH\ÈHÙYİZ[ZY[ÈHHÙ[X[˜OÈœƒBŠŠ‹ŠŠˆİpê[[YHÛØœ™H[İ[˜H™^ˆ[ˆH]YHÙH[\°ìÈ\™HH]YHİH˜[Z[X\ˆ›ÈÛpìÈİHYYXØ[Y[Ëˆ0¯Ô]pêH\ğìÏÈœƒBƒBŠŠ”™Yİ[\ÈÛØœ™HXÛ›ÛÙğëXJŠˆœƒBŠŠËŠŠˆ0¯Ô]pêH\XØXÚ[Û™\È\ØHXš]X[Y[H[ˆİHÙ[[\ˆ
+™Y\ÈÛØÚX[\ËY[œØZ™\°ëXKØ[Y
+OÈœƒBŠŠŠŠˆ0¯ÒH\ØYÈ[İ[˜H\XØXÚpìÛˆ\˜H[İZYYÈH[ˆ˜[Z[X\È0¯Ğİpè[H]pêHH\™XÚpìÏÈœƒBŠŠKŠŠˆ0¯Ô]pêH[ˆğìÛ[ÙÈÙHÚY[HÛÛ™šYİ\˜[™È[\\ÈÈ›İYšXØXÚ[Û™\È[ˆ\XØXÚ[Û™\Èpìİš[\ÏÈœƒBƒBŠŠ”™Yİ[\ÈÛØœ™Hœ\İ˜XÚ[Û™\ÈHØš™]]›ÜÊŠˆœƒBŠŠŒLŠŠˆ0¯Ô]pêH\ÈÈ]YHpè\ÈHÙ[™\˜H[œÚYYYÈ™[Øİ\XÚpìÛˆ™\ÜXİÈ[İZYYÈHİH˜[Z[X\ˆH\İ[˜ÚXOÈœƒBŠŠŒLKŠŠˆÚHYY\˜H[™\ˆ[˜H\œ˜[ZY[HYX[\˜H\İH›Ø›[XK0¯Ü]pêH\ÈÈš[Y\›È]YHHİ\İ\°ëXH]YHH[Üİ˜\˜HÈH]š\Ø\˜OÈœƒBƒBˆÈÈÈ‹Œ‹Œ‹ˆ™YÚ\İ›ÈH[™]š\İ\ÃBƒB“\È[™]š\İ\ÈÙH™X[^˜\›ÛˆÛÛˆ™\™\Ù[[\ÈHÜÈÜÈÙYÛY[ÜÈØš™]]›ÈH]Kˆ[›Ü0ìÜÚ]ÈYHÛÛ›ØÙ\ˆğìÛ[ÈÙ\İ[Û˜[ˆXİX[Y[HHYYXØXÚpìÛ‹]pêHYšXİ[Y\È\\™XÙ[ˆ\˜[H\İH›ØÙ\ÛÈHğìÛ[È[\šY[™[ˆÜÈ˜[Z[X\™\ÈİX[™È[ÙYİZ[ZY[ÈÙH™X[^˜HH\İ[˜ÚXKƒBƒB”\˜HØYH\XÚ\[HÙH™YÚ\İ˜\›Ûˆİ\È]ÜÈš[˜Ú\[\Ë[˜HØ\\˜HHHÙ\ÚpìÛ‹H\˜XÚpìÛˆHH[™]š\İHH[[›XÙHHXØÙ\ÛËˆY[pè\ËÙH[X›Ü°ìÈ[ˆ™\İ[Y[ˆ\ØÜš\]›ÈÛÛˆÜÈ\ÜXİÜÈpè\È™[]˜[\ÈØ[šYÜÈ\˜[HHÛÛ™\œØXÚpìÛ‹ƒBƒBˆÈÈÙYÛY[ÈNˆY[ÜÈX^[Ü™\ÃBƒB‘\İHÙYÛY[È\İ0èHÛÛ™›Ü›XYÈÜˆY[ÜÈX^[Ü™\È]YHÚYİY[ˆ[›ÈÈpè\È˜][ZY[ÜÈHÙ\İ[Û˜[ˆ\™Xİ[Y[Hİ\ÈYYXØ[Y[ÜËˆ\È[™]š\İ\È\ØØ[ˆÛÛ›ØÙ\ˆİ\È][˜\ÈXİX[\Ë\ÈYšXİ[Y\È]YH^\š[Y[[ˆ\˜H™XÛÜ™\ˆÈÛÛ™š\›X\ˆ[˜HÛXHHİH™[XÚpìÛˆÛÛˆ[\ÛÈH\ÜÜÚ]]›ÜÈpìİš[\ËƒBƒBX›OƒBˆ›ÙOƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆİ›Û™Ï‘[™]š\İH‹°¬OÜİ›Û™ÏİƒBˆİƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆƒBˆ[YÈÜ˜ÏH˜\ÜÙ]ËÜÙYÛY[ËLKY[™]š\İKLK[X[Y[]Üœ™\Ëœ™Èˆ[H‘[™]š\İH[ÙYÛY[ÈK\XÚ\[HHˆÚYHLƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™Ï’[™›Ü›XXÚpìÛˆ[[™]š\İYÏÜİ›Û™ÏİƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™ÏÛÛ^ÈHH[™]š\İOÜİ›Û™ÏİƒBˆİƒBˆƒBˆİ›Û™Ï“›ÛXœ™HÛÛ\]ÏÜİ›Û™ÏİƒBˆ“X[Y[[™\ÈÜœ™\ÈX[X[°ëOİƒBˆİ›Û™Ï•˜][ZY[ÈÈYYXØXÚpìÛÜİ›Û™ÏİƒBˆ“ÜØ\0è[ˆ
+XpìX[˜JHH[[Ù\[›È
+\™JH\˜H\\[œÚpìÛÈÙ[XÛŞXˆŒYÈ[HÛÜˆHÛÛ[[˜NÈ]Ü˜\İ][˜H\˜HÛÛ\İ\›ÛİƒBˆİƒBˆƒBˆİ›Û™Ï‘YYÜİ›Û™ÏİƒBˆpì[ÜÏİƒBˆİ›Û™Ï‘Ù\İpìÛˆXİX[H\ÈÛX\ÏÜİ›Û™ÏİƒBˆ”ÚYİYH[˜H][˜H[™›Ü›X[
+XpìX[˜Kİ\™JHÚ[ˆ™XÛÜ™]Üš[ÈšZ›ÎÈœ™XİY[[Y[H›È™XİY\™HÚHXHÛpìÈHÜÚ\ÏİƒBˆİƒBˆƒBˆİ›Û™Ï‘\İš]ÏÜİ›Û™ÏİƒBˆ”Ø[ˆX\0ë[ˆHÜœ™\ÏİƒBˆİ›Û™Ï\Ş[È˜[Z[X\Üİ›Û™ÏİƒBˆ”İH0î›šXÛÈZ›È
+š]™H[ˆÜÈÛ]›ÜÊHÈ[XHÈ[°ëXHY[œØZ™\ÈH›Ü›XH\ÜÜ°èYXØH\˜H™XÛÜ™\›KÚ[ˆœ™XİY[˜ÚXHšZ˜OİƒBˆİƒBˆƒBˆİ›Û™Ï“Øİ\XÚpìÛˆÈÚ]XXÚpìÛˆXİX[Üİ›Û™ÏİƒBˆ’Xš[YÈ
+^YXğè[šXÛÈHÛÛ™XİÜŠNÈš]™HÛÛË\Èš]YÏİƒBˆİ›Û™ÏÛÛ^ÈYÚ][Üİ›Û™ÏİƒBˆ”ÛX\Û™HØ[XHYYXH
+Û›ÜŠNÈ\ØHÚ]Ğ\H˜XÙX›ÛÚÎÈ\ØH\ÈHYÛÈH™XÚX›ÜÈ
+YİXKÛ^‹İ[0êY›Û›ÊH\›È]š]H\ÈY]˜\ÈÈÛÛ\Z˜\ÎÈ›È\ØHÛÛX[™ÜÈH›Şˆ\›ÈÜÈÛÛ›ØÙHH\ÈY[™HY[˜H\ÜÜÚXÚpìÛİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆİ›Û™Ï‘\˜XÚpìÛÜİ›Û™Ïˆ\›Ş[XY[Y[HLˆZ[]ÜÏİƒBˆÛÛÜ[HŒˆƒBˆİ›Û™Ï•T“HÜ˜X˜XÚpìÛÜİ›Û™ÏƒBˆH™YHšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒMNŒİ\×ÙYWÜKÒTPÕÔZŞRR˜ÒT–LX’Õ\\Y’U\‘›ØK[ÔWÍZL‘–M]İQÜ—Õ”OÛ˜]Y^RV•Ö›Û’š‘[V›NSÛœÚXÛU›V–VUŞ˜ÒZSÚR”›U‘XÛ[–•V˜ÚÒŒXÌ›V–’Z]ÚXÛU›V–VUŞ˜Ò”X‘ÑŒ›N^X”ÒM’[ZR\Ò[’››UXÛQœÕÎZÖ”ÒM’[–œ–ÚSÒV•Ö›Û’š‘–œ–ÚSÚR“™UVœ‘Õ•ÛXL˜ÒÚY–	™OPXLPMHšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒMNŒİ\×ÙYWÜKÒTPÕÔZŞRR˜ÒT–LX’Õ\\Y’U\‘›ØK[ÔWÍZL‘–M]İQÜ—Õ”OÛ˜]Y^RV•Ö›Û’š‘[V›NSÛœÚXÛU›V–VUŞ˜ÒZSÚR”›U‘XÛ[–•V˜ÚÒŒXÌ›V–’Z]ÚXÛU›V–VUŞ˜Ò”X‘ÑŒ›N^X”ÒM’[ZR\Ò[’››UXÛQœÕÎZÖ”ÒM’[–œ–ÚSÒV•Ö›Û’š‘–œ–ÚSÚR“™UVœ‘Õ•ÛXL˜ÒÚY–	™OPXLPMOØOƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HƒBˆİ›Û™Ï”™\İ[Y[ˆHH[™]š\İOÜİ›Û™ÏƒBˆ“X[Y[[™\ÈÜœ™\ÈX[X[°ëH\È[ˆY[ÈX^[ÜˆHpì[ÜËš]YË™\ÚY[H[ˆØ[ˆX\0ë[ˆHÜœ™\Ëˆš]™HÛÛËXH]YHİH0î›šXÛÈZ›È™\ÚYH[ˆ[\İš]ÈHÜÈÛ]›ÜÈHÈš\Ú]Hš[˜Ú\[Y[HÜÈš[™\ÈHÙ[X[˜KÙYğî›ˆİH\ÜÛšXš[YYX›Ü˜[ˆ˜X˜Z°ìÈHX^[Üˆ\HHİHšYHÛÛ[ÈYXğè[šXÛÈHÛÛ™XİÜÈXİX[Y[H›È™X[^˜HXİ]šYYX›Ü˜[Üˆ[Z]XÚ[Û™\È°ë\ÚXØ\È\ÛØÚXY\ÈHHYYHİH][˜HX\šXHÙHÙ[˜H[ˆØ[Z[˜]\ÈÛÜ\ÈH\›X[™XÙ\ˆ[ˆØ\ØKÜƒBˆ‘\È\\[œÛÈHÛXHÜØ\0è[ˆ[ˆHXpìX[˜HH[[Ù\[›È[ˆH\™NÈYXÚ[Û˜[Y[HX[™Z˜HÛÜˆHÛÛ[[˜HÛÛˆÙ[XÛŞXˆŒYÈ[H\\ÛÙ[ÜÈHÛÜ‹H]Ü˜\İ][˜H\˜H[ÛÛ›Û[ÛÛ\İ\›Ûˆ›ÈİY[HÛÛˆ[ˆpê]ÙÈšZ›ÈH™XÛÜ™]Üš[ÎˆÚYİYH[˜H][˜H[™›Ü›X[\ÛØÚXYHHÜÈ[ÛY[ÜÈ[0ëXK\›È™XÛÛ›ØÙHÛšY\œÙHÛÛˆœ™XİY[˜ÚXHHÚHXHÛpìÈ[˜HÜÚ\Ë0è[™ÜÙHİY[HÙ[™\˜[Y[HÛÛÈİX[™È\\™XÙ[ˆğë[ÛX\È°ë\ÚXÛÜÈ
+ÛÜˆHØX™^˜H\ÛØÚXYÈ[[Z\\[œÚ]›ËX\™[ÜÈ\ÛØÚXYÜÈHH]Ü˜\İ][˜JKÜƒBˆ‘[\Ş[È˜[Z[X\ˆ^\İ[H\È\ÜÜ°èYXÛÎˆİHZ›ÈÈ[XHÈH\ØÜšX™HØØ\Ú[Û˜[Y[H\˜H™XÛÜ™\›HÛX\ˆİHYYXØXÚpìÛ‹\›ÈÚ[ˆ[˜Hœ™XİY[˜ÚXHÛÛœİ[HXšYÈHİ\È›ÜX\È™\ÜÛœØXš[YY\ÈX›Ü˜[\ÈH˜[Z[X\™\ËˆX[Y[^™\ØH]YK[š]š\ˆÛÛË›È^\İH[İZY[ˆ™\Ù[H]YH›İHÚH[ÛÈØ[HX[ÜƒBˆ‘[ˆİX[ÈHXÛ›ÛÙğëXK\ØH[ˆÛX\Û™HØ[XHYYXH
+Û›ÜŠHH[Z]HİH\ÛÈš[˜Ú\[Y[HHÚ]Ğ\H˜XÙX›ÛÚÈ\˜HÛÛ][šXØ\œÙHÛÛˆ˜[Z[X\™\ÈHÛÛ›ØÚYÜËˆ][^˜H\XØXÚ[Û™\ÈHYÛÈHÙ\šXÚ[ÜÈ
+YİXK^‹[0êY›Û›ÊHÜˆ™XÙ\ÚYY\›È]š]H^Ü˜\ˆ\XØXÚ[Û™\ÈY]˜\È]YH\˜ÚX˜HÛÛ[ÈÛÛ\Z˜\Ëˆ›ÈH\ØYÈÛÛX[™ÜÈH›Şˆ\œÛÛ˜[Y[K\›ÈÜÈÛÛ›ØÙHÜˆØœÙ\˜\ˆH\œÛÛ˜\Èpè\È°ìİ™[™\ÈHİH[Ü››ËH^™\ØH[˜HXİ]Y˜]›Ü˜X›HXÚXH\İH›Ü›XHH[\˜XØÚpìÛ‹XH]YHH\˜ÚX™HÛÛ[Èpè\È°èXİXØH]YH\ØÜšXš\‹ÜƒBˆ”İHš[˜Ú\[™[Øİ\XÚpìÛˆHØ[Y\ÈİYœš\ˆ[ˆ]™[ÈÜ˜]™H
+Y[˜Ú[Û˜H^0ëXÚ][Y[H[šY\ÙÛÈH[ˆ[™˜\ÊHÜˆ›ÈYYXØ\œÙHÛÜœ™Xİ[Y[HZY[˜\Èš]™HÛÛËÚ[ˆ˜YYH]YHÈ›İHHY[\ËˆÙpìX[HY[pè\ÈH™[Øİ\XÚpìÛˆHÛÛ™\\œÙH[ˆ[˜HØ\™ØH\˜HİH˜[Z[XKˆÛÛ[È™XÙ\ÚYYYX[\ØÜšX™H[ˆYXØ[š\Û[ÈH]š\ÛÈÚ[\HÈÛÛ\\˜HÛÛˆ[ˆ[Xœ™H]YH›È\[™HHH\ÜÛšXš[YYH[ˆ˜[Z[X\ˆ\˜H™XÛÜ™\›HİHYYXØXÚpìÛ‹ÜƒBˆİƒBˆİƒBˆİ›ÙOƒBİX›OƒBƒBX›OƒBˆ›ÙOƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆİ›Û™Ï‘[™]š\İH‹°¬Üİ›Û™ÏİƒBˆİƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆƒBˆ[YÈÜ˜ÏH˜\ÜÙ]ËÙ[™]š\İ\›ÜØ\š[ËšœYÈˆ[H‘[™]š\İH[ÙYÛY[ÈK\XÚ\[HˆˆÚYHLƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™Ï’[™›Ü›XXÚpìÛˆ[[™]š\İYÏÜİ›Û™ÏİƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™ÏÛÛ^ÈHH[™]š\İOÜİ›Û™ÏİƒBˆİƒBˆƒBˆİ›Û™Ï“›ÛXœ™HÛÛ\]ÏÜİ›Û™ÏİƒBˆ”›ÜØ\š[ÈØ[Û[OİƒBˆİ›Û™Ï•˜][ZY[ÈÈYYXØXÚpìÛÜİ›Û™ÏİƒBˆ“YYXØ[Y[ÜÈ\˜H\ÈÜš\Ú\ÈHZYÜ˜pìXHH[ˆYYXØ[Y[È›Øİ\››È\˜HÙ\ˆ\ØØ[œØ\ˆHÜ›Z\‹İƒBˆİƒBˆƒBˆİ›Û™Ï‘YYÜİ›Û™ÏİƒBˆÌˆpì[ÜÏİƒBˆİ›Û™Ï‘Ù\İpìÛˆXİX[H\ÈÛX\ÏÜİ›Û™ÏİƒBˆ•Y[™H[ˆİY[H\È\İ[\È]YHX™HÛX\ˆİX[™È™\Ù[H[˜HÜš\Ú\Ëˆ[ˆØØ\Ú[Û™\ÈHÛšYYÈ[YYXØ[Y[È›Øİ\››ËİƒBˆİƒBˆƒBˆİ›Û™Ï‘\İš]ÏÜİ›Û™ÏİƒBˆØ[[ÏİƒBˆİ›Û™Ï\Ş[È˜[Z[X\Üİ›Û™ÏİƒBˆ”İ\ÈZ˜\ÈÛÛ›ØÙ[ˆİ\ÈYYXØ[Y[ÜÈH\İ0è[ˆ[™Y[\ÈHÈ]YHX™HÛX\‹ˆÙHÛÛ][šXØ[ˆYYX[H[XY\ÈÈHX[™\˜H™\Ù[˜ÚX[İƒBˆİƒBˆƒBˆİ›Û™Ï“Øİ\XÚpìÛˆÈÚ]XXÚpìÛˆXİX[Üİ›Û™ÏİƒBˆ’Xš[YNÈXİX[Y[HÙHYXØHH\ÈX›Ü™\È[ÙØ\İƒBˆİ›Û™ÏÛÛ^ÈYÚ][Üİ›Û™ÏİƒBˆ•][^˜Hš[˜Ú\[Y[HÚ]Ğ\ˆ›ÈY[™H^\šY[˜ÚXHÛÛˆÛÛX[™ÜÈH›ŞˆH[İ[˜\È\XØXÚ[Û™\ÈY]˜\ÈH™\İ[[ˆY°ëXÚ[\ÈİX[™È›ÈÛÛ›ØÙHšY[ˆğìÛ[È[˜Ú[Û˜[‹İƒBˆİƒBˆƒBˆÛÛÜ[HŒˆİ›Û™Ï‘\˜XÚpìÛÜİ›Û™ÏˆŒÍHİƒBˆÛÛÜ[HŒˆƒBˆİ›Û™Ï•T“HÜ˜X˜XÚpìÛÜİ›Û™ÏƒBˆH™YHšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒXLNMWİ\×ÙYWÜKÒTP™ŞM•MPÌV”ÜP^SÖWÍÑšĞVSÕX\QT›LÖMUÙ›ROÙOUÜÙØTPHšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒXLNMWİ\×ÙYWÜKÒTP™ŞM•MPÌV”ÜP^SÖWÍÑšĞVSÕX\QT›LÖMUÙ›ROÙOUÜÙØTPOØOƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HƒBˆİ›Û™Ï”™\İ[Y[ˆHH[™]š\İOÜİ›Û™ÏƒBˆ”›ÜØ\š[ÈØ[Û[HÛÛ[›È
+Ìˆpì[ÜËXš[YK\İš]È[Ø[[ÊHš]™HXİX[Y[HÛÛˆİ\ÈZ˜\Ëˆ[\ÈHXš[\œÙH˜X˜Z˜X˜HÛÛ[È˜Xİ\˜YÜ˜HHXİX[Y[HÙHYXØHš[˜Ú\[Y[HH\ÈX›Ü™\È[ÙØ\‹ˆİH0ëXHH0ëXHÛÛœÚ\İH[ˆ™X[^˜\ˆİ\ÈXİ]šYY\ÈÛÛ[È[XHHØ\ØKˆ[ˆİX[ÈHİH˜][ZY[Ë][^˜HYYXØ[Y[ÜÈš[˜Ú\[Y[H\˜HÛÛ›Û\ˆİ\ÈÜš\Ú\ÈHZYÜ˜pìXHH[Xšpê[ˆİY[HÛÛˆ[ˆYYXØ[Y[È]YHÛXHÜˆ\È›ØÚ\È\˜HÙ\ˆ\ØØ[œØ\ˆHÜ›Z\‹ƒB”\˜H™XÛÜ™\ˆİ\ÈYYXØ[Y[ÜËY[™H[ˆİY[H\È\İ[\È]YH™XÙ\Ú]HİX[™È™\Ù[H[˜HÜš\Ú\ÈHZYÜ˜pìXKˆY[˜Ú[Û°ìÈ]YH[ˆ[İ[˜\ÈØØ\Ú[Û™\ÈHÛšYYÈÛX\ˆİHYYXØ[Y[È›Øİ\››ËÈ]YHØØ\Ú[Û˜H]YH\ÙHH›ØÚHÚ[ˆÙ\ˆÜ›Z\‹ˆİ\ÈZ˜\ÈÛÛ›ØÙ[ˆÜÈYYXØ[Y[ÜÈ]YHÛÛœİ[YHHÙHX[Y[™[ˆ[[ÈHÈ]YHX™HÛX\‹™X[^˜[™È[ÙYİZ[ZY[ÈYYX[H[XY\ÈÈ\İ[™È[™Y[\ÈH[HXšYÈHİ\È™XÙ\ÚYY\ÈHØ[YƒB‘[ˆİX[ÈHİHÛÛ^ÈYÚ][][^˜Hš[˜Ú\[Y[HÚ]Ğ\ˆ›ÈH][^˜YÈÛÛX[™ÜÈH›Şˆ[ˆİHÙ[[\ˆHX[šY™\İ0ìÈ]YH[İ[˜\È\XØXÚ[Û™\ÈY]˜\ÈYY[ˆ™\İ[\›HY°ëXÚ[\ÈİX[™È›È\İ0èHİYšXÚY[[Y[H[™›Ü›XYHÛØœ™HğìÛ[È[˜Ú[Û˜[‹YØ[™È[˜Û\ÛÈHÙ\œ˜\›\ÈÈ[[\›\ËˆÚ[ˆ[X˜\™ÛË[Üİ°ìÈ[\°ê\È[ˆÛÛ\ˆÛÛˆ\œ˜[ZY[\ÈY]˜\È]YHYYH[™\ˆHHX[›È\˜H™\šYšXØ\ˆ[™›Ü›XXÚpìÛˆHÛÛ›ØÙ\ˆYZ›Üˆ]pêHX™HXÙ\‹ˆİHš[˜Ú\[™[Øİ\XÚpìÛˆ\İ0èH™[XÚ[Û˜YHÛÛˆ\ÈÜš\Ú\ÈHZYÜ˜pìXHHH™XÙ\ÚYYH[™\ˆİHYYXØXÚpìÛˆ\ÜÛšX›HİX[™È\İ\È\\™XÙ[‹ˆÛÛ[È[˜Ú[Û˜[YYYX[Hİ\İ\°ëXHÛÛ\ˆÛÛˆ[ˆ›ÙÜ˜[XH]YHH›ÜÜ˜Ú[Û™H\œ˜[ZY[\ÈH[™›Ü›XXÚpìÛˆÛØœ™Hİ\ÈÜš\Ú\ÈHZYÜ˜pìXKHX[™\˜H]YHYYHÛÛ›ØÙ\ˆpè\ÈÛØœ™HİHÛÛ™XÚpìÛˆH[™\ˆ\İH[™›Ü›XXÚpìÛˆ°èXÚ[Y[H\ÜÛšX›KƒBÜƒBˆİƒBˆİƒBˆİ›ÙOƒBİX›OƒBƒBˆÈÈÙYÛY[Èˆ˜[Z[X\™\ÈÈİZYYÜ™\ÃBƒB‘\İHÙYÛY[È\İ0èHÛÛ™›Ü›XYÈÜˆ˜[Z[X\™\ÈÈİZYYÜ™\È]YH™X[^˜[ˆ[ğî›ˆ\ÈHÙYİZ[ZY[ÈH[ˆY[ÈX^[Ü‹\ÜXÚX[Y[HİX[™È›ÈYY[ˆXÛÛ\pìX\›È™\Ù[˜ÚX[Y[H\˜[HÙÈ[0ëXKˆ\È[™]š\İ\È\ØØ[ˆÛÛ\™[™\ˆğìÛ[ÈØY[™[ˆ[™›Ü›XXÚpìÛˆÛØœ™HHYYXØXÚpìÛ‹]pêHYšXİ[Y\È[˜İY[˜[ˆH]pêHÚ]XXÚ[Û™\ÈÙ[™\˜[ˆX^[Üˆ™[Øİ\XÚpìÛˆ\˜[H[İZYYÈH\İ[˜ÚXKƒBƒBX›OƒBˆ›ÙOƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆİ›Û™Ï‘[™]š\İH‹°¬OÜİ›Û™ÏİƒBˆİƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆƒBˆ[YÈÜ˜ÏH˜\ÜÙ]ËÜÙYÛY[ËL‹]˜[\šK\›Ú˜\Ëœ™Èˆ[H‘[™]š\İH[ÙYÛY[È‹\XÚ\[HHˆÚYHLƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™Ï’[™›Ü›XXÚpìÛˆ[[™]š\İYÏÜİ›Û™ÏİƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™ÏÛÛ^ÈHÙYİZ[ZY[ÏÜİ›Û™ÏİƒBˆİƒBˆƒBˆİ›Û™Ï“›ÛXœ™HÛÛ\]ÏÜİ›Û™ÏİƒBˆ•˜[\šH›Ú˜\ÏİƒBˆİ›Û™ÏY[ÈX^[ÜˆXÛÛ\pìXYÏÜİ›Û™ÏİƒBˆXY[H
+[™™\›YYYˆXX™]\ÊOİƒBˆİƒBˆƒBˆİ›Û™Ï‘YYÜİ›Û™ÏİƒBˆŒŒˆpì[ÜÏİƒBˆİ›Û™Ï‘œ™XİY[˜ÚXHHÛÛXİÏÜİ›Û™ÏİƒBˆ‘X\šXH
+š]™H[ˆ[Z\Û[ÈÙØ\ˆ]YHİHXY[JOİƒBˆİƒBˆƒBˆİ›Û™Ï‘\İš]ÏÜİ›Û™ÏİƒBˆ“ÜÈÛ]›ÜÏİƒBˆİ›Û™Ï”ÙYİZ[ZY[ÈXİX[Üİ›Û™ÏİƒBˆ“H™Yİ[H\™Xİ[Y[HÚHXHÛpìÈİ\ÈYYXØ[Y[ÜÎÈÚH›È\İ0èH[ˆØ\ØKH[XH\˜H™\šYšXØ\‹ˆYXØH[ˆ›ÛYY[ÈLZ[]ÜÈHHÙ[X[˜HH\İHÙYİZ[ZY[ËİƒBˆİƒBˆƒBˆİ›Û™Ï“Øİ\XÚpìÛÜİ›Û™ÏİƒBˆ‘\İYX[H[š]™\œÚ]\šXOİƒBˆİ›Û™ÏÛÛ^ÈYÚ][Üİ›Û™ÏİƒBˆ•\ØHXš]X[Y[HÚ]Ğ\[œİYÜ˜[HHZÕÚËˆ[˜ØHH\ØYÈ[˜H\\ÜXğëYšXØH\˜H[İZYYÈH[ˆ˜[Z[X\ÈÙHÚY[HğìÛ[ÙHÛÛ™šYİ\˜[™È[\\ÈH›İYšXØXÚ[Û™\È[ˆ\Èpìİš[\ËˆİHXY[H›È\ØHÚ]Ğ\ÛÛÈ[XY\ËİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆİ›Û™Ï‘\˜XÚpìÛÜİ›Û™ÏLİƒBˆÛÛÜ[HŒˆƒBˆİ›Û™Ï•T“HÜ˜X˜XÚpìÛÜİ›Û™ÏƒBˆH™YHšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒŒÌŒŒ×İ\×ÙYWÜKÒTPQÖ[–™—Ñ“ÙTÜŒLÑ]SÙİ‘ĞUÚUØÚM˜ÖKTĞ”Ú×İŒÍÙOTÎÒšI›˜]Y^RV•Ö›Û’š‘[V›NSÛœÚXÛU›V–VUŞ˜ÒZSÚR•›UÌV•Ò˜ÒZSÒV•Ö›Û’š‘–œ–ÚSÚR•QÑV•TœUŞ–LSXUÍ\’Z]ÚXÛU›V–VUŞ˜Ò”X‘ÑŒ›N^X”ÒM’[ZR\Ò[’››UXÛQœÕÎZÖ”ÒM’[–œ–ÚY–	LÑšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒŒÌŒŒ×İ\×ÙYWÜKÒTPQÖ[–™—Ñ“ÙTÜŒLÑ]SÙİ‘ĞUÚUØÚM˜ÖKTĞ”Ú×İŒÍÙOTÎÒšI›˜]Y^RV•Ö›Û’š‘[V›NSÛœÚXÛU›V–VUŞ˜ÒZSÚR•›UÌV•Ò˜ÒZSÒV•Ö›Û’š‘–œ–ÚSÚR•QÑV•TœUŞ–LSXUÍ\’Z]ÚXÛU›V–VUŞ˜Ò”X‘ÑŒ›N^X”ÒM’[ZR\Ò[’››UXÛQœÕÎZÖ”ÒM’[–œ–ÚY–	LÑØOƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HƒBˆİ›Û™Ï”™\İ[Y[ˆHH[™]š\İOÜİ›Û™ÏƒBˆƒBˆ˜[\šH
+Œˆpì[ÜË\İYX[H[š]™\œÚ]\šXK\İš]ÈHÜÈÛ]›ÜÊHš]™HÛÛˆİ\ÈY™\ÈHİHXY[K]ZY[ˆY[™HXX™]\ÈH™\]ZY\™HÙYİZ[ZY[ÈÛÛœİ[HHİHYYXØXÚpìÛ‹ˆ[š]š\ˆ[\ËH™HHÛÛ™\œØHÛÛˆ[HÙÜÈÜÈ0ëX\ËHİHpê]ÙÈXİX[HÙYİZ[ZY[È\È™Yİ[\›H\™Xİ[Y[HÚHXHÛpìÈİ\ÈYYXØ[Y[ÜÈËÚH›È\İ0èH[ˆØ\ØK[X\›H\˜HÛÛ™š\›X\›Ëˆ\İHÙYİZ[ZY[ÈHÛXH[ˆ›ÛYY[È[›ÜÈLZ[]ÜÈHHÙ[X[˜Kˆ™[]0ìÈ[ˆ\\ÛÙ[È[ˆ[]YHH˜[Z[XH\İ[ZpìÈ]YHİHXY[]HXHX°ëXHÛXYÈ[YYXØ[Y[ÈHYYÛÈÙHY\›ÛˆİY[HH]YH›ÈYH\ğëKÈ]YHÙ[™\°ìÈ™[Øİ\XÚpìÛˆH]°ìÈH™Y›Ü˜\ˆ\È[™XØXÚ[Û™\È[ØİÜ‹ˆİHš[˜Ú\[Y[HH[œÚYYY\È›È[\˜\œÙHHY[\ÈİX[™È\İ0èHY\˜HHØ\ØHHİHXY[]HÛšYHÛX\ˆHYYXØXÚpìÛ‹YÈ]YH\İ0èH™[XÚ[Û˜YHHİHÛÛ™XÚpìÛˆHXX™]\Ëˆ[ˆİX[ÈHÛÛ^ÈYÚ][\ØHHX\š[ÈÚ]Ğ\[œİYÜ˜[HHZÕÚË[˜ØHH›Ø˜YÈ[˜H\XØXÚpìÛˆHİZYYÈ˜[Z[X\‹HÙHÚY[HğìÛ[ÙHÛÛ™šYİ\˜[™È[\\ÈÈ›İYšXØXÚ[Û™\ËˆÛÛ[È[˜Ú[Û˜[YYYX[Y[˜Ú[Û°ìÈ]YHHİ\İ\°ëXH™XÚXš\ˆ[ˆ]š\ÛÈİX[™ÈİHXY[]HXHÛpìÈİ\ÈYYXØ[Y[ÜÈH[˜H[\HÚHÙHÛšYHÈÙH™]˜\ØKÙpìX[[™È]YH\İÈÙ\°ëXH\ÜXÚX[Y[H0î[Üœ]YHİHXY[]H›È\ØHÚ]Ğ\ÛÛÈ[XY\ËƒBˆÜƒBˆİƒBˆİƒBˆİ›ÙOƒBİX›OƒBƒBX›OƒBˆ›ÙOƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆİ›Û™Ï‘[™]š\İH‹°¬ˆÙX˜\İpè[ˆ°è\Ü]Y^Üİ›Û™ÏİƒBˆİƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆƒBˆ[YÈÜ˜ÏH˜\ÜÙ]ËÜÙYÛY[ËL‹Y[™]š\İKL‹\ÙX˜\İX[‹]˜\Ü]Y^‹œ™Èˆ[H‘[™]š\İHHÙX˜\İpè[ˆ°è\Ü]Y^ˆˆÚYHLƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™Ï’[™›Ü›XXÚpìÛˆ[[™]š\İYÏÜİ›Û™ÏİƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™ÏÛÛ^ÈHÙYİZ[ZY[ÏÜİ›Û™ÏİƒBˆİƒBˆƒBˆİ›Û™Ï“›ÛXœ™HÛÛ\]ÏÜİ›Û™ÏİƒBˆ”ÙX˜\İpè[ˆ°è\Ü]Y^İƒBˆİ›Û™ÏY[ÈX^[ÜˆXÛÛ\pìXYÏÜİ›Û™ÏİƒBˆ”İHXY[ÏİƒBˆİƒBˆƒBˆİ›Û™Ï‘YYÜİ›Û™ÏİƒBˆŒˆpì[ÜÏİƒBˆİ›Û™Ï‘œ™XİY[˜ÚXHHÛÛXİÏÜİ›Û™ÏİƒBˆ•[˜Hš\Ú]HÙ[X[˜[H[™YYÜˆHÜÈ[XY\ÈÈšY[Û[XY\ÈÜˆÙ[X[˜OİƒBˆİƒBˆƒBˆİ›Û™Ï‘\İš]ÏÜİ›Û™ÏİƒBˆ“XYÙ[[˜K[XOİƒBˆİ›Û™Ï”ÙYİZ[ZY[ÈXİX[Üİ›Û™ÏİƒBˆ”™Yİ[H\™Xİ[Y[HHİHXY[ÈH›Ü›X[Y[HÛÛ™°ëXH[ˆİH™\ÜY\İOİƒBˆİƒBˆƒBˆİ›Û™Ï“Øİ\XÚpìÛÜİ›Û™ÏİƒBˆ‘\İYX[HHİ\\š\ÛÜˆH[ˆ\]Ypì[È›ŞYXİÈHÛÙØ\™OİƒBˆİ›Û™ÏÛÛ^ÈYÚ][Üİ›Û™ÏİƒBˆ•][^˜HÛX\Û™KÚ]Ğ\[YÜ˜[K˜[˜ØHpìİš[X\KZÕÚÈH[XY\È[Y°ìÛšXØ\ÏİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆİ›Û™Ï‘\˜XÚpìÛÜİ›Û™ÏˆMŒOİƒBˆÛÛÜ[HŒˆƒBˆİ›Û™Ï•T“HÜ˜X˜XÚpìÛÜİ›Û™ÏƒBˆH™YHšÎ‹ËÙš]™K™ÛÛÙÛK˜ÛÛKÙš[KÙÌ]›\Û]WÙÕ“”ÛÕSXÕ›ÓØ—ÌÛ[XÍKİšY]Ïİ\ÜYš]™WÛ[šÈšÎ‹ËÙš]™K™ÛÛÙÛK˜ÛÛKÙš[KÙÌ]›\Û]WÙÕ“”ÛÕSXÕ›ÓØ—ÌÛ[XÍKİšY]Ïİ\ÜYš]™WÛ[šÏØOƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HƒBˆİ›Û™Ï”™\İ[Y[ˆHH[™]š\İOÜİ›Û™ÏƒBˆ”ÙX˜\İpè[ˆY[™Hˆpì[ÜËš]™H[ˆXYÙ[[˜HHÛÛXš[˜Hİ\È\İY[ÜÈÛÛˆ[ˆ˜X˜Z›È]YH™X[^˜H\ÙHØ\ØKˆš]™HÛÛÈHÙH[˜Ø\™ØHHXÛÛ\pìX\ˆHİHXY[ÈXšYÈH]YH[X›ÜÈÛÛˆXİX[Y[HÜÈ[YÜ˜[\ÈHİH˜[Z[XH]YHÙH[˜İY[˜[ˆ[ˆ[XKˆİHXY[ÈİYœšpìÈ[˜HØpëYH\›Ş[XY[Y[HÜÈpì[ÜÈ]°è\ÈH]YY0ìÈÛÛˆ[Û\İX\È\›X[™[\È[ˆH\Ü[KÜˆÈ]YH™X[^˜HZ™\˜ÚXÚ[ÜÈH™ZXš[]XÚpìÛˆH][^˜HYYXØ[Y[ÜÈ\˜H[ÛÜˆHš][Z[˜\ËÜƒBˆ’[[Hš\Ú]\›È[Y[›ÜÈ[˜H™^ˆÜˆÙ[X[˜HH[Xšpê[ˆX[Y[™HÛÛXİÈYYX[H[XY\ÈÈšY[Û[XY\Ë][œ]YHÙpìX[H]YHİHXY[È™\Ù[HØØH˜[Z[X\šYYÛÛˆHXÛ›ÛÙğëXKˆ[ˆ™[XÚpìÛˆÛÛˆÜÈYYXØ[Y[ÜËÙX˜\İpè[ˆ›È\ÜÛ™HH[ˆYXØ[š\Û[ÈHÙYİZ[ZY[ÈÛÛœİ[Kˆ›Ü›X[Y[H™Yİ[HÚH™X[^°ìÈHÛXHHX™HÛÛ™šX\ˆ[ˆH™\ÜY\İH]YH™XÚX™K[˜Û\ÛÈİX[™È\˜ÚX™HÚY\HYKÜƒBˆ‘\˜[HH[™]š\İH™XÛÜ™0ìÈ[˜HÚ]XXÚpìÛˆ[ˆH]YHİHXY[ÈYš\›pìÈ[šXÚX[Y[HX™\ˆÛXYÈİ\ÈYYXØ[Y[ÜË\›È\Üpê\ÈH˜\šX\È™Yİ[\È™XÛÛ›ØÚpìÈ]YH›ÈÈX°ëXHXÚËˆ][œ]YH›ÈØİ\œšpìÈ[˜HÛÛœÙXİY[˜ÚXH[›YYX]KHÚ]XXÚpìÛˆÙ[™\°ìÈ™[Øİ\XÚpìÛˆ[›ÈHH˜[Z[XKˆÙX˜\İpè[ˆÛÛœÚY\˜HÛÛ™[šY[H™XÚXš\ˆ[™›Ü›XXÚpìÛˆ]YH™Y^˜ØH\İH[˜Ù\Y[Xœ™HH]š]H\[™\ˆHÛÛœİ[\ÈÛÛœİ[\È\˜HÛÛ›ØÙ\ˆÚH[˜HÛXHYH™X[^˜YKÜƒBˆ”İH™[Øİ\XÚpìÛˆÜˆ[İZYYÈH\İ[˜ÚXH[Xšpê[ˆ[˜Û^YHHÜÚXš[YYH]YHİHXY[ÈY[˜HHİYœš\ˆ[ˆXØÚY[HİX[™ÈÙH[˜İY[˜HÛÛËˆ[™Y™\š\œÙHH[˜H\œ˜[ZY[HYX[Y[˜Ú[Û°ìÈ]YHH™\İ[\°ëXH0î[ÛÛ›ØÙ\ˆ[İ[˜\ÈXİ]šYY\È°è\ÚXØ\È[Y[ÈX^[ÜˆH\ÜÛ™\ˆH[ˆYXØ[š\Û[ÈÙ[˜Ú[ÈHÛÛXÚ]YH^]YH[H[˜H[Y\™Ù[˜ÚXKÜƒBˆİƒBˆİƒBˆİ›ÙOƒBİX›OƒBƒBX›OƒBˆ›ÙOƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆİ›Û™Ï‘[™]š\İH‹°¬ÏÜİ›Û™ÏİƒBˆİƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆƒBˆ[YÈÜ˜ÏH˜\ÜÙ]ËÑ[™]š\İKL‹œ™Èˆ[H‘[™]š\İH[ÙYÛY[È‹\XÚ\[HˆˆÚYHLƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™Ï’[™›Ü›XXÚpìÛˆ[[™]š\İYÏÜİ›Û™ÏİƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™ÏÛÛ^ÈHÙYİZ[ZY[ÏÜİ›Û™ÏİƒBˆİƒBˆƒBˆİ›Û™Ï“›ÛXœ™HÛÛ\]ÏÜİ›Û™ÏİƒBˆ“X\šH[\˜ğìÛİƒBˆİ›Û™ÏY[ÈX^[ÜˆXÛÛ\pìXYÏÜİ›Û™ÏİƒBˆ”İHXY[OİƒBˆİƒBˆƒBˆİ›Û™Ï‘YYÜİ›Û™ÏİƒBˆŒŒpì[ÜÏİƒBˆİ›Û™Ï‘œ™XİY[˜ÚXHHÛÛXİÏÜİ›Û™ÏİƒBˆ\›Ş[XY[Y[HˆÈÈ™XÙ\ÈÜˆY\È[ˆ\œÛÛ˜NÈİX[™È›ÈYYHš\Ú]\›HÙHÛÛ][šXØHÜˆ[XYHÈY[œØZ™KİƒBˆİƒBˆƒBˆİ›Û™Ï‘\İš]ÏÜİ›Û™ÏİƒBˆÛÛX\ÏİƒBˆİ›Û™Ï”ÙYİZ[ZY[ÈXİX[Üİ›Û™ÏİƒBˆ“H™Yİ[H\™Xİ[Y[HÜˆ[XYHÈY[œØZ™HH˜]HH™XÛÜ™\›HÜÈÜ˜\š[ÜÈHYYXØXÚpìÛ‹ˆÚH›ÈÛÛ\İHÈ]YY[ˆY\ËÛÛXİHHİ›È˜[Z[X\ˆÙ\˜Ø[›È\˜H™\šYšXØ\‹ˆYXØH[ˆ›ÛYY[È[™HHHˆÜ˜\ÈHHÙ[X[˜HH\İHÙYİZ[ZY[ËİƒBˆİƒBˆƒBˆİ›Û™Ï“Øİ\XÚpìÛÜİ›Û™ÏİƒBˆ‘\İYX[HHÚXÛÛÙğëXOİƒBˆİ›Û™ÏÛÛ^ÈYÚ][Üİ›Û™ÏİƒBˆ•\ØHXš]X[Y[HÚ]Ğ\H[XY\È\˜HÛÛ][šXØ\œÙHÛÛˆİH˜[Z[XKY[pè\ÈH[œİYÜ˜[HH[İUX™Kˆ[˜ØHH\ØYÈ[˜H\\ÜXğëYšXØH\˜H[İZYYÈH[ˆ˜[Z[X\ÈÙHÚY[HğìÛ[ÙHÛÛ™šYİ\˜[™È[\›X\Ë™XÛÜ™]Üš[ÜÈH›İYšXØXÚ[Û™\ËİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆİ›Û™Ï‘\˜XÚpìÛÜİ›Û™ÏˆNŒİƒBˆÛÛÜ[HŒˆƒBˆİ›Û™Ï•T“HÜ˜X˜XÚpìÛÜİ›Û™ÏƒBˆH™YHšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒŒÌŒŒ×İ\×ÙYWÜKÒTQRSP”ÒÌÌ\ÑY˜ËTPTÓÛY›Û”ÒÕĞ‹]Ö‘ÙORVX”QI›˜]Y^RV•Ö›Û’š‘[V›NSÛœÚXÛU›V–VUŞ˜ÒZSÚR•›UÌV•Ò˜ÒZSÒV•Ö›Û’š‘–œ–ÚSÚR•QÑV•TœUŞ–LSXUÍ\’Z]ÚXÛU›V–VUŞ˜Ò”X‘ÑŒ›N^X”ÒM’[ZR\Ò[’››UXÛQœÕÎZÖ”ÒM’[–œ–ÚY–	LÑšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒŒÌŒŒ×İ\×ÙYWÜKÒTQRSP”ÒÌÌ\ÑY˜ËTPTÓÛY›Û”ÒÕĞ‹]Ö‘ÙORVX”QI›˜]Y^RV•Ö›Û’š‘[V›NSÛœÚXÛU›V–VUŞ˜ÒZSÚR•›UÌV•Ò˜ÒZSÒV•Ö›Û’š‘–œ–ÚSÚR•QÑV•TœUŞ–LSXUÍ\’Z]ÚXÛU›V–VUŞ˜Ò”X‘ÑŒ›N^X”ÒM’[ZR\Ò[’››UXÛQœÕÎZÖ”ÒM’[–œ–ÚY–	LÑØOƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HƒBˆİ›Û™Ï”™\İ[Y[ˆHH[™]š\İOÜİ›Û™ÏƒBˆƒBˆX\šH
+Œpì[ÜË\İYX[HHÚXÛÛÙğëXK\İš]ÈHÛÛX\ÊHš]™HÛÛˆİ\ÈY™\ÈHİH\›X[›ËZY[˜\È]YHİHXY[Hš]™H[ˆİ›ÈYØ\‹ˆHš\Ú]H\›Ş[XY[Y[HˆÈÈ™XÙ\È[Y\ÈKİX[™È›ÈYYHXÙ\›È[ˆ\œÛÛ˜KÙHÛÛ][šXØHÜˆ[XYHÈY[œØZ™KˆİHpê]ÙÈXİX[HÙYİZ[ZY[È\È™Yİ[\›H\™Xİ[Y[HÚHÛpìÈİHYYXØXÚpìÛˆH™XÛÜ™\›HÜÈÜ˜\š[ÜÎÈİX[™È›È\İ0èHÙYİ\˜HÈİHXY[H›ÈÛÛ\İKÛÛXİHHİ›È˜[Z[X\ˆÙ\˜Ø[›È\˜H]YH™\šYš\]YKˆ\İHÙYİZ[ZY[ÈHÛXH[™HHHˆÜ˜\ÈHHÙ[X[˜K\[™Y[™ÈHİpè[ÜÈYYXØ[Y[ÜÈX™HÛX\ˆİHXY[Kˆ™[]0ìÈ[ˆ\\ÛÙ[È[ˆ[]YHİHXY[HÛšY0ìÈ[˜HÜÚ\ÈÜˆ\İ\ˆ™X[^˜[™Èİ˜\ÈXİ]šYY\ËH[HÙH[\°ìÈ˜\šX\ÈÜ˜\È\Üpê\ËÈ]YHHÙ[™\°ìÈ™[Øİ\XÚpìÛˆ[›ÈØX™\ˆİpè[ÈY[\ÈX°ëXH\ØYËH]›È]YHÛÛ][šXØ\œÙHÛÛˆİ›È˜[Z[X\ˆ\˜HXÚY\ˆ]pêHXÙ\‹ˆ[ˆİX[ÈHÛÛ^ÈYÚ][\ØHÚ]Ğ\H[XY\È\˜HX›\ˆÛÛˆİH˜[Z[XKY[pè\ÈH[œİYÜ˜[HH[İUX™H\˜Hİ›ÜÈš[™\ÎÈ[˜ØHH\ØYÈ[˜H\XØXÚpìÛˆHİZYYÈ˜[Z[X\‹\›ÈÙHÚY[HğìÛ[ÙHÛÛ™šYİ\˜[™È[\›X\Ë™XÛÜ™]Üš[ÜÈH›İYšXØXÚ[Û™\ËH™Y™\š\°ëXH[˜H\HİZYYÈYXØYH]YHÙXHÙ[˜Ú[HHÚ[ˆ[X\ÚXY\ÈÜÚ[Û™\ËˆİHš[˜Ú\[Y[HH[œÚYYY\È›ÈØX™\ˆÚHİHXY[HÛpìÈÛÜœ™Xİ[Y[Hİ\ÈYYXØ[Y[ÜÈÈÚHHØİ\œšpìÈ[ÛËXH]YH[\İ\ˆZ›ÜÈÚY[H]YH›ÈÚY[\™HYYH™XXØÚ[Û˜\ˆ°è\Y[Y[KˆÛÛ[È[˜Ú[Û˜[YYYX[Y[˜Ú[Û°ìÈ]YHHİ\İ\°ëXH]YHH\H]š\ÙHÚHİH˜[Z[X\ˆÛpìÈÈ›È[YYXØ[Y[È[ˆ[Ü˜\š[È\İX›XÚYËH]YHHYİYH[˜H[\HİX[™ÈÙHÛšYHHÛX\›Ë\˜HÙ\ˆØX™\ˆ°è\Y[Y[HÚHÙÈ\İ0èHšY[‹ƒBˆÜƒBˆİƒBˆİƒBˆİ›ÙOƒBİX›OƒBƒBƒBX›OƒBˆ›ÙOƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆİ›Û™Ï‘[™]š\İH‹°¬Üİ›Û™ÏİƒBˆİƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆƒBˆ[YÈÜ˜ÏH˜\ÜÙ]ËÙ[™]š\İ[[ËšœYÈˆ[H‘[™]š\İH[ÙYÛY[È‹\XÚ\[HˆÚYHLƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™Ï’[™›Ü›XXÚpìÛˆ[[™]š\İYÏÜİ›Û™ÏİƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™ÏÛÛ^ÈHÙYİZ[ZY[ÏÜİ›Û™ÏİƒBˆİƒBˆƒBˆİ›Û™Ï“›ÛXœ™HÛÛ\]ÏÜİ›Û™ÏİƒBˆ“[Û˜\™È0ìÜ^İƒBˆİ›Û™ÏY[ÈX^[ÜˆXÛÛ\pìXYÏÜİ›Û™ÏİƒBˆ”İHXY[OİƒBˆİƒBˆƒBˆİ›Û™Ï‘YYÜİ›Û™ÏİƒBˆŒŒÈpì[ÜÏİƒBˆİ›Û™Ï‘œ™XİY[˜ÚXHHÛÛXİÏÜİ›Û™ÏİƒBˆ‘œ™XİY[Kš[˜Ú\[Y[HİX[™È\İ0èH[ˆØ\ØKİƒBˆİƒBˆƒBˆİ›Û™Ï‘\İš]ÏÜİ›Û™ÏİƒBˆØ[[ÏİƒBˆİ›Û™Ï”ÙYİZ[ZY[ÈXİX[Üİ›Û™ÏİƒBˆ”™Yİ[H\™Xİ[Y[HÚHİH˜[Z[X\ˆÛpìÈHYYXØXÚpìÛˆHH™XİY\™H\˜[HH\™OİƒBˆİƒBˆƒBˆİ›Û™Ï“Øİ\XÚpìÛÜİ›Û™ÏİƒBˆ‘\İYX[HH[™Ù[šY\šXHHÚ\İ[X\ÏİƒBˆİ›Û™ÏÛÛ^ÈYÚ][Üİ›Û™ÏİƒBˆ•\ØHÚ]Ğ\[œİYÜ˜[K˜XÙX›ÛÚÈH[İUX™KˆÙHÚY[HğìÛ[ÙÈÛÛ™šYİ\˜[™È[\\ÈH›İYšXØXÚ[Û™\ËİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆİ›Û™Ï‘\˜XÚpìÛÜİ›Û™ÏˆÎÈİƒBˆÛÛÜ[HŒˆƒBˆİ›Û™Ï•T“HÜ˜X˜XÚpìÛÜİ›Û™ÏƒBˆH™YHšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒXLNMWİ\×ÙYWÜKÒTPÕPÖXÌXØUœK]İPL™œÔTšÓ–ŒÍÓ•ÕZšİUXZÙOÛ˜]Y^RV•Ö›Û’š‘[V›NSÛœÚXÛU›V–VUŞ˜ÒZSÚR•›UÌV•Ò˜ÒZSÒV•Ö›Û’š‘–œ–ÚSÚR•QÑV•TœUŞ–LSXUÍ\’Z]ÚXÛU›V–VUŞ˜Ò”X‘ÑŒ›N^X”ÒM’[ZR\Ò[’››UXÛQœÕÎZÖ”ÒM’[–œ–ÚY–	LÑ	™O\Ü™ŒXÒÈšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒXLNMWİ\×ÙYWÜKÒTPÕPÖXÌXØUœK]İPL™œÔTšÓ–ŒÍÓ•ÕZšİUXZÙOÛ˜]Y^RV•Ö›Û’š‘[V›NSÛœÚXÛU›V–VUŞ˜ÒZSÚR•›UÌV•Ò˜ÒZSÒV•Ö›Û’š‘–œ–ÚSÚR•QÑV•TœUŞ–LSXUÍ\’Z]ÚXÛU›V–VUŞ˜Ò”X‘ÑŒ›N^X”ÒM’[ZR\Ò[’››UXÛQœÕÎZÖ”ÒM’[–œ–ÚY–	LÑ	™O\Ü™ŒXÒÏØOƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HƒBˆİ›Û™Ï”™\İ[Y[ˆHH[™]š\İOÜİ›Û™ÏƒBˆˆ[Û˜\™È0ìÜ^ˆ
+ŒÈpì[ÜË\İYX[K™\ÚYH[ˆ[Ø[[ÊHš]™HÛÛˆİHXY[KİHX[pèHHİH\0èKˆX[Y[™H[˜HÛÛ][šXØXÚpìÛˆœ™XİY[HÛÛˆİH˜[Z[X\ˆY[ÈX^[Ü‹š[˜Ú\[Y[HİX[™ÈÙH[˜İY[˜H[ˆØ\ØKˆİHpê]ÙÈXİX[HÙYİZ[ZY[ÈÛÛœÚ\İH[ˆ™Yİ[\›H\™Xİ[Y[HHİHXY[HÚHÛpìÈİ\ÈYYXØ[Y[ÜÈH™XÛÜ™\›H\˜[HH\™H]YHX™HÛX\›ÜËˆ\İHÙYİZ[ZY[ÈHÛXH\›Ş[XY[Y[HLZ[]ÜÈ[0ëXK\[™Y[™ÈHÚHİH˜[Z[X\ˆHÛXYÈÈ›Èİ\ÈYYXØ[Y[ÜËƒB”™[]0ìÈ]YH[ˆ˜\šX\ÈØØ\Ú[Û™\ÈİHXY[HÛšY0ìÈÛX\ˆİ\È\İ[\Ë\ÜXÚX[Y[H\˜[HH›ØÚHZY[˜\È\İX˜[ˆÛÛZY[™ËHÙH[\˜\›Ûˆ[ÛšYÈ\Üpê\ÈHHÛÛZYK[ÛY[È[ˆ[]YHİHXY[H\›Z[°ìÈÛX[™ÈHYYXØXÚpìÛ‹ˆXšYÈH\İ\ÈÚ]XXÚ[Û™\ËXİX[Y[HÛÛœÚY\˜[ˆ™XÙ\Ø\š[È™XÛÜ™\›HØYHÚY\ÈY[\È\˜[HH\™Kˆ[ˆİX[ÈHİHÛÛ^ÈYÚ][][^˜Hš[˜Ú\[Y[HÚ]Ğ\[œİYÜ˜[K˜XÙX›ÛÚÈH[İUX™Kˆ[˜ØHH][^˜YÈ[˜H\XØXÚpìÛˆ\ÜXğëYšXØH\˜H[İZYYÈH[ˆ˜[Z[X\‹\›ÈÙHÚY[HğìÛ[ÙÈÛÛ™šYİ\˜[™È[\\ÈH›İYšXØXÚ[Û™\È[ˆ\XØXÚ[Û™\Èpìİš[\ËƒB”İHš[˜Ú\[™[Øİ\XÚpìÛˆ™\ÜXİÈ[İZYYÈHİH˜[Z[X\ˆ\È]YH›ÈÚYØH[˜HY[˜H[[Y[XÚpìÛ‹]YHÛšYHÛX\ˆİ\ÈYYXØ[Y[ÜÈÈ]YH›ÈÙHİZYHYXİXY[Y[H[ˆÙ[™\˜[ˆÛÛ[È[˜Ú[Û˜[YYYX[Hİ\İ\°ëXHÛÛ\ˆÛÛˆ[˜H\œ˜[ZY[H]YH\›Z]HØX™\ˆH[İ[˜HX[™\˜Hİpè[™ÈİH˜[Z[X\ˆHÛXYÈİ\È\İ[\ÈH]YHYYH›İYšXØ\›H\İH[™›Ü›XXÚpìÛ‹œš[™0è[™ÛHX^[ÜˆÙYİ\šYYÛØœ™H[İ[\[ZY[ÈHHYYXØXÚpìÛ‹ƒBˆÜƒBˆİƒBˆİƒBˆİ›ÙOƒBİX›OƒBƒBX›OƒBˆ›ÙOƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆİ›Û™Ï‘[™]š\İH‹°¬NˆX]0ëX\ÈØ\œš[ÏÜİ›Û™ÏİƒBˆİƒBˆƒBˆÛÛÜ[Hˆ[YÛH˜Ù[\ˆƒBˆ[YÈÜ˜ÏH˜\ÜÙ]ËÜÙYÛY[ËL‹Y[™]š\İKMK[X]X\ËXØ\œš[Ëœ™Èˆ[H‘[™]š\İHHX]0ëX\ÈØ\œš[ÈˆÚYHLƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™Ï’[™›Ü›XXÚpìÛˆ[[™]š\İYÏÜİ›Û™ÏİƒBˆÛÛÜ[HŒˆˆ[YÛH˜Ù[\ˆİ›Û™ÏÛÛ^ÈHÙYİZ[ZY[ÏÜİ›Û™ÏİƒBˆİƒBˆƒBˆİ›Û™Ï“›ÛXœ™HÛÛ\]ÏÜİ›Û™ÏİƒBˆ“X]0ëX\ÈØ\œš[ÏİƒBˆİ›Û™ÏY[ÈX^[ÜˆXÛÛ\pìXYÏÜİ›Û™ÏİƒBˆ”İHXY[H
+[™™\›YYY\Îˆ\š]\ÈH\\[œÚpìÛŠOİƒBˆİƒBˆƒBˆİ›Û™Ï‘YYÜİ›Û™ÏİƒBˆŒHpì[ÜÏİƒBˆİ›Û™Ï‘œ™XİY[˜ÚXHHÛÛXİÏÜİ›Û™ÏİƒBˆ‘ÜÈš\Ú]\ÈÙ[X[˜[\ÈH[XY\ÈØ\ÚHHX\š[ÏİƒBˆİƒBˆƒBˆİ›Û™Ï‘\İš]ÏÜİ›Û™ÏİƒBˆ”Ø[ˆZYİY[İƒBˆİ›Û™Ï”ÙYİZ[ZY[ÈXİX[Üİ›Û™ÏİƒBˆ”™Yİ[H\™Xİ[Y[HHİHXY[HÜˆ[XYHÈ[ˆ\œÛÛ˜HH›Ü›X[Y[HÛÛ™°ëXH[ˆİH™\ÜY\İNÈÚHH›İHYÜØHÈ›ÈÛÛ\İKHY[™HH[X\ˆpè\È\™HÈYHHİ›È˜[Z[X\ˆ]YHÙHXÙ\œ]YKˆYXØH[ˆ›ÛYY[È[™HZ[]ÜÈHHÜ˜HHHÙ[X[˜HH\İHÙYİZ[ZY[ËİƒBˆİƒBˆƒBˆİ›Û™Ï“Øİ\XÚpìÛÜİ›Û™ÏİƒBˆ‘\ÙpìXYÜˆÜ°èYšXÛÈœ™Y[[˜ÙOİƒBˆİ›Û™ÏÛÛ^ÈYÚ][Üİ›Û™ÏİƒBˆ•][^˜HÛX\Û™KÚ]Ğ\[œİYÜ˜[HHX\HÛÛˆœ™XİY[˜ÚXKˆ[˜ØHH\ØYÈ[˜H\\ÜXğëYšXØH\˜H[İZYYÈH[ˆ˜[Z[X\ÈÙHÚY[H]^HğìÛ[ÙÈÛÛ™šYİ\˜[™È[\\ÈH™XÛÜ™]Üš[ÜËXH]YHÜÈ\ØHXš]X[Y[H\˜HİH˜X˜Z›ËİƒBˆİƒBˆƒBˆÛÛÜ[HŒˆİ›Û™Ï‘\˜XÚpìÛÜİ›Û™ÏˆNŒÏİƒBˆÛÛÜ[HŒˆƒBˆİ›Û™Ï•T“HÜ˜X˜XÚpìÛÜİ›Û™ÏƒBˆH™YHšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒXL×İ\×ÙYWÜKÒTPİ˜ŒÒÜLÓ’P]•QÓÖPU•ÒœZÚŞ^‘•œœYSÚÏÙO]ÔÒÒRI›˜]Y^RV•Ö›Û’š‘[V›NSÛœÚXÛU›V–VUŞ˜ÒZSÚR•›UÌV•Ò˜ÒZSÒV•Ö›Û’š‘–œ–ÚSÚR•QÑV•TœUŞ–LSXUÍ\’Z]ÚXÛU›V–VUŞ˜Ò”X‘ÑŒ›N^X”ÒM’[ZR\Ò[’››UXÛQœÕÎZÖ”ÒM’[–œ–ÚY–	LÑšÎ‹Ëİ\ÙY\K[^KœÚ\™\Ú[˜ÛÛKÎ‹ÙËÜ\œÛÛ˜[İLŒXL×İ\×ÙYWÜKÒTPİ˜ŒÒÜLÓ’P]•QÓÖPU•ÒœZÚŞ^‘•œœYSÚÏÙO]ÔÒÒRI›˜]Y^RV•Ö›Û’š‘[V›NSÛœÚXÛU›V–VUŞ˜ÒZSÚR•›UÌV•Ò˜ÒZSÒV•Ö›Û’š‘–œ–ÚSÚR•QÑV•TœUŞ–LSXUÍ\’Z]ÚXÛU›V–VUŞ˜Ò”X‘ÑŒ›N^X”ÒM’[ZR\Ò[’››UXÛQœÕÎZÖ”ÒM’[–œ–ÚY–	LÑØOƒBˆİƒBˆİƒBˆƒBˆÛÛÜ[HƒBˆİ›Û™Ï”™\İ[Y[ˆHH[™]š\İOÜİ›Û™ÏƒBˆ“X]0ëX\ÈØ\œš[ÈY[™HHpì[ÜËš]™H[ˆØ[ˆZYİY[ÛÛˆİ\ÈY™\ÈH˜X˜Z˜HÛÛ[È\ÙpìXYÜˆÜ°èYšXÛÈœ™Y[[˜ÙKÈ]YHHH[ˆÜ˜\š[È›^X›H\˜HXÛÛ\pìX\ˆHİHXY[K]ZY[ˆš]™HÛÛHHØØ\ÈİXY˜\ÈHİHØ\ØHHYXÙH\š]\ÈH\\[œÚpìÛ‹ˆHš\Ú]HÜÈ™XÙ\ÈÜˆÙ[X[˜HHH[XHØ\ÚHHX\š[È\˜H™Yİ[\›HÜˆİH\İYËˆİHpê]ÙÈXİX[HÙYİZ[ZY[ÈÛÛœÚ\İH[ˆ™Yİ[\›H\™Xİ[Y[KÜˆ[XYHÈ[ˆ\œÛÛ˜KÚHXHÛpìÈİ\ÈYYXØ[Y[ÜÎÈİX[™ÈH›İHYÜØH[™\ÜÛ™\ˆÈ›ÈÙÜ˜HÛÛXİ\›KHY[™HH[X\ˆpè\È\™HÈYHHİ›È˜[Z[X\ˆ]YHÙHXÙ\œ]YHH™\šYšXØ\‹ˆ\İHÙYİZ[ZY[ÈHÛXH[™HZ[]ÜÈH[˜HÜ˜HHHÙ[X[˜KÜƒBˆ”™[]0ìÈ[ˆ\\ÛÙ[È[ˆ[]YHİHXY[HHÛÛ™š\›pìÈÜˆ[0êY›Û›ÈX™\ˆÛXYÈİH\İ[H\˜HH™\ÚpìÛ‹\›È[š\Ú]\›H[0ëXHÚYİZY[H›İ0ìÈ]YHH\İ[H[0ëXH[\š[ÜˆÙYİpëXH[ˆ[\İ[\›Ë0è[™ÜÙHİY[HØ\ÚHÜ˜\È\Üpê\ÈH]YH[ˆ™X[YY›ÈHX°ëXHÛXYËˆ[ˆİX[ÈHİHÛÛ^ÈYÚ][][^˜HÛÛˆœ™XİY[˜ÚXHÚ]Ğ\[œİYÜ˜[HHX\K[˜ØHH\ØYÈ[˜H\XØXÚpìÛˆHİZYYÈ˜[Z[X\‹\›ÈÙHÚY[H]^HğìÛ[ÙÈÛÛ™šYİ\˜[™È[\\ÈH™XÛÜ™]Üš[ÜËY\ÈÜÈ\ØHXš]X[Y[H[ˆİH˜X˜Z›ËÜƒBˆ”İHš[˜Ú\[Y[HH[œÚYYY\È]YKYÈ[šY\ÙÛÈ\ÛØÚXYÈHH\\[œÚpìÛˆHİHXY[K[ˆÛšYÈHYYXØXÚpìÛˆ›È\È[ˆ\İ[ÈY[›Ü‹H[š]š\ˆÛÛK[ˆ]™[ÈÜ˜]™HÙ°ëXH›ÈÙ\ˆ]XİYÈHY[\ËˆÛÛ[È[˜Ú[Û˜[YYYX[Y[˜Ú[Û°ìÈ]YHHİ\İ\°ëXH™XÚXš\ˆ[ˆ]š\ÛÈ]]Ûpè]XÛÈ]YHÛÛ™š\›YHÚHİHXY[HÛpìÈİHYYXØXÚpìÛˆ[ˆ[Ü˜\š[ÈÛÜœ™\ÜÛ™Y[HÈÚHÙHH\ğìÈHÜ˜K\˜H™YXÚ\ˆH™XÙ\ÚYYH[X\›HÛÛœİ[[Y[HHÛÛÈ[\™[š\ˆİX[™È™X[Y[HÙXH™XÙ\Ø\š[ËÜƒBˆİƒBˆİƒBˆİ›ÙOƒBİX›OƒBƒBˆÈÈÈ‹Œ‹ŒËˆ[°è[\Ú\ÈH[™]š\İ\ÃBƒB‘[[°è[\Ú\ÈH\È[™]š\İ\ÈÙHÜ™Ø[š^°ìÈÜˆÙYÛY[ÈØš™]]›Ëˆš[Y\›ÈÙHY[YšXØ\›ÛˆÜÈš[˜Ú\[\È[^™ÛÜÈØ[šYÜÈHØYH\XÚ\[HHYYÛÈÙHÛÛ˜\İ\›Ûˆİ\È™\ÜY\İ\È\˜H™XÛÛ›ØÙ\ˆØ\˜Xİ\°ë\İXØ\ÈÛÛ][™\ËƒBƒB“\ÈØ\˜Xİ\°ë\İXØ\ÈY\›ÛˆÛ\ÚYšXØY\ÈÛÛ[ÈØš™]]˜\ÈÈİXš™]]˜\ÈHİH™Xİ\œ™[˜ÚXHÙ\°èH^™\ØYHYYX[Hœ™XİY[˜ÚX\ÈHÜ˜Ù[Z™\Ëˆ\İÜÈ™\İ[YÜÈÙ\š\°è[ˆÛÛ[È˜\ÙH\˜HHYš[šXÚpìÛˆHZ\İHHÜÈ\Ù\ˆ\œÛÛ˜HH]KƒBƒBˆÈÈÙYÛY[ÈNˆY[ÜÈX^[Ü™\ÃBƒBˆÈÈÈÈÈ[^™ÛÜÈÜˆ[™]š\İCBƒBX›OƒBˆXYƒBˆƒBˆ‘[™]š\İOİƒBˆØ\˜Xİ\°ë\İXØ\ÈØš™]]˜\ÏİƒBˆØ\˜Xİ\°ë\İXØ\ÈİXš™]]˜\ÏİƒBˆ’[^™ÛÈš[˜Ú\[İƒBˆİƒBˆİXYƒBˆ›ÙOƒBˆƒBˆ‘[™]š\İH‹°¬OİƒBˆ•Y[™Hpì[ÜË\ÈXš[YÈ
+^YXğè[šXÛÈHÛÛ™XİÜŠK\Èš]YÈHš]™HÛÛÈ[ˆØ[ˆX\0ë[ˆHÜœ™\ËˆÚYİYH˜][ZY[È\˜H\\[œÚpìÛˆ
+ÜØ\0è[ˆH[[Ù\[›ÊKÛÜˆHÛÛ[[˜H
+Ù[XÛŞXŠHHÛÛ\İ\›Û
+]Ü˜\İ][˜JKÚ[ˆ[ˆ™XÛÜ™]Üš[ÈšZ›Ëˆ\ØHÚ]Ğ\H˜XÙX›ÛÚËH™XÚX™H\Ş[È\ÜÜ°èYXÛÈHİH0î›šXÛÈZ›Ë]ZY[ˆš]™H[ˆİ›È\İš]ËİƒBˆ“H™[Øİ\HİYœš\ˆ[ˆ]™[ÈÜ˜]™HHØ[YÜˆ›ÈYYXØ\œÙHÛÜœ™Xİ[Y[H[š]š\ˆÛÛÈHÚ[ˆ˜YYH]YHÈ›İHHY[\Ëˆ]š]H\XØXÚ[Û™\ÈY]˜\ÈÈ]YH\˜ÚX™HÛÛ[ÈÛÛ\Z˜\Ë][œ]YHY[™HY[˜H\ÜÜÚXÚpìÛˆXÚXHÜÈÛÛX[™ÜÈH›Ş‹ˆHİ\İ\°ëXHÛÛ\ˆÛÛˆ[ˆYXØ[š\Û[ÈH]š\ÛÈÚ[\KÚ[Z[\ˆH[ˆ[Xœ™K]YH›È\[™HHH\ÜÛšXš[YYH[ˆ˜[Z[X\‹İƒBˆ•š]š\ˆÛÛÈHÚ[ˆ[ˆpê]ÙÈšZ›ÈH™XÛÜ™]Üš[ÈÈ]˜HHÛšY\ˆœ™XİY[[Y[HÚHXHÛpìÈ[˜HÜÚ\Ë0è[™ÜÙHİY[HÛÛÈİX[™È\\™XÙ[ˆğë[ÛX\È°ë\ÚXÛÜÎÈ™XÙ\Ú]H[ˆ]š\ÛÈÚ[\HH[™\[™Y[H[ÛÛXİÈ\ÜÜ°èYXÛÈÛÛˆİH˜[Z[X\‹İƒBˆİƒBˆƒBˆ‘[™]š\İH‹°¬İƒBˆ•Y[™HÌˆpì[ÜË\ÈXš[YHHš]™H[ˆ[Ø[[ÈÛÛˆİ\ÈZ˜\Ëˆ][^˜HYYXØ[Y[ÜÈ\˜H\ÈÜš\Ú\ÈHZYÜ˜pìXHH[›ÈH[ÜÈÈÛXHÜˆ\È›ØÚ\È\˜HÙ\ˆÜ›Z\‹ˆ\ØHš[˜Ú\[Y[HÚ]Ğ\H™XÚX™H\Ş[ÈHİ\ÈZ˜\È\˜H[ÙYİZ[ZY[ÈHİHYYXØXÚpìÛ‹İƒBˆ“H™[Øİ\Hš[˜Ú\[Y[HİX[™È™\Ù[H[˜HÜš\Ú\ÈHZYÜ˜pìXKˆÛÛœÚY\˜H]YH[İ[˜\È\XØXÚ[Û™\ÈY]˜\ÈÛÛˆY°ëXÚ[\ÈH][^˜\ˆİX[™È›ÈÛÛ›ØÙHİH[˜Ú[Û˜[ZY[ËˆHİ\İ\°ëXH[™\ˆ\œ˜[ZY[\ÈXØÙ\ÚX›\ÈH[™›Ü›XXÚpìÛˆ\ÜÛšX›HÛØœ™HİH˜][ZY[ÈH\ÈÜš\Ú\ÈHZYÜ˜pìXKİƒBˆ“™XÙ\Ú]H[˜H\œ˜[ZY[HÙ[˜Ú[HH°èXÚ[HÛÛœİ[\ˆ]YHH\›Z]HXØÙY\ˆH[™›Ü›XXÚpìÛˆÛØœ™Hİ\ÈÜš\Ú\ÈHZYÜ˜pìXHH™XÛÜ™\ˆÈ™\šYšXØ\ˆ\È[™XØXÚ[Û™\ÈHİHYYXØXÚpìÛ‹İƒBˆİƒBˆİ›ÙOƒBİX›OƒBƒBˆÈÈÈÈÈØ\˜Xİ\°ë\İXØ\È™\™\Ù[]]˜\È[ÙYÛY[ÃBƒBX›OƒBˆXYƒBˆƒBˆ•\ÏİƒBˆØ\˜Xİ\°ë\İXØOİƒBˆ‘]šY[˜ÚXOİƒBˆ‘œ™XİY[˜ÚXOİƒBˆ”Ü˜Ù[Z™OİƒBˆİƒBˆİXYƒBˆ›ÙOƒBˆƒBˆ“Øš™]]˜OİƒBˆ•][^˜HÚ]Ğ\ÛÛ[Èš[˜Ú\[Ø[˜[HÛÛ][šXØXÚpìÛˆYÚ][İƒBˆ‘[™]š\İ\È‹°¬HH‹°¬İƒBˆŒ‹ÌİƒBˆŒL	OİƒBˆİƒBˆƒBˆ“Øš™]]˜OİƒBˆ’HÛšYYÈ[İ[˜H™^ˆÛX\ˆ[˜HÜÚ\ÈHİHYYXØXÚpìÛİƒBˆ‘[™]š\İ\È‹°¬HH‹°¬İƒBˆŒ‹ÌİƒBˆŒL	OİƒBˆİƒBˆƒBˆ”İXš™]]˜OİƒBˆÛÛœÚY\˜HY°ëXÚ[\ÈH][^˜\ˆ\È\XØXÚ[Û™\ÈY]˜\ÈÈ]YH›ÈÛÛ\™[™HšY[ˆğìÛ[È[˜Ú[Û˜[İƒBˆ‘[™]š\İ\È‹°¬HH‹°¬İƒBˆŒ‹ÌİƒBˆŒL	OİƒBˆİƒBˆƒBˆ”İXš™]]˜OİƒBˆ“X[šYšY\İH[\°ê\ÈÈY[˜H\ÜÜÚXÚpìÛˆXÚXH[˜H\œ˜[ZY[HÚ[\H]YHH˜XÚ[]H[™XÛÜ™]Üš[ÈÈÙYİZ[ZY[ÈHİHYYXØXÚpìÛİƒBˆ‘[™]š\İ\È‹°¬HH‹°¬İƒBˆŒ‹ÌİƒBˆŒL	OİƒBˆİƒBˆİ›ÙOƒBİX›OƒBƒBˆÈÈÈÈÈÛÛ˜Û\ÚpìÛˆ[ÙYÛY[ÈCBƒB“\ÈÜÈ[™]š\İ\È™YÚ\İ˜Y\È\İH[[ÛY[È\˜H\İHÙYÛY[È]Y\İ˜[ˆ]YHÜÈY[ÜÈX^[Ü™\ÈÙ\İ[Û˜[ˆ˜][ZY[ÜÈÜ°ìÛšXÛÜÈ
+\\[œÚpìÛ‹ÛÜˆHÛÛ[[˜KÛÛ\İ\›ÛHÜš\Ú\ÈHZYÜ˜pìXJHÚ[ˆ[ˆpê]ÙÈšZ›ÈH™XÛÜ™]Üš[Ë\Şpè[™ÜÙH[ˆ][˜\È[™›Ü›X[\È\ÛØÚXY\ÈHÜÈ[ÛY[ÜÈ[0ëXKˆ[X›ÜÈ\XÚ\[\È™\Ü[ˆX™\ˆÛšYYÈ[İ[˜HÛXK0è[™ÜÙHİY[HÙ[™\˜[Y[HÜˆÛÛœÙXİY[˜ÚX\È[™\™Xİ\È
+ğë[ÛX\È°ë\ÚXÛÜÈÈ›ÈÙ\ˆÜ›Z\ŠHpè\È]YHÜˆ[ˆYXØ[š\Û[ÈH™\šYšXØXÚpìÛˆ›Ü[Ëˆ[š]™[H\Ş[È˜[Z[X\ˆ\ÜÛšX›H˜\°ëXNˆZY[˜\È]YHX[Y[š]™HÛÛÈHÛÛÈİY[HÛÛˆ™XÛÜ™]Üš[ÜÈ\ÜÜ°èYXÛÜÈHİHZ›Ë›ÜØ\š[Èš]™HÛÛˆİ\ÈZ˜\ÈH™XÚX™H[ˆXÛÛ\pìX[ZY[Èpè\ÈÙ\˜Ø[›ÎÈ[ˆ[X›ÜÈØ\ÛÜËÚ[ˆ[X˜\™ÛË[Y[ÈX^[ÜˆÚYİYHÚY[™È™\ÜÛœØX›H\™XİÈH™XÛÛ›ØÙ\ˆHZ™Xİ]\ˆİHÛXKˆ[ˆİX[È[ÛÛ^ÈYÚ][[X›ÜÈ][^˜[ˆÚ]Ğ\ÛÛ[Èš[˜Ú\[\œ˜[ZY[HH]š][ˆ\XØXÚ[Û™\ÈY]˜\È]YH\˜ÚX˜[ˆÛÛ[ÈÛÛ\Z˜\ËÈ]YHÛÛ™š\›XHH™XÙ\ÚYYH]YHH[\˜XØÚpìÛˆÛÛˆ]HÙXH^™[XY[Y[HÚ[\HHH˜Z˜HØ\™ØHÛÙÛš]]˜Kˆ\Ú[Z\Û[Ë[X›ÜÈ^™\Ø[ˆ\\\˜HXÚXHYXØ[š\Û[ÜÈH]š\ÛÈÈÛÛœİ[HÙ[˜Ú[ÜÈ
+[ˆ]š\ÛÈ\È[Xœ™K[™›Ü›XXÚpìÛˆXØÙ\ÚX›HÛØœ™HİHÛÛ™XÚpìÛŠKÈ]YH˜[YH[[™›Ü]YHHÛÛ™š\›XXÚpìÛˆHÛXHYYX[H[ˆÜ]YHÈÜˆ›Şˆ]YH›ÜÛ™HHÛÛXÚpìÛ‹ˆ\İHÛÛ˜Û\ÚpìÛˆÙH[\X\°èH[˜H™^ˆÙH[˜ÛÜœÜ™HH[™]š\İH‹°¬È[™Y[HH\İHÙYÛY[ËƒBƒBˆÈÈÈÈÙYÛY[Èˆ˜[Z[X\™\ÈÈİZYYÜ™\ÃBƒBˆÈÈÈÈÈ[^™ÛÜÈÜˆ[™]š\İCBƒBX›OƒBˆXYƒBˆƒBˆ‘[™]š\İOİƒBˆØ\˜Xİ\°ë\İXØ\ÈØš™]]˜\ÏİƒBˆØ\˜Xİ\°ë\İXØ\ÈİXš™]]˜\ÏİƒBˆ’[^™ÛÈš[˜Ú\[İƒBˆİƒBˆİXYƒBˆ›ÙOƒBˆƒBˆ‘[™]š\İH‹°¬Nˆ˜[\šH›Ú˜\ÏİƒBˆŒŒˆpì[ÜËš]™H[ˆÜÈÛ]›ÜÈÛÛˆİ\ÈY™\ÈHİHXY[H
+ÛÛˆXX™]\ÊK\İYX[H[š]™\œÚ]\šXKˆš]™H[ˆ[Z\Û[ÈÙØ\ˆ]YHİHXY[HHH™KØÛÛ™\œØHÛÛˆ[HÙÜÈÜÈ0ëX\ËİƒBˆÛÛœÚY\˜H]YH™Yİ[\ˆ\™Xİ[Y[H›ÈÚY[\™H\ÈİYšXÚY[NˆX›È[˜HØØ\ÚpìÛˆ[ˆ]YHH˜[Z[XH\İ[ZpìÈ]YHİHXY[HXHX°ëXHÛXYÈ[YYXØ[Y[ÈHYYÛÈÙHY\›ÛˆİY[HH]YH›ÈYH\ğëKˆ˜[Ü˜H™XÚXš\ˆ[ˆ]š\ÛÈ]]Ûpè]XÛÈHHÛXHH[˜H[\H[HÛšYÜÈÈ™]˜\ÛÜËÛØœ™HÙÈÜœ]YHİHXY[H›È\ØHÚ]Ğ\ÛÛÈ[XY\ËİƒBˆ’[˜Û\ÛÈš]šY[™È˜Z›È[Z\Û[ÈXÚË[ÙYİZ[ZY[È\[™HHHY[[ÜšXHHÛ™\İYYH\È™\ÜY\İ\È[Y[ÈX^[Ü‹È]YHYYHÙ[™\˜\ˆ˜[Ø\ÈÙ\^˜\ÈÛØœ™HÚHHYYXØXÚpìÛˆYHÛXYKİƒBˆİƒBˆƒBˆ‘[™]š\İH‹°¬ˆÙX˜\İpè[ˆ°è\Ü]Y^İƒBˆŒˆpì[ÜËš]™H[ˆXYÙ[[˜K\İYXHH˜X˜Z˜H\ÙHØ\ØKˆXÛÛ\pìXHHİHXY[ÈHX[Y[™HÛÛXİÈYYX[Hš\Ú]\Ë[XY\ÈHšY[Û[XY\ËİƒBˆÛÛœÚY\˜HØÛÈÛÛ™šXX›H\[™\ˆ0î›šXØ[Y[HHH™\ÜY\İHHİHXY[È\˜HÛÛ\›Ø˜\ˆ[˜HÛXKˆ˜[Ü˜H™XÚXš\ˆ[™›Ü›XXÚpìÛˆÚ[ˆ™X[^˜\ˆ™\šYšXØXÚ[Û™\ÈÛÛœİ[\ËİƒBˆ‘[ÙYİZ[ZY[ÈH\İ[˜ÚXHÙ[™\˜H[˜Ù\Y[Xœ™HÜœ]YH›È^\İH[ˆYXØ[š\Û[ÈÛÛ™šXX›H\˜HÛÛ›ØÙ\ˆÚHHYYXØXÚpìÛˆYHİ[\YKİƒBˆİƒBˆƒBˆ‘[™]š\İH‹°¬ÎˆX\šH[\˜ğìÛİƒBˆŒŒpì[ÜËš]™H[ˆÛÛX\ÈÛÛˆİ\ÈY™\ÈH\›X[›Ë\İYX[HHÚXÛÛÙğëXKˆXÛÛ\pìXHHİHXY[KH]ZY[ˆš\Ú]HˆÈÈ™XÙ\È[Y\ÈHÛÛXİHÜˆ[XYHÈY[œØZ™H[™\İÈ[Y[\ËİƒBˆ“HÙ[™\˜H[œÚYYY›ÈØX™\ˆÚHİHXY[HÛpìÈÛÜœ™Xİ[Y[Hİ\ÈYYXØ[Y[ÜÈÈÚHHØİ\œšpìÈ[ÛËÚ[Y[™È]YH[\İ\ˆZ›ÜÈ›ÈÚY[\™HYYH™XXØÚ[Û˜\ˆ°è\YËˆİX[™ÈY[™HY\Ë™Xİ\œ™HHİ›È˜[Z[X\ˆÙ\˜Ø[›È\˜H™\šYšXØ\‹ˆ™Y™\š\°ëXH[˜H\HİZYYÈYXØYKÚ[\HHÚ[ˆ[X\ÚXY\ÈÜÚ[Û™\ËİƒBˆ“H\İ[˜ÚXH°ë\ÚXØH[\™ØH[Y[\ÈH™XXØÚpìÛˆ[H[ˆÜÚX›HÛšYÈHØ›YØHH\[™\ˆH\˜Ù\›ÜÈ\˜HÛÛ™š\›X\ˆHÛXKÙ[™\˜[™È[˜Ù\Y[Xœ™H›ÛÛ™ØYKİƒBˆİƒBƒBˆ‘[™]š\İH‹°¬ˆ[Û˜\™È0ìÜ^İƒBˆ•Y[™HŒÈpì[ÜÈHš]™HÛÛˆİHXY[KX[pèHH\0èKˆX[Y[™HÛÛXİÈœ™XİY[HÛÛˆİH˜[Z[X\ˆY[ÈX^[Ü‹ˆXİX[Y[H™X[^˜H[ÙYİZ[ZY[È™Yİ[0è[™ÛHÚHÛpìÈİ\ÈYYXØ[Y[ÜÈH™XÛÜ™0è[™ÛHÜÈÜ˜\š[ÜËˆ][^˜HÚ]Ğ\[œİYÜ˜[K˜XÙX›ÛÚÈH[İUX™KİƒBˆ“H™[Øİ\H]YHİHXY[H›ÈÚYØH[˜HY[˜H[[Y[XÚpìÛ‹ÛšYHÛX\ˆİ\ÈYYXØ[Y[ÜÈÈ›ÈÙHİZYHYXİXY[Y[KˆÛÛœÚY\˜H[\Ü[HÙ\ˆØX™\ˆÛÛˆÙ\^˜HÚHÛpìÈİ\È\İ[\ÈHÙHÚY[HğìÛ[ÙÈÛÛ™šYİ\˜[™È[\\ÈH›İYšXØXÚ[Û™\ËİƒBˆ“™XÙ\Ú]H[˜H\œ˜[ZY[H]YH\›Z]HÛÛ™š\›X\ˆÚHİH˜[Z[X\ˆÛpìÈİHYYXØXÚpìÛˆH[šX\›H[˜H›İYšXØXÚpìÛ‹™YXÚY[™ÈH[˜Ù\Y[Xœ™HH˜XÚ[][™È[ÙYİZ[ZY[ÈH\İ[˜ÚXKİƒBˆİƒBˆƒBˆ‘[™]š\İH‹°¬NˆX]0ëX\ÈØ\œš[ÏİƒBˆŒHpì[ÜËš]™H[ˆØ[ˆZYİY[ÛÛˆİ\ÈY™\Ë\ÙpìXYÜˆÜ°èYšXÛÈœ™Y[[˜ÙHÛÛˆÜ˜\š[È›^X›KˆXÛÛ\pìXHHİHXY[KH]ZY[ˆš\Ú]HÜÈ™XÙ\ÈÜˆÙ[X[˜HHÛÛXİHÜˆ[XYHØ\ÚHHX\š[È[™\İÈ[Y[\ËİƒBˆÛÛœÚY\˜H]YKYÈ[šY\ÙÛÈ\ÛØÚXYÈHH\\[œÚpìÛˆHİHXY[K[ˆÛšYÈHYYXØXÚpìÛˆ›È\ÈY[›Ü‹H[š]š\ˆÛÛH[ˆ]™[ÈÜ˜]™HÙ°ëXH›È]Xİ\œÙHHY[\ËˆİX[™ÈY[™HY\ÈÛØœ™H[˜HÛXK™Xİ\œ™HHİ›È˜[Z[X\ˆÙ\˜Ø[›È\˜H™\šYšXØ\‹ˆÙHÚY[H]^HğìÛ[ÙÈÛÛ™šYİ\˜[™È[\\ÈH™XÛÜ™]Üš[ÜËİƒBˆ’[˜Û\ÛÈÛÛˆÛÛXİÈØ\ÚHX\š[ËÛÛ™šX\ˆ[ˆH™\ÜY\İH™\˜˜[[Y[ÈX^[ÜˆÙ[™\°ìÈ[˜H˜[ØHÙ\^˜HÛØœ™H[İ[\[ZY[ÈH[˜HÛXK\ØİXšY\HØ\ÚH[ˆ0ëXH\Üpê\ËİƒBİƒBˆİ›ÙOƒBİX›OƒBƒBˆÈÈÈÈÈØ\˜Xİ\°ë\İXØ\È™\™\Ù[]]˜\È[ÙYÛY[ÃBƒBX›OƒBˆXYƒBˆƒBˆ•\ÏİƒBˆØ\˜Xİ\°ë\İXØOİƒBˆ‘]šY[˜ÚXOİƒBˆ‘œ™XİY[˜ÚXOİƒBˆ”Ü˜Ù[Z™OİƒBˆİƒBˆİXYƒBˆ›ÙOƒBˆƒBˆ“Øš™]]˜OİƒBˆ‘[ÙYİZ[ZY[ÈÙH™X[^˜HYYX[Hš\Ú]\ÈHÛÛ][šXØXÚpìÛˆ™[[İOİƒBˆ‘[™]š\İ\È‹°¬‹‹°¬ÈH‹°¬OİƒBˆŒËÍOİƒBˆŒ	OİƒBˆİƒBˆƒBˆ“Øš™]]˜OİƒBˆ‘[˜[Z[X\ˆ][^˜HXš]X[Y[H\XØXÚ[Û™\Èpìİš[\ÏİƒBˆ‘[™]š\İ\È‹°¬K‹°¬‹‹°¬Ë‹°¬H‹°¬OİƒBˆKÍOİƒBˆŒL	OİƒBˆİƒBˆƒBˆ”İXš™]]˜OİƒBˆ‘^\İH[˜Ù\Y[Xœ™HÛØœ™H[İ[\[ZY[ÈHHYYXØXÚpìÛİƒBˆ‘[™]š\İ\È‹°¬K‹°¬‹‹°¬Ë‹°¬H‹°¬OİƒBˆKÍOİƒBˆŒL	OİƒBˆİƒBˆƒBˆ”İXš™]]˜OİƒBˆ”ÙH˜[Ü˜H™XÚXš\ˆ[™›Ü›XXÚpìÛˆÚ[ˆ™X[^˜\ˆ™\šYšXØXÚ[Û™\ÈÛÛœİ[\ÏİƒBˆ‘[™]š\İ\È‹°¬K‹°¬‹‹°¬Ë‹°¬H‹°¬OİƒBˆKÍOİƒBˆŒL	OİƒBˆİƒBˆƒBˆ”İXš™]]˜OİƒBˆ‘^\İH™[Øİ\XÚpìÛˆÜˆ[İZYYÈ[Y[ÈX^[ÜˆİX[™ÈÙH[˜İY[˜HÛÛÏİƒBˆ‘[™]š\İ\È‹°¬K‹°¬‹‹°¬ÈH‹°¬OİƒBˆÍOİƒBˆ	OİƒBˆİƒBˆİ›ÙOƒBİX›OƒBƒBˆÈÈÈÈÈÛÛ˜Û\ÚpìÛˆ[ÙYÛY[ÈƒBƒB“\ÈÚ[˜ÛÈ[™]š\İ\È™YÚ\İ˜Y\È\˜H\İHÙYÛY[È]šY[˜ÚX[ˆ[ˆ]°ìÛˆÛÛœÚ\İ[Nˆ[ÙYİZ[ZY[ÈHHYYXØXÚpìÛˆ\[™HØ\ÚH^Û\Ú]˜[Y[HHHÛÛ][šXØXÚpìÛˆ\™XİHÛÛˆ[Y[ÈX^[Üˆ8 %XHÙXH™\Ù[˜ÚX[Üˆ[XYHÈÜˆY[œØZ™x %HHHÛÛ™šX[˜H[ˆİH™\ÜY\İKÚ[ˆ[ˆYXØ[š\Û[ÈØš™]]›È]YHÛÛ™š\›YH[İ[\[ZY[ËˆÜÈÚ[˜ÛÈ[™]š\İYÜÈ™[]\›Ûˆ[Y[›ÜÈ[ˆ\\ÛÙ[ÈÛÛ˜Ü™]È[ˆ[]YH\İH\[™[˜ÚXHÙ[™\°ìÈ[˜H˜[ØHÙ\^˜HÈ[ˆ\ØİXœš[ZY[È\™0ë[ÈH[˜HÛXHÛZ]YH
+˜[\šKÙX˜\İpè[‹X\šK[Û˜\™ÈHX]0ëX\ÊKÈ]YHÛÛ™š\›XH]YH™Yİ[\ˆ\™Xİ[Y[H›È\È[ˆpê]ÙÈÛÛ™šXX›K[˜Û\ÛÈİX[™È^\İHÛÛš]™[˜ÚXH[ˆ[Z\Û[ÈÙØ\ˆÈÛÛXİÈØ\ÚHX\š[ËˆH›Ü›XHHÛÛXİÈ˜\°ëXHÙYğî›ˆHÙ\˜Ø[°ëXH°ë\ÚXØNˆ]ZY[™\ÈÛÛš]™[ˆÛÛˆ[Y[ÈX^[Üˆ
+˜[\šK[Û˜\™ÊH™X[^˜[ˆ[ˆÙYİZ[ZY[ÈX\š[ÈH[™›Ü›X[ZY[˜\È]YH]ZY[™\È›ÈÛÛš]™[ˆÛÛˆ0ê[
+ÙX˜\İpè[‹X\šKX]0ëX\ÊH\[™[ˆHš\Ú]\È\špìÙXØ\ÈH[XY\ËÈ]YH[\0ëXH[Y[\ÈH™XXØÚpìÛˆ[H[ˆÜÚX›HÛšYËˆÙÜÈÜÈ\XÚ\[\È\Ø[ˆ\XØXÚ[Û™\Èpìİš[\ÈÛÛˆÛÛ\˜HHÙHÚY[[ˆğìÛ[ÙÜÈÛÛ™šYİ\˜[™È[\\ÈH›İYšXØXÚ[Û™\ËÈ]YH™\Ü[HHšXXš[YYH[˜HÛÛXÚpìÛˆpìİš[\˜H\İHÙYÛY[Ëˆ\Ú[Z\Û[ËÙÜÈÛÚ[˜ÚY[ˆ[ˆ™Y™\š\ˆ™XÚXš\ˆ[™›Ü›XXÚpìÛˆÈ›İYšXØXÚ[Û™\È]]Ûpè]XØ\È[\È]YH\[™\ˆH™\šYšXØXÚ[Û™\ÈÛÛœİ[\ËHHX^[Ü°ëXH^™\ØH™[Øİ\XÚpìÛˆ^0ëXÚ]HÜˆHÙYİ\šYY[Y[ÈX^[ÜˆİX[™ÈÙH[˜İY[˜HÛÛËˆ[ˆÛÛš[Ë\İÜÈ[^™ÛÜÈ]šY[˜ÚX[ˆH™XÙ\ÚYYH[ˆYXØ[š\Û[ÈH[Ûš]Ü™[È™[[İÈÛÛ™šXX›H]YH™Y[\XÙHH\[™[˜ÚXHXİX[HHÛÛ][šXØXÚpìÛˆ™\˜˜[H™Y^˜ØHH[˜Ù\Y[Xœ™H[İZYYÜ‹ƒBƒBˆÈÈ‹ŒËˆ™YYš[™[™ÃBƒBH\\ˆHH[™›Ü›XXÚpìÛˆ™XÛÛXİYH[ˆ[›ØÙ\ÛÈH[™]š\İ\ÈH[[°è[\Ú\ÈÛÛ\]]]›È\Ø\œ›ÛYÈ™]šX[Y[K[\]Z\È›ØÙY\˜HH™X[^˜\ˆ[™YYš[™[™ËÛÛˆ[Øš™]]›ÈHÛÛœİZ\ˆ[˜HÛÛ\™[œÚpìÛˆ›Ù[™HH\İXİ\˜YHHÜÈÜÈÙYÛY[ÜÈØš™]]›ÈH]Kˆ\İHÙXØÚpìÛˆ[˜Û^YHH[X›Ü˜XÚpìÛˆHÜÈ\Ù\ˆ\œÛÛ˜\È]YH™\™\Ù[[ˆHØYHÙYÛY[Ë[\Ù\ˆ\ÚÈX]š^]YHÛÛœÛÛYH\È\™X\È™[]˜[\È]YH\İÜÈ™X[^˜[‹ÜÈ\Ù\ˆ›İ\›™^HX\È[ˆİH™\œÚpìÛˆ\ËR\ËÜÈ[\]HX\ÈÜˆØYH\œ]Y]\Ë[šYÈXİ\™H]™[İÜ›Z[™È[ÛZ[š[È[™YÛØÚ[ËH[ÛÜØ\š[ÈHXš\]Z]İ\È[™İXYÙH]YH[šYšXØH[›ØØX[\š[È[\]Z\È[ˆÜ››È[ÛZ[š[È[›Ø›[XKƒBƒBˆÈÈÈ‹ŒËŒKˆ\Ù\ˆ\œÛÛ˜\ÃBƒBŠŠ”ÙYÛY[ÈNˆY[ÜÈX^[Ü™\ÊŠƒB[YÛH˜Ù[\ˆƒBˆ[YÈÜ˜ÏH˜\ÜÙ]ËÕ\Ù\—Ô\œÛÛ˜LKœ™Èˆ[H\Ù\—Ü\œÛÛ˜Wİ˜[[[˜HˆÚYHL‹ÏƒBÜƒBƒBŠŠ”ÙYÛY[Èˆ˜[Z[X\™\ÈÈİZYYÜ™\ÈHY[ÜÈX^[Ü™\ÊŠƒB[YÛH˜Ù[\ˆƒBˆ[YÈÜ˜ÏH˜\ÜÙ]ËÕ\Ù\—Ô\œÛÛ˜L‹œ™Èˆ[H\Ù\—Ü\œÛÛ˜WØ[™™XHˆÚYHL‹ÏƒBÜƒBƒBˆÈÈÈ‹ŒËŒ‹ˆ\Ù\ˆ\ÚÈX]š^BƒBˆÈÈÈÈÙYÛY[ÈNˆY[ÜÈX^[Ü™\ÃBƒB]ˆ[YÛH˜Ù[\ˆˆX›OˆXYˆˆ•\™XOİˆ‘œ™XİY[˜ÚXOİˆ’[\Ü[˜ÚXOİˆİˆİXYˆ›ÙOˆˆ”™XÛÜ™\ˆÜÈYYXØ[Y[ÜÈ]YHX™HÛX\İˆ“Ù[İˆ’YÚİˆİˆˆ’Y[YšXØ\ˆİpè[™ÈX™HÛX\ˆ[ˆYYXØ[Y[Ïİˆ“Ù[İˆ’YÚİˆİˆˆ•[™\ˆİ\ÈYYXØ[Y[ÜÈ\ÜÛšX›\ÈİX[™ÈÜÈ™XÙ\Ú]Oİˆ“Ù[İˆ’YÚİˆİˆˆ•ÛX\ˆİ\ÈYYXØ[Y[ÜÈ\˜[H[˜HÜš\Ú\ÈHØ[Yİˆ”ÛÛY][Y\Ïİˆ’YÚİˆİˆˆ•ÛX\ˆ[YYXØ[Y[È[™XØYÈ[\ÈHÜ›Z\İˆ“Ù[İˆ’YÚİˆİˆˆ”™XÛÜ™\ˆÚHXH™X[^°ìÈ[˜HÛXOİˆ”ÛÛY][Y\Ïİˆ’YÚİˆİˆˆÛÛœİ[\ˆHİ\È˜[Z[X\™\ÈÛØœ™H\ÜXİÜÈ™[XÚ[Û˜YÜÈÛÛˆİ\ÈYYXØ[Y[ÜÏİˆ”ÛÛY][Y\Ïİˆ“YY][Oİˆİˆˆ’[™›Ü›X\ˆHİ\È˜[Z[X\™\ÈÛØœ™HİH\İYÈHØ[Yİˆ”ÛÛY][Y\Ïİˆ“YY][Oİˆİˆˆ\ØØ\ˆ[™›Ü›XXÚpìÛˆÛØœ™Hİ\È›Ø›[X\ÈHØ[Yİˆ”ÛÛY][Y\Ïİˆ“YY][Oİˆİˆˆ\™[™\ˆH][^˜\ˆY]˜\È\œ˜[ZY[\È\˜H[İZYYÈHİHØ[Yİˆ”˜\™[Oİˆ“YY][Oİˆİˆİ›ÙOˆİX›OˆÙ]ƒBƒBˆÈÈÈÈÙYÛY[Èˆ˜[Z[X\™\ÈÈİZYYÜ™\ÈHY[ÜÈX^[Ü™\ÃBƒB]ˆ[YÛH˜Ù[\ˆˆX›OˆXYˆˆ•\™XOİˆ‘œ™XİY[˜ÚXOİˆ’[\Ü[˜ÚXOİˆİˆİXYˆ›ÙOˆˆÛÛ][šXØ\œÙHÛÛˆ[Y[ÈX^[Üˆ\˜HÛÛ›ØÙ\ˆİH\İYÈHØ[Yİˆ“Ù[İˆ’YÚİˆİˆˆ”™Yİ[\ˆ[Y[ÈX^[ÜˆÚHÛpìÈİ\ÈYYXØ[Y[ÜÏİˆ“Ù[İˆ’YÚİˆİˆˆ”™XÛÜ™\ˆ[Y[ÈX^[Üˆ]YHX™HÛX\ˆİ\ÈYYXØ[Y[ÜÏİˆ“Ù[İˆ’YÚİˆİˆˆ•™\šYšXØ\ˆ]YH[Y[ÈX^[Üˆ^XHÛXYÈİ\ÈYYXØ[Y[ÜÏİˆ“Ù[İˆ’YÚİˆİˆˆ”™X[^˜\ˆÙYİZ[ZY[È[˜][ZY[È[Y[ÈX^[Üİˆ“Ù[İˆ’YÚİˆİˆˆ‘]Xİ\ˆİX[™È[Y[ÈX^[ÜˆÛšYH[˜HÛXOİˆ”ÛÛY][Y\Ïİˆ’YÚİˆİˆˆ”™XÛÜ™\ˆ\špìÙXØ[Y[HÜÈÜ˜\š[ÜÈHYYXØXÚpìÛİˆ“Ù[İˆ’YÚİˆİˆˆÛÛœİ[\ˆ\™Xİ[Y[H[Y[ÈX^[ÜˆİX[™È^\İHYHÛØœ™H[˜HÛXOİˆ”ÛÛY][Y\Ïİˆ“YY][Oİˆİˆˆ‘YXØ\ˆY[\ÈX\š[È[ÙYİZ[ZY[ÈHHYYXØXÚpìÛİˆ“Ù[İˆ“YY][Oİˆİˆˆ”™[Øİ\\œÙHÜˆ[İZYYÈÙ[™\˜[[Y[ÈX^[ÜˆİX[™È›È\İ0èH™\Ù[Oİˆ“Ù[İˆ’YÚİˆİˆİ›ÙOˆİX›OˆÙ]ƒBƒBˆÈÈÈÈ[°è[\Ú\È[\Ù\ˆ\ÚÈX]š^BƒB“\È\™X\ÈÛÛˆX^[Üˆœ™XİY[˜ÚXHH[\Ü[˜ÚXH\˜H[ÙYÛY[ÈHY[ÜÈX^[Ü™\È\İ0è[ˆ™[XÚ[Û˜Y\ÈÛÛˆ™XÛÜ™\ˆH™X[^˜\ˆÛÜœ™Xİ[Y[Hİ\ÈÛX\ÈHYYXØ[Y[ÜËˆ\İXØ[ˆ™XÛÜ™\ˆÜÈYYXØ[Y[ÜÈ]YHX™HÛX\‹Y[YšXØ\ˆİpè[™ÈX™HÛX\›ÜË[™\›ÜÈ\ÜÛšX›\ÈH™X[^˜\ˆ\ÈÛX\ÈÛÜœ™\ÜÛ™Y[\Ëš[˜Ú\[Y[HØ[YšXØY\ÈÛÛ[ÈÙ[ˆHYÚˆH[™]š\İH]šY[˜ÚXH]YH[İ[\[ZY[ÈHHYYXØXÚpìÛˆYYH\İ\ˆ™[XÚ[Û˜YÈÛÛˆİHšY[™\İ\‹\ÜXÚX[Y[H[ˆÚ]XXÚ[Û™\ÈÛÛ[È\ÈÜš\Ú\ÈHZYÜ˜pìXHÈHÛXHHYYXØ[Y[ÜÈ\˜[HH›ØÚKˆ\Ú[Z\Û[Ë^\İH[˜H™XÙ\ÚYYHÛÛ\ˆÛÛˆ\œ˜[ZY[\ÈÙ[˜Ú[\È]YHYY[ˆÙ\ˆÛÛ\™[™Y\ÈH][^˜Y\ÈÚ[ˆÙ[™\˜\ˆYšXİ[Y\ËƒBƒB”\˜H[ÙYÛY[ÈH˜[Z[X\™\ÈÈİZYYÜ™\Ë\È\™X\ÈHX^[Üˆœ™XİY[˜ÚXHH[\Ü[˜ÚXHÛÛˆ™Yİ[\ˆÚH[Y[ÈX^[ÜˆÛpìÈİ\ÈYYXØ[Y[ÜË™XÛÜ™\›H]YHX™HÛX\›ÜË™\šYšXØ\ˆ]YHHÛXHÙH^XH™X[^˜YÈH™X[^˜\ˆÙYİZ[ZY[È[˜][ZY[Ëˆ\İ\È\™X\È]Y\İ˜[ˆ]YHXİX[Y[H[˜[Z[X\ˆ\[™Hš[˜Ú\[Y[HHHÛÛ][šXØXÚpìÛˆ\™XİHÛÛˆ[Y[ÈX^[Üˆ\˜HÛÛ›ØÙ\ˆÚHİ[\pìÈÛÛˆİHYYXØXÚpìÛ‹ˆY[pè\Ë[[™]š\İYÈ[™XğìÈ]YHYXØH\›Ş[XY[Y[HLZ[]ÜÈX\š[ÜÈH™X[^˜\ˆ\İH\ÈHÙYİZ[ZY[ËƒBƒB•[˜HH\Èš[˜Ú\[\ÈÛÚ[˜ÚY[˜ÚX\È[™H[X›ÜÈÙYÛY[ÜÈ\È]YH[X›ÜÈ\XÚ\[ˆ[ˆ[İ[\[ZY[ÈHÙYİZ[ZY[ÈHHYYXØXÚpìÛ‹ˆ[Y[ÈX^[Üˆ™X[^˜H\ÈXØÚ[Û™\È™[XÚ[Û˜Y\È\™Xİ[Y[HÛÛˆİ\ÈYYXØ[Y[ÜËZY[˜\È]YH[˜[Z[X\ˆ\XÚ\HYYX[H™XÛÜ™]Üš[ÜË™Yİ[\ÈH™\šYšXØXÚpìÛ‹ˆÜˆ[Ë[˜HZ\ÛXHÚ]XXÚpìÛˆYYHÙ[™\˜\ˆ[˜H\™XH\˜H[X›ÜÈ\İX\š[ÜÎˆZY[˜\È[Y[ÈX^[Üˆ™XÙ\Ú]H™XÛÜ™\ˆH™X[^˜\ˆ[˜HÛXK[˜[Z[X\ˆ™XÙ\Ú]HÛÛ\›Ø˜\ˆ]YH\İHÙH^XH™X[^˜YËƒBƒB“Hš[˜Ú\[Y™\™[˜ÚXHÙH[˜İY[˜H[ˆ[›Û]YH\Ù[\pìXHØYHÙYÛY[È[›È[›ØÙ\ÛËˆ[Y[ÈX^[Üˆ\È]ZY[ˆZ™Xİ]H\™Xİ[Y[HHÛXHH™XÙ\Ú]H[˜H›Ü›XHÙ[˜Ú[HH™XÛÜ™\ˆİ\ÈYYXØ[Y[ÜÈHÜ˜\š[ÜËˆ[ˆØ[Xš[Ë[˜[Z[X\ˆÈİZYYÜˆİ[\H[ˆ›ÛHİ\\š\ÚpìÛ‹YXØ[™ÈY[\ÈHÛÛ][šXØ\œÙHÛÛˆ[Y[ÈX^[ÜˆH™\šYšXØ\ˆ]YH[˜][ZY[ÈÙH\İ0êHÚYİZY[™ÈÛÜœ™Xİ[Y[KƒBƒB‘š[˜[Y[K\È\™X\ÈY[YšXØY\È]Y\İ˜[ˆ]YH^\İH[˜H™XÙ\ÚYYH™YXÚ\ˆH\[™[˜ÚXHHHÛÛ][šXØXÚpìÛˆ™\˜˜[\˜HÛÛ\›Ø˜\ˆ\ÈÛX\ËˆZY[˜\È]YHXİX[Y[H[˜[Z[X\ˆX™H™Yİ[\ˆ\™Xİ[Y[H[Y[ÈX^[ÜˆHÛÛ™šX\ˆ[ˆİH™\ÜY\İK[Y[ÈX^[Üˆ™XÙ\Ú]H[˜HX[™\˜HÙ[˜Ú[HH[™XØ\ˆ]YHXH™X[^°ìÈİHÛXKˆ\İH™[XÚpìÛˆ[™H[X›ÜÈÙYÛY[ÜÈ\È[™[Y[[\˜HUKXH]YH\›Z]H[X\ˆ[˜HÛÛXÚpìÛˆ]YH˜XÚ[]H[İ[\[ZY[È[˜][ZY[È\˜H[Y[ÈX^[ÜˆK[Z\Û[ÈY[\Ë™Y^˜ØHH[˜Ù\Y[Xœ™H[˜[Z[X\‹ƒBƒBˆÈÈÈ‹ŒËŒËˆ\Ù\ˆ›İ\›™^HX\[™ÃBƒBˆÈÈÈÈÙYÛY[ÈNˆY[ÜÈX^[Ü™\ÃBƒBˆVÚ›İ\›™^[X\Kœ™×J\ÜÙ]ËÚ›İ\›™^[X\Kœ™ÊCBƒBˆÈÈÈÈÙYÛY[Èˆ˜[Z[X\™\ÈÈİZYYÜ™\ÈHY[ÜÈX^[Ü™\ÃBƒBˆVÚ›İ\›™^[X\‹œ™×J\ÜÙ]ËÚ›İ\›™^[X\‹œ™ÊCBƒBˆÈÈÈ‹ŒËˆ[\]HX\[™ÃBƒBˆÈÈÈÈÙYÛY[ÈNˆY[ÜÈX^[Ü™\ÃBƒBˆVÙ[\][X\Kœ™×J\ÜÙ]ËÙ[\][X\Kœ™ÊCBƒBˆÈÈÈÈÙYÛY[Èˆ˜[Z[X\™\ÈÈİZYYÜ™\ÈHY[ÜÈX^[Ü™\ÃBƒBˆVÙ[\][X\‹œ™×J\ÜÙ]ËÙ[\][X\‹œ™ÊCBƒBˆÈÈÈ‹ŒËKˆšYÈXİ\™H]™[İÜ›Z[™ÃBƒB‘[šYÈXİ\™H]™[İÜ›Z[™È\›Z]pìÈ™\™\Ù[\ˆH›Ü›XHÙ[™\˜[ğìÛ[ÈÙH\Ø\œ›ÛH[ÛZ[š[ÈH]K\ÙH[™YÚ\İ›ÈHHš[˜İ[XÚpìÛˆHÜÈ\İX\š[ÜÈ\İH[ÙYİZ[ZY[ÈH\ÈÛX\ËHÙ[™\˜XÚpìÛˆH[\\ÈH[[°è[\Ú\ÈHHY\™[˜ÚXKˆ[[Ù[ÈÙHÛÛœİ^pìÈš[˜Ú\[Y[HH\\ˆH]™[ÜÈHÛZ[š[È^™\ØYÜÈÛÛ[ÈXÚÜÈXHØİ\œšYÜÈHÜ™Ø[š^˜YÜÈÙYğî›ˆİHÙXİY[˜ÚXH[›È[™YÛØÚ[ËƒBƒB”\˜H˜XÚ[]\ˆİHXİ\˜K[ÛZ[š[ÈÙH]šYpìÈ[ˆİX]›ÈÜ\ÜÈš[˜Ú\[\Îˆ
+ŠİY[HHİZYYÊŠ‹
+Š•˜][ZY[ÈHÛXJŠ‹
+Š“ÛZ\ÚpìÛ‹ÙYİZ[ZY[ÈH[˜[0ë]XØJŠ‹H
+ŠÛÛ[ZYYHXØÙ\ÚXš[YY
+Š‹ˆÜÈ]™[ÜÈš[˜Ú\[\ÈÙH™\™\Ù[\›ÛˆYYX[H›İ\È˜\˜[š˜\ËZY[˜\È]YH\È˜\œ˜\È™\XØ[\ÈY[YšXØ[ˆ]™[ÜÈ]›İH]YHX\˜Ø[ˆØ[Xš[ÜÈ™[]˜[\È[›È[›Z›Ëˆ[Xšpê[ˆÙH[˜ÛÜœÜ˜\›Ûˆ[ÜÈ›Ø›[pè]XÛÜÈ\˜HX[[™\ˆš\ÚX›\ÈÚ]XXÚ[Û™\È]YH™\]ZY\™[ˆX^[Üˆ[°è[\Ú\ÈÈ˜[YXÚpìÛˆ\˜[H[\Ø\œ›ÛÈ[›ŞYXİËƒBƒBˆVĞšYÈXİ\™H]™[İÜ›Z[™ÈH]WJ\ÜÙ]ËØšYË\Xİ\™KY]™[İÜ›Z[™Ëœ™ÊCBƒBŠ‘šYİ\˜KˆšYÈXİ\™H]™[İÜ›Z[™ÈH]KŠƒBƒBˆÈÈÈÈİY[HHİZYYÃBƒB‘\İH›Z›È™\™\Ù[HH[˜ÛÜœÜ˜XÚpìÛˆ[šXÚX[HÜÈ\İX\š[ÜÈ[XÛÜÚ\İ[XHH]HH[\İX›XÚ[ZY[ÈHH™[XÚpìÛˆHİZYYËˆÛÛZY[˜HÛÛˆHÜ™XXÚpìÛˆH™\šYšXØXÚpìÛˆHHİY[H[˜[Z[X\ˆÈİZYYÜ‹ÛÛ[°î˜HÛÛˆİHXš[]XÚpìÛˆHHXİ]˜XÚpìÛˆ[[ˆÛÜœ™\ÜÛ™Y[KƒBƒB”Üİ\š[Ü›Y[KÙH™YÚ\İ˜H[\™š[[Y[ÈX^[ÜˆHÙHÙ[™\˜H[YXØ[š\Û[ÈHš[˜İ[XÚpìÛˆ[™H[X˜\È\\Ëˆ[›Z›Èİ[Z[˜HİX[™ÈÙH™YÚ\İ˜H[ÛÛœÙ[[ZY[ÈHÙHÛÛ™š\›XH[°ë[˜İ[ÈHİZYYËˆ\İH0î›[[È]™[È™\İ[H[\Ü[HÜœ]YH\›Z]HÛÛ[X\ˆÛÛˆHÛÛ™šYİ\˜XÚpìÛˆHÙYİZ[ZY[È[˜][ZY[È\ÛØÚXYÈ[Y[ÈX^[Ü‹ƒBƒB“ÜÈ]™[ÜÈ]›İH\›Z][ˆ\İ[™İZ\ˆ[ÛY[ÜÈ™[]˜[\È[›È[›ØÙ\ÛËÛÛ[ÈHXš[]XÚpìÛˆHHİY[HHHÛÛ™š\›XXÚpìÛˆ[°ë[˜İ[Ëˆ\Ú[Z\Û[ËÜÈ[ÜÈ›Ø›[pè]XÛÜÈ\ÛØÚXYÜÈ\›Z][ˆX[[™\ˆš\ÚX›\È\ÜXİÜÈ]YHÙ]°ëXHYY[ˆ™\]Y\š\ˆ˜[YXÚpìÛ‹ÛÛ[ÈHÙYİ\šYY[›ØÙ\ÛÈHš[˜İ[XÚpìÛˆH[ÛÛœÙ[[ZY[È[Y[ÈX^[Ü‹ƒBƒBˆVĞİY[HHİZYY×J\ÜÙ]ËØšYË\Xİ\™KXİY[KXİZYYËœ™ÊCBƒBŠ‘šYİ\˜Kˆ›Z›ÈHİY[HHİZYYËŠƒBƒBˆÈÈÈÈ˜][ZY[ÈHÛXCBƒB‘\İHÜ\È\ØÜšX™H[›Z›Èš[˜Ú\[™[XÚ[Û˜YÈÛÛˆHÛÛ™šYİ\˜XÚpìÛˆ[˜][ZY[ÈHHZ™XİXÚpìÛˆÛİYX[˜HH[˜HÛXKˆ[šXÚX[Y[HÙH™YÚ\İ˜H[˜][ZY[Ë[YYXØ[Y[ËHÜÚ\Ë[Ü˜\š[ÈHÜÈ™XÛÜ™]Üš[ÜÈ™XÙ\Ø\š[ÜËˆİX[™ÈHÛÛ™šYİ\˜XÚpìÛˆÙH[˜İY[˜HÛÛ\]K[˜][ZY[È\ØHH[ˆ\İYÈXİ]›ÈH]HYYHØ[İ[\ˆ\È°ìŞ[X\ÈÛX\È›ÙÜ˜[XY\ËƒBƒB[XÙ\˜Ø\œÙH[Ü˜\š[È\İX›XÚYËÙH[°ëXH[™XÛÜ™]Üš[ÈHÙHXœ™H[˜H™[[˜H\˜H]YH[Y[ÈX^[Üˆ™YÚ\İ™HHÛÛ™š\›XXÚpìÛ‹ˆH\\ˆH\İH[È\\™XÙ[ˆÜÈ™\İ[YÜÈš[˜Ú\[\ËˆÚHHÛXH\ÈÛÛ™š\›XYKÙH™YÚ\İ˜H[]™[ÈÛÜœ™\ÜÛ™Y[HHÙHXİX[^˜H[\İÜšX[X\š[ËˆÚH›È^\İHÛÛ™š\›XXÚpìÛˆ[›È[\š[ÙÈ\Ü\˜YË[›Z›ÈÛÛ[°î˜HXÚXH[›ØÙ\ÛÈHÙ\İpìÛˆHÛZ\Ú[Û™\ËƒBƒB“HÙ\\˜XÚpìÛˆ[™H
+Š•˜][ZY[ÈXİ]˜YÊŠˆHÜÈ]™[ÜÈÛÜœ™\ÜÛ™Y[\ÈH[˜HÛXHÛÛ˜Ü™]H\›Z]H\İ[™İZ\ˆHÛÛ™šYİ\˜XÚpìÛˆÙ[™\˜[[˜][ZY[ÈHİHZ™XİXÚpìÛˆX\šXKˆHYİX[›Ü›XKHšY\˜ØXÚpìÛˆ[™H[˜HÛXHÛÛ™š\›XYHH[˜HÛXH›ÈÛÛ™š\›XYH™\™\Ù[H[›ÈHÜÈš[˜Ú\[\ÈØ[Xš[ÜÈHÛÛ\Ü[ZY[È[›È[ÛZ[š[ËƒBƒBˆVÕ˜][ZY[ÈHÛXWJ\ÜÙ]ËØšYË\Xİ\™K]˜][ZY[Ë]ÛXKœ™ÊCBƒBŠ‘šYİ\˜Kˆ›Z›ÈH˜][ZY[ÈHÛXKŠƒBƒBˆÈÈÈÈÛZ\ÚpìÛ‹ÙYİZ[ZY[ÈH[˜[0ë]XØCBƒB‘\İH›Z›È™\™\Ù[HÈ]YHØİ\œ™HİX[™È[˜HÛXH\›X[™XÙHÚ[ˆÛÛ™š\›XXÚpìÛˆH™\]ZY\™H][˜ÚpìÛˆYXÚ[Û˜[ˆ]HYYH[Z]\ˆ[ˆ™XÛÜ™]Üš[È™Y›Ü˜YÈHX[[™\ˆXšY\H[˜H™[[˜HHÛ\˜[˜ÚXKˆÚH[\š[ÙÈYš[šYÈš[˜[^˜HÚ[ˆ[˜HÛÛ™š\›XXÚpìÛ‹HÛXHÙH™YÚ\İ˜HÛÛ[ÈÛZ]YHHÙHÙ[™\˜H[˜H[\H\šYÚYH[˜[Z[X\ˆÈİZYYÜ‹ƒBƒB“H[\HYYHÛÛ[X\ˆYYX[HÜÈØ[˜[\ÈÛÛ™šYİ\˜YÜÈKİX[™ÈÛÜœ™\ÜÛ™K[šXÚX\ˆ[ˆ›ØÙ\ÛÈH\ØØ[[ZY[ËˆÜİ\š[Ü›Y[K[˜[Z[X\ˆ™XÚX™H[™›Ü›XXÚpìÛˆÛØœ™HHÚ]XXÚpìÛˆHYYH™X[^˜\ˆ[ÙYİZ[ZY[ÈÛÜœ™\ÜÛ™Y[KˆH\İH›Ü›XK]H›ÈÙH[Z]HH™XÛÜ™\ˆ[˜HÛXKÚ[›È]YH[Xšpê[ˆ\›Z]H[™›Ü›X\ˆ[™\ÜÛœØX›H[İZYYÈİX[™ÈÙH›ÙXÙH[˜HÚ]XXÚpìÛˆ™[]˜[KƒBƒB“ÜÈ™YÚ\İ›ÜÈÙ[™\˜YÜÈ\˜[H\ÈÛX\È[Xšpê[ˆ[[Y[[ˆ[[°è[\Ú\ÈHY\™[˜ÚXKˆÛÛˆ[\İÜšX[Xİ[][YÈÙHYY[ˆÛÛœÛÛY\ˆ\š[ÙÜÈHÙYİZ[ZY[ËØ[İ[\ˆ[™XØYÜ™\ÈHY[YšXØ\ˆ]›Û™\È™Xİ\œ™[\ËÛÛ[ÈÜ˜\š[ÜÈ[ˆÜÈ]YH\\™XÙ[ˆ™]˜\ÛÜÈHÛZ\Ú[Û™\ÈÛÛˆX^[Üˆœ™XİY[˜ÚXKˆH\\ˆH\İÜÈ™\İ[YÜË]HYYH[Üİ˜\ˆ™XÛÛY[™XÚ[Û™\ÈÜšY[Y\ÈHYZ›Ü˜\ˆHÛÛ[ZYY[˜][ZY[ËƒBƒBˆVÓÛZ\ÚpìÛ‹ÙYİZ[ZY[ÈH[˜[0ë]XØWJ\ÜÙ]ËØšYË\Xİ\™K[ÛZ\Ú[Û‹\ÙYİZ[ZY[ËX[˜[]XØKœ™ÊCBƒBŠ‘šYİ\˜Kˆ›Z›ÈHÛZ\ÚpìÛ‹ÙYİZ[ZY[ÈH[˜[0ë]XØKŠƒBƒBˆÈÈÈÈÛÛ[ZYYHXØÙ\ÚXš[YYBƒB‘\İH0î›[[ÈÜ\È™pî›™HÜÈØ\XÚYY\ÈÛÛ\[Y[\šX\È[ÛZ[š[ÎˆHXØÙ\ÚXš[YYHH^\šY[˜ÚXHHHÛÛ[ZYY[˜][ZY[ËƒBƒB‘[ˆİX[ÈHHXØÙ\ÚXš[YY[\İX\š[ÈYYHY\\ˆ]\›Z[˜YÜÈ\ÜXİÜÈH[\˜XØÚpìÛˆHXİY\™ÈÛÛˆİ\È™XÙ\ÚYY\Ëˆ[™HÜÈ]™[ÜÈÛÛœÚY\˜YÜÈÙH[˜İY[˜[ˆ[Z\İH[[Xpì[È[^ËHXš[]XÚpìÛˆHHÛÛ™š\›XXÚpìÛˆÜˆ›ŞˆH[[XXÙ[˜[ZY[ÈH\È™Y™\™[˜ÚX\ÈHXØÙ\ÚXš[YYˆ\İ\ÈÛÛ™šYİ\˜XÚ[Û™\È\ØØ[ˆ™YXÚ\ˆ\È˜\œ™\˜\ÈH[\˜XØÚpìÛˆ\˜HY[ÜÈX^[Ü™\ÈÛÛˆ\İ[ÜÈš]™[\ÈH˜[Z[X\šYYÛÛˆ\ÜÜÚ]]›ÜÈpìİš[\ËƒBƒB”Üˆİ›ÈYË[›Z›ÈHÛÛ[ZYYÛÛœÚY\˜H[ÙYİZ[ZY[ÈHH\ÜÛšXš[YYHYYXØ[Y[ÜËˆ]HYYH™XØ[İ[\ˆ[İØÚÈ™\İ[HH]Xİ\ˆİpè[™ÈHØ[YY\ÜÛšX›HÛÛZY[˜HHÙ\ˆ[œİYšXÚY[KˆH\\ˆH[ÈÙHYYH[Z]\ˆ[ˆ™XÛÜ™]Üš[ÈH™XX˜\İXÚ[ZY[ÈH[šXÚX\ˆ[™YÚ\İ›ÈHH™\ÜÚXÚpìÛ‹ˆ[˜H™^ˆÛÛ™š\›XYHH™YÚ\İ˜YÈ[Y]›ÈİKHYÙ[™HHÛX\ÈYYHXİX[^˜\œÙH\˜HX[[™\ˆHÛÛ[ZYY[˜][ZY[ËƒBƒB][œ]YH[X›ÜÈ›Z›ÜÈ™\ÜÛ™[ˆH™XÙ\ÚYY\ÈY™\™[\ËÙH[˜Û^Y[ˆ[›ÈH\İHš\İHÙ[™\˜[Üœ]YHÛÛ\[Y[[ˆ[Øš™]]›Èš[˜Ú\[H]Nˆ˜XÚ[]\ˆ[˜HÙ\İpìÛˆHHYYXØXÚpìÛˆ]YHYYHX[[™\œÙH[ˆ[Y[\ÈH]YH™\İ[HXØÙ\ÚX›H\˜H[Y[ÈX^[Ü‹ƒBƒBˆVĞÛÛ[ZYYHXØÙ\ÚXš[YYJ\ÜÙ]ËØšYË\Xİ\™KXÛÛ[ZYYXXØÙ\ÚXš[YYœ™ÊCBƒBŠ‘šYİ\˜Kˆ›Z›ÜÈHÛÛ[ZYYHXØÙ\ÚXš[YYŠƒBƒB‘[ˆÛÛš[Ë[šYÈXİ\™H]™[İÜ›Z[™È\›Z]pìÈY[YšXØ\ˆ[˜HÙXİY[˜ÚXHÛØ˜[]YH\HHH[˜ÛÜœÜ˜XÚpìÛˆHš[˜İ[XÚpìÛˆHÜÈ\İX\š[ÜËÛÛ[°î˜HÛÛˆHÛÛ™šYİ\˜XÚpìÛˆHZ™XİXÚpìÛˆ[˜][ZY[ÈHÙH^Y[™HXÚXH[X[™Z›ÈHÛZ\Ú[Û™\Ë[ÙYİZ[ZY[È˜[Z[X\‹[[°è[\Ú\ÈHHY\™[˜ÚXHHHÛÛ[ZYY[˜][ZY[Ëˆ\İHš\İHÙ[™\˜[Ú\™HÛÛ[È˜\ÙH\˜H›Ù[™^˜\ˆÜİ\š[Ü›Y[H[ˆÜÈ›ØÙ\ÛÜÈ[ÛZ[š[ÈYYX[H[]™[İÜ›Z[™È\Ø\œ›ÛYÈ[ˆHÙXØÚpìÛˆHİ˜]YÚXËS]™[ÛXZ[‹Qš]™[ˆ\ÚYÛ‹ƒBƒB‘[›XÙHHH™\œÚpìÛˆ[šYÈXİ\™H]™[İÜ›Z[™ÎˆÚÎ‹ËÛZ\›Ë˜ÛÛKØ\Ø›Ø\™İV•’MR˜Î]ÏK×JÎ‹ËÛZ\›Ë˜ÛÛKØ\Ø›Ø\™İV•’MR˜Î]ÏKÊCBƒBˆÈÈÈÈ‹ŒË‹ˆXš\]Z]İ\È[™İXYÙCBƒB‘[Xš\]Z]İ\È[™İXYÙHÙHYš[špìÈH\\ˆHÜÈÛÛ˜Ù\ÜÈY[YšXØYÜÈ\˜[H[[°è[\Ú\È[ÛZ[š[ÈH[\Ø\œ›ÛÈ[]™[İÜ›Z[™ËˆİH›Ü0ìÜÚ]È\È\İX›XÙ\ˆ[ˆ›ØØX[\š[ÈÛÛpî›ˆ[™HÜÈ[YÜ˜[\È[\]Z\ÈH™YXÚ\ˆ[\œ™]XÚ[Û™\ÈY™\™[\ÈÛØœ™HÜÈ[[Y[ÜÈ]YH›Ü›X[ˆ\HH]KˆÜÈ0ê\›Z[›ÜÈÙH™YXİ[ˆ[ˆ[™Û0ê\Ë[˜Û^Y[™ÈİH\]Z]˜[[H[ˆ\Üpì[Û[™H\°ê[\Ú\ËZY[˜\È]YHHYš[šXÚpìÛˆÛÜœ™\ÜÛ™Y[HÙHX[Y[™H[ˆ\Üpì[ÛƒBƒB‘XšYÈH]YH[ˆZ\Û[È0ê\›Z[›ÈYYHY]Z\š\ˆ[ˆÚYÛšYšXØYÈ\Xİ[\ˆÙYğî›ˆ[ÛÛ^È[ˆ[]YHÙH][^˜K[›ØØX[\š[ÈÙHÜ™Ø[š^°ìÈHXİY\™ÈÛÛˆÜÈ›İ[™YÛÛ^ÈY[YšXØYÜËˆ\İÈ\›Z]HX[[™\ˆYš[šXÚ[Û™\È™XÚ\Ø\È[›ÈHØYH\H[ÛZ[š[ÈH˜XÚ[]HHÜİ\š[Üˆ\ÜXÚYšXØXÚpìÛˆH™YÛ\Ë]™[ÜÈH™[XÚ[Û™\ËƒBƒBˆÈÈÈÈÈY[YYHİ\ØÜš\ÚpìÛƒBƒBŸ0ê\›Z[›ÈYš[šXÚpìÛˆBŸKKHKKHBŸXØÛİ[
+İY[JH™YÚ\İ›ÈHXØÙ\ÛÈH[ˆ\İX\š[È[ˆ]KˆBŸ\Ù\ˆ
+\İX\š[ÊH\œÛÛ˜H]][XØYH]YH][^˜HH\XØXÚpìÛ‹ˆBŸXØÛİ[İ]\È
+\İYÈHİY[JHÛÛ™XÚpìÛˆ]YH[™XØHÚHHİY[HÙH[˜İY[˜HXš[]YKˆBŸ[ˆ
+[ŠHÛÛš[ÈH[˜Ú[Û˜[YY\È\ÛØÚXYÈH[˜H[Ù[YYH\ÛËˆBŸİXœØÜš\[Ûˆ
+İ\ØÜš\ÚpìÛŠH™[XÚpìÛˆšYÙ[H[™H[˜HİY[HH[ˆ[‹ˆBŸÛÛœÙ[
+ÛÛœÙ[[ZY[ÊH]]Üš^˜XÚpìÛˆ™YÚ\İ˜YH\˜H[\ÛÈH]ÜÈH[˜Ú[Û˜[YY\È™[XÚ[Û˜Y\ÈÛÛˆ[İZYYËˆBŸ™\šYšYY[XZ[
+ÛÜœ™[È™\šYšXØYÊHÛÜœ™[Èİ^XH›ÜYYYYHÛÛ™š\›XYHÜˆ[\İX\š[ËˆBƒBˆÈÈÈÈÈ°ë[˜İ[ÈHİZYYÃBƒBŸ0ê\›Z[›ÈYš[šXÚpìÛˆBŸKKHKKHBŸÛ\ˆY[
+Y[ÈX^[ÜŠH\œÛÛ˜Hİ^[È˜][ZY[È\ÈXÛÛ\pìXYÈYYX[H]KˆBŸ˜[Z[HY[X™\ˆ
+˜[Z[X\ŠH\œÛÛ˜HÙ\˜Ø[˜H]YHÛÛœİ[HHXÛÛ\pìXH[ÙYİZ[ZY[È[Y[ÈX^[Ü‹ˆBŸØ\™YÚ]™\ˆ
+İZYYÜŠH\İX\š[È]]Üš^˜YÈ\˜Hİ\\š\Ø\ˆ[™›Ü›XXÚpìÛˆ™[XÚ[Û˜YHÛÛˆ[Y[ÈX^[Ü‹ˆBŸØ\™H[šÈ
+°ë[˜İ[ÈHİZYYÊH™[XÚpìÛˆ]]Üš^˜YH[™H[ˆİZYYÜˆH[ˆY[ÈX^[Ü‹ˆBŸ[šÚ[™ÈÛÙH
+ğìÙYÛÈHš[˜İ[XÚpìÛŠHğìÙYÛÈ[\Ü˜[][^˜YÈ\˜H[šXÚX\ˆH\ÛØÚXXÚpìÛˆ[™H\İX\š[ÜËˆBŸÛÛœÙ[
+ÛÛœÙ[[ZY[ÊHXÙ\XÚpìÛˆ[Y[ÈX^[Üˆ\˜H\İX›XÙ\ˆH™[XÚpìÛˆHİZYYËˆBŸ[Y\™Ù[˜ŞHÛÛXİ
+ÛÛXİÈH[Y\™Ù[˜ÚXJH[™›Ü›XXÚpìÛˆHÛÛXİÈ\ÜÛšX›H\˜HÚ]XXÚ[Û™\È]YH™\]ZY\™[ˆX^[Üˆ][˜ÚpìÛ‹ˆBƒBˆÈÈÈÈÈÙ\İpìÛˆ[˜][ZY[ÃBƒBŸ0ê\›Z[›ÈYš[šXÚpìÛˆBŸKKHKKHBŸ™X]Y[
+˜][ZY[ÊHÛÛš[ÈH™YÛ\È]YHYš[™HğìÛ[ÈX™HYZ[š\İ˜\œÙH[ˆYYXØ[Y[ËˆBŸYYXØ][Ûˆ
+YYXØ[Y[ÊH›ÙXİÈ\ÛØÚXYÈH[˜H]]HH˜][ZY[ËˆBŸÜÙH
+ÜÚ\ÊHØ[YY[™XØYH\˜H[˜HÛXKˆBŸœ™\]Y[˜ŞH
+œ™XİY[˜ÚXJH\š[ÙXÚYYÛÛˆH]YHX™H™X[^˜\œÙH[˜HÛXKˆBŸ[ZÙH[YH
+Ü˜\š[ÈHÛXJHÜ˜H›ÙÜ˜[XYH\˜HYZ[š\İ˜\ˆ[˜HÜÚ\ËˆBŸ[œİXİ[ÛœÈ
+[œİXØÚ[Û™\ÊH[™XØXÚ[Û™\È\ÛØÚXY\ÈHHYZ[š\İ˜XÚpìÛˆ[YYXØ[Y[ËˆBŸ™[Z[™\ˆ
+™XÛÜ™]Üš[ÊH]š\ÛÈ›ÙÜ˜[XYÈ™[XÚ[Û˜YÈÛÛˆ[˜HÛXH]\˜KˆBŸXİ]™H™X]Y[
+˜][ZY[ÈXİ]›ÊH˜][ZY[ÈÛÛ\]ÈHXš[]YÈ\˜HÙ[™\˜\ˆÛX\È›ÙÜ˜[XY\ËˆBƒBˆÈÈÈÈÈZ™XİXÚpìÛˆHÛX\ÃBƒBŸ0ê\›Z[›ÈYš[šXÚpìÛˆBŸKKHKKHBŸ[ZÙH
+ÛXJH[œİ[˜ÚXHÛÛ˜Ü™]HH[˜HÜÚ\È›ÙÜ˜[XYKˆBŸ™^[ZÙH
+°ìŞ[XHÛXJHÚYİZY[HÛXH[™Y[HÙYğî›ˆH›ÙÜ˜[XXÚpìÛˆšYÙ[KˆBŸØÚY[Y[ZÙH
+ÛXH›ÙÜ˜[XYJHÛXH\ÛØÚXYHH[˜H™XÚHHÜ˜H]\›Z[˜Y\ËˆBŸÛÛ™š\›X][ÛˆÚ[™İÈ
+™[[˜HHÛÛ™š\›XXÚpìÛŠH[\˜[È\ÜÛšX›H\˜H™YÚ\İ˜\ˆHÛÛ™š\›XXÚpìÛˆH[˜HÛXKˆBŸÛÛ™š\›X][Ûˆ
+ÛÛ™š\›XXÚpìÛŠH™YÚ\İ›È™X[^˜YÈÜˆ[\İX\š[È\˜H[™XØ\ˆ]YHÛÛ\]0ìÈ[˜HÛXKˆBŸ›ÚXÙHÛÛ™š\›X][Ûˆ
+ÛÛ™š\›XXÚpìÛˆÜˆ›ŞŠHÛÛ™š\›XXÚpìÛˆ™YÚ\İ˜YHH\\ˆH[˜Hœ˜\ÙH™XÛÛ›ØÚYHÜˆ[Ú\İ[XKˆBŸ\ÛÛ™š\›X][Ûˆ
+ÛÛ™š\›XXÚpìÛˆÜˆÜ]YJHÛÛ™š\›XXÚpìÛˆ™YÚ\İ˜YHYYX[H[˜H[\˜XØÚpìÛˆ0èXİ[ˆBŸZ[H\İÜH
+\İÜšX[X\š[ÊH™YÚ\İ›ÈH\ÈÛX\ÈHİ\È\İYÜÈÛÜœ™\ÜÛ™Y[\ÈH[ˆ0ëXKˆBƒBˆÈÈÈÈÈÛZ\ÚpìÛˆH\ØØ[[ZY[ÃBƒBŸ0ê\›Z[›ÈYš[šXÚpìÛˆBŸKKHKKHBŸ[˜ÛÛ™š\›YY[ZÙH
+ÛXH›ÈÛÛ™š\›XYJHÛXH]YH›ÈÜÙYH[˜HÛÛ™š\›XXÚpìÛˆ[›ÈHH™[[˜H[šXÚX[ˆBŸÜ˜XÙH\š[Ù
+Û\˜[˜ÚXJHY[\ÈYXÚ[Û˜[\ÜÛšX›H[\ÈHÛÛœÚY\˜\ˆ[˜HÛZ\ÚpìÛ‹ˆBŸ[™[™È
+[™Y[JH\İYÈ[\Ü˜[™]š[ÈH]\›Z[˜\ˆ]YH[˜HÛXHYHÛZ]YKˆBŸÛZ\ÜÚ[Ûˆ
+ÛZ\ÚpìÛŠHÛXH]YH\›X[™XÙHÚ[ˆÛÛ™š\›XXÚpìÛˆ\Üpê\ÈHš[˜[^˜\ˆ[\š[ÙÈ\›Z]YËˆBŸ[\
+[\JH]š\ÛÈÙ[™\˜YÈ\˜HÛÛ][šXØ\ˆ[˜HÚ]XXÚpìÛˆ]YH™\]ZY\™H][˜ÚpìÛˆ[İZYYÜ‹ˆBŸ\ØØ[][Ûˆ
+\ØØ[[ZY[ÊH[˜Ü™[Y[È[š]™[H][˜ÚpìÛˆİX[™È[˜HÚ]XXÚpìÛˆÛÛ[°î˜HÚ[ˆ™\ÜY\İKˆBŸÛZ\ÜÚ[ÛˆØ\ÙH
+Ø\ÛÈHÛZ\ÚpìÛŠHÙYİZ[ZY[ÈH[˜HÛZ\ÚpìÛˆ\ÙHİH]XØÚpìÛˆ\İHİHÚY\œ™KˆBƒBˆÈÈÈÈÈÙYİZ[ZY[È˜[Z[X\ƒBƒBŸ0ê\›Z[›ÈYš[šXÚpìÛˆBŸKKHKKHBŸ˜[Z[Hİ[[X\H
+™\İ[Y[ˆ˜[Z[X\ŠHš\İHÛÛœÛÛYYH[\İYÈ™XÚY[H[Y[ÈX^[Ü‹ˆBŸ›ÛİË]\
+ÙYİZ[ZY[ÊHÛÛš[ÈHXØÚ[Û™\È™X[^˜Y\ÈÜˆ[˜[Z[X\ˆÈİZYYÜˆ\˜HXÛÛ\pìX\ˆ[Y[ÈX^[Ü‹ˆBŸÛ\ˆY[İ]\È
+\İYÈ[Y[ÊHÚ]XXÚpìÛˆ™XÚY[HØ[šYHH\\ˆH\ÈÛX\ËÛÛ™š\›XXÚ[Û™\ÈH[\\È\ÜÛšX›\ËˆBŸ[\
+[\JHÚ]XXÚpìÛˆ™\Ù[YH[˜[Z[X\ˆÜœ]YH™\]ZY\™HİH][˜ÚpìÛ‹ˆBŸØ\™YÚ]™\ˆ›İH
+›İH[İZYYÜŠH™YÚ\İ›È^X[\ÛØÚXYÈH[˜H[\™[˜ÚpìÛˆÈÚ]XXÚpìÛˆØœÙ\˜YKˆBŸÛÛXİ
+ÛÛXİÊHØ[˜[\ÜÛšX›H\˜HÛÛ][šXØ\œÙHÛÛˆ[Y[ÈX^[Ü‹ˆBŸ[\™[[Ûˆ
+[\™[˜ÚpìÛŠHXØÚpìÛˆ™X[^˜YHÜˆ[İZYYÜˆ[H[ˆ\İYË[\HÈ™XÙ\ÚYYHÙYİZ[ZY[ËˆBƒBˆÈÈÈÈÈXØÙ\ÚXš[YYH™Y™\™[˜ÚX\ÃBƒBŸ0ê\›Z[›ÈYš[šXÚpìÛˆBŸKKHKKHBŸ^Ú^™H
+[Xpì[ÈH^ÊH\ØØ[Hš\İX[\XØYHHÜÈ^ÜÈHH\XØXÚpìÛ‹ˆBŸÛÛ˜\İ
+ÛÛ˜\İJHš]™[HY™\™[˜ÚXXÚpìÛˆš\İX[\XØYÈHÜÈ[[Y[ÜÈHH[\™˜^‹ˆBŸ™YXÙY[İ[Ûˆ
+™YXØÚpìÛˆH[İš[ZY[ÊH™Y™\™[˜ÚXH]YH\ÛZ[^YH[š[XXÚ[Û™\ÈH˜[œÚXÚ[Û™\ÈHH\XØXÚpìÛ‹ˆBŸ›ÚXÙHÛÛ™š\›X][Ûˆ
+ÛÛ™š\›XXÚpìÛˆÜˆ›ŞŠH™Y™\™[˜ÚXH]YHXš[]H[\ÛÈHH›ŞˆÛÛ[ÈYXØ[š\Û[ÈHÛÛ™š\›XXÚpìÛˆH[˜HÛXKˆBŸ™XY[™È\ÜÚ\İ[˜ÙH
+^]YHHXİ\˜JHÛÜÜH\İ[˜YÈH˜XÚ[]\ˆHÛÛ\™[œÚpìÛˆ[ÛÛ[šYÈ™\Ù[YËˆBŸ]ZY]İ\œÈ
+Ü˜\š[ÈHÚ[[˜Ú[ÊH[\˜[È[ˆ[]YHÙH™\İš[™Ù[ˆ]\›Z[˜Y\È›İYšXØXÚ[Û™\È›ÈÜ°ë]XØ\ËˆBŸ›İYšXØ][ÛˆÚ[›™[
+Ø[˜[H›İYšXØXÚpìÛŠHYY[ÈXš[]YÈ\˜H™XÚXš\ˆ]š\ÛÜËˆBŸ™Y™\™[˜Ù\È
+™Y™\™[˜ÚX\ÊHÛÛš[ÈHÛÛ™šYİ\˜XÚ[Û™\È\ÛØÚXY\ÈHH^\šY[˜ÚXHH[ˆ\İX\š[ËˆBƒBˆÈÈÈÈÈ[˜[0ë]XØHHY\™[˜ÚXCBƒBŸ0ê\›Z[›ÈYš[šXÚpìÛˆBŸKKHKKHBŸY\™[˜ÙH
+Y\™[˜ÚXJHÜ˜YÈHİ[\[ZY[È[˜][ZY[È\˜[H[ˆ\š[ÙÈ]\›Z[˜YËˆBŸY\™[˜ÙH˜]H
+\ØHHY\™[˜ÚXJHÜ˜Ù[Z™HHÛX\Èİ[\Y\È™\ÜXİÈH\ÈÛX\È\Ü\˜Y\È\˜[H[ˆ\š[ÙËˆBŸ]H[ZÙH
+ÛXH\™0ëXJHÛXHÛÛ™š\›XYH\Üpê\ÈHİHÜ˜\š[È™]š\İË\›È[›È[\š[ÙÈÛÛœÚY\˜YÈ°è[YËˆBŸÛZ\ÜÚ[Ûˆ
+ÛZ\ÚpìÛŠHÛXH]YH›ÈYHÛÛ™š\›XYH[›È[\š[ÙÈ\İX›XÚYËˆBŸ[YH]\›ˆ
+]°ìÛˆÜ˜\š[ÊH[™[˜ÚXH™Xİ\œ™[H\ÛØÚXYHH]\›Z[˜Y\Èœ˜[š˜\ÈHY[\ËˆBŸÛZ\ÜÚ[Ûˆš\ÚÈ
+šY\ÙÛÈHÛZ\ÚpìÛŠH\İ[XXÚpìÛˆHHÜÚXš[YYH]YHÙH›Ù^˜Ø[ˆ]\˜\ÈÛZ\Ú[Û™\ËˆBŸ[œÚYÚ
+[œÚYÚ
+H[^™ÛÈØ[šYÈH\\ˆ[[°è[\Ú\È[\İÜšX[HY\™[˜ÚXKˆBŸ™XÛÛ[Y[™][Ûˆ
+™XÛÛY[™XÚpìÛŠHÛÛœÙZ›ÈÜšY[]]›ÈÙ[™\˜YÈH\\ˆHÜÈ™\İ[YÜÈ[[°è[\Ú\ËˆBƒBˆÈÈÈÈÈ[™[\š[ÈH™\ÜÚXÚpìÛƒBƒBŸ0ê\›Z[›ÈYš[šXÚpìÛˆBŸKKHKKHBŸ[™[ÜH
+[™[\š[ÊHØ[YY\ÜÛšX›HH[ˆYYXØ[Y[ËˆBŸ™[XZ[š[™ÈİØÚÈ
+İØÚÈ™\İ[JH°î›Y\›ÈH[šYY\È\ÜÛšX›\È[ˆ[ˆ[ÛY[È]\›Z[˜YËˆBŸİÈİØÚÈ
+İØÚÈ˜Z›ÊH\İYÈ[Ø[˜YÈİX[™È\È[šYY\È\ÜÛšX›\ÈYØ[ˆ[[Xœ˜[\İX›XÚYËˆBŸ™\[š\ÚY[™\ÚÛ
+[Xœ˜[H™\ÜÚXÚpìÛŠHØ[YYpë[š[XH]YH›İ›ØØHHÙ[™\˜XÚpìÛˆH[ˆ]š\ÛÈH™XX˜\İXÚ[ZY[ËˆBŸ˜]Ú
+İJHÛÛš[ÈH[šYY\È[˜ÛÜœÜ˜Y\È[[™[\š[È\˜[H[˜H™\ÜÚXÚpìÛ‹ˆBŸ™\[š\ÚY[™\]Y\İ
+ÛÛXÚ]YH™\ÜÚXÚpìÛŠH™YÚ\İ›ÈHH™XÙ\ÚYYH™XX˜\İXÙ\ˆ[ˆYYXØ[Y[ËˆBŸÛÛ[Z]H
+ÛÛ[ZYY
+HÛÛ™XÚpìÛˆ[ˆH]YH[˜][ZY[ÈYYHX[[™\œÙHÚ[ˆ[\œ\Ú[Û™\ÈÜˆ˜[HHYYXØ[Y[ËˆBŸ™\İØÚÚ[™È
+™XX˜\İXÚ[ZY[ÊH[˜Ü™[Y[È[İØÚÈ\ÜÛšX›H\Üpê\ÈH[˜H™\ÜÚXÚpìÛ‹ˆBƒB[İ[›ÜÈ0ê\›Z[›ÜÈ\\™XÙ[ˆ[ˆpè\ÈH[ˆÛÛ^ËÛÛ[È
+ŠÛÛœÙ[
+ÛÛœÙ[[ZY[ÊJŠ‹
+Š•›ÚXÙHÛÛ™š\›X][Ûˆ
+ÛÛ™š\›XXÚpìÛˆÜˆ›ŞŠJŠ‹
+Š“ÛZ\ÜÚ[Ûˆ
+ÛZ\ÚpìÛŠJŠˆH
+Š[\
+[\JJŠ‹ˆ\İH™\]XÚpìÛˆ™\ÜÛ™HH]YHİHÚYÛšYšXØYÈ\[™HHH™\ÜÛœØXš[YY[ÛÛ^ËˆÜˆZ™[\Ë[˜HÛZ\ÚpìÛˆ
+ÛZ\ÜÚ[ÛŠH™\™\Ù[H[\İYÈH[˜HÛXH›ÈÛÛ™š\›XYH[›ÈH
+Š“ÛZ\ÚpìÛˆH\ØØ[[ZY[ÊŠ‹ZY[˜\È]YH[ˆ
+Š[˜[0ë]XØHHY\™[˜ÚXJŠˆÙH][^˜HÛÛ[È[ˆ]È\İ0ìÜšXÛÈ\˜HØ[İ[\ˆ[™XØYÜ™\ÈH]Xİ\ˆ]›Û™\ËˆX[[™\ˆ\İ\ÈY™\™[˜ÚX\È\›Z]H][^˜\ˆ[Z\Û[È›ØØX[\š[ÈHX[™\˜HÛÛœÚ\İ[HÚ[ˆY^˜Û\ˆ™\ÜÛœØXš[YY\È[™HÜÈ[Ù[ÜÈ[ÛZ[š[ËƒBƒBˆÈÈ‹ˆ™\]Z\™[Y[ÈÜXÚYšXØ][ÛƒBƒB‘\˜[HH]\HH[™\İYØXÚpìÛ‹[\]Z\ÈYÈÛÛ™š\›X\ˆ[ÛÈ]YHXHÙH[pëXH\ÙH[[X[ZY[È[šXÚX[[›ŞYXİÎˆ]XÚÜÈY[ÜÈX^[Ü™\ÈY[™[ˆYšXİ[Y\È\˜H]˜\ˆ[ˆÛÛ›ÛÛÛœİ[HHİHYYXØXÚpìÛ‹Hİ\È˜[Z[X\™\Ë[›Èš]š\ˆÛÛˆ[ÜÈÈ›È[™\ˆğìÛ[È™\šYšXØ\›Ë\›Z[˜[ˆ™[Øİ\YÜÈÚ[ˆ[˜H›Ü›XH™X[HØX™\ˆÚHÙÈ\İ0èHšY[‹ˆH\\ˆH\ÛÜÈ[^™ÛÜË[ˆ\İHÙXØÚpìÛˆÙHYš[™[ˆÜÈ™\]Z\Ú]ÜÈH
+Š•]JŠ‹\ØØ[™È]YHØYH[˜Ú[Û˜[YY™\ÜÛ™HH[˜H™XÙ\ÚYYÛÛ˜Ü™]H]XİYH[ˆ\È[™]š\İ\ÈH›ÈÚ[\[Y[HH[˜HYXHZ\ÛYH[\]Z\ËƒBˆB”\˜HÜ™[˜\ˆ\İH˜X˜Z›ËHÙXØÚpìÛˆÙH]šYH[ˆİX]›È\\ÎƒBˆB‹H
+Š•ËP™HØÙ[˜\š[ÈX\[™ÊŠ‹Û™HÙHÛÛ\\˜HğìÛ[ÈÙHš]™HŞH[›Ø›[XH
+\ËR\ÊHœ™[HHğìÛ[ÈX™\°ëXHÙ[\œÙHH^\šY[˜ÚXH[˜H™^ˆ]YHH\\İ0êH[˜Ú[Û˜[™È
+ËP™JKƒB‹H
+Š•\Ù\ˆİÜšY\ÊŠ‹ÛÛˆ\È[˜Ú[Û˜[YY\È\ØÜš]\È\ÙHH\œÜXİ]˜HHØYH\İX\š[Ë[È[Y[ÈX^[ÜˆÛÛ[È[˜[Z[X\ˆ]YHÈXÛÛ\pìXKƒB‹H
+Š’[\XİX\
+Š‹]YHÛÛ™XİH[Øš™]]›È[™YÛØÚ[ÈÛÛˆÜÈXİÜ™\ÈHÜÈØ[Xš[ÜÈHÛÛ\Ü[ZY[È]YHÙH\ØØHÙÜ˜\ˆ[ˆ[ÜËƒB‹H
+Š”›ÙXİ˜XÚÛÙÊŠ‹Û™Hš[˜[Y[HÙHÜ™[˜[ˆHš[Üš^˜[ˆ\È\İÜšX\ÈH\İX\š[ÈH\İÜšX\È0êXÛšXØ\È]YHÙH˜[ˆH\Ø\œ›Û\‹ƒBƒBˆÈÈÈ‹ŒKˆ\Ù\ˆİÜšY\ÃBƒBH\\ˆHÜÈ™\]Z\Ú]ÜÈY[YšXØYÜÈ\˜[HH[™\İYØXÚpìÛˆH[[Ù[YÈ[ÛZ[š[Ë[\]Z\È˜YZ›È\È™XÙ\ÚYY\ÈHÜÈÙYÛY[ÜÈØš™]]›È[ˆ\İÜšX\ÈH\İX\š[ÈYÜ\Y\È[ˆ\XÜËˆ\È\İÜšX\ÈÛÛœÚY\˜[ˆ\È[˜Ú[Û™\È\İ[˜Y\È[Y[ÈX^[Ü‹[˜[Z[X\ˆÈİZYYÜˆH[š\Ú][H[[™[™ÈYÙKƒBƒB•[Xšpê[ˆÙH[˜ÛÜœÜ˜\›ÛˆXÚšXØ[İÜšY\È\˜H\ÈØ\XÚYY\È]YH›È™\Ù[[ˆ[˜H[\˜XØÚpìÛˆ\™XİHÛÛˆ[\İX\š[Èš[˜[ÛÛ[ÈÙ\šXÚ[ÜÈ‘TÕ›ØÙ\Ø[ZY[È]]Ûpè]XÛË[XXÙ[˜[ZY[ÈØØ[H[YÜ˜XÚ[Û™\È^\›˜\Ëˆš[˜[Y[KÙHYš[šY\›ÛˆÜZÙHİÜšY\È\˜H\]Y[\È[˜Ú[Û˜[YY\È]YH™\]ZY\™[ˆ™YXÚ\ˆ[˜Ù\Y[Xœ™H0êXÛšXØH[\ÈHİH[\[Y[XÚpìÛ‹ƒBƒBØYH\Ù\ˆİÜHHXÚšXØ[İÜHX[Y[™H[›Ü›X]ÈİÜHQ\Ù\‹š[Üš]HH\XËˆH\ØÜš\ÚpìÛˆÚYİYHH\İXİ\˜HÛÛ[Ë]ZY\›Ë\˜HHÜÈÜš]\š[ÜÈHXÙ\XÚpìÛˆ][^˜[ˆÚ]™[‹Ú[ˆH[ˆYYX[Hİ\È\]Z]˜[[\ÈYËİX[™ÈH[Û˜Ù\ËƒBƒBˆÈÈÈÈ\XÜÈY[YšXØY\ÃBƒBŸ\XÈQ›ÛXœ™H\ØÜš\ÚpìÛˆœ™]™HBŸKKHKKHKKHBŸTPËLH]][XØXÚpìÛˆHš[˜İ[XÚpìÛˆHİY[\ÈÙ\İ[Û˜H\ÈİY[\È[˜[Z[X\ˆHY[ÈX^[Ü‹İHXØÙ\ÛË™\šYšXØXÚpìÛˆH™[XÚpìÛˆHİZYYËˆBŸTPËLˆÙ\İpìÛˆHYYXØ[Y[ÜÈH˜][ZY[ÜÈ\›Z]H™YÚ\İ˜\ˆYYXØ[Y[ÜÈHYš[š\ˆH]]H]YH]\›Z[˜HÜÚ\Ëœ™XİY[˜ÚXKÜ˜\š[ÜÈH[œİXØÚ[Û™\ËˆBŸTPËLÈ™XÛÜ™]Üš[ÜÈHÛÛ™š\›XXÚpìÛˆHÛX\ÈÙ\İ[Û˜HHYÙ[™HHÛX\Ë™XÛÜ™]Üš[ÜË™[[˜\ÈHÛÛ™š\›XXÚpìÛˆH™YÚ\İ›ÈHİ[\[ZY[ËˆBŸTPËL[Ûš]Ü™[Ë[\\ÈHÙYİZ[ZY[È˜[Z[X\ˆ\›Z]H[˜[Z[X\ˆÛÛ›ØÙ\ˆ[\İYÈH\ÈÛX\Ë™XÚXš\ˆ[\\È™[]˜[\ÈH™YÚ\İ˜\ˆXØÚ[Û™\ÈHÙYİZ[ZY[ËˆBŸTPËLH[˜[0ë]XØHHY\™[˜ÚXHH]›Û™\ÈÛÛœÛÛYH[\İÜšX[HÛX\ËØ[İ[HY\™[˜ÚXHHY[YšXØH[™[˜ÚX\È™Xİ\œ™[\ËˆBŸTPËLˆXØÙ\ÚXš[YYH™Y™\™[˜ÚX\È\›Z]HY\\ˆH^\šY[˜ÚXHH\È™XÙ\ÚYY\È[\İX\š[ÈHÛÛ™šYİ\˜\ˆ]\›Z[˜Y\È™Y™\™[˜ÚX\ÈH[\˜XØÚpìÛ‹ˆBŸTPËLÈ[™[\š[ÈH™\ÜÚXÚpìÛˆ\›Z]HÛÛ›Û\ˆH\ÜÛšXš[YYHYYXØ[Y[ÜÈH™YÚ\İ˜\ˆİH™\ÜÚXÚpìÛ‹ˆBŸTPËL[™\ÈHİ\ØÜš\ÚpìÛˆÙ\İ[Û˜H[[ˆ\ÛØÚXYÈ[˜[Z[X\ˆH\È[˜Ú[Û˜[YY\È\ÜÛšX›\ÈÙYğî›ˆHİ\ØÜš\ÚpìÛ‹ˆBŸTPËLH[™[™ÈYÙHHØ\XÚpìÛˆ™\Ù[H]KİH›ÜY\İHH˜[Ü‹[˜Ú[Û˜[YY\Ë[™\ÈHYY[ÜÈ\˜HÛÛ[X\ˆÛÛˆ[›ÙXİËˆBƒBˆÈÈÈÈ\Ù\ˆİÜšY\ÃBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLOİY[ÈX^[Üİ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ[™Ü™\ÛÈÚ[\YšXØYÈHH\XØXÚpìÛİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›È[™Ü™\Ø\ˆHH\XØXÚpìÛˆYYX[H[ˆSˆÛÜË\˜HXØÙY\ˆÚ[ˆ™XÛÜ™\ˆ[˜HÛÛ˜\ÙpìXHÛÛ\Z˜KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[Y[ÈX^[ÜˆY[™H[ˆ\™š[Xš[]YÈHÙ]°ëXH›ÈİY[HÛÛˆ[ˆS‹İX[™È™YÚ\İ˜HİX]›È0ëYÚ]ÜÈ°è[YÜË[Û˜Ù\È[Ú\İ[XHİX\™HİHÜ™Y[˜ÚX[HXØÙ\ÛËœƒBŒ‹ˆYÈ]YH[Y[ÈX^[ÜˆÜÙYH[ˆSˆ™YÚ\İ˜YËİX[™È[™Ü™\ØH[˜[ÜˆÛÜœ™XİË[Û˜Ù\È[Ú\İ[XH[šXÚXHİHÙ\ÚpìÛ‹œƒBŒËˆYÈ]YHÙH›ÙXÙ[ˆ[[ÜÈ[˜ÛÜœ™XİÜÈÛÛœÙXİ]]›ÜËİX[™ÈÙH[Ø[˜H[0ë[Z]HÛÛ™šYİ\˜YË[Û˜Ù\È[Ú\İ[XH™\İš[™ÙH[\Ü˜[Y[HY]›ÜÈ[[ÜËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLİ‘˜[Z[X\İ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆš[˜İ[XÚpìÛˆÛÛˆHİY[H[Y[ÈX^[ÜİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›Èš[˜İ[\ˆZHİY[HÛÛˆHH[ˆY[ÈX^[ÜˆYYX[H[ˆğìÙYÛË\˜H™X[^˜\ˆİHÙYİZ[ZY[È\ÙHZHİY[KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆY[ÈX^[Üˆ™YÚ\İ˜YËİX[™ÈÙHÛÛXÚ]H[˜Hš[˜İ[XÚpìÛ‹[Û˜Ù\È[Ú\İ[XHÙ[™\˜H[ˆğìÙYÛÈ[\Ü˜[\ÛØÚXYÈHİH\™š[œƒBŒ‹ˆYÈ]YH[˜[Z[X\ˆ[™Ü™\ØH[ˆğìÙYÛÈšYÙ[KİX[™È[Y[ÈX^[ÜˆXÙ\HHš[˜İ[XÚpìÛ‹[Û˜Ù\È[Ú\İ[XH™YÚ\İ˜HH™[XÚpìÛˆHİZYYËœƒBŒËˆYÈ]YH[ğìÙYÛÈH^\˜YÈÈXHYH][^˜YËİX[™ÈÙH[[H][^˜\ˆY]˜[Y[K[Û˜Ù\È[Ú\İ[XH™XÚ^˜HHš[˜İ[XÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÏİ‘˜[Z[X\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™YÚ\İ›ÈH[ˆY]›ÈYYXØ[Y[ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™YÚ\İ˜\ˆ[ˆYYXØ[Y[È[Y[ÈX^[Ü‹\˜H[˜ÛÜœÜ˜\›ÈHİH˜][ZY[ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[˜[Z[X\ˆÙH[˜İY[˜Hš[˜İ[YÈ[Y[ÈX^[Ü‹İX[™È™YÚ\İ˜HÜÈ]ÜÈØ›YØ]Üš[ÜÈH[ˆYYXØ[Y[Ë[Û˜Ù\È[Ú\İ[XH[XXÙ[˜H[YYXØ[Y[È\ÛØÚXYÈ[Y[ËœƒBŒ‹ˆYÈ]YH˜[H[™›Ü›XXÚpìÛˆØ›YØ]ÜšXKİX[™È[˜[Z[X\ˆ[[H™YÚ\İ˜\ˆ[YYXØ[Y[Ë[Û˜Ù\È[Ú\İ[XH™XÚ^˜HHÜ\˜XÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLİ‘˜[Z[X\İ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆYXÚpìÛˆH\ØXİ]˜XÚpìÛˆH[ˆYYXØ[Y[ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È[ÙYšXØ\ˆÈ\ØXİ]˜\ˆ[ˆYYXØ[Y[È™YÚ\İ˜YË\˜HX[[™\ˆXİX[^˜YÈ[˜][ZY[ÈÚ[ˆ\™\ˆİH\İÜšX[İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆYYXØ[Y[ÈXİ]›ËİX[™È[˜[Z[X\ˆ[ÙYšXØHİ\È]ÜË[Û˜Ù\È[Ú\İ[XHÛÛœÙ\˜HHY]˜H[™›Ü›XXÚpìÛˆ\˜H\È›ÙÜ˜[XXÚ[Û™\È]\˜\ËœƒBŒ‹ˆYÈ]YH^\İH[ˆYYXØ[Y[ÈXİ]›ËİX[™È[˜[Z[X\ˆÈ\ØXİ]˜K[Û˜Ù\È›ÈÙHÙ[™\˜[ˆY]˜\ÈÛX\ÈHÙHÛÛœÙ\˜H[\İÜšX[™]š[ËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLOİY[ÈX^[Üİ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™XÛÜ™]Üš[ÈHÛXHHYYXØ[Y[ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›È™XÚXš\ˆ[ˆ™XÛÜ™]Üš[ÈİX[™ÈÛÜœ™\ÜÛ™H[˜HÛXK\˜H\ÛZ[Z\ˆHÜÚXš[YYHÛšY\›KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[˜HÛXH›ÙÜ˜[XYKİX[™ÈÙH[Ø[˜HİHÜ˜\š[Ë[Û˜Ù\È[Ú\İ[XHÙ[™\˜H[™XÛÜ™]Üš[ÈÛÜœ™\ÜÛ™Y[KœƒBŒ‹ˆYÈ]YHHÛXHXHYHÛÛ™š\›XYH[\ÈHHZ™XİXÚpìÛˆ[™XÛÜ™]Üš[ËİX[™ÈYØH[Ü˜\š[È›ÙÜ˜[XYË[Û˜Ù\È[Ú\İ[XH]š]HÙ[™\˜\ˆ[ˆ™XÛÜ™]Üš[È[›™XÙ\Ø\š[ËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLİY[ÈX^[Üİ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛ™š\›XXÚpìÛˆXØÙ\ÚX›HH[˜HÛXOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›ÈÛÛ™š\›X\ˆ[˜HÛXHYYX[H[˜HXØÚpìÛˆÙ[˜Ú[HÜˆÜ]YHÈÜˆ›Ş‹\˜H™YÚ\İ˜\ˆİH™X[^˜XÚpìÛˆÚ[ˆ\ØÜšXš\ˆ[™›Ü›XXÚpìÛ‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[˜HÛXH[™Y[KİX[™È[Y[ÈX^[ÜˆÛÛ™š\›XHYYX[H[\˜XØÚpìÛˆ0èXİ[[Û˜Ù\È[Ú\İ[XH™YÚ\İ˜HHÛXHÛÛ[ÈÛÛ™š\›XYKœƒBŒ‹ˆYÈ]YH^\İH[˜HÛXH[™Y[KİX[™È[˜HÛÛ™š\›XXÚpìÛˆH›Şˆ\È™XÛÛ›ØÚYHH˜[YYK[Û˜Ù\È[Ú\İ[XH™YÚ\İ˜HHÛXHÛÛ[ÈÛÛ™š\›XYKœƒBŒËˆYÈ]YHHÛXHXHYHÛÛ™š\›XYKİX[™ÈÙH[[HÛÛ™š\›X\›HY]˜[Y[K[Û˜Ù\È[Ú\İ[XH]š]HÜ™X\ˆ[ˆÙYİ[™È™YÚ\İ›ËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÏİ‘˜[Z[X\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ[\H[H[˜HÛXH›ÈÛÛ™š\›XYOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™XÚXš\ˆ[˜H[\HİX[™È[˜HÛXH\›X[™XÙHÚ[ˆÛÛ™š\›X\ˆÈ\È™YÚ\İ˜YHÛÛ[ÈÛZ]YK\˜H[\™[š\ˆİX[™ÈÙXH™XÙ\Ø\š[ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[˜HÛXHİ\\˜H[\š[ÙÈHÛÛ™š\›XXÚpìÛˆ\İX›XÚYËİX[™È[Ú\İ[XH]XİHH˜[HH™\ÜY\İK[Û˜Ù\ÈÙ[™\˜H[˜H[\H\ÛØÚXYH[Y[ÈX^[Ü‹œƒBŒ‹ˆYÈ]YH[˜HÛXH\È™YÚ\İ˜YHÛÛ[ÈÛZ]YKİX[™È^\İH[ˆ˜[Z[X\ˆš[˜İ[YÈÛÛˆ›İYšXØXÚ[Û™\ÈXš[]Y\Ë[Û˜Ù\È[Ú\İ[XHÛÛXÚ]H[[°ë[ÈHH[\HÛÜœ™\ÜÛ™Y[KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLİ‘˜[Z[X\İ“YYXOİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™\İ[Y[ˆÙ[X[˜[HY\™[˜ÚXOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÛÛœİ[\ˆ[ˆ™\İ[Y[ˆÙ[X[˜[HY\™[˜ÚXK\˜HÛÛ\™[™\ˆ[š]™[Ù[™\˜[Hİ[\[ZY[È[˜][ZY[ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İ[ˆÛX\È›ÙÜ˜[XY\È\˜[H[\š[ÙËİX[™È[˜[Z[X\ˆÛÛœİ[H[™\İ[Y[ˆÙ[X[˜[[Û˜Ù\È[Ú\İ[XHØ[İ[H\ÈÛX\ÈÛÛ™š\›XY\Ë\™0ëX\ÈHÛZ]Y\ËœƒBŒ‹ˆYÈ]YH›È^\İ[ˆÛX\È\˜[H[\š[ÙËİX[™ÈÙHÛÛXÚ]H[™\İ[Y[‹[Û˜Ù\È[Ú\İ[XH[™›Ü›XH]YH›È^\İ[ˆ]ÜÈİYšXÚY[\È\˜HØ[İ[\ˆY\™[˜ÚXKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLOİ‘˜[Z[X\İ“YYXOİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ[\HH]°ìÛˆHÛšYÈ™Xİ\œ™[OİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÛÛ›ØÙ\ˆİX[™ÈÙH]XİH[ˆ]°ìÛˆ™Xİ\œ™[HHÛZ\Ú[Û™\Ë\˜H™]š\Ø\ˆÜÈ™XÛÜ™]Üš[ÜÈH™X[^˜\ˆ[ˆÙYİZ[ZY[Èpè\ÈÜÜ[›ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[\İÜšX[İ[\H[Üš]\š[ÈÛÛ™šYİ\˜YÈH™Xİ\œ™[˜ÚXKİX[™È[Ú\İ[XH[˜[^˜H\ÈÛX\Ë[Û˜Ù\È™YÚ\İ˜H[ˆ]°ìÛˆ\ÛØÚXYÈ[Ü˜\š[ÈÈYYXØ[Y[ÈÛÜœ™\ÜÛ™Y[KœƒBŒ‹ˆYÈ]YH^\İH[ˆ]°ìÛˆY[YšXØYËİX[™È[˜[Z[X\ˆÛÛœİ[Hİ\È[œÚYÚË[Û˜Ù\È[Ú\İ[XH™\Ù[HH[™›Ü›XXÚpìÛˆ]YHİ\İ[H[[^™ÛËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLLİ‘˜[Z[X\İ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™YÚ\İ›ÈHİY[H[˜[Z[X\İİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÜ™X\ˆ[˜HİY[H[ˆ]K\˜HYZ[š\İ˜\ˆ[ÙYİZ[ZY[ÈH[ˆY[ÈX^[Ü‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[˜[Z[X\ˆ›ÜÜ˜Ú[Û˜HÜÈ]ÜÈ™\]Y\šYÜËİX[™ÈÛÛ™š\›XH[™YÚ\İ›Ë[Û˜Ù\È[Ú\İ[XHÜ™XH[˜HİY[H[™Y[HH™\šYšXØXÚpìÛ‹œƒBŒ‹ˆYÈ]YH[ÛÜœ™[ÈXH\[™XÙHH[˜HİY[H^\İ[KİX[™ÈÙH[[H™YÚ\İ˜\ˆY]˜[Y[K[Û˜Ù\È[Ú\İ[XH]š]HÜ™X\ˆ[˜HİY[H\XØYKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLLOİ‘˜[Z[X\İ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™\šYšXØXÚpìÛˆ[ÛÜœ™[È[˜[Z[X\İİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™\šYšXØ\ˆZHÛÜœ™[Ë\˜HXš[]\ˆZHİY[HHÛÛ[X\ˆÛÛˆ[›ØÙ\ÛÈHš[˜İ[XÚpìÛ‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[˜HİY[H[™Y[KİX[™È[˜[Z[X\ˆ][^˜H[˜H™\šYšXØXÚpìÛˆšYÙ[K[Û˜Ù\È[Ú\İ[XH™YÚ\İ˜H[ÛÜœ™[ÈÛÛ[È™\šYšXØYËœƒBŒ‹ˆYÈ]YHH™\šYšXØXÚpìÛˆH^\˜YËİX[™ÈÙH[[H][^˜\‹[Û˜Ù\È[Ú\İ[XH™XÚ^˜HHÜ\˜XÚpìÛˆH\›Z]HÛÛXÚ]\ˆ[˜HY]˜KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLLİ‘˜[Z[X\İ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™YÚ\İ›È[\™š[[Y[ÈX^[ÜİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™YÚ\İ˜\ˆÜÈ]ÜÈ°è\ÚXÛÜÈ[Y[ÈX^[Ü‹\˜H™\\˜\ˆİH\™š[HİZYYÈ[›ÈH]KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[˜[Z[X\ˆÜÙYH[˜HİY[HXš[]YKİX[™È™YÚ\İ˜HÜÈ]ÜÈ™\]Y\šYÜÈ[Y[ÈX^[Ü‹[Û˜Ù\È[Ú\İ[XHÜ™XHİH\™š[œƒBŒ‹ˆYÈ]YHÙH›ÜÜ˜Ú[Û˜H[ˆÛÛXİÈH[Y\™Ù[˜ÚXH°è[YËİX[™ÈÙHÛÛ\]H[\™š[[Û˜Ù\È[Ú\İ[XHÈ\ÛØÚXH[Y[ÈX^[Ü‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLLÏİY[ÈX^[Üİ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœÙ[[ZY[È\˜H\İX›XÙ\ˆ[°ë[˜İ[ÈHİZYYÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›ÈXÙ\\ˆH™[XÚpìÛˆHİZYYÈÛÛˆ[ˆ˜[Z[X\‹\˜H]]Üš^˜\ˆ[XØÙ\ÛÈHH[™›Ü›XXÚpìÛˆ™XÙ\Ø\šXH\˜HZHÙYİZ[ZY[ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[˜HÛÛXÚ]YHš[˜İ[XÚpìÛˆšYÙ[KİX[™È[Y[ÈX^[Üˆ™YÚ\İ˜HİHXÙ\XÚpìÛ‹[Û˜Ù\È[Ú\İ[XH[XXÙ[˜H[ÛÛœÙ[[ZY[È\ÛØÚXYËœƒBŒ‹ˆYÈ]YH›È^\İHÛÛœÙ[[ZY[È™YÚ\İ˜YËİX[™È[˜[Z[X\ˆ[[HXØÙY\ˆ[ÙYİZ[ZY[È[Y[Ë[Û˜Ù\È[Ú\İ[XHX[Y[™H™\İš[™ÚYÈXÚÈXØÙ\ÛËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLMİ‘˜[Z[X\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÜ™XXÚpìÛˆH[ˆ˜][ZY[ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÜ™X\ˆ[ˆ˜][ZY[È\˜H[Y[ÈX^[Ü‹\˜HYÜ\\ˆÜÈYYXØ[Y[ÜÈH]]\È]YHX™HÙYİZ\‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆ°ë[˜İ[ÈXİ]›ËİX[™È[˜[Z[X\ˆÜ™XH[ˆ˜][ZY[Ë[Û˜Ù\È[Ú\İ[XHÈ\ÛØÚXH[Y[ÈX^[Ü‹œƒBŒ‹ˆYÈ]YH[˜][ZY[Èpî›ˆ›ÈÛÛY[™H[˜H]]HÛÛ\]KİX[™ÈÙHÜ™XK[Û˜Ù\È\›X[™XÙH[˜Xİ]›È\İHÛÛ\]\ˆİHÛÛ™šYİ\˜XÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLMOİ‘˜[Z[X\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆYš[šXÚpìÛˆHÜÚ\ÈHœ™XİY[˜ÚXOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈYš[š\ˆHÜÚ\ÈHœ™XİY[˜ÚXHH[ˆYYXØ[Y[Ë\˜H™\™\Ù[\ˆÛÜœ™Xİ[Y[HİH]]HHYZ[š\İ˜XÚpìÛ‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆYYXØ[Y[È[›ÈH[ˆ˜][ZY[ËİX[™ÈÙH™YÚ\İ˜H[˜HÜÚ\ÈHœ™XİY[˜ÚXH°è[Y\Ë[Û˜Ù\È[Ú\İ[XHÛÛœÙ\˜HH]]KœƒBŒ‹ˆYÈ]YHH[™›Ü›XXÚpìÛˆ›ÜÜ˜Ú[Û˜YH\È[˜ÛÛ\]KİX[™ÈÙH[[HİX\™\ˆH]]K[Û˜Ù\È[Ú\İ[XH™XÚ^˜HHÛÛ™šYİ\˜XÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLMİ‘˜[Z[X\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛ™šYİ\˜XÚpìÛˆHÜ˜\š[ÜÈH[œİXØÚ[Û™\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈYš[š\ˆÜÈÜ˜\š[ÜÈH[œİXØÚ[Û™\ÈH[ˆYYXØ[Y[Ë\˜H]YHØYHÛXHÛÛ[™ØHH[™›Ü›XXÚpìÛˆ™XÙ\Ø\šXKİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[˜H]]H™YÚ\İ˜YKİX[™È[˜[Z[X\ˆpìXYH[›ÈÈpè\ÈÜ˜\š[ÜË[Û˜Ù\È[Ú\İ[XHÜÈ\ÛØÚXH[YYXØ[Y[ËœƒBŒ‹ˆYÈ]YHÙH™YÚ\İ˜[ˆ[œİXØÚ[Û™\ÈÛÛ\[Y[\šX\ËİX[™ÈÙHÙ[™\˜H[˜HÛXK[Û˜Ù\È\İ\È\›X[™XÙ[ˆ\ÛØÚXY\ÈHH›ÙÜ˜[XXÚpìÛˆÛÜœ™\ÜÛ™Y[KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLMÏİ‘˜[Z[X\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛ™šYİ\˜XÚpìÛˆH™XÛÜ™]Üš[ÜÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÛÛ™šYİ\˜\ˆÜÈ™XÛÜ™]Üš[ÜÈH[ˆ˜][ZY[Ë\˜H\İX›XÙ\ˆğìÛ[ÈÙH]š\Ø\°èH[Y[ÈX^[Üˆ[\ÈH[˜HÛXKİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆ˜][ZY[ÈÛÛ™šYİ\˜YËİX[™È[˜[Z[X\ˆXš[]Hİ\È™XÛÜ™]Üš[ÜË[Û˜Ù\È[Ú\İ[XH™YÚ\İ˜HHÛÛ™šYİ\˜XÚpìÛˆÛÜœ™\ÜÛ™Y[KœƒBŒ‹ˆYÈ]YHÜÈ™XÛÜ™]Üš[ÜÈÛÛˆ[ÙYšXØYÜËİX[™È^\İ[ˆÛX\È]\˜\Ë[Û˜Ù\ÈHY]˜HÛÛ™šYİ\˜XÚpìÛˆÙH\XØHH\È›ÙÜ˜[XXÚ[Û™\È[™Y[\ËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLNİ‘˜[Z[X\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆXİ]˜XÚpìÛˆH]\ØHH[ˆ˜][ZY[ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈXİ]˜\ˆÈ]\Ø\ˆ[ˆ˜][ZY[Ë\˜HÛÛ›Û\ˆİpè[™ÈX™HÙ[™\˜\ˆY]˜\ÈÛX\ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[ˆ˜][ZY[ÈÛÛY[™HH[™›Ü›XXÚpìÛˆØ›YØ]ÜšXKİX[™È[˜[Z[X\ˆÈXİ]˜K[Û˜Ù\È[Ú\İ[XH\›Z]HÙ[™\˜\ˆİ\ÈÛX\È]\˜\ËœƒBŒ‹ˆYÈ]YH[˜][ZY[È\İ0èHXİ]›ËİX[™È[˜[Z[X\ˆÈ]\ØK[Û˜Ù\È[Ú\İ[XHZ˜HHÙ[™\˜\ˆY]˜\ÈÛX\ÈÚ[ˆ[[Z[˜\ˆ[\İÜšX[^\İ[KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLNOİ‘˜[Z[X\İ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[H[][HH[ˆ˜][ZY[ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÛÛœİ[\ˆH]]HÛÛ\]HH[ˆ˜][ZY[Ë\˜H™\šYšXØ\ˆHÛÛ™šYİ\˜XÚpìÛˆšYÙ[H[Y[ÈX^[Ü‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆ˜][ZY[È™YÚ\İ˜YËİX[™È[˜[Z[X\ˆÛÛœİ[HİH][K[Û˜Ù\È[Ú\İ[XH›ÜÜ˜Ú[Û˜HYYXØ[Y[ÜËÜÚ\Ëœ™XİY[˜ÚXKÜ˜\š[ÜË[œİXØÚ[Û™\ÈH\İYËœƒBŒ‹ˆYÈ]YH[˜][ZY[È›È\[™XÙHH[ˆY[ÈX^[Üˆš[˜İ[YÈ[˜[Z[X\‹İX[™ÈÙH[[HÛÛœİ[\›Ë[Û˜Ù\È[Ú\İ[XH™XÚ^˜H[XØÙ\ÛËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLŒİY[ÈX^[Üİ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[HHH°ìŞ[XHÛXOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›ÈÛÛ›ØÙ\ˆİpè[\ÈZH°ìŞ[XHÛXK\˜HØX™\ˆ]pêHYYXØ[Y[ÈX›ÈÛX\ˆHİpè[™ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İ[ˆÛX\È]\˜\ËİX[™È[Y[ÈX^[ÜˆÛÛœİ[HİH°ìŞ[XHÛXK[Û˜Ù\È[Ú\İ[XH]Y[™HHpè\ÈÙ\˜Ø[˜HÙYğî›ˆH›ÙÜ˜[XXÚpìÛ‹œƒBŒ‹ˆYÈ]YH›È^\İ[ˆÛX\È[™Y[\ËİX[™ÈÙH™X[^˜HHÛÛœİ[K[Û˜Ù\È[Ú\İ[XH[™›Ü›XH]YH›È^H[˜H°ìŞ[XHÛXH›ÙÜ˜[XYKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLŒOİY[ÈX^[Üİ“YYXOİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[H[][HH[˜HÛXOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›ÈÛÛœİ[\ˆÜÈ]ÜÈH[˜HÛXK\˜H™XÛÜ™\ˆHÜÚ\ÈH\È[œİXØÚ[Û™\È\ÛØÚXY\ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[˜HÛXH›ÙÜ˜[XYKİX[™ÈÙHÛÛœİ[HİH][K[Û˜Ù\È[Ú\İ[XH›ÜÜ˜Ú[Û˜HYYXØ[Y[ËÜÚ\ËÜ˜\š[ÈH[œİXØÚ[Û™\È\ÜÛšX›\ËœƒBŒ‹ˆYÈ]YHHÛXHXHÜÙYH[ˆ\İYËİX[™ÈÙHÛÛœİ[K[Û˜Ù\È[Ú\İ[XH[™›Ü›XHÚH\İ0èH[™Y[KÛÛ™š\›XYK\™0ëXHHÛZ]YKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLŒİY[ÈX^[Üİ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™XÛÜ™]Üš[È™Y›Ü˜YÈÜˆ˜[HHÛÛ™š\›XXÚpìÛİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›È™XÚXš\ˆ[ˆY]›È™XÛÜ™]Üš[ÈİX[™È[˜HÛXHÛÛ[°î˜H[™Y[K\˜H[™\ˆİ˜HÜÜ[šYYH™XÛÜ™\ˆHYYXØXÚpìÛ‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[š[Y\ˆ™XÛÜ™]Üš[ÈYH[šXYÈHHÛXHÛÛ[°î˜H[™Y[KİX[™ÈÙH[Ø[˜H[[\˜[ÈÛÛ™šYİ\˜YË[Û˜Ù\È[Ú\İ[XHÙ[™\˜H[ˆ™XÛÜ™]Üš[È™Y›Ü˜YËœƒBŒ‹ˆYÈ]YHHÛXHXHYHÛÛ™š\›XYKİX[™ÈYØH[[ÛY[È[™YY\›Ë[Û˜Ù\È[Ú\İ[XH›ÈÙ[™\˜Hİ›È™XÛÜ™]Üš[ËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLŒÏİY[ÈX^[Üİ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛ™š\›XXÚpìÛˆ[›È[\š[ÙÈHÛ\˜[˜ÚXOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›ÈÙ\ˆÛÛ™š\›X\ˆ[˜HÛXH\˜[H[\š[ÙÈHÛ\˜[˜ÚXK\˜H™YÚ\İ˜\ˆÛÜœ™Xİ[Y[H[˜HÛXH™X[^˜YHÛÛˆ™]˜\ÛËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YHHÜ˜H›ÙÜ˜[XYHXH\ğìÈHHÛ\˜[˜ÚXHÛÛ[°î˜HšYÙ[KİX[™ÈÙH™YÚ\İ˜HHÛÛ™š\›XXÚpìÛ‹[Û˜Ù\È[Ú\İ[XHÛ\ÚYšXØHHÛXHÙYğî›ˆ[™]˜\ÛÈÛÜœ™\ÜÛ™Y[KœƒBŒ‹ˆYÈ]YH[\š[ÙÈ\›Z]YÈ\›Z[°ìÈHHÛXHYH™YÚ\İ˜YHÛÛ[ÈÛZ]YKİX[™ÈÙH[[H[˜HÛÛ™š\›XXÚpìÛˆÜİ\š[Ü‹[Û˜Ù\È[Ú\İ[XH›È™Y[\^˜H]]Ûpè]XØ[Y[HHÛZ\ÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLİY[ÈX^[Üİ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[HHYÙ[™HX\šXHHÛX\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›ÈÛÛœİ[\ˆ\ÈÛX\È›ÙÜ˜[XY\È\˜H[0ëXK\˜HÛÛ›ØÙ\ˆZH][˜HHYYXØXÚpìÛ‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İ[ˆÛX\È[ˆH™XÚHÛÛœİ[YKİX[™È[Y[ÈX^[ÜˆÛÛXÚ]HİHYÙ[™K[Û˜Ù\È[Ú\İ[XH]Y[™H\ÈÛX\ÈÜ™[˜Y\ÈÜ›Û›Û0ìÙÚXØ[Y[KœƒBŒ‹ˆYÈ]YH[İ[˜\ÈÛX\ÈXHÜÙY[ˆ[ˆ™\İ[YËİX[™ÈÙHÛÛœİ[HHYÙ[™K[Û˜Ù\ÈØYHÛXHÛÛœÙ\˜HİH\İYÈÛÜœ™\ÜÛ™Y[KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLOİ‘˜[Z[X\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[H[\İYÈ™XÚY[H[Y[ÈX^[ÜİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÛÛœİ[\ˆ[\İYÈ™XÚY[HH\ÈÛX\È[Y[ÈX^[Ü‹\˜HÛÛ›ØÙ\ˆİHÚ]XXÚpìÛˆÚ[ˆ[™\ˆ]YH[X\›ÈÛÛœİ[[Y[KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆ°ë[˜İ[ÈHİZYYÈXİ]›ËİX[™È[˜[Z[X\ˆÛÛœİ[H[\İYÈ[Y[Ë[Û˜Ù\È[Ú\İ[XH›ÜÜ˜Ú[Û˜HH°ìŞ[XHÛXHHÜÈ0î›[[ÜÈ™\İ[YÜÈ™YÚ\İ˜YÜËœƒBŒ‹ˆYÈ]YH^\İH[˜H[\HXİ]˜KİX[™ÈÙHÛÛœİ[H[\İYË[Û˜Ù\È[Ú\İ[XH[˜Û^YHHÚ]XXÚpìÛˆ[™Y[HH][˜ÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLİ‘˜[Z[X\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[H[\İÜšX[™XÚY[HHÛX\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™]š\Ø\ˆ\ÈÛX\È™XÚY[\È[Y[ÈX^[Ü‹\˜HY[YšXØ\ˆÛÛ™š\›XXÚ[Û™\Ë™]˜\ÛÜÈHÛZ\Ú[Û™\ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İ[ˆÛX\È™YÚ\İ˜Y\ËİX[™È[˜[Z[X\ˆÛÛœİ[H[\İÜšX[™XÚY[K[Û˜Ù\È[Ú\İ[XH]Y[™H\ÈÛX\ÈÛÛˆ™XÚKYYXØ[Y[ÈH\İYËœƒBŒ‹ˆYÈ]YH›È^\İ[ˆ™YÚ\İ›ÜÈ[›È[\š[ÙÈÛÛXÚ]YËİX[™ÈÙH™X[^˜HHÛÛœİ[K[Û˜Ù\È[Ú\İ[XH[™›Ü›XHH]\Ù[˜ÚXHH™\İ[YÜËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÏİ‘˜[Z[X\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[H[][HH[˜H[\OİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÛÛœİ[\ˆ[][HH[˜H[\K\˜HÛÛ\™[™\ˆ]pêHÛXH™\]ZY\™HZH][˜ÚpìÛ‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[˜H[\H\ÛØÚXYHH[˜HÛXKİX[™È[˜[Z[X\ˆÛÛœİ[HİH][K[Û˜Ù\È[Ú\İ[XH›ÜÜ˜Ú[Û˜HYYXØ[Y[ËÜ˜\š[Ë\İYÈH[İ]›ÈHH[\KœƒBŒ‹ˆYÈ]YHH[\H™\Ù[HXØÚ[Û™\ÈHÙYİZ[ZY[È™YÚ\İ˜Y\ËİX[™ÈÙHÛÛœİ[HY]˜[Y[K[Û˜Ù\È[Ú\İ[XHÛÛœÙ\˜HH[™›Ü›XXÚpìÛˆÛÜœ™\ÜÛ™Y[KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLİ‘˜[Z[X\İ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛ™šYİ\˜XÚpìÛˆH™Y™\™[˜ÚX\ÈH›İYšXØXÚpìÛİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÙ[XØÚ[Û˜\ˆ]pêH]š\ÛÜÈ\Ù[È™XÚXš\‹\˜HX[[™\ˆ[ˆÙYİZ[ZY[È0î[Ú[ˆ™XÚXš\ˆ›İYšXØXÚ[Û™\È[›™XÙ\Ø\šX\ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[˜[Z[X\ˆÜÙYH[ˆ°ë[˜İ[ÈXİ]›ËİX[™È[ÙYšXØH\ÈØ]YÛÜ°ëX\ÈH›İYšXØXÚpìÛˆ\›Z]Y\Ë[Û˜Ù\È[Ú\İ[XHİX\™Hİ\È™Y™\™[˜ÚX\ËœƒBŒ‹ˆYÈ]YHØİ\œ™H[ˆ]™[È›ÈXš[]YÈÜˆ[˜[Z[X\ˆH›ÈÛÜœ™\ÜÛ™HH[˜H[\HÜ°ë]XØKİX[™ÈÙH]˜[0î˜H[[°ë[Ë[Û˜Ù\È[Ú\İ[XH™\Ü]HH™Y™\™[˜ÚXHÛÛ™šYİ\˜YKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLOİ‘˜[Z[X\İ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛXİÈÛÛˆ[Y[ÈX^[Üˆ[H[˜H[\OİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È][^˜\ˆ[ÛÛXİÈ™YÚ\İ˜YÈ[Y[ÈX^[ÜˆİX[™È^\İH[˜H[\K\˜HÛÛ][šXØ\›YHÛÛˆ0ê[H™\šYšXØ\ˆHÚ]XXÚpìÛ‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆÛÛXİÈ\ÜÛšX›KİX[™È[˜[Z[X\ˆXÚYHÛÛ][šXØ\œÙH[H[˜H[\K[Û˜Ù\È[Ú\İ[XH›ÜÜ˜Ú[Û˜H[Ø[˜[HÛÛXİÈÛÜœ™\ÜÛ™Y[KœƒBŒ‹ˆYÈ]YH›È^\İH[™›Ü›XXÚpìÛˆHÛÛXİÈ°è[YKİX[™ÈÙHÛÛXÚ]HHXØÚpìÛ‹[Û˜Ù\È[Ú\İ[XH[™›Ü›XH]YH[ÛÛXİÈ›ÈÙH[˜İY[˜H\ÜÛšX›KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÌİ‘˜[Z[X\İ˜Z˜Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™YÚ\İ›ÈH[˜H›İHHÙYİZ[ZY[ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™YÚ\İ˜\ˆ[˜H›İHÛØœ™H[˜H[\™[˜ÚpìÛ‹\˜HÛÛœÙ\˜\ˆ[™›Ü›XXÚpìÛˆ™[]˜[HÛØœ™H[ÙYİZ[ZY[È™X[^˜YËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆ°ë[˜İ[ÈXİ]›ËİX[™È[˜[Z[X\ˆ™YÚ\İ˜H[˜H›İH°è[YK[Û˜Ù\È[Ú\İ[XHH[XXÙ[˜HÛÛˆH™XÚHH[\İX\š[È™\ÜÛœØX›KœƒBŒ‹ˆYÈ]YH^\İH[˜H›İH™YÚ\İ˜YKİX[™ÈÙHÛÛœİ[H[ÙYİZ[ZY[ÈÛÜœ™\ÜÛ™Y[K[Û˜Ù\ÈH›İH\›X[™XÙH\ÜÛšX›KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÌOİ‘˜[Z[X\İ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆXİX[^˜XÚpìÛˆ[ÙYİZ[ZY[ÈH[˜H[\OİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™YÚ\İ˜\ˆ]YH[˜H[\HYH][™YK\˜HY™\™[˜ÚX\ˆ\ÈÚ]XXÚ[Û™\È™\İY[\ÈH\]Y[\È]YHÙ]°ëXH™\]ZY\™[ˆ[\™[˜ÚpìÛ‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[˜H[\HXšY\KİX[™È[˜[Z[X\ˆ™YÚ\İ˜H[˜H[\™[˜ÚpìÛ‹[Û˜Ù\È[Ú\İ[XHXİX[^˜HİHÙYİZ[ZY[ËœƒBŒ‹ˆYÈ]YHHÚ]XXÚpìÛˆÙHÛÛœÚY\˜H][™YKİX[™È[˜[Z[X\ˆ™YÚ\İ˜HİHÚY\œ™K[Û˜Ù\ÈH[\HZ˜HH\\™XÙ\ˆÛÛ[È[™Y[HÚ[ˆ[[Z[˜\ˆİH\İÜšX[ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÌİ‘˜[Z[X\İ“YYXOİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[H[\İÜšX[HY\™[˜ÚXOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÛÛœİ[\ˆHY\™[˜ÚXHH\İ[ÜÈ\š[ÙÜË\˜HØœÙ\˜\ˆğìÛ[È]›ÛXÚ[Û˜H[İ[\[ZY[È[˜][ZY[ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH\İÜšX[İYšXÚY[KİX[™È[˜[Z[X\ˆÙ[XØÚ[Û˜H[ˆ\š[ÙÈ°è[YË[Û˜Ù\È[Ú\İ[XHØ[İ[HÜÈ[™XØYÜ™\ÈÛÜœ™\ÜÛ™Y[\ËœƒBŒ‹ˆYÈ]YHÙHÛÛœİ[[ˆ\š[ÙÜÈY™\™[\ËİX[™È^\İ[ˆ™YÚ\İ›ÜÈ\˜H[X›ÜË[Û˜Ù\ÈØYH™\İ[YÈÙHØ[İ[H][^˜[™È0î›šXØ[Y[H\ÈÛX\ÈHİH\š[ÙËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÌÏİ‘˜[Z[X\İ“YYXOİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆY[YšXØXÚpìÛˆHÛX\È\™0ëX\ÈHÛZ]Y\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È\İ[™İZ\ˆ\ÈÛX\È\™0ëX\ÈHÛZ]Y\È[›È[\İÜšX[\˜HÛÛ\™[™\ˆYZ›Üˆ0ìÛ™H\\™XÙ[ˆYšXİ[Y\ÈHY\™[˜ÚXKİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[˜HÛXHÙHÛÛ™š\›XH\Üpê\È[Ü˜\š[È›ÙÜ˜[XYÈ\›È[›È[\š[ÙÈ\›Z]YËİX[™ÈÙH›ØÙ\ØHİH™\İ[YË[Û˜Ù\È[Ú\İ[XHHÛ\ÚYšXØHÛÛ[È\™0ëXKœƒBŒ‹ˆYÈ]YH[˜HÛXH\›Z[˜H[\š[ÙÈ\›Z]YÈÚ[ˆÛÛ™š\›XXÚpìÛ‹İX[™ÈÙH›ØÙ\ØHİH\İYË[Û˜Ù\È[Ú\İ[XHHÛ\ÚYšXØHÛÛ[ÈÛZ]YKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÍİ‘˜[Z[X\İ“YYXOİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™XÛÛY[™XÚ[Û™\ÈH\\ˆH]›Û™\ÈHY\™[˜ÚXOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™XÚXš\ˆ™XÛÛY[™XÚ[Û™\ÈÜšY[]]˜\ÈH\\ˆH]›Û™\ÈHY\™[˜ÚXK\˜HYZ›Ü˜\ˆH›Ü›XH[ˆ]YH™X[^›È[ÙYİZ[ZY[ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆ]°ìÛˆÛÛˆ]šY[˜ÚXHİYšXÚY[KİX[™È[Ú\İ[XHÙ[™\˜H[˜H™XÛÛY[™XÚpìÛ‹[Û˜Ù\È\İHÙH™[XÚ[Û˜HÛÛˆ™XÛÜ™]Üš[ÜËÜ˜\š[ÜÈÈÙYİZ[ZY[ÈH›È[ÙYšXØH[™XØXÚ[Û™\ÈpêYXØ\ËœƒBŒ‹ˆYÈ]YH›È^\İH]šY[˜ÚXHİYšXÚY[KİX[™ÈÙHZ™Xİ]H[[°è[\Ú\Ë[Û˜Ù\È[Ú\İ[XH]š]H™\Ù[\ˆ[˜H™XÛÛY[™XÚpìÛˆÛÛ˜Û^Y[KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÍOİY[ÈX^[Üİ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆZ\İH[[Xpì[ÈH^ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›È][Y[\ˆ[[Xpì[È[^Ë\˜HY\ˆH[™›Ü›XXÚpìÛˆÛÛˆX^[Üˆ˜XÚ[YYİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[Y[ÈX^[Üˆ[ÙYšXØH[[Xpì[ÈH^È\›Z]YËİX[™ÈİX\™HH™Y™\™[˜ÚXK[Û˜Ù\È[Ú\İ[XHÛÛœÙ\˜H[˜[ÜˆÙ[XØÚ[Û˜YËœƒBŒ‹ˆYÈ]YH^\İH[˜H™Y™\™[˜ÚXHİX\™YKİX[™È[\İX\š[ÈY[™HH][^˜\ˆH\XØXÚpìÛ‹[Û˜Ù\È[Ú\İ[XH\XØHXÚHÛÛ™šYİ\˜XÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÍİY[ÈX^[Üİ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆXİ]˜XÚpìÛˆHX^[ÜˆÛÛ˜\İOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›È][^˜\ˆ[˜HÛÛ™šYİ\˜XÚpìÛˆHX^[ÜˆÛÛ˜\İK\˜H\İ[™İZ\ˆYZ›ÜˆH[™›Ü›XXÚpìÛˆ™\Ù[YKİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YHHÛÛ™šYİ\˜XÚpìÛˆHÛÛ˜\İH\İ0èH\ÜÛšX›KİX[™È[Y[ÈX^[ÜˆHXİ]˜K[Û˜Ù\È[Ú\İ[XHÛÛœÙ\˜HH™Y™\™[˜ÚXKœƒBŒ‹ˆYÈ]YHH™Y™\™[˜ÚXHÙH[˜İY[˜HXİ]˜KİX[™È[\İX\š[È[šXÚXH[˜HY]˜HÙ\ÚpìÛ‹[Û˜Ù\È[Ú\İ[XHX[Y[™HHÛÛ™šYİ\˜XÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÍÏİY[ÈX^[Üİ˜Z˜Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™YXØÚpìÛˆH[İš[ZY[ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›È™YXÚ\ˆ[š[XXÚ[Û™\ÈH[İš[ZY[ÜÈ›È\Ù[˜ÚX[\Ë\˜H][^˜\ˆ]HÛÛˆY[›ÜÈ\İ˜XØÚ[Û™\Èš\İX[\ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[\İX\š[ÈXš[]HH™YXØÚpìÛˆH[İš[ZY[ËİX[™È[Ú\İ[XH™\Ù[H˜[œÚXÚ[Û™\È›È\Ù[˜ÚX[\Ë[Û˜Ù\È][^˜H[˜H[\›˜]]˜H™YXÚYKœƒBŒ‹ˆYÈ]YHH™Y™\™[˜ÚXHYHİX\™YKİX[™È[\İX\š[ÈY[™HH[™Ü™\Ø\‹[Û˜Ù\È[Ú\İ[XHX[Y[™HHÛÛ™šYİ\˜XÚpìÛˆÙ[XØÚ[Û˜YKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÎİY[ÈX^[Üİ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆXİ]˜XÚpìÛˆH^]YHHXİ\˜OİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[ÈY[ÈX^[Ü‹]ZY\›È\ÜÛ™\ˆH^]YH\˜HÛÛ\™[™\ˆH[™›Ü›XXÚpìÛˆ™[]˜[HHZ\ÈÛX\Ë\˜H™YXÚ\ˆYšXİ[Y\ÈHXİ\˜KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YHH^]YHHXİ\˜H\İ0èHXš[]YKİX[™È^\İHÛÛ[šYÈÛÛ\]X›K[Û˜Ù\È[Ú\İ[XH›ÜÜ˜Ú[Û˜H[\Ş[ÈÛÜœ™\ÜÛ™Y[KœƒBŒ‹ˆYÈ]YHH^]YHÙH[˜İY[˜H\ÚXš[]YKİX[™ÈÙHÛÛœİ[HHZ\ÛXH[™›Ü›XXÚpìÛ‹[Û˜Ù\È[Ú\İ[XHX[Y[™H[ÛÛ\Ü[ZY[È\İ0è[™\‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËLÎOİ‘˜[Z[X\İ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛ™šYİ\˜XÚpìÛˆHÜ˜\š[ÈHÚ[[˜Ú[ÈHØ[˜[\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈYš[š\ˆÜ˜\š[ÜÈHÚ[[˜Ú[ÈHØ[˜[\ÈH]š\ÛË\˜HY\\ˆ\È›İYšXØXÚ[Û™\È›ÈÜ°ë]XØ\ÈHZH\ÜÛšXš[YYİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[˜[Z[X\ˆÛÛ™šYİ\˜H[ˆÜ˜\š[ÈHÚ[[˜Ú[È°è[YËİX[™ÈÙHÙ[™\˜H[ˆ]š\ÛÈ›ÈÜ°ë]XÛÈ[›ÈHXÚÈ\š[ÙË[Û˜Ù\È[Ú\İ[XH™\Ü]HHÛÛ™šYİ\˜XÚpìÛ‹œƒBŒ‹ˆYÈ]YH[˜[Z[X\ˆXš[]HÈ\ÚXš[]H[ˆØ[˜[\ÜÛšX›KİX[™ÈÙHÙ[™\˜H[˜H›İYšXØXÚpìÛˆÛÛ\]X›K[Û˜Ù\È[Ú\İ[XH][^˜H0î›šXØ[Y[HÜÈØ[˜[\È\›Z]YÜËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMİ‘˜[Z[X\İ“YYXOİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™YÚ\İ›ÈH[™[\š[È[šXÚX[İİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™YÚ\İ˜\ˆHØ[YY\ÜÛšX›HH[ˆYYXØ[Y[Ë\˜HÛÛY[˜\ˆHÛÛ›Û\ˆİHİØÚËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆYYXØ[Y[ÈXİ]›ËİX[™È[˜[Z[X\ˆ™YÚ\İ˜H[˜HØ[YY[šXÚX[°è[YK[Û˜Ù\È[Ú\İ[XHÜ™XHİH[™[\š[ËœƒBŒ‹ˆYÈ]YHÙH[[H™YÚ\İ˜\ˆ[˜HØ[YY[°è[YKİX[™ÈÙH›ØÙ\ØHHÜ\˜XÚpìÛ‹[Û˜Ù\È[Ú\İ[XH™XÚ^˜H[˜[Ü‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMOİ‘˜[Z[X\İ“YYXOİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[HHİØÚÈ™\İ[OİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÛÛ›ØÙ\ˆ[İØÚÈ™\İ[HH[ˆYYXØ[Y[Ë\˜H\İ[X\ˆİpè[™ÈÙ\°èH™XÙ\Ø\š[È™\Û™\›ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆ[™[\š[È™YÚ\İ˜YËİX[™È[˜[Z[X\ˆÛÛœİ[H[YYXØ[Y[Ë[Û˜Ù\È[Ú\İ[XH›ÜÜ˜Ú[Û˜HHØ[YY™\İ[HØ[İ[YKœƒBŒ‹ˆYÈ]YH^\İH[˜H]]HXİ]˜KİX[™ÈÙHÛÛœİ[H[İØÚË[Û˜Ù\È[Ú\İ[XHYYH\İ[X\ˆÜÈ0ëX\ÈH\ÜÛšXš[YYH\\ˆHH[™›Ü›XXÚpìÛˆ™YÚ\İ˜YKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMİ‘˜[Z[X\İ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ]š\ÛÈHİØÚÈ˜Z›ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™XÚXš\ˆ[ˆ]š\ÛÈİX[™È[ˆYYXØ[Y[ÈÙH\›Ş[XH[[Xœ˜[H™\ÜÚXÚpìÛ‹\˜H]š]\ˆ[\œ\Ú[Û™\ÈÜˆ˜[HHİØÚËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[İØÚÈ[Ø[˜HÈ]YYHÜˆX˜Z›È[[Xœ˜[ÛÛ™šYİ\˜YËİX[™È[Ú\İ[XH™XØ[İ[H[[™[\š[Ë[Û˜Ù\ÈÙ[™\˜H[ˆ]š\ÛÈH™\ÜÚXÚpìÛ‹œƒBŒ‹ˆYÈ]YH[İØÚÈY[™HHİ\\˜\ˆ[[Xœ˜[\Üpê\ÈH[˜H™\ÜÚXÚpìÛ‹İX[™ÈÙH™XØ[İ[H[[™[\š[Ë[Û˜Ù\È[Ú\İ[XHZ˜HHÛÛœÚY\˜\›È˜Z›ËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMÏİ‘˜[Z[X\İ“YYXOİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ™YÚ\İ›ÈH™\ÜÚXÚpìÛˆHYYXØ[Y[ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›È™YÚ\İ˜\ˆ[˜H™\ÜÚXÚpìÛˆHHØ[YY[˜ÛÜœÜ˜YK\˜HXİX[^˜\ˆ[[™[\š[È\ÜÛšX›KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆYYXØ[Y[ÈÛÛˆ[™[\š[ËİX[™È[˜[Z[X\ˆ™YÚ\İ˜H[˜H™\ÜÚXÚpìÛˆ°è[YK[Û˜Ù\È[Ú\İ[XH[˜Ü™[Y[H[İØÚÈ\ÜÛšX›KœƒBŒ‹ˆYÈ]YHH™\ÜÚXÚpìÛˆ[˜Û^YH[™›Ü›XXÚpìÛˆH[ˆY]›ÈİKİX[™ÈÙHÛÛ™š\›XH[™YÚ\İ›Ë[Û˜Ù\È[Ú\İ[XHÛÛœÙ\˜HXÚH[™›Ü›XXÚpìÛˆ[ÈÛÛˆ[[İš[ZY[ËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMİ‘˜[Z[X\İ˜Z˜Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[H[[ˆXİX[İİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÛÛœİ[\ˆ[[ˆ\ÛØÚXYÈHZHİY[K\˜HÛÛ›ØÙ\ˆ\È[˜Ú[Û˜[YY\È\ÜÛšX›\È[ˆ]KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YHHİY[HÜÙYH[ˆ[ˆ\ÛØÚXYËİX[™È[˜[Z[X\ˆÛÛœİ[HİHİ\ØÜš\ÚpìÛ‹[Û˜Ù\È[Ú\İ[XH›ÜÜ˜Ú[Û˜H[[ˆHİH\İYËœƒBŒ‹ˆYÈ]YH[˜H[˜Ú[Û˜[YY\[™H[[ˆÛÛ˜]YËİX[™ÈÙHÛÛœİ[HHİ\ØÜš\ÚpìÛ‹[Û˜Ù\È[Ú\İ[XH[™›Ü›XHÚHXÚHØ\XÚYYÙH[˜İY[˜H\ÜÛšX›KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMOİ‘˜[Z[X\İ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆXİ]˜XÚpìÛˆÈØ[Xš[ÈHİ\ØÜš\ÚpìÛİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È˜[Z[X\‹]ZY\›ÈÙ[XØÚ[Û˜\ˆÈØ[XšX\ˆZH[‹\˜H][^˜\ˆH[Ù[YYH]H]YHYZ›ÜˆÙHY\HHZ\È™XÙ\ÚYY\ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İ[ˆ[™\È\ÜÛšX›\ËİX[™È[˜[Z[X\ˆÙ[XØÚ[Û˜H[›È°è[YË[Û˜Ù\È[Ú\İ[XH™YÚ\İ˜HHİ\ØÜš\ÚpìÛˆ\ÛØÚXYHHİHİY[KœƒBŒ‹ˆYÈ]YHHİ\ØÜš\ÚpìÛˆØ[XšXHH[‹İX[™ÈHÜ\˜XÚpìÛˆ\ÈÛÛ™š\›XYK[Û˜Ù\È[Ú\İ[XHXİX[^˜H\ÈØ\XÚYY\È\ÛØÚXY\ËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMİ•š\Ú][Oİ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[HHH›ÜY\İHH˜[ÜˆH]OİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[Èš\Ú][K]ZY\›ÈÛÛ›ØÙ\ˆ[›Ø›[XH]YHX›Ü™H]HHİ\Èš[˜Ú\[\È™[™YšXÚ[ÜË\˜H]˜[X\ˆÚHHÛÛXÚpìÛˆ\È™[]˜[H\˜HZH˜[Z[XKİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[š\Ú][HXØÙYH[[™[™ÈYÙKİX[™ÈÙHØ\™ØH[ÛÛ[šYÈš[˜Ú\[[Û˜Ù\ÈÙH™\Ù[HH›ÜY\İHH˜[ÜˆH]KœƒBŒ‹ˆYÈ]YH[š\Ú][H™]š\ØHH[™›Ü›XXÚpìÛˆ[›ÙXİËİX[™ÈÛÛ[°î˜H^Ü˜[™È[ÛÛ[šYË[Û˜Ù\ÈYYH™XÛÛ›ØÙ\ˆH]pêHÙYÛY[ÜÈ\İ0èH\šYÚYHHÛÛXÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMÏİ•š\Ú][Oİ“YYXOİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛœİ[HH[˜Ú[Û˜[YY\Èš[˜Ú\[\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[Èš\Ú][K]ZY\›ÈÛÛ›ØÙ\ˆ\Èš[˜Ú\[\È[˜Ú[Û˜[YY\ÈH]K\˜HÛÛ\™[™\ˆğìÛ[È˜XÚ[]HHY\™[˜ÚXHH[ÙYİZ[ZY[È˜[Z[X\‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[š\Ú][HÛÛœİ[HH[™›Ü›XXÚpìÛˆ[›ÙXİËİX[™È™]š\ØHİ\È[˜Ú[Û˜[YY\Ë[Û˜Ù\ÈÙH™\Ù[[ˆ\ÈØ\XÚYY\Èš[˜Ú\[\ÈH]KœƒBŒ‹ˆYÈ]YH^\İ[ˆ[˜Ú[Û˜[YY\È\İ[˜Y\ÈHY™\™[\ÈÙYÛY[ÜËİX[™ÈÛÛˆ\ØÜš]\Ë[Û˜Ù\È[ÛÛ[šYÈY™\™[˜ÚXH\È™[XÚ[Û˜Y\ÈÛÛˆ[Y[ÈX^[ÜˆH[˜[Z[X\‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMİ•š\Ú][Oİ“YYXOİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛ\\˜XÚpìÛˆH[™\È\ÜÛšX›\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[Èš\Ú][K]ZY\›ÈÛÛ›ØÙ\ˆ\È[\›˜]]˜\ÈHİ\ØÜš\ÚpìÛˆH]K\˜HÛÛ\\˜\ˆİ\È™[™YšXÚ[ÜÈ[\ÈH™YÚ\İ˜\›YKİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İ[ˆ[™\È\ÜÛšX›\ËİX[™È[š\Ú][HÛÛœİ[HH[™›Ü›XXÚpìÛˆÛÛY\˜ÚX[[Û˜Ù\ÈÙH]Y\İ˜[ˆİ\Èš[˜Ú\[\ÈY™\™[˜ÚX\ËœƒBŒ‹ˆYÈ]YH[˜H[˜Ú[Û˜[YY\[™XÙH0î›šXØ[Y[HH[˜H[Ù[YY\ÜXğëYšXØKİX[™ÈÙHÛÛ\\˜[ˆÜÈ[™\Ë[Û˜Ù\ÈXÚHY™\™[˜ÚXH]YYHY[YšXØYKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMOİ•š\Ú][Oİ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÛÛ[XXÚpìÛˆXÚXH™YÚ\İ›ÈÈÛÛXİÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[Èš\Ú][K]ZY\›È\ÜÛ™\ˆH[˜H›Ü›XHHÛÛ[X\ˆXÚXH[™YÚ\İ›Ë\ØØ\™ØHÈÛÛXİË\˜HÛÛY[˜\ˆH][^˜\ˆ]HÈÛÛXÚ]\ˆpè\È[™›Ü›XXÚpìÛ‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[š\Ú][HXÚYHÛÛ[X\ˆÛÛˆ]KİX[™ÈÙ[XØÚ[Û˜H[˜H[\›˜]]˜H\ÜÛšX›K[Û˜Ù\È[Ú\İ[XHÈ\šYÙH[\İ[›ÈÛÜœ™\ÜÛ™Y[KœƒBŒ‹ˆYÈ]YH[˜H[\›˜]]˜H^\›˜H›ÈÙH[˜İY[˜H\ÜÛšX›KİX[™ÈÙH[[HXØÙY\ˆH[K[Û˜Ù\È[Ú\İ[XH]š]H\šYÚ\ˆ[š\Ú][HXÚXH[ˆ™Xİ\œÛÈ[°è[YËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•TËMLİ•š\Ú][Oİ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆXØÙ\ÛÈY\X›H[[™[™ÈYÙOİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[Èš\Ú][K]ZY\›ÈÛÛœİ[\ˆ[[™[™ÈYÙH\ÙH\İ[ÜÈ[Xpì[ÜÈH[[K\˜HXØÙY\ˆHH[™›Ü›XXÚpìÛˆÚ[ˆ\™\ˆÛÛ[šYÈ™[]˜[KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[š\Ú][H][^˜H[ˆ\ÜÜÚ]]›Èpìİš[ÈH\ØÜš]Üš[ËİX[™ÈXØÙYH[[™[™ÈYÙK[Û˜Ù\È[ÛÛ[šYÈ\›X[™XÙH\ÜÛšX›HHÛÛ\™[œÚX›KœƒBŒ‹ˆYÈ]YH[š\Ú][H˜]™YØHYYX[HXÛYÈÈXÛ›ÛÙğëX\ÈH\Ú\İ[˜ÚXHÛÛ\]X›\ËİX[™È[\˜Xİ0î˜HÛÛˆ[[Y[ÜÈ[˜Ú[Û˜[\Ë[Û˜Ù\ÈYYHXØÙY\ˆH\ÈXØÚ[Û™\È\ÜÛšX›\ËƒBİİƒBİX›OƒBƒBˆÈÈÈÈXÚšXØ[İÜšY\ÃBƒB“\ÈXÚšXØ[İÜšY\È™\™\Ù[[ˆØ\XÚYY\È]YHÛÜÜ[ˆ\È[˜Ú[Û˜[YY\È[›ÙXİÈÚ[ˆÛÜœ™\ÜÛ™\ˆ\™Xİ[Y[HH[˜H[\˜XØÚpìÛˆHÜÈÙYÛY[ÜÈØš™]]›ËˆİX[™È[˜H\İÜšXH^Û™H[ˆÙ\šXÚ[È‘TÕÜÈÜš]\š[ÜÈÛÛœÚY\˜[ˆÜÈš[˜Ú\[\È\ØÙ[˜\š[ÜÈH™\]Y\İH™\ÜÛœÙKƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLOİ‘]™[Ü\İ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÙ\šXÚ[ÈH]][XØXÚpìÛˆYYX[HSİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›È[\[Y[\ˆH˜[YXÚpìÛˆ[Sˆ[Y[ÈX^[Ü‹\˜H]][XØ\ˆİ\ÈÛÛXÚ]Y\ÈHX[™\˜HÛÛ›ÛYKİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ[ˆ™\]Y\İÛÛˆ[˜HÜ™Y[˜ÚX[°è[YKİX[™ÈÙH›ØÙ\ØHH]][XØXÚpìÛ‹[Û˜Ù\È[Ù\šXÚ[È™\ÜÛ™HŒHÙ[™\˜H[˜HÙ\ÚpìÛˆ°è[YKœƒBŒ‹ˆYÈ[ˆ™\]Y\İÛÛˆ[˜HÜ™Y[˜ÚX[[˜ÛÜœ™XİKİX[™ÈÙH›ØÙ\ØHH]][XØXÚpìÛ‹[Û˜Ù\È[Ù\šXÚ[È™\ÜÛ™HHH›ÈÙ[™\˜H[˜HÙ\ÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLİ‘]™[Ü\İ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆTHHš[˜İ[XÚpìÛˆHİZYYÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›È[\[Y[\ˆ\ÈÜ\˜XÚ[Û™\È™XÙ\Ø\šX\È\˜HÜ™X\ˆH˜[Y\ˆ[˜Hš[˜İ[XÚpìÛˆ[™H˜[Z[X\ˆHY[ÈX^[Ü‹\˜HX[[™\ˆH™[XÚpìÛˆHİZYYËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ[ˆğìÙYÛÈšYÙ[HH[ˆÛÛœÙ[[ZY[È°è[YËİX[™ÈÙHÛÛ™š\›XHHš[˜İ[XÚpìÛ‹[Û˜Ù\ÈHTH\œÚ\İHH™[XÚpìÛˆH™\ÜÛ™HÛÛˆ[™Xİ\œÛÈÜ™XYËœƒBŒ‹ˆYÈ[ˆğìÙYÛÈ[°è[YÈÈ^\˜YËİX[™ÈÙHÛÛXÚ]HHš[˜İ[XÚpìÛ‹[Û˜Ù\ÈHTH™XÚ^˜HHÜ\˜XÚpìÛˆÚ[ˆÜ™X\ˆH™[XÚpìÛ‹ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLÏİ‘]™[Ü\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆTHHYYXØ[Y[ÜÈH˜][ZY[ÜÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›È›ÜÜ˜Ú[Û˜\ˆÜ\˜XÚ[Û™\È‘TÕ\˜HYYXØ[Y[ÜÈH˜][ZY[ÜË\˜H\œÚ\İ\ˆHÛÛ™šYİ\˜XÚpìÛˆYZ[š\İ˜YH\ÙHH\XØXÚpìÛˆ[˜[Z[X\‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ[ˆ™\]Y\İ°è[YÈHÜ™XXÚpìÛ‹İX[™ÈÙH™YÚ\İ˜H[ˆYYXØ[Y[ÈÈ˜][ZY[Ë[Û˜Ù\ÈHTH\œÚ\İH[™Xİ\œÛÈH™\ÜÛ™HŒKœƒBŒ‹ˆYÈ[ˆ™Xİ\œÛÈ^\İ[KİX[™ÈÙHÛÛXÚ]HİHXİX[^˜XÚpìÛˆÈ\ØXİ]˜XÚpìÛ‹[Û˜Ù\ÈHTHÛÛœÙ\˜H[Ø[Xš[ÈH™\ÜÛ™HÛÜœ™Xİ[Y[KœƒBŒËˆYÈ[ˆY[YšXØYÜˆ[™^\İ[KİX[™ÈÙH[[H[ÙYšXØ\ˆ[™Xİ\œÛË[Û˜Ù\ÈHTH™\ÜÛ™HƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLİ‘]™[Ü\İ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆTHHÛÛ™š\›XXÚpìÛˆHÛX\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›È[\[Y[\ˆ[˜HÜ\˜XÚpìÛˆ]YH™YÚ\İ™HHÛÛ™š\›XXÚpìÛˆH[˜HÛXK\˜HXİX[^˜\ˆİH\İYÈH›Ü›XHY[\İ[KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ[ˆ™\]Y\İ°è[YÈ\˜H[˜HÛXH[™Y[KİX[™ÈÙH™YÚ\İ˜HHÛÛ™š\›XXÚpìÛ‹[Û˜Ù\ÈHTHXİX[^˜HİH\İYÈH™\ÜÛ™HŒœƒBŒ‹ˆYÈ]YHHÛXHXHÜÙYH[˜HÛÛ™š\›XXÚpìÛ‹İX[™ÈÙH™XÚX™HY]˜[Y[HHZ\ÛXHÜ\˜XÚpìÛ‹[Û˜Ù\ÈHTH]š]HÜ™X\ˆ[ˆ™YÚ\İ›È\XØYËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLOİ‘]™[Ü\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ›ØÙ\ÛÈ]]Ûpè]XÛÈHÛX\ÈÚ[ˆÛÛ™š\›X\İİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›ÈZ™Xİ]\ˆ[ˆ›ØÙ\ÛÈ]YH]˜[0î™H\ÈÛX\È[™Y[\Ë\˜HY[YšXØ\ˆ™[˜Ú[ZY[ÜË™YÚ\İ˜\ˆÛZ\Ú[Û™\ÈHÙ[™\˜\ˆÜÈ]™[ÜÈÛÜœ™\ÜÛ™Y[\ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH[˜HÛXHİ\\˜H[\š[ÙÈ\›Z]YÈÚ[ˆÛÛ™š\›XXÚpìÛ‹İX[™È[›ØÙ\ÛÈ]]Ûpè]XÛÈH]˜[0î˜K[Û˜Ù\ÈXİX[^˜HİH\İYÈÙYğî›ˆ\È™YÛ\ÈšYÙ[\ËœƒBŒ‹ˆYÈ]YHHZ\ÛXHÛXHXHYH›ØÙ\ØYKİX[™È[›ØÙ\ÛÈY[™HHZ™Xİ]\œÙK[Û˜Ù\È›ÈÙ[™\˜H[˜HÙYİ[™HÛZ\ÚpìÛˆšH[˜HÙYİ[™H˜[œÚXÚpìÛˆ\]Z]˜[[KƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLİ‘]™[Ü\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ[YÜ˜XÚpìÛˆ[Ù\šXÚ[ÈH›İYšXØXÚ[Û™\È\ÚİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›È[YÜ˜\ˆ[ˆÙ\šXÚ[ÈH›İYšXØXÚ[Û™\È\Ú\˜H[™YØ\ˆ™XÛÜ™]Üš[ÜÈH[\\ÈHÜÈ\ÜÜÚ]]›ÜÈ™YÚ\İ˜YÜËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İH[ˆ\ÜÜÚ]]›È™YÚ\İ˜YÈH[ˆ]™[È›İYšXØX›KİX[™ÈÙHÛÛXÚ]H[[°ë[Ë[Û˜Ù\ÈH[YÜ˜XÚpìÛˆ[™YØHHÛÛXÚ]Y[›İ™YYÜˆÛÛ™šYİ\˜YËœƒBŒ‹ˆYÈ]YH[›İ™YYÜˆ™XÚ^˜H[[°ë[ÈÈ[\ÜÜÚ]]›ÈXH›È\È°è[YËİX[™ÈÙH›ØÙ\ØHH™\ÜY\İK[Û˜Ù\È[Ú\İ[XH™YÚ\İ˜H[™\İ[YÈÚ[ˆ[\œ[\\ˆ[›ØÙ\ÛÈš[˜Ú\[ƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLÏİ‘]™[Ü\İ[Oİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆTHHİY[HHÙ\ÚpìÛˆ[˜[Z[X\İİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›È[\[Y[\ˆ[™YÚ\İ›Ë™\šYšXØXÚpìÛˆH[šXÚ[ÈHÙ\ÚpìÛˆ[˜[Z[X\‹\˜H›ÜÜ˜Ú[Û˜\ˆXØÙ\ÛÈ]][XØYÈHİ\È™Xİ\œÛÜËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ[ˆ™\]Y\İH™YÚ\İ›È°è[YËİX[™ÈÙH›ØÙ\ØK[Û˜Ù\ÈHTHÜ™XHHİY[H[™Y[HH™\šYšXØXÚpìÛ‹œƒBŒ‹ˆY\ÈÜ™Y[˜ÚX[\È°è[Y\ÈH[˜HİY[HXš[]YKİX[™ÈÙHÛÛXÚ]H[šXÚX\ˆÙ\ÚpìÛ‹[Û˜Ù\ÈHTHÙ[™\˜H[˜HÙ\ÚpìÛˆ°è[YKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLİ‘]™[Ü\İ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÙ\šXÚ[ÈHÙ[™\˜XÚpìÛˆHYÙ[™HHÛX\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›ÈÙ[™\˜\ˆ\ÈÛX\È]\˜\ÈH\\ˆHÜÈ˜][ZY[ÜÈXİ]›ÜË\˜HX[[™\ˆHYÙ[™HHYYXØXÚpìÛˆXİX[^˜YKİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ[ˆ˜][ZY[ÈXİ]›ÈÛÛˆ[˜H]]H°è[YKİX[™ÈÙH›ØÙ\ØHH›ÙÜ˜[XXÚpìÛ‹[Û˜Ù\È[Ù\šXÚ[ÈÙ[™\˜H\ÈÛX\È]\˜\ÈÛÜœ™\ÜÛ™Y[\ËœƒBŒ‹ˆYÈ]YH[˜H]]HØ[XšXKİX[™ÈÙH™YÙ[™\˜HH›ÙÜ˜[XXÚpìÛ‹[Û˜Ù\ÈÙHXİX[^˜[ˆ0î›šXØ[Y[H\ÈÛX\È]\˜\È]YHÙ]°ëXH›ÈÜÙY[ˆ[ˆ™\İ[YÈYš[š]]›ËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLOİ‘]™[Ü\İ[Oİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆTHH™\İ[Y[ˆ˜[Z[X\ˆH\İÜšX[İİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›È›ÜÜ˜Ú[Û˜\ˆ[\İYÈ™XÚY[K\İÜšX[H[\\È[Y[ÈX^[Ü‹\˜HÛÜÜ\ˆ\ÈÛÛœİ[\ÈHÙYİZ[ZY[È[˜[Z[X\‹İİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ[ˆ°ë[˜İ[ÈXİ]›ËİX[™ÈÙHÛÛœİ[H[™\İ[Y[ˆ[Y[ÈX^[Ü‹[Û˜Ù\ÈHTH™\ÜÛ™HÛÛˆİ\È]ÜÈ™XÚY[\È]]Üš^˜YÜËœƒBŒ‹ˆYÈ]YH[ÛÛXÚ][H›ÈÜÙYH[ˆ°ë[˜İ[È°è[YËİX[™È[[HÛÛœİ[\ˆXÚÜÈ]ÜË[Û˜Ù\ÈHTH™XÚ^˜H[XØÙ\ÛËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLLİ‘]™[Ü\İ“YYXOİ‘TPËLOİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆÙ\šXÚ[ÈHğè[İ[ÈHY\™[˜ÚXHH]XØÚpìÛˆH]›Û™\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›È[˜[^˜\ˆ[\İÜšX[HÛX\Ë\˜HØ[İ[\ˆ[™XØYÜ™\ÈHY[YšXØ\ˆ]›Û™\ÈHY\™[˜ÚXKİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ[ˆ\š[ÙÈÛÛˆÛX\È™YÚ\İ˜Y\ËİX[™ÈÙHZ™Xİ]H[ğè[İ[Ë[Û˜Ù\È[Ù\šXÚ[ÈØY[™H[™XØYÜ™\ÈH\\ˆHÛÛ™š\›XXÚ[Û™\Ë™]˜\ÛÜÈHÛZ\Ú[Û™\ËœƒBŒ‹ˆYÈ]YH[\İÜšX[İ[\HÜÈÜš]\š[ÜÈÛÛ™šYİ\˜YÜÈH™Xİ\œ™[˜ÚXKİX[™ÈÙH›ØÙ\ØH[[°è[\Ú\Ë[Û˜Ù\È[Ù\šXÚ[È™YÚ\İ˜H[]°ìÛˆY[YšXØYËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLLOİ‘]™[Ü\İ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ[YÜ˜XÚpìÛˆH™XÛÛ›ØÚ[ZY[ÈH›ŞİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›È[YÜ˜\ˆ[YXØ[š\Û[ÈÙ[XØÚ[Û˜YÈH™XÛÛ›ØÚ[ZY[ÈH›Ş‹\˜HÛÛ™\\ˆ[˜HÛÛ™š\›XXÚpìÛˆX›YH[ˆ[™›Ü›XXÚpìÛˆ][^˜X›HÜˆ]KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ[ˆ]Y[È°è[YËİX[™ÈÙH›ØÙ\ØHYYX[HH[\›˜]]˜HÙ[XØÚ[Û˜YK[Û˜Ù\ÈH[YÜ˜XÚpìÛˆ]Y[™HH˜[œØÜš\ÚpìÛˆHH[™›Ü›XXÚpìÛˆ\ÜÛšX›HÛØœ™HİH™XÛÛ›ØÚ[ZY[ËœƒBŒ‹ˆYÈ]YHH[˜YH›ÈYYH™XÛÛ›ØÙ\œÙHÛÛˆİYšXÚY[HÛÛ™šXXš[YYİX[™Èš[˜[^˜H[›ØÙ\Ø[ZY[Ë[Û˜Ù\È[Ú\İ[XH›È™YÚ\İ˜H]]Ûpè]XØ[Y[H[˜HÛXHÛÛ[ÈÛÛ™š\›XYKƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLLİ‘]™[Ü\İ“YYXOİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆTHH[™[\š[ÈH™\ÜÚXÚpìÛİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›È›ÜÜ˜Ú[Û˜\ˆÜ\˜XÚ[Û™\ÈH[™[\š[ÈH™\ÜÚXÚpìÛ‹\˜HX[[™\ˆ[İØÚÈ\ÛØÚXYÈHØYHYYXØ[Y[ËİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ[ˆYYXØ[Y[È°è[YËİX[™ÈÙH™YÚ\İ˜H[ˆ[™[\š[ÈÈ[˜H™\ÜÚXÚpìÛ‹[Û˜Ù\ÈHTH\œÚ\İH[[İš[ZY[ÈHXİX[^˜H[İØÚËœƒBŒ‹ˆYÈ]YH[İØÚÈ[Ø[˜H[[Xœ˜[ÛÛ™šYİ\˜YËİX[™ÈÙH™XØ[İ[HH\ÜÛšXš[YY[Û˜Ù\È[Ù\šXÚ[ÈÙ[™\˜HHÛÛ™XÚpìÛˆHİØÚÈ˜Z›ËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLLÏİ‘]™[Ü\İ[Oİ‘TPËLÏİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™Ïˆ[XXÙ[˜[ZY[ÈØØ[HÚ[˜Ü›Ûš^˜XÚpìÛˆH[™›Ü›XXÚpìÛˆ\Ù[˜ÚX[İİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›ÈÛÛœÙ\˜\ˆØØ[Y[HH[™›Ü›XXÚpìÛˆ™XÙ\Ø\šXH\˜HH^\šY[˜ÚXHpìİš[HÚ[˜Ü›Ûš^˜\›HİX[™È^\İHÛÛ™Xİ]šYY\˜HX[[™\ˆÛÛ[ZYY[H[\œ\Ú[Û™\È[\Ü˜[\ÈH™YİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YHH\XØXÚpìÛˆY\™HÛÛ™Xİ]šYY\Üpê\ÈHX™\ˆÚ[˜Ü›Ûš^˜YÈ[™›Ü›XXÚpìÛˆ\Ù[˜ÚX[İX[™È[\İX\š[ÈÛÛœİ[HXÚÜÈ]ÜË[Û˜Ù\ÈH\XØXÚpìÛˆYYH™Xİ\\˜\ˆH[™›Ü›XXÚpìÛˆØØ[\ÜÛšX›KœƒBŒ‹ˆYÈ]YH^\İ[ˆØ[Xš[ÜÈ[™Y[\ÈHÙH™\İX›XÙHHÛÛ™Xİ]šYYİX[™ÈÙHZ™Xİ]HHÚ[˜Ü›Ûš^˜XÚpìÛ‹[Û˜Ù\È[Ú\İ[XH›ØÙ\ØHÜÈØ[Xš[ÜÈ]š][™È\XØYÜËƒBİİƒBİX›OƒBƒBX›OƒB”İÜHQİ•\Ù\İ”š[Üš]Oİ‘\XÏİİƒB•ËLMİ‘]™[Ü\İ“YYXOİ‘TPËLİİƒBÛÛÜ[Hİ›Û™Ï•]NÜİ›Û™ÏˆTHH[™\ÈHİ\ØÜš\Ú[Û™\ÏİİƒBÛÛÜ[Hİ›Û™Ï‘\ØÜš\[ÛÜİ›Û™ÏœÛÛ[È]™[Ü\‹]ZY\›ÈÙ\İ[Û˜\ˆ[™\ÈHİ\ØÜš\Ú[Û™\ÈYYX[H[˜XÚÙ[™\˜H]\›Z[˜\ˆ\ÈØ\XÚYY\È\ÜÛšX›\È\˜HØYHİY[KİİƒBÛÛÜ[Hİ›Û™ÏXØÙ\[˜ÙHÜš]\šXOÜİ›Û™ÏœƒBŒKˆYÈ]YH^\İ[ˆ[™\ÈÛÛ™šYİ\˜YÜËİX[™ÈÙHÛÛœİ[H[Ø]0è[ÙÛË[Û˜Ù\ÈHTH™\ÜÛ™HÛÛˆİ\ÈØ\˜Xİ\°ë\İXØ\ÈšYÙ[\ËœƒBŒ‹ˆYH[˜HİY[HÛÛˆ[˜Hİ\ØÜš\ÚpìÛˆ°è[YKİX[™ÈÙHÛÛœİ[HİH\İYË[Û˜Ù\ÈHTH›ÜÜ˜Ú[Û˜H[[ˆH\ÈØ\XÚYY\È\ÛØÚXY\ËƒBİİƒBİX›OƒBƒBˆÈÈÈÈÜZÙHİÜšY\ÃBƒBˆÈÈÈÈÈÜZÙHNˆ[™\İYØXÚpìÛˆH™XÛÛ›ØÚ[ZY[ÈH›Şˆ\˜HÛÛ™š\›XXÚpìÛˆHÛX\ÃBƒBŠŠÛÛ^ÊŠƒBƒB“HÛÛ™š\›XXÚpìÛˆYYX[H›Şˆ\ØØH™YXÚ\ˆH™XÙ\ÚYYH[\˜XØÚpìÛˆ0èXİ[È\ØÜš]\˜H\˜H[Y[ÈX^[Ü‹ˆ[\]Z\È™XÙ\Ú]H]\›Z[˜\ˆ]pêH[\›˜]]˜H›ÜÜ˜Ú[Û˜H[˜H[YÜ˜XÚpìÛˆšXX›HH[ˆš]™[H™XÛÛ›ØÚ[ZY[ÈİYšXÚY[H[ˆ\Üpì[ÛƒBƒBŠŠ”ÜZÙHİÜJŠƒBƒBÛÛ[È\]Z\ÈH\Ø\œ›ÛË]ZY\›È[™\İYØ\ˆH›İİ\\ˆ[\›˜]]˜\ÈH™XÛÛ›ØÚ[ZY[ÈH›Ş‹\˜HÙ[XØÚ[Û˜\ˆ[˜HÜÚpìÛˆšXX›H\˜HHÛÛ™š\›XXÚpìÛˆHÛX\ËƒBƒBŠŠÜš]\š[ÜÈHXÙ\XÚpìÛŠŠƒBƒBŒKˆYÈ]YH^\İ[ˆ\İ[\È[\›˜]]˜\ÈH™XÛÛ›ØÚ[ZY[ÈH›Ş‹İX[™ÈÙH[™\İYØ[ˆ[Y[›ÜÈÜÈÜÚ[Û™\Ë[Û˜Ù\È[\]Z\ÈØİ[Y[Hİ\È™[Z˜\Ë™\İšXØÚ[Û™\ËÛÜİÜÈH™\]Z\Ú]ÜÈH[YÜ˜XÚpìÛ‹ƒBŒ‹ˆYÈ]YHÙHÙ[XØÚ[Û˜H[˜H[\›˜]]˜HØ[™Y]KİX[™ÈÙH\Ø\œ›ÛH[ˆ›İİ\Ë[Û˜Ù\È\İH›ØÙ\ØH\İ[\Èœ˜\Ù\ÈHÛÛ™š\›XXÚpìÛˆ[ˆ\Üpì[ÛƒBŒËˆYÈ]YHÙHÛÛ\][ˆ\ÈYX˜\ËİX[™È[\]Z\È[˜[^˜Hİ\È™\İ[YÜË[Û˜Ù\È™YÚ\İ˜HH[\›˜]]˜H™XÛÛY[™YHHİ\È[Z]XÚ[Û™\ËƒBƒBŠŠ•[YX›ŞŠŠˆÜ˜\ËƒBƒBˆÈÈÈÈÈÜZÙHˆ[™\İYØXÚpìÛˆH]XØÚpìÛˆH]›Û™\ÈHÛšYÃBƒBŠŠÛÛ^ÊŠƒBƒB•]H\ØØHY[YšXØ\ˆ[™[˜ÚX\È™Xİ\œ™[\È[›È[\İÜšX[HÛX\Ëˆ[\ÈH[\[Y[\ˆ\İHØ\XÚYY\È™XÙ\Ø\š[È]\›Z[˜\ˆÚH[ˆ[™›Ü]YH\İY0ë\İXÛÈ˜\ØYÈ[ˆ™YÛ\ÈÈ[˜H0êXÛšXØHHÛ\ÚYšXØXÚpìÛˆÙ[˜Ú[H™\İ[HYXİXYH\˜H[[Ø[˜ÙH[›ŞYXİËƒBƒBŠŠ”ÜZÙHİÜJŠƒBƒBÛÛ[È\]Z\ÈH\Ø\œ›ÛË]ZY\›È[™\İYØ\ˆH›İİ\\ˆ[\›˜]]˜\È\˜H]Xİ\ˆ]›Û™\ÈHÛZ\ÚpìÛ‹\˜HÙ[XØÚ[Û˜\ˆ[ˆ[™›Ü]YHÛÛ\™[œÚX›HHšXX›H\˜H]KƒBƒBŠŠÜš]\š[ÜÈHXÙ\XÚpìÛŠŠƒBƒBŒKˆYÈ]YH^\İ[ˆ\İ[\È[\›˜]]˜\ÈH[°è[\Ú\ËİX[™ÈÙHÛÛ\\˜[ˆ[Y[›ÜÈ[ˆ[™›Ü]YH˜\ØYÈ[ˆ™YÛ\ÈHİ›È˜\ØYÈ[ˆÛ\ÚYšXØXÚpìÛ‹[Û˜Ù\ÈÙHØİ[Y[[ˆİ\ÈY™\™[˜ÚX\ÈHÛÛ\ZšYYƒBŒ‹ˆYÈ[ˆÛÛš[ÈH]ÜÈHYX˜HÛÛˆÛÛ™š\›XXÚ[Û™\ÈHÛZ\Ú[Û™\ËİX[™ÈÙHZ™Xİ]H[›İİ\Ë[Û˜Ù\È\İHY[YšXØHÜÈ]›Û™\ÈÛÛ›ØÚYÜÈ[˜ÛZYÜÈ[ˆÜÈ]ÜËƒBŒËˆYÈ]YHÙHØY[™[ˆ™\İ[YÜËİX[™ÈÙHš[˜[^˜H[[°è[\Ú\Ë[Û˜Ù\È[\]Z\È™YÚ\İ˜H[[™›Ü]YH™XÛÛY[™YÈHİ\È[Z]XÚ[Û™\ËƒBƒBŠŠ•[YX›ŞŠŠˆÜ˜\ËƒBƒBˆÈÈÈÈÈÜZÙHÎˆ[™\İYØXÚpìÛˆH™XÛÜ™]Üš[ÜÈHZ™XİXÚpìÛˆ[ˆÙYİ[™È[›ÃBƒBŠŠÛÛ^ÊŠƒBƒB“ÜÈ™XÛÜ™]Üš[ÜÈÛÛœİ]^Y[ˆ[˜HØ\XÚYYÙ[˜[H]HHX™[ˆÛÛ[X\ˆ[˜Ú[Û˜[™È˜Z›È\È™\İšXØÚ[Û™\È›ÜX\ÈHÜÈÚ\İ[X\ÈÜ\˜]]›ÜÈpìİš[\Ëˆ[\]Z\È™XÙ\Ú]H]˜[X\ˆğìÛ[ÈX[™Z˜\ˆ›ÙÜ˜[XXÚ[Û™\ÈH›İYšXØXÚ[Û™\ÈİX[™ÈH\XØXÚpìÛˆ›ÈÙH[˜İY[˜HXİ]˜KƒBƒBŠŠ”ÜZÙHİÜJŠƒBƒBÛÛ[È\]Z\ÈH\Ø\œ›ÛË]ZY\›È[™\İYØ\ˆÜÈYXØ[š\Û[ÜÈ\ÜÛšX›\È\˜H›ÙÜ˜[X\ˆ™XÛÜ™]Üš[ÜÈHZ™Xİ]\ˆ\™X\È™XÙ\Ø\šX\È[ˆÙYİ[™È[›Ë\˜HÙ[XØÚ[Û˜\ˆ[˜H\İ˜]YÚXHÛÛ™šXX›H\˜H\È\XØXÚ[Û™\Èpìİš[\ÈH]KƒBƒBŠŠÜš]\š[ÜÈHXÙ\XÚpìÛŠŠƒBƒBŒKˆYÈ]YH[™›ÚYHH[\›˜]]˜H][\]Y›Ü›XH™\Ù[[ˆYXØ[š\Û[ÜÈ\İ[ÜÈHZ™XİXÚpìÛˆ[ˆÙYİ[™È[›ËİX[™ÈÙH™]š\ØHİHØİ[Y[XÚpìÛ‹[Û˜Ù\ÈÙH™YÚ\İ˜[ˆ™\İšXØÚ[Û™\ÈH[\›˜]]˜\È\XØX›\ËƒBŒ‹ˆYÈ]YHÙHÙ[XØÚ[Û˜H[˜H\İ˜]YÚXHØ[™Y]KİX[™ÈÙH™X[^˜H[˜HYX˜HÛÛˆH\XØXÚpìÛˆÙ\œ˜YK[Û˜Ù\È[\]Z\ÈØİ[Y[H[ÛÛ\Ü[ZY[ÈØœÙ\˜YËƒBŒËˆYÈ]YHš[˜[^˜[ˆ\ÈYX˜\ËİX[™ÈÙHÛÛ\\˜[ˆÜÈ™\İ[YÜË[Û˜Ù\ÈÙH™YÚ\İ˜HH\İ˜]YÚXH™XÛÛY[™YH\˜H[›ŞYXİËƒBƒBŠŠ•[YX›ŞŠŠˆÜ˜\ËƒBƒBˆÈÈÈ‹Œ‹ˆ[\XİX\[™ÃBƒB‘[[\XİX\[™È\›Z]pìÈ™[XÚ[Û˜\ˆÜÈØš™]]›ÜÈH™YÛØÚ[ÈH]HÛÛˆÜÈØ[Xš[ÜÈ\Ü\˜YÜÈ[ˆ[ÛÛ\Ü[ZY[ÈHİ\ÈÙYÛY[ÜÈØš™]]›Ëˆ\˜H[ÈÙH][^˜\›ÛˆÜÈ\Ù\ˆ\œÛÛ˜HYš[šYÜÈ™]šX[Y[KY[YšXØ[™ÈÜÈ[\XİÜÈ]YHYY[ˆÛÛšXZ\ˆ[İ[\[ZY[ÈHØYHØš™]]›ËÜÈ[™YØX›\È™XÙ\Ø\š[ÜÈ\˜H›ÙXÚ\ˆXÚÜÈ[\XİÜÈH\È\Ù\ˆİÜšY\È™[XÚ[Û˜Y\ËƒBƒBˆÈÈÈÈ[\XİX\[™ÎˆğìXHØ\›Y[ˆ›Ù°ëYİY^ƒBƒB‘[š[Y\ˆ[\XİX\ÛÜœ™\ÜÛ™H[ÙYÛY[ÈHY[ÜÈX^[Ü™\ÈH][^˜HHğìXHØ\›Y[ˆ›Ù°ëYİY^ˆÛÛ[È\Ù\ˆ\œÛÛ˜Kˆ[Øš™]]›ÈÙHÜšY[HH™YXÚ\ˆ\ÈÛX\È]YH\›X[™XÙ[ˆÚ[ˆÛÛ™š\›X\ˆYYX[H™XÛÜ™]Üš[ÜËÛÛœİ[HHHYÙ[™KYXØ[š\Û[ÜÈXØÙ\ÚX›\ÈHÛÛ™š\›XXÚpìÛˆHÛÛ™šYİ\˜XÚ[Û™\È]YH˜XÚ[][ˆ[\ÛÈHH\XØXÚpìÛ‹ƒBƒBˆVÒ[\XİX\[™ÈHğìXHØ\›Y[ˆ›Ù°ëYİY^—J\ÜÙ]ËÚ[\Xİ[X\[™ËYÛ˜KXØ\›Y[‹\›ÙšYİY^‹œ™ÊCBƒBŠ‘šYİ\˜Kˆ[\XİX\[™ÈÛÜœ™\ÜÛ™Y[H[\Ù\ˆ\œÛÛ˜HğìXHØ\›Y[ˆ›Ù°ëYİY^‹ŠƒBƒB‘[X\H]Y\İ˜H]YH[İ[\[ZY[È[Øš™]]›È›È\[™HH[˜HÛÛH[˜Ú[Û˜[YYˆÜÈ™XÛÜ™]Üš[ÜÈ\ØØ[ˆ\ÛZ[Z\ˆÜÈÛšYÜËZY[˜\È]YHHYÙ[™H\›Z]H[XÚ\\ˆ\È°ìŞ[X\ÈÛX\ËˆHÛÛ™š\›XXÚpìÛˆXØÙ\ÚX›H˜XÚ[]H™YÚ\İ˜\ˆHXØÚpìÛˆ™X[^˜YHH\ÈÛÛ™šYİ\˜XÚ[Û™\ÈHXØÙ\ÚXš[YY™YXÙ[ˆ\È˜\œ™\˜\ÈH[\˜XØÚpìÛˆ]YHÙ°ëX[ˆYšXİ[\ˆ[\ÛÈ]]0ìÛ›Û[ÈH]KƒBƒBˆÈÈÈÈ[\XİX\[™ÎˆYYÛÈ[šHY[™Ş˜CBƒB‘[ÙYİ[™È[\XİX\ÛÜœ™\ÜÛ™H[ÙYÛY[ÈH˜[Z[X\™\ÈÈİZYYÜ™\ÈH][^˜HHYYÛÈ[šHY[™Ş˜HÛÛ[È\Ù\ˆ\œÛÛ˜Kˆ[ˆ\İHØ\ÛË[Øš™]]›ÈÙHÛÛ˜Ù[˜H[ˆ[˜Ü™[Y[\ˆ[\ÛÈ[ÙYİZ[ZY[È™[[İÈH\ÛZ[Z\ˆH\[™[˜ÚXHH™\šYšXØXÚ[Û™\ÈX[X[\ÈÛÛœİ[\ËƒBƒBˆVÒ[\XİX\[™ÈHYYÛÈ[šHY[™Ş˜WJ\ÜÙ]ËÚ[\Xİ[X\[™ËYYYÛËY[šK[Y[™Ş˜Kœ™ÊCBƒBŠ‘šYİ\˜Kˆ[\XİX\[™ÈÛÜœ™\ÜÛ™Y[H[\Ù\ˆ\œÛÛ˜HYYÛÈ[šHY[™Ş˜KŠƒBƒB‘[ˆ\İHX\KÜÈ[\XİÜÈÙHÛÛ˜Ù[˜[ˆ[ˆ™YXÚ\ˆH[˜Ù\Y[Xœ™H[˜[Z[X\ˆ\˜[H[ÙYİZ[ZY[È™[[İËˆ[™\İ[Y[ˆH[\İÜšX[\›Z][ˆÛÛœİ[\ˆ[™›Ü›XXÚpìÛˆÚ[ˆ\[™\ˆ^Û\Ú]˜[Y[HH[XY\ËZY[˜\È]YH\È[\\È˜XÚ[][ˆY[YšXØ\ˆÚ]XXÚ[Û™\È]YH™\]ZY\™[ˆ][˜ÚpìÛ‹ˆH[˜[0ë]XØHÛÛ\[Y[H\İHÙYİZ[ZY[ÈYYX[HHY[YšXØXÚpìÛˆH™]˜\ÛÜËÛZ\Ú[Û™\ÈH]›Û™\È™Xİ\œ™[\È]YHYY[ˆÜšY[\ˆ]\˜\ÈXØÚ[Û™\ËƒBƒBˆÈÈÈ‹ŒËˆ›ÙXİ˜XÚÛÙÃBƒB‘[›ÙXİ˜XÚÛÙÈH]HÜ™Ø[š^˜HÜÈ™\]Z\Ú]ÜÈ[˜Ú[Û˜[\ÈH0êXÛšXÛÜÈY[YšXØYÜÈ\˜H[›ÙXİËˆHš[ÜšYYÙH\İX›XÚpìÈÛÛœÚY\˜[™Èš[Y\›È[˜[Üˆ]YHØYH[˜Ú[Û˜[YY›ÜÜ˜Ú[Û˜HHÜÈÙYÛY[ÜÈØš™]]›ÈH›È0î›šXØ[Y[H[Ü™[ˆ0êXÛšXÛÈ™\]Y\šYÈ\˜HİH[\[Y[XÚpìÛ‹ƒBƒB“\È\İ[XXÚ[Û™\È][^˜[ˆİÜHÚ[ÈHK‹ËHHˆHÛÛ[[˜HÜš[™\™\Ù[H[˜H\ÚYÛ˜XÚpìÛˆ[šXÚX[]YHÙ°èH™]š\Ø\œÙHÜİ\š[Ü›Y[H\˜[HÜÈÜš[[›š[™ÈÙYğî›ˆHØ\XÚYY[\]Z\ËÜÈ™\İ[YÜÈH\È]\˜XÚ[Û™\È™]šX\ÈH\È\[™[˜ÚX\È[˜ÛÛ˜Y\È\˜[H[\Ø\œ›ÛËƒBƒB“\È\İÜšX\ÈÛÜœ™\ÜÛ™Y[\È[[™[™ÈYÙHÙH[˜Û^Y[ˆ\ÙH[Üš[Kˆ\ÈXÚšXØ[İÜšY\ÈHÜZÙHİÜšY\ÈÙHX[Y[™[ˆ[›È[Z\Û[È›ÙXİ˜XÚÛÙÈÜœ]YH™\™\Ù[[ˆ˜X˜Z›È™XÙ\Ø\š[È\˜HXš[]\ˆ[˜Ú[Û˜[YY\È[›ÙXİÈÈ™YXÚ\ˆ[˜Ù\Y[Xœ™H0êXÛšXØKƒBƒBŸÈÜ™[ˆİÜHQ0ë][È\XÈİÜHÚ[ÈÜš[BŸKKNˆKKHKKHKKHKKNˆKKHBŸHTËLH™XÛÜ™]Üš[ÈHÛXHHYYXØ[Y[ÈTPËLÈÈÜš[HBŸˆTËLˆÛÛ™š\›XXÚpìÛˆXØÙ\ÚX›HH[˜HÛXHTPËLÈHÜš[ˆBŸÈTËLÈ™YÚ\İ›ÈH[ˆY]›ÈYYXØ[Y[ÈTPËLˆHÜš[HBŸTËLˆš[˜İ[XÚpìÛˆÛÛˆHİY[H[Y[ÈX^[ÜˆTPËLHHÜš[HBŸHTËLÈ[\H[H[˜HÛXH›ÈÛÛ™š\›XYHTPËLHÜš[ˆBŸˆTËLHÛÛœİ[H[\İYÈ™XÚY[H[Y[ÈX^[ÜˆTPËLÈÜš[ˆBŸÈTËLMÜ™XXÚpìÛˆH[ˆ˜][ZY[ÈTPËLˆÈÜš[HBŸTËLMHYš[šXÚpìÛˆHÜÚ\ÈHœ™XİY[˜ÚXHTPËLˆÈÜš[HBŸHTËLMˆÛÛ™šYİ\˜XÚpìÛˆHÜ˜\š[ÜÈH[œİXØÚ[Û™\ÈTPËLˆÈÜš[HBŸLTËLMÈÛÛ™šYİ\˜XÚpìÛˆH™XÛÜ™]Üš[ÜÈTPËLˆÈÜš[HBŸLHTËLŒÛÛœİ[HHH°ìŞ[XHÛXHTPËLÈˆÜš[HBŸLˆTËLÛÛœİ[HHYÙ[™HX\šXHHÛX\ÈTPËLÈÈÜš[ˆBŸLÈTËLˆÛÛœİ[H[\İÜšX[™XÚY[HHÛX\ÈTPËLÈÜš[ˆBŸMTËL™\İ[Y[ˆÙ[X[˜[HY\™[˜ÚXHTPËLHÈÜš[ÈBŸMHTËLÈÛÛœİ[H[][HH[˜H[\HTPËLˆÜš[ˆBŸMˆTËLŒˆ™XÛÜ™]Üš[È™Y›Ü˜YÈÜˆ˜[HHÛÛ™š\›XXÚpìÛˆTPËLÈÈÜš[ˆBŸMÈTËLŒÈÛÛ™š\›XXÚpìÛˆ[›È[\š[ÙÈHÛ\˜[˜ÚXHTPËLÈÈÜš[ˆBŸNTËLNXİ]˜XÚpìÛˆH]\ØHH[ˆ˜][ZY[ÈTPËLˆÈÜš[ˆBŸNHTËLYXÚpìÛˆH\ØXİ]˜XÚpìÛˆH[ˆYYXØ[Y[ÈTPËLˆÈÜš[ˆBŸŒTËLŒHÛÛœİ[H[][HH[˜HÛXHTPËLÈˆÜš[ˆBŸŒHTËLNHÛÛœİ[H[][HH[ˆ˜][ZY[ÈTPËLˆˆÜš[ˆBŸŒˆTËLH[\HH]°ìÛˆHÛšYÈ™Xİ\œ™[HTPËLHHÜš[ÈBŸŒÈTËLÌˆÛÛœİ[H[\İÜšX[HY\™[˜ÚXHTPËLHÈÜš[ÈBŸTËLÌÈY[YšXØXÚpìÛˆHÛX\È\™0ëX\ÈHÛZ]Y\ÈTPËLHÈÜš[ÈBŸHTËLÍ™XÛÛY[™XÚ[Û™\ÈH\\ˆH]›Û™\ÈTPËLHHÜš[ÈBŸˆTËLHÛÛXİÈÛÛˆ[Y[ÈX^[Üˆ[H[˜H[\HTPËLˆÜš[ˆBŸÈTËLÌHXİX[^˜XÚpìÛˆ[ÙYİZ[ZY[ÈH[˜H[\HTPËLÈÜš[ÈBŸTËLÛÛ™šYİ\˜XÚpìÛˆH™Y™\™[˜ÚX\ÈH›İYšXØXÚpìÛˆTPËLÈÜš[ÈBŸHTËLÍHZ\İH[[Xpì[ÈH^ÈTPËLˆˆÜš[ˆBŸÌTËLÍˆXİ]˜XÚpìÛˆHX^[ÜˆÛÛ˜\İHTPËLˆˆÜš[ˆBŸÌHTËLÎXİ]˜XÚpìÛˆH^]YHHXİ\˜HTPËLˆÈÜš[ÈBŸÌˆTËLÎHÛÛ™šYİ\˜XÚpìÛˆHÜ˜\š[ÈHÚ[[˜Ú[ÈHØ[˜[\ÈTPËLˆÈÜš[ÈBŸÌÈTËLÍÈ™YXØÚpìÛˆH[İš[ZY[ÈTPËLˆˆÜš[ÈBŸÍTËMˆ]š\ÛÈHİØÚÈ˜Z›ÈTPËLÈÈÜš[BŸÍHTËMHÛÛœİ[HHİØÚÈ™\İ[HTPËLÈˆÜš[BŸÍˆTËM™YÚ\İ›ÈH[™[\š[È[šXÚX[TPËLÈÈÜš[BŸÍÈTËMÈ™YÚ\İ›ÈH™\ÜÚXÚpìÛˆHYYXØ[Y[ÈTPËLÈÈÜš[BŸÎTËMˆÛÛœİ[HHH›ÜY\İHH˜[ÜˆH]HTPËLHˆÜš[HBŸÎHTËMÈÛÛœİ[HH[˜Ú[Û˜[YY\Èš[˜Ú\[\ÈTPËLHˆÜš[HBŸTËMHÛÛ[XXÚpìÛˆXÚXH™YÚ\İ›ÈÈû÷}í¢G§²ÚîÆ­yÑrÃ¡cter transversal debido a que pueden condicionar el comportamiento de otras Ã¡reas del producto. Sin embargo, mantenerlas dentro de un modelo propio evita que cada contexto deba definir nuevamente las reglas relacionadas con la configuraciÃ³n personal del usuario.
 
 ![Bounded Context Canvas - Accesibilidad y preferencias](assets/bounded-context-canvas-accesibilidad-preferencias.png)
 
@@ -2327,11 +315,18 @@ La distribuciÃ³n propuesta mantiene una infraestructura acorde con el alcance de
 
 ## 2.6. Tactical-Level Domain-Driven Design
 
+
+#### AlineaciÃ³n con implementaciÃ³n â€” 6 de octubre de 2026
+
+Los IDs de Account, OlderAdult, CareLink, Medication, Treatment e Intake son UUID representados por String. Toda referencia entre BC conserva el tipo del propietario. Los IDs internos numÃ©ricos de Omission y Family Monitoring pueden mantenerse como BIGINT. Inventory TS-12 ya usa IDs String en su rama; no debe convertirse a Long para coincidir con diagramas anteriores.
+
+Esta revisiÃ³n alinea Intake y Treatment y sus dos diagramas fÃ­sicos. La implementaciÃ³n actual aÃ±ade agenda, confirmaciÃ³n idempotente, consumo de inventario post-commit, productor automÃ¡tico de omisiones y endpoints de seguimiento familiar. Las vistas C4 y de clases documentan la arquitectura integrada de los bounded contexts.
+
 ### 2.6.1. Bounded Context: EjecuciÃ³n de tomas
  
 El Bounded Context **EjecuciÃ³n de tomas** (**Intake Execution BC**) es responsable de generar las tomas programadas a partir de los tratamientos activos, emitir los recordatorios correspondientes, y registrar la confirmaciÃ³n del adulto mayor mediante interacciÃ³n tÃ¡ctil o por voz. Se implementa como un mÃ³dulo del backend Ãºnico de Tata y constituye el punto de origen del ciclo de vida de una toma: desde su programaciÃ³n hasta su confirmaciÃ³n o, en caso de no ser confirmada dentro del periodo de tolerancia, el traspaso de dicha situaciÃ³n hacia OmisiÃ³n y escalamiento.
  
-El contexto reacciona a `TreatmentActivated`, publicado por GestiÃ³n de Medicamentos, generando las tomas futuras correspondientes a la pauta vigente del tratamiento. Cuando la pauta de un tratamiento se modifica, el contexto regenera Ãºnicamente las tomas futuras que todavÃ­a no poseen un resultado definitivo. Cuando una toma programada alcanza su horario, el contexto emite el recordatorio inicial y, si no existe confirmaciÃ³n dentro del intervalo configurado, emite un recordatorio reforzado. Cuando el adulto mayor confirma una toma, ya sea por interacciÃ³n tÃ¡ctil o mediante una confirmaciÃ³n de voz validada, el contexto registra el resultado y publica `IntakeHistoryUpdated`, evento que Adherence Analytics consume para clasificar la toma como confirmada a tiempo o tardÃ­a. Cuando una toma pendiente supera su periodo de tolerancia sin haber sido confirmada, el contexto publica `IntakeToleranceExpired`, cediendo a OmisiÃ³n y escalamiento la responsabilidad de registrar la omisiÃ³n y gestionar la alerta correspondiente al familiar.
+El contexto reacciona a `TreatmentActivated`, publicado por GestiÃ³n de Medicamentos, generando las tomas futuras correspondientes a la pauta vigente del tratamiento. Cuando la pauta de un tratamiento se modifica, el contexto regenera Ãºnicamente las tomas futuras que todavÃ­a no poseen un resultado definitivo. Cuando una toma programada alcanza su horario, el contexto emite el recordatorio inicial y, si no existe confirmaciÃ³n dentro del intervalo configurado, emite un recordatorio reforzado. Cuando el adulto mayor confirma una toma, ya sea por interacciÃ³n tÃ¡ctil o mediante una confirmaciÃ³n de voz validada, el contexto registra el resultado y publica `IntakeConfirmed`, evento que Adherence Analytics consume para clasificar la toma como confirmada a tiempo o tardÃ­a. Cuando una toma pendiente supera su periodo de tolerancia sin haber sido confirmada, el contexto publica `IntakeUnconfirmed`, cediendo a OmisiÃ³n y escalamiento la responsabilidad de registrar la omisiÃ³n y gestionar la alerta correspondiente al familiar.
  
 #### 2.6.1.1. Domain Layer
  
@@ -2339,7 +334,7 @@ El contexto reacciona a `TreatmentActivated`, publicado por GestiÃ³n de Medicame
  
 | Tipo | Nombre | PropÃ³sito | Atributos / MÃ©todos principales | RelaciÃ³n con otros elementos |
 | --- | --- | --- | --- | --- |
-| Aggregate Root | Intake | Representar una toma programada, controlar la emisiÃ³n de recordatorios y registrar su confirmaciÃ³n dentro del periodo de tolerancia | `id`, `treatmentId`, `olderAdultId`, `medicationSnapshot: MedicationSnapshot`, `scheduledAt`, `tolerance: ToleranceWindow`, `status: IntakeStatus`, `remindersIssued`, `confirmedAt`, `confirmationChannel: ConfirmationChannel` - `issueReminder()`, `reinforceReminder()`, `confirm(channel, confirmedAt)`, `expireTolerance()` | Creado por IntakeSchedulingService a partir de un tratamiento activo; publica ReminderIssued, ReminderReinforced, IntakeHistoryUpdated e IntakeToleranceExpired en sus distintas transiciones |
+| Aggregate Root | Intake | Representar una toma programada, controlar la emisiÃ³n de recordatorios y registrar su confirmaciÃ³n dentro del periodo de tolerancia | `id`, `treatmentId`, `olderAdultId`, `medicationSnapshot: MedicationSnapshot`, `scheduledAt`, `tolerance: ToleranceWindow`, `status: IntakeStatus`, `remindersIssued`, `confirmedAt`, `confirmationChannel: ConfirmationChannel` - `issueReminder()`, `reinforceReminder()`, `confirm(channel, confirmedAt)`, `expireTolerance()` | Creado por IntakeSchedulingService a partir de un tratamiento activo; publica ReminderIssued, ReminderReinforced, IntakeConfirmed e IntakeUnconfirmed en sus distintas transiciones |
  
 **Sub-capa Model - Value Objects:**
  
@@ -2347,8 +342,8 @@ El contexto reacciona a `TreatmentActivated`, publicado por GestiÃ³n de Medicame
 | --- | --- | --- | --- | --- |
 | Value Object | MedicationSnapshot | Conservar el nombre, dosis e instrucciones del medicamento vigentes al momento de programar la toma, independientemente de cambios posteriores en el tratamiento | `medicationName`, `dose`, `instructions` | Embebido en Intake; se genera a partir de la pauta consultada en GestiÃ³n de Medicamentos al momento de la programaciÃ³n |
 | Value Object | ToleranceWindow | Delimitar el intervalo de tiempo dentro del cual una confirmaciÃ³n tardÃ­a todavÃ­a es vÃ¡lida | `duration` - `hasExpired(now)` | Consultado por Intake al evaluar `expireTolerance()` |
-| Enumeration | ConfirmationChannel | Representar el medio utilizado para confirmar una toma | `TAP`, `VOICE` | Usado por Intake al registrar `confirm()` |
-| Enumeration | IntakeStatus | Representar el estado vigente de una toma dentro de este contexto | `PENDING`, `CONFIRMED`, `ESCALATED` | Usado por Intake; `ESCALATED` marca el traspaso hacia OmisiÃ³n y escalamiento |
+| Enumeration | ConfirmationChannel | Representar el medio utilizado para confirmar una toma | `TOUCH`, `VOICE` | Usado por Intake al registrar `confirm()` |
+| Enumeration | IntakeStatus | Representar el estado vigente de una toma dentro de este contexto | `PENDING`, `CONFIRMED`, `LATE`, `OMITTED` | Intake conserva el resultado; el escalamiento pertenece a OmissionCase |
  
 **Sub-capa Services y Repositories:**
  
@@ -2399,9 +394,9 @@ El contexto reacciona a `TreatmentActivated`, publicado por GestiÃ³n de Medicame
 | CommandHandler | GenerateIntakeScheduleCommandHandler | Ejecutar IntakeSchedulingService sobre un tratamiento activo, persistir las tomas generadas y publicar el evento correspondiente por cada una ("Generar agenda", TS-08) |
 | CommandHandler | IssueReminderCommandHandler | Emitir el recordatorio inicial de una toma pendiente cuando se alcanza su horario programado, publicando `ReminderIssued` ("Emitir recordatorio", US-05) |
 | CommandHandler | ReinforceReminderCommandHandler | Emitir un recordatorio reforzado cuando una toma continÃºa pendiente tras el intervalo configurado, publicando `ReminderReinforced` ("Reforzar recordatorio", US-22) |
-| CommandHandler | ConfirmIntakeCommandHandler | Registrar la confirmaciÃ³n de una toma pendiente mediante interacciÃ³n tÃ¡ctil, invocando `Intake.confirm()` y publicando `IntakeHistoryUpdated` ("Confirmar toma", US-06, US-23, TS-04) |
+| CommandHandler | ConfirmIntakeCommandHandler | Registrar la confirmaciÃ³n de una toma pendiente mediante interacciÃ³n tÃ¡ctil, invocando `Intake.confirm()` y publicando `IntakeConfirmed` ("Confirmar toma", US-06, US-23, TS-04) |
 | CommandHandler | ConfirmIntakeByVoiceCommandHandler | Invocar el reconocimiento de voz mediante IVoiceRecognitionPort, validar la transcripciÃ³n con VoiceConfirmationValidationService y, si es vÃ¡lida, registrar la confirmaciÃ³n mediante `Intake.confirm()` ("Confirmar por voz", US-06, TS-11) |
-| CommandHandler | ExpireIntakeToleranceCommandHandler | Marcar como escalada una toma pendiente cuyo periodo de tolerancia venciÃ³ sin confirmaciÃ³n, invocando `Intake.expireTolerance()` y publicando `IntakeToleranceExpired` ("Expirar tolerancia") |
+| CommandHandler | ExpireIntakeToleranceCommandHandler | Marcar como escalada una toma pendiente cuyo periodo de tolerancia venciÃ³ sin confirmaciÃ³n, invocando `Intake.expireTolerance()` y publicando `IntakeUnconfirmed` ("Expirar tolerancia") |
  
 **Sub-capa Internal - QueryServices:**
  
@@ -2423,7 +418,7 @@ El contexto reacciona a `TreatmentActivated`, publicado por GestiÃ³n de Medicame
 | Tipo | Nombre | PropÃ³sito |
 | --- | --- | --- |
 | Service | IVoiceRecognitionPort | Puerto para invocar el servicio de reconocimiento de voz seleccionado en el Spike 1, devolviendo la transcripciÃ³n obtenida a partir de un audio |
-| Service | IDomainEventPublisher | Puerto para publicar dentro del mismo proceso los eventos `ReminderIssued`, `ReminderReinforced`, `IntakeHistoryUpdated` e `IntakeToleranceExpired`; consumidos por Adherence Analytics y por OmisiÃ³n y escalamiento |
+| Service | IDomainEventPublisher | Puerto para publicar dentro del mismo proceso los eventos `ReminderIssued`, `ReminderReinforced`, `IntakeConfirmed` e `IntakeUnconfirmed`; consumidos por Adherence Analytics y por OmisiÃ³n y escalamiento |
  
 #### 2.6.1.4. Infrastructure Layer
  
@@ -2453,11 +448,11 @@ El contexto reacciona a `TreatmentActivated`, publicado por GestiÃ³n de Medicame
 | --- | --- | --- |
 | Listener | TreatmentActivatedEventListener | Registra TreatmentActivatedEventConsumer como manejador del evento en memoria publicado por GestiÃ³n de Medicamentos |
 | Listener | TreatmentUpdatedEventListener | Registra TreatmentUpdatedEventConsumer como manejador del evento en memoria publicado por GestiÃ³n de Medicamentos |
-| Publisher | IntakeDomainEventPublisher | ImplementaciÃ³n de IDomainEventPublisher mediante eventos de aplicaciÃ³n en memoria; publica `ReminderIssued`, `ReminderReinforced`, `IntakeHistoryUpdated` e `IntakeToleranceExpired` para Adherence Analytics y OmisiÃ³n y escalamiento |
+| Publisher | IntakeDomainEventPublisher | ImplementaciÃ³n de IDomainEventPublisher mediante eventos de aplicaciÃ³n en memoria; publica `ReminderIssued`, `ReminderReinforced`, `IntakeConfirmed` e `IntakeUnconfirmed` para Adherence Analytics y OmisiÃ³n y escalamiento |
 
 #### 2.6.1.5. Bounded Context Software Architecture Component Level Diagrams
 
-El diagrama representa la descomposiciÃ³n interna del mÃ³dulo Intake Execution BC dentro del container Backend, mostrando cÃ³mo `IntakeQueriesController` e `IntakeConfirmationController` reciben las peticiones enrutadas por el API Gateway, invocan a los Command/Query Handlers de la capa Application (`GenerateIntakeScheduleCommandHandler`, `ConfirmIntakeCommandHandler`, `ConfirmIntakeByVoiceCommandHandler`, `GetNextIntakeQueryHandler`, `GetIntakeDetailQueryHandler`, `GetDailyIntakeAgendaQueryHandler`, entre otros), estos operan sobre el agregado `Intake` (capa Domain) a travÃ©s de `IntakeRepository`, y cÃ³mo `VoiceRecognitionAdapter` invoca externamente al servicio de reconocimiento de voz seleccionado en el Spike 1 para resolver las confirmaciones registradas por voz. Se incluyen ademÃ¡s los tres schedulers de la capa Infrastructure (`ReminderScheduler`, `ReminderReinforcementScheduler`, `ToleranceExpirationScheduler`), que disparan periÃ³dicamente los Command Handlers correspondientes sin pasar por el API Gateway, asÃ­ como los listeners que consumen en memoria el evento `TreatmentActivated` publicado por Treatment Management. Se incluye tambiÃ©n la publicaciÃ³n en memoria de los eventos `IntakeHistoryUpdated`, consumido por Adherence Analytics, e `IntakeToleranceExpired`, consumido por OmisiÃ³n y escalamiento.
+El diagrama representa la descomposiciÃ³n interna del mÃ³dulo Intake Execution BC dentro del container Backend, mostrando cÃ³mo `IntakeQueriesController` e `IntakeConfirmationController` reciben las peticiones enrutadas por el API Gateway, invocan a los Command/Query Handlers de la capa Application (`GenerateIntakeScheduleCommandHandler`, `ConfirmIntakeCommandHandler`, `ConfirmIntakeByVoiceCommandHandler`, `GetNextIntakeQueryHandler`, `GetIntakeDetailQueryHandler`, `GetDailyIntakeAgendaQueryHandler`, entre otros), estos operan sobre el agregado `Intake` (capa Domain) a travÃ©s de `IntakeRepository`, y cÃ³mo `VoiceRecognitionAdapter` invoca externamente al servicio de reconocimiento de voz seleccionado en el Spike 1 para resolver las confirmaciones registradas por voz. Se incluyen ademÃ¡s los tres schedulers de la capa Infrastructure (`ReminderScheduler`, `ReminderReinforcementScheduler`, `ToleranceExpirationScheduler`), que disparan periÃ³dicamente los Command Handlers correspondientes sin pasar por el API Gateway, asÃ­ como los listeners que consumen en memoria el evento `TreatmentActivated` publicado por Treatment Management. Se incluye tambiÃ©n la publicaciÃ³n en memoria de los eventos `IntakeConfirmed`, consumido por Adherence Analytics, e `IntakeUnconfirmed`, consumido por OmisiÃ³n y escalamiento.
 
 ![IntakeExecutionComponents.png](assets/IntakeExecutionComponents.png)
  
@@ -2481,25 +476,21 @@ Las tablas de este Bounded Context se encuentran dentro de la misma instancia Po
  
 *Figura. Database Design Diagram del Bounded Context EjecuciÃ³n de tomas.*
  
-**INTAKES**
- 
+**intake_intakes (modelo fÃ­sico de la implementaciÃ³n)**
+
 | Columna | DescripciÃ³n |
 | --- | --- |
-| id (PK) | Identificador Ãºnico de la toma |
-| treatment_id | Referencia lÃ³gica al tratamiento en GestiÃ³n de Medicamentos (sin FK fÃ­sica) |
-| older_adult_id | Referencia lÃ³gica al adulto mayor (sin FK fÃ­sica) |
-| medication_name | Nombre del medicamento, capturado desde MedicationSnapshot al momento de programar la toma |
-| dose | Dosis indicada, capturada desde MedicationSnapshot |
-| instructions | Instrucciones complementarias, capturadas desde MedicationSnapshot; nullable |
-| scheduled_at | Horario programado de la toma |
-| tolerance_duration | DuraciÃ³n del margen de tolerancia permitido antes de considerarse vencida |
-| status | Estado vigente de la toma: PENDING, CONFIRMED u ESCALATED |
-| reminders_issued | NÃºmero de recordatorios emitidos para esta toma |
-| confirmed_at | Fecha y hora de confirmaciÃ³n; nullable mientras la toma permanece pendiente |
-| confirmation_channel | Medio utilizado para confirmar: TAP o VOICE; nullable hasta la confirmaciÃ³n |
-| created_at / updated_at | Fechas de auditorÃ­a |
- 
-No existen relaciones adicionales dentro de este Bounded Context, dado que `Intake` es el Ãºnico aggregate root y no compone entidades hijas propias; su trazabilidad hacia otros Bounded Contexts se resuelve mediante los identificadores lÃ³gicos `treatment_id` y `older_adult_id`, y hacia Adherence Analytics y OmisiÃ³n y escalamiento mediante los eventos `IntakeHistoryUpdated` e `IntakeToleranceExpired` en lugar de foreign keys.
+| id (PK) | UUID String, varchar(36) |
+| treatment_id / medication_id / older_adult_id | Referencias lÃ³gicas UUID, varchar(36), sin FK fÃ­sica entre BC |
+| medication_name / dose / instructions | Snapshot de nombre, dosis e instrucciones; instructions admite null |
+| scheduled_at | Instant almacenado como timestamptz |
+| status | PENDING, CONFIRMED, LATE u OMITTED |
+| confirmed_at / confirmation_channel | Hora UTC y canal TOUCH/VOICE de la primera confirmaciÃ³n; nullable antes de confirmar |
+| created_at | Fecha de creaciÃ³n, timestamptz |
+
+El contrato de integraciÃ³n es `IntakeConfirmed(String intakeId, String medicationId, String olderAdultId, Instant confirmedAt)` y `IntakeUnconfirmed(String intakeId, String olderAdultId, String medicationName, Instant scheduledAt)`. La confirmaciÃ³n se serializa mediante bloqueo de la fila y no repite eventos ni modifica hora/canal al reintentar. Omission resuelve el caso usando la hora del evento.
+
+El diseÃ±o objetivo incluye tolerancia y recordatorios; `tolerance_duration`, `reminders_issued` y `updated_at` todavÃ­a no son columnas de Intake JPA. La clasificaciÃ³n tardÃ­a y el productor automÃ¡tico de IntakeUnconfirmed siguen pendientes. No se considera que los listeners, por sÃ­ solos, implementen TS-05.
 
 ### 2.6.2. Bounded Context: AnalÃ­tica de adherencia
 
@@ -2507,7 +498,7 @@ El Bounded Context **AnalÃ­tica de adherencia** (**Adherence Analytics BC**) tra
 
 El contexto sigue un flujo de cuatro decisiones de negocio encadenadas. Cuando una semana se cierra, se calcula la adherencia del periodo y se publica `AdherenceRateCalculated`. Cuando se detectan omisiones recurrentes dentro del historial, se identifica un patrÃ³n y se publica `AdherencePatternDetected`. Cuando ese patrÃ³n resulta relevante, se estima su riesgo y se publica `OmissionRiskEstimated`. Finalmente, cuando el riesgo estimado resulta relevante, se genera un insight orientativo y se publica `AdherenceInsightPublished`. Estos cuatro eventos permiten que Seguimiento familiar presente los resultados al familiar o cuidador sin reproducir internamente la lÃ³gica analÃ­tica.
 
-Para alimentar este flujo, el contexto recibe el evento `IntakeHistoryUpdated` publicado por EjecuciÃ³n de tomas, con el que actualiza el historial y clasifica cada toma como confirmada a tiempo o tardÃ­a segÃºn la polÃ­tica de tolerancia definida, y `IntakeOmitted` publicado por OmisiÃ³n y escalamiento, con el que registra las tomas que finalizaron sin confirmaciÃ³n. Seguimiento familiar tambiÃ©n puede consultar directamente, dentro del mismo proceso, el resumen vigente de adherencia mediante la interfaz pÃºblica expuesta por este contexto, y el familiar o cuidador puede consultar los resultados analÃ­ticos directamente a travÃ©s del API Gateway.
+Para alimentar este flujo, el contexto recibe el evento `IntakeConfirmed` publicado por EjecuciÃ³n de tomas, con el que actualiza el historial y clasifica cada toma como confirmada a tiempo o tardÃ­a segÃºn la polÃ­tica de tolerancia definida, y `IntakeOmitted` publicado por OmisiÃ³n y escalamiento, con el que registra las tomas que finalizaron sin confirmaciÃ³n. Seguimiento familiar tambiÃ©n puede consultar directamente, dentro del mismo proceso, el resumen vigente de adherencia mediante la interfaz pÃºblica expuesta por este contexto, y el familiar o cuidador puede consultar los resultados analÃ­ticos directamente a travÃ©s del API Gateway.
 
 #### 2.6.2.1. Domain Layer
 
@@ -2570,7 +561,7 @@ Para alimentar este flujo, el contexto recibe el evento `IntakeHistoryUpdated` p
 
 | Tipo | Nombre | PropÃ³sito |
 | --- | --- | --- |
-| Consumer | IntakeHistoryUpdatedEventConsumer | Escuchar el evento `IntakeHistoryUpdated` publicado por EjecuciÃ³n de tomas para actualizar el historial dentro del AdherenceLedger correspondiente |
+| Consumer | IntakeConfirmedEventConsumer | Escuchar el evento `IntakeConfirmed` publicado por EjecuciÃ³n de tomas para actualizar el historial dentro del AdherenceLedger correspondiente |
 | Consumer | IntakeOmittedEventConsumer | Escuchar el evento `IntakeOmitted` publicado por OmisiÃ³n y escalamiento para registrar la omisiÃ³n dentro del historial |
 
 Este Bounded Context expone ademÃ¡s una interfaz pÃºblica de consulta invocada directamente, dentro del mismo proceso, por Seguimiento familiar mediante `IAdherenceSummaryPort`, sin pasar por el API Gateway.
@@ -2597,7 +588,7 @@ Este Bounded Context expone ademÃ¡s una interfaz pÃºblica de consulta invocada d
 
 | Tipo | Nombre | PropÃ³sito |
 | --- | --- | --- |
-| EventHandler | IntakeHistoryUpdatedEventHandler | Traducir `IntakeHistoryUpdated` en la actualizaciÃ³n del AdherenceLedger correspondiente mediante `absorbHistoryUpdate()` |
+| EventHandler | IntakeConfirmedEventHandler | Traducir `IntakeConfirmed` en la actualizaciÃ³n del AdherenceLedger correspondiente mediante `absorbHistoryUpdate()` |
 | EventHandler | IntakeOmittedEventHandler | Traducir `IntakeOmitted` en el registro de la omisiÃ³n mediante `registerOmitted()` |
 
 **Sub-capa Internal - OutboundServices:**
@@ -2626,13 +617,13 @@ Este Bounded Context expone ademÃ¡s una interfaz pÃºblica de consulta invocada d
 
 | Tipo | Nombre | PropÃ³sito |
 | --- | --- | --- |
-| Listener | IntakeHistoryUpdatedEventListener | Registra IntakeHistoryUpdatedEventConsumer como manejador del evento en memoria publicado por EjecuciÃ³n de tomas |
+| Listener | IntakeConfirmedEventListener | Registra IntakeConfirmedEventConsumer como manejador del evento en memoria publicado por EjecuciÃ³n de tomas |
 | Listener | IntakeOmittedEventListener | Registra IntakeOmittedEventConsumer como manejador del evento en memoria publicado por OmisiÃ³n y escalamiento |
 | Publisher | AdherenceDomainEventPublisher | ImplementaciÃ³n de IDomainEventPublisher mediante eventos de aplicaciÃ³n en memoria; publica `AdherenceRateCalculated`, `AdherencePatternDetected`, `OmissionRiskEstimated` y `AdherenceInsightPublished` para Seguimiento familiar |
 
 #### 2.6.2.5. Bounded Context Software Architecture Component Level Diagrams
 
-El diagrama representa la descomposiciÃ³n interna del mÃ³dulo **Adherence Analytics BC** dentro del container Backend. `IntakeHistoryUpdatedEventListener` e `IntakeOmittedEventListener` reciben los eventos publicados por EjecuciÃ³n de tomas y por OmisiÃ³n y escalamiento, respectivamente, y activan sus Consumers y EventHandlers correspondientes para actualizar el agregado `AdherenceLedger` mediante `AdherenceLedgerRepository`. `WeeklyConsolidationScheduler` ejecuta semanalmente el cierre de periodo y el cÃ¡lculo de adherencia, publicando `AdherenceRateCalculated`. `AdherencePatternDetectionScheduler`, junto con la activaciÃ³n reactiva tras cada omisiÃ³n, ejecuta `AdherencePatternDetectionService`, que crea o refuerza un `AdherencePattern` mediante `AdherencePatternRepository` y publica `AdherencePatternDetected`; cuando el patrÃ³n es relevante, `OmissionRiskEstimationService` estima su riesgo (`OmissionRiskEstimated`) y, si el riesgo resulta relevante, `AdherenceInsightGenerationService` genera el insight y la recomendaciÃ³n (`AdherenceInsightPublished`). `AdherenceSummariesController` y `AdherenceInsightsController` exponen las consultas hacia el familiar, mientras que `AdherenceDomainEventPublisher` publica en memoria los cuatro eventos para Seguimiento familiar.
+El diagrama representa la descomposiciÃ³n interna del mÃ³dulo **Adherence Analytics BC** dentro del container Backend. `IntakeConfirmedEventListener` e `IntakeOmittedEventListener` reciben los eventos publicados por EjecuciÃ³n de tomas y por OmisiÃ³n y escalamiento, respectivamente, y activan sus Consumers y EventHandlers correspondientes para actualizar el agregado `AdherenceLedger` mediante `AdherenceLedgerRepository`. `WeeklyConsolidationScheduler` ejecuta semanalmente el cierre de periodo y el cÃ¡lculo de adherencia, publicando `AdherenceRateCalculated`. `AdherencePatternDetectionScheduler`, junto con la activaciÃ³n reactiva tras cada omisiÃ³n, ejecuta `AdherencePatternDetectionService`, que crea o refuerza un `AdherencePattern` mediante `AdherencePatternRepository` y publica `AdherencePatternDetected`; cuando el patrÃ³n es relevante, `OmissionRiskEstimationService` estima su riesgo (`OmissionRiskEstimated`) y, si el riesgo resulta relevante, `AdherenceInsightGenerationService` genera el insight y la recomendaciÃ³n (`AdherenceInsightPublished`). `AdherenceSummariesController` y `AdherenceInsightsController` exponen las consultas hacia el familiar, mientras que `AdherenceDomainEventPublisher` publica en memoria los cuatro eventos para Seguimiento familiar.
 
 ![AdherenceAnalyticsComponents.png](assets/AdherenceAnalyticsComponents.png)
 
@@ -3125,8 +1116,8 @@ Siguiendo el modelo de arquitectura **Clean Architecture** combinado con **Domai
 
 | Tipo | Nombre | PropÃ³sito | Atributos / MÃ©todos principales | RelaciÃ³n con otros elementos |
 | --- | --- | --- | --- | --- |
-| Aggregate Root | Treatment | Representar la pauta completa de un adulto mayor y garantizar que solo se active cuando su configuraciÃ³n estÃ© completa | `id`, `olderAdultId`, `status` (Draft / Active / Paused), `medications: List<Medication>` - `addMedication()`, `activate()`, `pause()`, `isComplete()` | Contiene entidades Medication; referencia al adulto mayor por identificador (VÃ­nculo de cuidado) |
-| Entity | Medication | Representar un medicamento y su pauta de administraciÃ³n dentro de un tratamiento | `id`, `name`, `dose: Dose`, `frequency: Frequency`, `intakeTimes: List<IntakeTime>`, `instructions: Instructions`, `reminderConfig: ReminderConfig`, `active` - `updateDose()`, `updateSchedule()`, `deactivate()` | Entidad hija de Treatment; sus datos alimentan a EjecuciÃ³n de tomas cuando el tratamiento se activa |
+| Aggregate Root | Treatment | Representar la pauta completa de un adulto mayor y garantizar que solo se active cuando su configuraciÃ³n estÃ© completa | `id`, `olderAdultId`, `status` (Draft / Active / Paused), `medicationId`, `dose`, `frequency`, `scheduledTimes`, `instructions`, `reminderLeadMinutes` - `activate()`, `pause()`, `resume()` | Referencia al agregado independiente Medication; referencia al adulto mayor por identificador (VÃ­nculo de cuidado) |
+| Aggregate Root | Medication | Registrar el medicamento antes de configurar un tratamiento | `id`, `olderAdultId`, `name`, `presentation`, `active` - `deactivate()` | Treatment referencia medicationId; el snapshot de la pauta alimenta Intake |
 
 **Sub-capa Model - Value Objects:**
 
@@ -3208,7 +1199,7 @@ Este Bounded Context no requiere Consumers de eventos en esta versiÃ³n, ya que n
 
 | Tipo | Nombre | PropÃ³sito |
 | --- | --- | --- |
-| Repository | TreatmentRepository | ImplementaciÃ³n de ITreatmentRepository (Spring Data JPA); persiste el agregado Treatment junto con sus entidades Medication en la base de datos PostgreSQL central, en las tablas propias de este Bounded Context |
+| Repository | TreatmentRepository | ImplementaciÃ³n de ITreatmentRepository (Spring Data JPA); persiste Treatment; Medication tiene repositorio y agregado independientes en la base de datos PostgreSQL central, en las tablas propias de este Bounded Context |
 
 **Sub-capa Module Adapters:**
 
@@ -3234,7 +1225,7 @@ El diagrama representa la descomposiciÃ³n interna del mÃ³dulo **Treatment Manage
 
 ##### 2.6.5.6.1. Bounded Context Domain Layer Class Diagrams
 
-El diagrama de clases del Domain Layer muestra a `Treatment` como aggregate root en una relaciÃ³n de composiciÃ³n (1 a 0..*) con la entidad `Medication`, la cual a su vez compone los Value Objects `Dose`, `Frequency`, `IntakeTime` (0..*), `Instructions` y `ReminderConfig`. Se incluyen ademÃ¡s la enumeraciÃ³n `TreatmentStatus`, la interfaz `ITreatmentRepository` (que gestiona la persistencia del agregado) y la interfaz `ICareLinkVerificationPort`, junto con `TreatmentFactory` como responsable de la creaciÃ³n de nuevos tratamientos.
+El modelo implementado contiene dos agregados independientes: `Medication`, registrado primero, y `Treatment`, que referencia `medicationId` y posee la pauta con mÃºltiples `scheduledTimes`. El diagrama de clases siguiente pertenece al diseÃ±o previo y estÃ¡ pendiente de regeneraciÃ³n; no representa composiciÃ³n vigente de Medication dentro de Treatment. Se incluyen ademÃ¡s la enumeraciÃ³n `TreatmentStatus`, la interfaz `ITreatmentRepository` (que gestiona la persistencia del agregado) y la interfaz `ICareLinkVerificationPort`, junto con `TreatmentFactory` como responsable de la creaciÃ³n de nuevos tratamientos.
 
 ![Class Diagram del Domain Layer de GestiÃ³n del tratamiento](assets/treatmentPlantUML.png)
 
@@ -3248,39 +1239,34 @@ Aunque toda la persistencia comparte la misma instancia de PostgreSQL (secciÃ³n 
 
 *Figura. Database Design Diagram del Bounded Context GestiÃ³n del tratamiento.*
 
-**TREATMENTS**
+**treatment_medications**
 
 | Columna | DescripciÃ³n |
 | --- | --- |
-| id (PK) | Identificador Ãºnico del tratamiento |
-| older_adult_id | Identificador del adulto mayor propietario del tratamiento (referencia lÃ³gica al Bounded Context VÃ­nculo de cuidado, sin FK fÃ­sica) |
-| status | Estado del tratamiento: DRAFT, ACTIVE o PAUSED |
-| created_at / updated_at | Fechas de auditorÃ­a |
+| id (PK) | UUID String (JPA actual usa varchar(255) por defecto) |
+| older_adult_id | Referencia lÃ³gica UUID, varchar(36), sin FK hacia Care Link |
+| name / presentation / active | Identidad descriptiva del medicamento y estado |
+| created_at | timestamptz |
 
-**MEDICATIONS**
-
-| Columna | DescripciÃ³n |
-| --- | --- |
-| id (PK) | Identificador Ãºnico del medicamento |
-| treatment_id (FK â†’ TREATMENTS.id) | Tratamiento al que pertenece el medicamento |
-| name | Nombre del medicamento |
-| dose_amount / dose_unit | Cantidad y unidad de la dosis |
-| frequency_times_per_day | NÃºmero de tomas al dÃ­a |
-| instructions | Indicaciones de administraciÃ³n |
-| reminder_enabled / reminder_lead_minutes | ConfiguraciÃ³n del recordatorio |
-| active | Indica si el medicamento estÃ¡ activo |
-| created_at / updated_at | Fechas de auditorÃ­a |
-
-**INTAKE_SCHEDULES**
+**treatment_treatments**
 
 | Columna | DescripciÃ³n |
 | --- | --- |
-| id (PK) | Identificador Ãºnico del horario |
-| medication_id (FK â†’ MEDICATIONS.id) | Medicamento al que pertenece el horario |
-| intake_hour | Hora programada de la toma |
+| id (PK) | UUID String (JPA actual usa varchar(255) por defecto) |
+| older_adult_id / medication_id | Referencias lÃ³gicas UUID, varchar(36) |
+| name / status | Nombre y DRAFT / ACTIVE / PAUSED |
+| dose / frequency / instructions / reminder_lead_minutes | Pauta del tratamiento; admite valores incompletos mientras sea DRAFT |
+| created_at | timestamptz |
 
-Relaciones: TREATMENTS (1) - (N) MEDICATIONS; MEDICATIONS (1) - (N) INTAKE_SCHEDULES.
+**treatment_schedule_times**
 
+| Columna | DescripciÃ³n |
+| --- | --- |
+| treatment_id (FK) | Referencia al tratamiento dentro del mismo BC |
+| schedule_order | Ãndice de la lista persistida |
+| scheduled_time | Hora local, tipo time |
+
+Treatment conserva una lista ordenada de horarios; Medication no es una entidad hija. La Ãºnica FK fÃ­sica descrita aquÃ­ une los horarios con Treatment dentro del mismo BC. medicationId es una referencia lÃ³gica. El ancho de las PK UUID de Treatment todavÃ­a requiere normalizaciÃ³n a varchar(36); no debe confundirse su ancho fÃ­sico actual con su semÃ¡ntica UUID.
 
 ### 2.6.6. Bounded Context: Inventario y reposiciÃ³n
 
