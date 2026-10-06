@@ -556,6 +556,80 @@ Las evidencias de la ejecución de estos pasos en cada Sprint (creación de cuen
 #### 4.2.1.4. Development Evidence for Sprint Review
 #### 4.2.1.5. Testing Suite Evidence for Sprint Review
 #### 4.2.1.6. Execution Evidence for Sprint Review
+
+Durante el Sprint 1 el equipo implementó y publicó el Landing Page de Tata y construyó las primeras vistas de la aplicación Android nativa, enfocadas en el flujo inicial del familiar: registro de su cuenta, vinculación con el adulto mayor, registro de medicamentos y configuración del tratamiento, hasta la consulta de la próxima toma por parte del adulto mayor. Las vistas de la aplicación consumen los endpoints del backend implementados en el mismo Sprint.
+
+El Landing Page se encuentra desplegado en GitHub Pages y puede visitarse en: https://vitahealth-upc.github.io/landing-page/
+
+**Landing Page**
+
+| Sección | User Story | Captura |
+| --- | --- | --- |
+| Encabezado y hero ("Cuidar los medicamentos sin complicarte") | US-46 |  |
+| Propuesta de valor y funcionalidades | US-47 |  |
+| La app de Tata y "Cómo funciona" | US-47 |  |
+| Historia detrás de Tata y testimonio | US-46 |  |
+| Planes y sección de preguntas | US-48 |  |
+| Llamado a la acción y footer | US-49 |  |
+| Vista responsive en dispositivo móvil | US-50 |  |
+
+![Landing Page - Hero](assets/execution-evidence/landing-hero.png)
+
+*Figura. Sección principal del Landing Page de Tata.*
+
+**Aplicación Android nativa**
+
+| Vista | User Story | Descripción | Captura |
+| --- | --- | --- | --- |
+| Registro del familiar | US-10, US-11 | El familiar crea su cuenta y verifica su correo electrónico |  |
+| Vinculación con el adulto mayor | US-02, US-13 | El familiar solicita la vinculación y se registra el consentimiento del adulto mayor |  |
+| Registro de medicamento | US-03 | El familiar registra un medicamento con su nombre, presentación e indicaciones |  |
+| Creación de tratamiento | US-14 | El familiar crea un tratamiento para el adulto mayor |  |
+| Dosis y frecuencia | US-15 | Se define la dosis y la frecuencia de cada medicamento |  |
+| Horarios e instrucciones | US-16 | Se configuran los horarios de toma y las instrucciones |  |
+| Recordatorios del tratamiento | US-17 | Se configura la política de recordatorios |  |
+| Activación y pausa del tratamiento | US-18 | El familiar activa o pausa el tratamiento |  |
+| Detalle del tratamiento | US-19 | Se consulta el resumen del tratamiento configurado |  |
+| Próxima toma (inicio del adulto mayor) | US-20 | El adulto mayor visualiza su próxima toma pendiente |  |
+| Detalle de la toma | US-21 | Se muestra el medicamento, la dosis, las instrucciones y el estado de la toma |  |
+
+![App Android - Próxima toma](assets/execution-evidence/android-next-dose.png)
+
+*Figura. Vista de la próxima toma en la aplicación Android de Tata.*
+
+**Video de ejecución**
+
+El siguiente video muestra la navegación del Landing Page y el recorrido por las vistas implementadas de la aplicación Android en el Sprint 1, desde el registro del familiar hasta la consulta de la próxima toma.
+
+- Enlace al video: 
+- Duración:
+
 #### 4.2.1.7. Services Documentation Evidence for Sprint Review
 #### 4.2.1.8. Software Deployment Evidence for Sprint Review
 #### 4.2.1.9. Team Collaboration Insights during Sprint
+
+Durante el Sprint 1 el equipo trabajó en tres repositorios de la organización `vitaHealth-UPC`, aplicando el flujo GitFlow descrito en la sección 4.1.2. Cada User Story o Technical Story se desarrolló en su propia rama de feature, nombrada con el identificador de la historia (por ejemplo, `feature/ts-02-care-link-api`, `feature/us-03-register-medication` y `feature/us-46-header-hero`), y se integró a `develop` mediante Pull Request. Los mensajes de commit siguen Conventional Commits, con el Bounded Context como scope (por ejemplo, `feat(care-link): implement care linking lifecycle` o `feat(intake): implement US-20 next dose home`), lo que permite trazar cada cambio hacia la historia que lo originó.
+
+| Repositorio | Producto | Ramas de feature | Pull Requests integrados a `develop` | Commits en el Sprint |
+| --- | --- | --- | --- | --- |
+| [landing-page](https://github.com/vitaHealth-UPC/landing-page) | Landing Page |  |  |  |
+| [web-services](https://github.com/vitaHealth-UPC/web-services) | Web Services |  |  |  |
+| [mobile-android](https://github.com/vitaHealth-UPC/mobile-android) | Aplicación Android |  |  |  |
+
+**Landing Page**
+
+![Insights - Contributors landing-page](assets/collaboration-insights/landing-page-contributors.png)
+
+*Figura. Contribuciones al repositorio landing-page durante el Sprint 1.*
+
+**Web Services**
+
+![Insights - Contributors web-services](assets/collaboration-insights/web-services-contributors.png)
+
+*Figura. Contribuciones al repositorio web-services durante el Sprint 1.*
+
+**Aplicación Android**
+
+![Insights - Contributors mobile-android](assets/collaboration-insights/mobile-android-contributors.png)
+
+*Figura. Contribuciones al repositorio mobile-android durante el Sprint 1.*
