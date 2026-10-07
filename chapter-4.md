@@ -9,7 +9,7 @@
 | Actividad | Producto | Propósito | Ruta de referencia / descarga |
 | --- | --- | --- | --- |
 | Project Management / Requirements Management | Trello | Gestión del Product Backlog, los Sprints y las User Stories, Technical Stories y Spike Stories | https://trello.com/b/wuHmMypU/apps-moviles |
-| Product UX/UI Design | Figma | Elaboración de Wireframes, Mock-ups y Prototypes del Landing Page y las aplicaciones móviles | (FALTA) |
+| Product UX/UI Design | Figma | Elaboración de Wireframes, Mock-ups y Prototypes del Landing Page y las aplicaciones móviles | https://www.figma.com/ |
 | Product UX/UI Design | UXPressia | Elaboración de User Personas, Empathy Maps, User Journey Maps e Impact Mapping | https://uxpressia.com |
 | Software Development | Android Studio | IDE para el desarrollo de la aplicación Android nativa (Kotlin) y la aplicación multiplataforma (Flutter) | https://developer.android.com/studio |
 | Software Development | Spring Boot Framework (Java) | Framework para el desarrollo del backend RESTful | https://spring.io/projects/spring-boot |
@@ -21,7 +21,8 @@
 | Software Testing | Cucumber-JVM | Integration/Acceptance testing en Gherkin de los endpoints del backend | https://cucumber.io/docs/installation/java/ |
 | Software Testing | Espresso | Testing de UI de la aplicación Android nativa | https://developer.android.com/training/testing/espresso |
 | Software Testing | flutter_test | Unit e integration testing de la aplicación multiplataforma | https://docs.flutter.dev/testing |
-| Software Deployment | Render | Despliegue del backend y de la base de datos PostgreSQL | https://render.com |
+| Software Deployment | Render / Railway (Docker) | Despliegue del backend como contenedor Docker | https://render.com / https://railway.com |
+| Software Deployment | Neon / Railway PostgreSQL | Base de datos PostgreSQL administrada | https://neon.tech |
 | Software Deployment | GitHub Pages | Despliegue del Landing Page | https://pages.github.com |
 | Software Documentation | Swagger / OpenAPI | Documentación de los endpoints del backend | https://swagger.io |
 
@@ -33,9 +34,9 @@ Para el control de versiones de todos los productos de VitaHealth (Tata) se util
  
 | Producto | Repositorio | Contenido |
 |---|---|---|
-| Landing Page | `https://github.com/<org>/<landing-page>` | Sitio estático (HTML5, CSS3, JavaScript), publicado en GitHub Pages |
-| Web Services | `https://github.com/<org>/<back-end>` | Proyecto del backend (RESTful API), pruebas unitarias y pruebas de integración/aceptación (archivos `.feature`) |
-| Mobile Application | `https://github.com/<org>/<mobile-app>` | App Tata en Kotlin (Android) |
+| Landing Page | https://github.com/vitaHealth-UPC/landing-page | Sitio estático (HTML5, CSS3, JavaScript), publicado en GitHub Pages |
+| Web Services | https://github.com/vitaHealth-UPC/web-services | Proyecto del backend (RESTful API), pruebas unitarias y pruebas de integración/aceptación (archivos `.feature`) |
+| Mobile Application | https://github.com/vitaHealth-UPC/mobile-android | App Tata en Kotlin (Android) |
 | Frontend Web Application | `https://github.com/<org>/<web-app>` | Aplicación web (si aplica a su alcance) |
  
 ## GitFlow Workflow
@@ -134,31 +135,32 @@ La solución utiliza los siguientes lenguajes, y para cada uno se adopta una gu�
 Las siguientes reglas aplican a todos los repositorios, independientemente del lenguaje:
 
 - **Nomenclatura en inglés.** Clases, métodos, variables, archivos, carpetas, endpoints, tablas y columnas se nombran en inglés. Los conceptos del dominio se toman de la versión en inglés del Ubiquitous Language para no inventar sinónimos: `Intake` (toma), `Treatment` (tratamiento), `Medication` (medicamento), `CareLink` (vínculo de cuidado), `OlderAdult` (adulto mayor), `Caregiver` (cuidador), `OmissionCase` (caso de omisión), `Alert` (alerta), `QuietHours` (horario de silencio). Por ejemplo, se escribe `confirmIntake()` y no `confirmarToma()` ni `confirmDose()`.
-- **Textos visibles en español y fuera del código.** Todo texto que ve el adulto mayor o el familiar se escribe en español y se ubica en archivos de recursos (`strings.xml` en Android, archivos de localización en Flutter y el propio HTML en el Landing Page), nunca como literal dentro de la lógica. Esto permite revisar el tono de comunicación definido en la sección 3.1.1.1 sin modificar el código.
+- **Textos visibles fuera del código, en dos idiomas.** Todo texto que ve el adulto mayor o el familiar se escribe en inglés como idioma por defecto y se traduce a español latinoamericano (es-419). Los textos se ubican en archivos de recursos y nunca como literales dentro de la lógica: `res/values/strings.xml` y `res/values-b+es+419/strings.xml` en Android, `i18n/messages.properties` y `messages_es_419.properties` en el backend, y el diccionario de `js/i18n.js` con atributos `data-i18n` en el Landing Page. Esto permite revisar el tono de comunicación definido en la sección 3.1.1.1 sin modificar el código.
 - **Comentarios en inglés** y solo cuando explican el *porqué* de una decisión (por ejemplo, por qué una toma confirmada dos veces no genera un segundo registro). No se deja código comentado en los commits.
-- **Formato de archivo.** Codificación UTF-8, fin de línea LF y un salto de línea al final de cada archivo. Cada repositorio incluye un archivo `.editorconfig` en la raíz con la indentación de su lenguaje: 2 espacios para HTML, CSS, JavaScript, Java, Dart, Gherkin y YAML; 4 espacios para Kotlin.
-- **Tokens de diseño compartidos.** Los colores, tipografías y espaciados de *Tata Design Foundations* (sección 3.1.1.1) se definen una sola vez por producto con el mismo nombre de token, para que un cambio de marca se haga en un solo lugar:
+- **Formato de archivo.** Codificación UTF-8, fin de línea LF y un salto de línea al final de cada archivo. La indentación es de 2 espacios para HTML, CSS, JavaScript, Java, Gherkin y YAML, y de 4 espacios para Kotlin. El repositorio `mobile-android` incluye un archivo `.editorconfig` en la raíz; `landing-page` y `web-services` lo incorporarán en el Sprint 2.
+- **Tokens de diseño compartidos.** Los colores y espaciados de *Tata Design Foundations* (sección 3.1.1.1) se definen una sola vez por producto y los componentes los referencian por nombre, para que un cambio de marca se haga en un solo lugar: en el Landing Page como variables CSS en `:root` de `css/styles.css`, y en Android en los objetos del módulo `:shared` (`TataColors.kt` y `TataSpacing.kt`).
 
-| Token (sección 3.1.1.1) | Landing Page (CSS) | Android (Kotlin) | Flutter (Dart) |
-| --- | --- | --- | --- |
-| Primary `#173B70` | `--color-primary` | `TataColors.Primary` | `TataColors.primary` |
-| Ink `#0E1729` | `--color-ink` | `TataColors.Ink` | `TataColors.ink` |
-| Sage `#E8F5EB` | `--color-sage` | `TataColors.Sage` | `TataColors.sage` |
-| Cream `#FFF3E2` | `--color-cream` | `TataColors.Cream` | `TataColors.cream` |
-| Grid base 8 dp | `--space-unit: 8px` | `TataSpacing.Unit = 8.dp` | `TataSpacing.unit = 8.0` |
-| Touch target 44 dp | `--touch-target: 44px` | `TataSpacing.TouchTarget = 44.dp` | `TataSpacing.touchTarget = 44.0` |
+| Token | Landing Page (CSS) | Android (Kotlin, módulo `:shared`) |
+| --- | --- | --- |
+| Azul marino principal | `--tata-navy`, `--color-primary` | `TataNavy` |
+| Morado de acento | `--tata-purple` | `TataPurple` |
+| Texto principal | `--color-text` | `TataText` |
+| Texto secundario | `--color-muted` | `TataMuted` |
+| Bordes | `--color-border` | `TataBorder` |
+| Fondo crema (tarjetas de estado) | — | `TataCream` |
+| Espaciado base 8 | — | `TataSpacing.sm = 8.dp` |
 
 #### HTML5 (Landing Page)
 
 Se sigue *HTML Style Guide and Coding Conventions* y *Google HTML/CSS Style Guide*:
 
-- Se declara `<!DOCTYPE html>` y `<html lang="es">`, porque el contenido del Landing Page está en español. Se incluyen `<meta charset="UTF-8">`, la etiqueta `viewport` y las meta tags definidas en la sección 3.1.2.3 (title, description, keywords y author).
+- Se declara `<!DOCTYPE html>` y `<html lang="en">`, porque el idioma por defecto del Landing Page es el inglés. Cuando el visitante cambia a español, `js/i18n.js` reemplaza los textos marcados con `data-i18n` y actualiza el atributo a `lang="es-419"`, para que los lectores de pantalla pronuncien el contenido correctamente. Se incluyen `<meta charset="UTF-8">`, la etiqueta `viewport` y las meta tags definidas en la sección 3.1.2.3 (title, description, keywords y author).
 - Nombres de elementos y atributos en minúsculas, valores de atributos entre comillas dobles y todos los elementos cerrados correctamente.
 - Se usan elementos semánticos (`header`, `nav`, `main`, `section`, `footer`) en lugar de `div` genéricos, y un único `h1` por página.
-- Toda imagen tiene un atributo `alt` descriptivo en español; por ejemplo, el isotipo se describe como `alt="Logotipo de Tata, mariposa en dos tonos de morado"`.
+- Toda imagen informativa tiene un atributo `alt` descriptivo (por ejemplo, `alt="Tata"` en el logotipo), y las imágenes decorativas usan `alt=""` para que los lectores de pantalla las omitan. Las secciones sin encabezado visible se describen con `aria-label` (por ejemplo, `aria-label="Tata benefits"`).
 - No se usan estilos ni scripts en línea (`style=""`, `onclick=""`); se enlazan desde archivos externos.
 - Los `id` y las clases se escriben en inglés y en *kebab-case*, y se nombran por su función, no por su apariencia: `plans-section`, `plan-card`, `contact-form`, en lugar de `purple-box` o `seccion2`.
-- Estructura del repositorio: `index.html` en la raíz y los recursos en `assets/css/`, `assets/js/` y `assets/images/`. Los nombres de archivo van en minúsculas y en *kebab-case* (`hero-older-adult.webp`).
+- Estructura del repositorio: `index.html` en la raíz, los estilos en `css/` (`styles.css` y `responsive.css`), los scripts en `js/` (`main.js` e `i18n.js`) y los recursos gráficos en `assets/` (`icons/`, `images/` y `logo/`). Los nombres de archivo van en minúsculas y en *kebab-case*.
 
 #### CSS3 (Landing Page)
 
@@ -215,110 +217,122 @@ document.getElementById(CONTACT_FORM_ID).addEventListener('submit', (event) => {
 
 #### Java y Spring Boot (Web Services)
 
-Se sigue *Google Java Style Guide*: indentación de 2 espacios, límite de 100 caracteres por línea, una clase de nivel superior por archivo, llaves obligatorias incluso en bloques de una línea y sin importaciones con comodín (`import java.util.*`).
+Se toma como referencia *Google Java Style Guide*: una clase de nivel superior por archivo, llaves obligatorias incluso en bloques de una línea y nombres descriptivos en inglés. El formato se aplica con el formateador de IntelliJ IDEA. En el Sprint 1 una parte de los archivos quedó con indentación de 4 espacios (valor por defecto del IDE) y otra con los 2 espacios de la guía; el equipo normalizará el formato a 2 espacios en el Sprint 2 con el archivo `.editorconfig` mencionado en las convenciones generales.
 
 **Nomenclatura:**
 
 | Elemento | Convención | Ejemplo en Tata |
 | --- | --- | --- |
-| Paquete | minúsculas, sin guiones bajos | `com.vitahealth.tata.intake.domain.model.aggregates` |
-| Clase / Record / Enum | *UpperCamelCase*, sustantivo | `Intake`, `ToleranceWindow`, `IntakeStatus` |
-| Método | *lowerCamelCase*, verbo | `confirm()`, `expireTolerance()`, `findNextByOlderAdultId()` |
-| Variable / atributo | *lowerCamelCase* | `scheduledAt`, `remindersIssued` |
-| Constante | *UPPER_SNAKE_CASE* | `MAX_REMINDERS_PER_INTAKE` |
-| Valor de enum | *UPPER_SNAKE_CASE* | `PENDING`, `CONFIRMED`, `ESCALATED`, `TAP`, `VOICE` |
+| Paquete | minúsculas, sin guiones bajos, nombre completo del Bounded Context | `com.tata.intakeexecution.domain.model.aggregates` |
+| Clase / Record / Enum | *UpperCamelCase*, sustantivo | `Intake`, `MedicationSnapshot`, `IntakeStatus` |
+| Método | *lowerCamelCase*, verbo | `confirm()`, `registerReplenishment()`, `consumeUnit()` |
+| Variable / atributo | *lowerCamelCase* | `scheduledAt`, `remainingStock` |
+| Constante | *UPPER_SNAKE_CASE* | `MAX_PERIOD_DAYS`, `MINIMUM_ISSUES_FOR_PATTERN` |
+| Valor de enum | *UPPER_SNAKE_CASE* | `PENDING`, `CONFIRMED`, `LATE`, `OMITTED`, `TOUCH`, `VOICE` |
 
-**Organización de paquetes por Bounded Context.** El backend es un único desplegable (sección 2.5.3), pero cada Bounded Context tiene su propio paquete raíz y, dentro de él, las cuatro capas definidas en la sección 2.6:
+**Organización de paquetes por Bounded Context.** El backend es un único desplegable (sección 2.5.3), pero cada Bounded Context tiene su propio paquete raíz bajo `com.tata` y, dentro de él, las cuatro capas definidas en la sección 2.6:
 
 | Bounded Context | Paquete raíz |
 | --- | --- |
-| Identity & Subscription | `com.vitahealth.tata.identity` |
-| Care Link | `com.vitahealth.tata.carelink` |
-| Treatment Management | `com.vitahealth.tata.treatment` |
-| Intake Execution | `com.vitahealth.tata.intake` |
-| Omission & Escalation | `com.vitahealth.tata.escalation` |
-| Adherence Analytics | `com.vitahealth.tata.adherence` |
-| Family Monitoring | `com.vitahealth.tata.monitoring` |
-| Accessibility & Preferences | `com.vitahealth.tata.accessibility` |
-| Inventory & Replenishment | `com.vitahealth.tata.inventory` |
-| Elementos compartidos | `com.vitahealth.tata.shared` |
+| Identity & Subscription | `com.tata.identitysubscription` |
+| Care Link | `com.tata.carelink` |
+| Treatment Management | `com.tata.treatmentmanagement` |
+| Intake Execution | `com.tata.intakeexecution` |
+| Omission & Escalation | `com.tata.omissionescalation` |
+| Adherence Analytics | `com.tata.adherenceanalytics` |
+| Family Monitoring | `com.tata.familymonitoring` |
+| Accessibility & Preferences | `com.tata.accessibilitypreferences` |
+| Inventory & Replenishment | `com.tata.inventoryreplenishment` |
+| Elementos compartidos | `com.tata.shared` |
 
-Por ejemplo, el Bounded Context Intake Execution se organiza así:
+Por ejemplo, el Bounded Context Intake Execution se organiza así en el repositorio:
 
 ```text
-com.vitahealth.tata.intake
+com.tata.intakeexecution
 ├── domain
 │   ├── model
 │   │   ├── aggregates        -> Intake
-│   │   ├── valueobjects      -> MedicationSnapshot, ToleranceWindow, IntakeStatus, ConfirmationChannel
-│   │   ├── commands          -> ConfirmIntakeCommand, GenerateIntakeScheduleCommand
-│   │   ├── queries           -> GetNextIntakeQuery, GetDailyIntakeAgendaQuery
-│   │   └── events            -> IntakeHistoryUpdated, IntakeToleranceExpired
-│   ├── services              -> IntakeSchedulingService, VoiceConfirmationValidationService
-│   └── repositories          -> IIntakeRepository
+│   │   ├── valueobjects      -> MedicationSnapshot, IntakeStatus, ConfirmationChannel
+│   │   ├── commands          -> ConfirmIntakeCommand, ConfirmIntakeByVoiceCommand, GenerateIntakesCommand
+│   │   └── events            -> IntakeConfirmed, IntakeUnconfirmed
+│   ├── services              -> VoiceConfirmationValidationService
+│   └── repositories          -> IntakeRepository
 ├── application
+│   ├── commandservices       -> ConfirmIntakeCommandService, ...          (contratos)
+│   ├── queryservices         -> GetNextIntakeQueryService, ...            (contratos)
+│   ├── models                -> IntakeResult, VoiceConfirmationResult
+│   ├── acl                   -> IntakeContextFacadeImpl
 │   └── internal
-│       ├── commandservices   -> ConfirmIntakeCommandHandler, ...
-│       ├── queryservices     -> GetNextIntakeQueryHandler, ...
-│       ├── eventhandlers     -> TreatmentActivatedEventHandler, ...
-│       └── outboundservices  -> IVoiceRecognitionPort, IDomainEventPublisher
+│       ├── commandservices   -> ConfirmIntakeCommandHandler, ...          (implementaciones)
+│       ├── queryservices     -> GetNextIntakeQueryHandler, ...            (implementaciones)
+│       └── outboundservices  -> IVoiceRecognitionPort, IVoicePreferencePort
 ├── interfaces
-│   ├── rest
-│   │   ├── controllers       -> IntakeQueriesController, IntakeConfirmationController
-│   │   ├── resources         -> NextIntakeResource, IntakeDetailResource, ...
-│   │   └── transform         -> IntakeResourceFromEntityAssembler, ...
-│   └── events                -> TreatmentActivatedEventConsumer, ...
+│   ├── rest                  -> IntakesController, IntakeExceptionHandler
+│   │   ├── resources         -> IntakeResource, ConfirmIntakeResource, ...
+│   │   └── transform         -> IntakeResourceAssembler
+│   ├── acl                   -> IntakeContextFacade
+│   └── events                -> TreatmentScheduleChangedEventListener, ...
 └── infrastructure
-    ├── persistence/jpa       -> IntakeRepository
-    ├── scheduling            -> ReminderScheduler, ToleranceExpirationScheduler
-    ├── external              -> VoiceRecognitionAdapter
-    └── events                -> IntakeDomainEventPublisher, TreatmentActivatedEventListener
+    ├── persistence/jpa
+    │   ├── entities          -> IntakePersistenceEntity
+    │   ├── repositories      -> IntakeJpaRepository
+    │   └── adapters          -> IntakeRepositoryImpl
+    ├── scheduling            -> IntakeUnconfirmedScheduler
+    └── external              -> VoiceRecognitionAdapter, HttpSpeechToTextProviderClient
 ```
 
-**Sufijos por tipo de elemento.** Se mantienen los nombres ya definidos en el Tactical-Level Domain-Driven Design:
+**Sufijos por tipo de elemento.** Se mantienen los nombres definidos en el Tactical-Level Domain-Driven Design:
 
 | Tipo | Regla | Ejemplo |
 | --- | --- | --- |
-| Aggregate / Entity | Sustantivo del dominio, sin sufijo | `Intake`, `Treatment`, `CareLink`, `OmissionCase` |
-| Value Object | Sustantivo, sin sufijo; se implementa como `record` cuando es inmutable | `ToleranceWindow`, `MedicationSnapshot` |
-| Domain Event | Verbo en pasado, sin sufijo `Event` | `TreatmentActivated`, `IntakeToleranceExpired` |
-| Command / Query | Verbo en imperativo + sufijo | `ConfirmIntakeCommand`, `GetNextIntakeQuery` |
-| Handler | Nombre del command, query o evento + `Handler` | `ConfirmIntakeCommandHandler`, `GetNextIntakeQueryHandler` |
-| Resource (DTO REST) | Sustantivo + `Resource` | `IntakeDetailResource`, `IntakeConfirmationResource` |
-| Assembler | Destino + `From` + origen + `Assembler` | `IntakeResourceFromEntityAssembler` |
-| Controller | Recurso en plural + `Controller`; si un recurso se separa por responsabilidad, recurso + responsabilidad + `Controller` | `TreatmentsController`, `IntakeConfirmationController` |
-| Repositorio / puerto (contrato) | Prefijo `I` + nombre | `IIntakeRepository`, `IVoiceRecognitionPort` |
-| Repositorio / adaptador (implementación) | Nombre sin prefijo + `Repository` o `Adapter` | `IntakeRepository`, `VoiceRecognitionAdapter` |
-| Scheduler / Listener / Consumer | Responsabilidad + sufijo | `ReminderScheduler`, `TreatmentActivatedEventListener` |
+| Aggregate / Entity | Sustantivo del dominio, sin sufijo | `Intake`, `Treatment`, `Inventory`, `Batch` |
+| Value Object | Sustantivo, sin sufijo; se implementa como `record` cuando es inmutable | `MedicationSnapshot`, `StockLevel` |
+| Domain Event | Verbo en pasado, sin sufijo `Event` | `IntakeConfirmed`, `LowStockDetected`, `ReplenishmentRegistered` |
+| Command / Query | Verbo en imperativo + sufijo | `ConfirmIntakeCommand`, `GetRemainingStockQuery` |
+| Contrato de servicio de aplicación | Nombre + `CommandService` o `QueryService` | `ConfirmIntakeCommandService`, `InventoryQueryService` |
+| Implementación del servicio | Nombre + `CommandHandler`/`QueryHandler`, o contrato + `Impl` | `ConfirmIntakeCommandHandler`, `InventoryCommandServiceImpl` |
+| Repositorio (contrato de dominio) | Agregado + `Repository`, sin prefijo | `IntakeRepository`, `InventoryRepository` |
+| Repositorio (implementación) | Contrato + `Impl`, en `infrastructure/persistence/jpa/adapters` | `IntakeRepositoryImpl`, `InventoryRepositoryImpl` |
+| Repositorio de Spring Data / entidad JPA | Agregado + `JpaRepository` / `PersistenceEntity` | `IntakeJpaRepository`, `BatchPersistenceEntity` |
+| Puerto de salida (otro BC o servicio externo) | Prefijo `I` + nombre + `Port` | `IVoiceRecognitionPort`, `IMedicationLookupPort` |
+| Fachada ACL | Contexto + `ContextFacade` / `ContextFacadeImpl` | `TreatmentContextFacade`, `IntakeContextFacadeImpl` |
+| Resource (DTO REST) / Assembler | Sustantivo + `Resource` / `ResourceAssembler` | `InventoryResource`, `InventoryResourceAssembler` |
+| Controller | Recurso en plural + `Controller` | `IntakesController`, `TreatmentsController`, `InventoryController` |
+| Listener / Consumer / Scheduler | Responsabilidad + sufijo | `IntakeConfirmedEventListener`, `IntakeUnconfirmedScheduler` |
 
-El prefijo `I` en las interfaces es una convención propia del equipo que *Google Java Style Guide* no utiliza. Se mantiene únicamente para los contratos de repositorio y los puertos de las capas Domain y Application. Así se conserva la coherencia con el diseño de la sección 2.6 y se distingue a simple vista el contrato de su implementación en Infrastructure.
+El prefijo `I` se reserva para los **puertos de salida** de la capa Application, que representan dependencias hacia otro Bounded Context o hacia un servicio externo. Los repositorios de dominio no lo llevan: el contrato se llama como el agregado (`InventoryRepository`) y su implementación en Infrastructure añade el sufijo `Impl`. Algunos repositorios creados al inicio del Sprint 1 (`IOmissionCaseRepository`, `IFamilyMonitorRepository`, `IUserPreferencesRepository`) todavía conservan el prefijo y se renombrarán en el Sprint 2.
 
 **Convenciones de Spring Boot** (según *Spring Boot Features*):
 
 - Inyección de dependencias por constructor, con atributos `private final`; no se usa `@Autowired` sobre atributos.
-- Configuración externa en `application.properties` con perfiles `dev` y `prod` (`application-dev.properties` y `application-prod.properties`). Las claves propias de Tata usan el prefijo `tata.` en *kebab-case*, por ejemplo `tata.reminders.reinforcement-interval=15m`.
-- Credenciales, cadenas de conexión y API keys de servicios externos (correo, Speech-to-Text y notificaciones push) se leen de variables de entorno y nunca se versionan en el repositorio.
+- Configuración externa en `application.properties` con perfiles `dev` y `prod` (`application-dev.properties` y `application-prod.properties`). El perfil activo se elige con `SPRING_PROFILES_ACTIVE`, que por defecto es `dev`. Las claves propias de Tata usan el prefijo `tata.` en *kebab-case*, por ejemplo `tata.cors.allowed-origins`.
+- Credenciales y cadenas de conexión se leen de variables de entorno y nunca se versionan en el repositorio.
+- Los mensajes de error visibles se resuelven con `MessageSource` desde `src/main/resources/i18n/messages.properties` (inglés) y `messages_es_419.properties` (español latinoamericano).
 
 **Convenciones de la API REST:**
 
 - Todas las rutas comienzan con `/api/v1`.
-- Los recursos se nombran con sustantivos en plural y en *kebab-case*: `/api/v1/treatments`, `/api/v1/medications`, `/api/v1/care-links`, `/api/v1/intakes/{intakeId}`.
-- Las acciones que no son CRUD se modelan como subrecursos: la confirmación de una toma (US-06, TS-04) es `POST /api/v1/intakes/{intakeId}/confirmations`.
-- Las propiedades JSON se escriben en *lowerCamelCase* (`scheduledAt`, `confirmationChannel`), que es el comportamiento por defecto de Jackson.
-- Los códigos HTTP se usan según su significado: `200` y `201` para éxito, `400` para validación, `401` y `403` para autenticación o permisos (por ejemplo, un familiar sin vínculo de cuidado activo) y `404` para recursos inexistentes.
+- Los recursos se nombran con sustantivos en plural y en *kebab-case*: `/api/v1/treatments`, `/api/v1/medications`, `/api/v1/care-links`, `/api/v1/inventories`.
+- Las acciones que no son CRUD se modelan como subrecursos: la reposición de un inventario (US-43, TS-12) es `POST /api/v1/inventories/{medicationId}/replenishments`.
+- Las propiedades JSON se escriben en *lowerCamelCase* (`remainingStock`, `replenishmentThreshold`), que es el comportamiento por defecto de Jackson.
+- Los errores se devuelven con un cuerpo uniforme `{ "code": "...", "message": "..." }`. El `code` es estable y en *UPPER_SNAKE_CASE* (`INVENTORY_NOT_FOUND`, `INVENTORY_ALREADY_EXISTS`, `CONCURRENT_UPDATE`) para que las aplicaciones móviles lo traduzcan sin depender del texto.
+- Los códigos HTTP se usan según su significado: `200` y `201` para éxito, `400` para validación, `401` y `403` para autenticación o permisos, `404` para recursos inexistentes y `409` para conflictos de estado.
 
-**Pruebas.** Las clases de prueba se nombran como la clase probada más `Test` (`IntakeTest`, `ConfirmIntakeCommandHandlerTest`). Los métodos siguen el patrón `method_condition_expectedResult`, que *Google Java Style Guide* permite en pruebas: `confirm_whenIntakeIsPending_setsStatusConfirmed()`.
+**Pruebas.** Las clases de prueba se nombran como la clase probada más `Test` (`StockCoveragePolicyTest`, `InventoryRepositoryImplTest`). Las pruebas del backend usan una base H2 en memoria, de modo que se ejecutan sin PostgreSQL con `mvn test`.
 
 #### Kotlin (Aplicación Android nativa)
 
-Se siguen *Kotlin Coding Conventions* y *Android Kotlin Style Guide*, usando el esquema de formato *Kotlin style guide* de Android Studio: indentación de 4 espacios y límite de 100 caracteres por línea.
+Se siguen *Kotlin Coding Conventions* y *Android Kotlin Style Guide*, usando el esquema de formato *Kotlin style guide* de Android Studio: indentación de 4 espacios. La interfaz se construye con Jetpack Compose.
 
-- Paquete base `com.vitahealth.tata.android`, organizado primero por Bounded Context y luego por capa: `intake/data`, `intake/domain`, `intake/presentation`.
-- Clases en *UpperCamelCase*; funciones y propiedades en *lowerCamelCase*; constantes (`const val`) en *UPPER_SNAKE_CASE*. El estado interno mutable de un ViewModel usa el prefijo `_` y se expone como inmutable: `private val _uiState` y `val uiState`.
-- Sufijos por responsabilidad: `NextIntakeViewModel`, `IntakeRepository`, `IntakeDao` (Room), `IntakeEntity` (tabla local), `IntakeDto` (respuesta del backend), y `...Screen` o `...Activity`/`...Fragment` para las pantallas.
-- Las tablas locales de Room usan los mismos nombres que en PostgreSQL (`@Entity(tableName = "intakes")`), para facilitar la sincronización de la información esencial (Technical Story de almacenamiento local).
-- Los archivos de recursos se nombran en *snake_case* con prefijo de tipo: `activity_home.xml`, `ic_voice_confirmation.xml`, `bg_intake_card.xml`. Las claves de `strings.xml` llevan el prefijo de la pantalla: `home_next_intake_title`.
-- Los tamaños de texto se definen en `sp` y las dimensiones en `dp`, respetando la escala de la sección 3.1.1.1 (Body 16 sp; CTA principal de 56 a 64 dp de alto).
+- **Un módulo Gradle por Bounded Context**: `:identity`, `:carelink`, `:treatment`, `:intake`, `:omission`, `:monitoring`, `:analytics`, `:inventory` y `:preferences`. El módulo `:shared` contiene el tema, los componentes de diseño y la sesión, y el módulo `:app` contiene la navegación y la inyección de dependencias (`AppContainer`, `TataNavHost`).
+- Paquete base `com.vitahealth.tata.<contexto>` y, dentro de cada módulo, las capas `domain`, `application` (`commands`, `queries`, `handlers`, `readmodels`), `infrastructure` (`remote`, `local`) y `presentation`. Por ejemplo, `com.vitahealth.tata.inventory.presentation.inventory`.
+- Clases en *UpperCamelCase*; funciones y propiedades en *lowerCamelCase*; constantes (`const val`) en *UPPER_SNAKE_CASE*. El estado interno mutable de un ViewModel usa el prefijo `_` y se expone como inmutable: `private val _uiState` y `val uiState: StateFlow<...>`.
+- Sufijos por responsabilidad: `InventoryViewModel`, `InventoryUiState` (interfaz *sealed* con un estado por variante, por ejemplo `Loading`, `NotInitialized`, `Ready` y `Error`), `InventoryScreen` (composable sin estado) e `InventoryRoute` (composable que conecta el ViewModel), `RegisterReplenishmentCommand`, `RegisterReplenishmentCommandHandler`, `InventoryStockReadModel`, `InventoryApiService` (Retrofit) y `RemoteInventoryRepository`.
+- Un *frame* de Figma no equivale a una pantalla: los estados de una misma vista (stock bajo, stock disponible, cantidad inválida) se representan como variantes de su `UiState`, y cada una tiene su `@Preview`.
+- Los errores del backend se traducen por su `code` estable a recursos de texto; el texto nunca se toma directamente del `message` del backend.
+- Recursos en *snake_case* con el prefijo del módulo o de la pantalla: `inventory_status_low`, `treatment_open_inventory`, `agenda_bell.png`.
+- Los textos visibles están en `res/values/strings.xml` (inglés, por defecto) y `res/values-b+es+419/strings.xml` (español latinoamericano). Las vistas previas en español se declaran con `@Preview(locale = "b+es+419")`.
+- Los tamaños de texto se definen en `sp` y las dimensiones en `dp`, respetando la escala de la sección 3.1.1.1.
 
 #### Dart y Flutter (Aplicación móvil multiplataforma)
 
@@ -371,8 +385,9 @@ Las convenciones siguen lo ya definido en los Database Design Diagrams de la sec
 - Tablas en plural y en *snake_case*: `intakes`, `treatments`, `care_links`, `omission_cases`.
 - Columnas en *snake_case*. La clave primaria se llama `id` y las referencias lógicas a otros Bounded Contexts siguen el formato `<entidad>_id` (`treatment_id`, `older_adult_id`).
 - Las fechas y horas terminan en `_at` (`scheduled_at`, `confirmed_at`) y todas las tablas incluyen las columnas de auditoría `created_at` y `updated_at`.
-- Los enums se almacenan como texto en mayúsculas (`PENDING`, `TAP`), con los mismos valores que en Java.
-- En las entidades JPA los atributos se escriben en *lowerCamelCase* (`scheduledAt`). La estrategia de nombres por defecto de Spring Boot los convierte automáticamente a *snake_case* (`scheduled_at`), por lo que no es necesario repetir `@Column(name = ...)` salvo excepciones.
+- Los enums se almacenan como texto en mayúsculas (`PENDING`, `TOUCH`), con los mismos valores que en Java.
+- Las referencias a entidades de otro Bounded Context se guardan como identificadores UUID en texto (`varchar(36)`), sin clave foránea, porque cada contexto es dueño de sus tablas. Por ejemplo, `inventories.medication_id` referencia a un medicamento de Treatment Management.
+- En las entidades JPA los atributos se escriben en *lowerCamelCase* (`scheduledAt`). La estrategia de nombres del proyecto (`SnakeCaseWithPluralizedTablePhysicalNamingStrategy`, en `com.tata.shared`) los convierte automáticamente a *snake_case* y pluraliza el nombre de la tabla, por lo que no es necesario repetir `@Column(name = ...)` ni `@Table(name = ...)` salvo excepciones.
 
 
 ### 4.1.4. Software Deployment Configuration
@@ -381,15 +396,15 @@ En esta sección el equipo especifica la configuración y los pasos para despleg
 
 | Producto | Repositorio | Plataforma de despliegue | Rama que se despliega | URL / forma de acceso |
 | --- | --- | --- | --- | --- |
-| Landing Page |  | GitHub Pages | `main` |  |
-| Web Services (API Gateway y módulos de los 9 Bounded Contexts) |  | Render, como Web Service con Docker | `main` |  |
-| Base de datos central | — | Render PostgreSQL | — | Solo accesible desde el backend, por URL interna |
-| Aplicación Android nativa (Kotlin) |  | Firebase App Distribution | `main` | Invitación por correo a los testers |
+| Landing Page | [landing-page](https://github.com/vitaHealth-UPC/landing-page) | GitHub Pages | `main` | https://vitahealth-upc.github.io/landing-page/ |
+| Web Services (API Gateway y módulos de los 9 Bounded Contexts) | [web-services](https://github.com/vitaHealth-UPC/web-services) | Render o Railway, como servicio con Docker | `main` | `https://<servicio>/swagger-ui.html` |
+| Base de datos central | — | PostgreSQL administrado (Neon o Railway) | — | Solo accesible desde el backend, mediante `DATABASE_URL` |
+| Aplicación Android nativa (Kotlin) | [mobile-android](https://github.com/vitaHealth-UPC/mobile-android) | Firebase App Distribution | `main` | Invitación por correo a los testers |
 | Aplicación multiplataforma (Flutter) |  | Firebase App Distribution | `main` | Invitación por correo a los testers |
 
 **Relación con el flujo de trabajo.** De acuerdo con el modelo GitFlow descrito en la sección 4.1.2, solo la rama `main` se despliega en producción. El trabajo diario se integra en `develop` y se prueba en local. Cuando una versión está lista, se crea la rama `release/x.y.z`, se integra en `main` y se etiqueta como `vx.y.z` siguiendo Semantic Versioning. Esa integración en `main` es la que dispara o habilita cada despliegue descrito a continuación.
 
-**Manejo de credenciales.** Ningún repositorio contiene contraseñas, API keys ni keystores de firma. Estos valores se configuran como variables de entorno en Render o se guardan fuera del repositorio (archivos incluidos en `.gitignore`) y se comparten solo entre los integrantes del equipo.
+**Manejo de credenciales.** Ningún repositorio contiene contraseñas, API keys ni keystores de firma. Estos valores se configuran como variables de entorno en la plataforma de despliegue o se guardan fuera del repositorio (archivos incluidos en `.gitignore`) y se comparten solo entre los integrantes del equipo.
 
 #### Landing Page: GitHub Pages
 
@@ -402,73 +417,68 @@ El Landing Page es un sitio estático (HTML5, CSS3 y JavaScript), por lo que se 
 5. GitHub ejecuta automáticamente el workflow `pages-build-deployment`, cuyo avance puede verse en la pestaña **Actions**. Al terminar, el sitio queda disponible en `https://vitahealth-upc.github.io/<repositorio>/`.
 6. Cada nueva integración en `main` vuelve a publicar el sitio automáticamente. Después de cada publicación se verifica en el navegador que carguen las secciones del Landing Page y que las meta tags de la sección 3.1.2.3 aparezcan en el código fuente de la página.
 
-#### Web Services: Render y PostgreSQL
+#### Web Services: Docker en Render o Railway, y PostgreSQL administrado
 
-Según la sección 2.5.3.3, el API Gateway y los módulos de los nueve Bounded Contexts se ejecutan juntos en un único desplegable. Por ello el backend se publica como **un solo Web Service** en Render, conectado a **una instancia de PostgreSQL** administrada por la misma plataforma. Render no ofrece un entorno nativo para Java, así que el despliegue se realiza mediante una imagen Docker construida desde el repositorio.
+Según la sección 2.5.3.3, el API Gateway y los módulos de los nueve Bounded Contexts se ejecutan juntos en un único desplegable. Por ello el backend se publica como **un solo servicio web** a partir de una imagen Docker construida desde el repositorio, conectado a **una instancia de PostgreSQL administrada**. El repositorio deja preparadas dos plataformas que construyen la misma imagen: **Render** (Web Service con entorno Docker) y **Railway** (archivo `railway.toml`). La base de datos se aloja en un servicio PostgreSQL administrado (Neon o Railway PostgreSQL), y el backend acepta directamente la URL que entregan estos servicios.
 
-**Configuración requerida en el repositorio del backend:**
+**Configuración incluida en el repositorio del backend:**
 
-a) Un `Dockerfile` en la raíz, que compila el proyecto con Maven y ejecuta el `.jar` resultante:
+a) Un `Dockerfile` en la raíz, de dos etapas, que compila el proyecto con Maven y Java 26 y ejecuta el `.jar` resultante con el perfil `prod`:
 
 ```dockerfile
-# Etapa 1: compilación
-FROM maven:3.9-eclipse-temurin-21 AS build
-WORKDIR /app
+FROM maven:3.9.16-eclipse-temurin-26 AS build
+WORKDIR /workspace
 COPY pom.xml .
 COPY src ./src
-RUN mvn -q clean package -DskipTests
+RUN mvn --batch-mode -DskipTests package
 
-# Etapa 2: ejecución
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:26-jre-noble
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+ENV SPRING_PROFILES_ACTIVE=prod
+ENV JAVA_OPTS=""
+COPY --from=build /workspace/target/web-services-*.jar /app/app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
 ```
 
-El proyecto se gestiona con Maven, por lo que la compilación usa el `pom.xml` de la raíz. Las imágenes base (`eclipse-temurin-21`) deben coincidir con la versión de Java elegida al crear el proyecto en Spring Initializr; si se elige Java 17, se reemplaza `21` por `17` en ambas etapas.
-
-b) Un archivo `application-prod.properties` que toma la configuración de variables de entorno, en lugar de valores escritos en el código:
+b) Un archivo `application-prod.properties` que toma toda la configuración de variables de entorno, con valores por defecto seguros:
 
 ```properties
 server.port=${PORT:8080}
-spring.datasource.url=${DATABASE_URL}
-spring.datasource.username=${DATABASE_USERNAME}
-spring.datasource.password=${DATABASE_PASSWORD}
-spring.jpa.hibernate.ddl-auto=update
-management.endpoints.web.exposure.include=health
+spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:tata}}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME:${DATABASE_USER:}}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:${DATABASE_PASSWORD:}}
+spring.jpa.hibernate.ddl-auto=${DDL_AUTO:update}
+tata.cors.allowed-origins=${TATA_CORS_ALLOWED_ORIGINS:*}
 ```
 
-c) Las dependencias `springdoc-openapi-starter-webmvc-ui`, que publica la documentación Swagger/OpenAPI indicada en la sección 4.1.1, y `spring-boot-starter-actuator`, que expone `/actuator/health` para que Render verifique el estado del servicio.
+c) La clase `DatabaseUrlEnvironmentPostProcessor`, que convierte automáticamente la variable `DATABASE_URL` con formato `postgresql://usuario:contraseña@host/base?sslmode=require` (el formato que entregan Neon, Railway y Render) al formato JDBC que necesita Spring Boot, conservando `sslmode`. Así no es necesario armar la URL JDBC a mano.
 
-**Pasos en Render:**
+d) Un endpoint de salud `GET /health` (`HealthController`), que la plataforma usa para verificar que el servicio inició, y la documentación Swagger/OpenAPI generada por `springdoc-openapi` en `/swagger-ui.html`.
 
-1. Crear la cuenta del equipo en Render iniciando sesión con GitHub, y autorizar el acceso de Render al repositorio del backend dentro de la organización `vitaHealth-UPC`.
-2. Crear la base de datos desde **New → PostgreSQL**, con el nombre `tata-db`. Elegir la región y anotarla, porque el Web Service debe crearse en la misma región.
-3. Una vez creada la base de datos, copiar desde su panel el host, el nombre de la base, el usuario y la contraseña. Render entrega la URL con el formato `postgresql://usuario:contraseña@host/base`, pero Spring Boot requiere el formato JDBC, por lo que `DATABASE_URL` se arma como `jdbc:postgresql://<host>:5432/<base>`. Se usa el **host interno**, ya que el backend y la base de datos están en la misma región.
-4. Crear el servicio desde **New → Web Service**, seleccionando el repositorio del backend, la rama `main` y el entorno **Docker**. Render detecta el `Dockerfile` de la raíz.
-5. En la sección **Environment**, registrar las variables de entorno:
+e) El archivo `railway.toml`, que indica a Railway construir con el `Dockerfile`, usar `/health` como health check y reiniciar el servicio ante fallos (hasta 5 reintentos).
+
+**Pasos de despliegue:**
+
+1. Crear la base de datos PostgreSQL en el servicio administrado (Neon o Railway) con el nombre `tata` y copiar su cadena de conexión (`postgresql://...`).
+2. En Render, iniciar sesión con GitHub, autorizar el acceso al repositorio `web-services` de la organización `vitaHealth-UPC` y crear el servicio desde **New → Web Service**, con entorno **Docker**. Render detecta el `Dockerfile` de la raíz. En Railway, el equivalente es **New Project → Deploy from GitHub repo**, que detecta el `railway.toml`.
+3. Registrar las variables de entorno del servicio:
 
 | Variable | Valor |
 | --- | --- |
-| `SPRING_PROFILES_ACTIVE` | `prod` |
-| `DATABASE_URL` | `jdbc:postgresql://<host interno>:5432/<base>` |
-| `DATABASE_USERNAME` | Usuario de `tata-db` |
-| `DATABASE_PASSWORD` | Contraseña de `tata-db` |
-| `JWT_SECRET` | Clave de firma de tokens para la autenticación del familiar y la validación del PIN del adulto mayor |
-| `FIREBASE_CREDENTIALS` | Credenciales de la cuenta de servicio de Firebase para el envío de notificaciones push mediante Firebase Cloud Messaging |
-| `SPEECH_TO_TEXT_API_KEY` | API key del servicio Speech-to-Text seleccionado en el Spike 1 |
-| `MAIL_USERNAME` / `MAIL_PASSWORD` | Credenciales del servicio de correo usado para la verificación de cuentas |
+| `SPRING_PROFILES_ACTIVE` | `prod` (ya definida en el `Dockerfile`) |
+| `DATABASE_URL` | Cadena de conexión `postgresql://...` del paso 1; se convierte a JDBC automáticamente |
+| `DATABASE_HOST` / `DATABASE_PORT` / `DATABASE_NAME` / `DATABASE_USER` / `DATABASE_PASSWORD` | Alternativa a `DATABASE_URL`, con los datos de conexión por separado |
+| `PORT` | La define la plataforma; la aplicación la toma con `server.port=${PORT:8080}` |
+| `TATA_CORS_ALLOWED_ORIGINS` | Orígenes permitidos, separados por comas |
 
-Las variables de los servicios externos se registran en el momento en que se integra cada servicio en el backend; mientras tanto, el Web Service funciona solo con las variables de base de datos y autenticación.
+4. Configurar `/health` como **Health Check Path** (en Railway ya viene definido en `railway.toml`) y dejar el despliegue automático activado.
+5. Ejecutar el primer despliegue y revisar los logs hasta ver que Spring Boot inició correctamente.
+6. Verificar el despliegue abriendo `https://<servicio>/health` y la documentación en `https://<servicio>/swagger-ui.html`, y ejecutando desde ella una operación de prueba, por ejemplo la consulta del inventario de un medicamento (US-41).
 
-6. En **Advanced**, configurar el **Health Check Path** como `/actuator/health` y dejar **Auto-Deploy** activado, para que cada integración en `main` genere un nuevo despliegue.
-7. Ejecutar el primer despliegue y revisar los logs en el panel de Render hasta ver que Spring Boot inició correctamente. La variable `PORT` la define Render y la aplicación la toma mediante `server.port=${PORT:8080}`.
-8. Verificar el despliegue abriendo la documentación en `https://<servicio>.onrender.com/swagger-ui/index.html` y ejecutando desde ella una operación de prueba, por ejemplo la consulta de la próxima toma (US-20).
-
-**Consideraciones del plan gratuito de Render:**
-- El Web Service se suspende tras un periodo sin tráfico y la primera solicitud posterior puede tardar cerca de un minuto. Antes de cada sustentación y de las entrevistas de validación, el equipo abre la URL del backend para activarlo.
-- La base de datos PostgreSQL gratuita tiene una duración limitada. El equipo verifica la fecha de expiración en el panel de Render y, antes de que venza, exporta los datos con `pg_dump` y los restaura en una nueva instancia (o migra a un plan de pago) para llegar al TB2 con la información intacta.
+**Consideraciones de los planes gratuitos:**
+- El servicio web puede suspenderse tras un periodo sin tráfico, y la primera solicitud posterior puede tardar cerca de un minuto. Antes de cada sustentación y de las entrevistas de validación, el equipo abre `/health` para activarlo.
+- Las bases de datos gratuitas tienen límites de almacenamiento o de duración. El equipo revisa esos límites en el panel del proveedor y, si es necesario, exporta los datos con `pg_dump` y los restaura en una nueva instancia para llegar al TB2 con la información intacta.
 
 #### Aplicaciones móviles: Firebase App Distribution
 
@@ -477,34 +487,27 @@ Las dos aplicaciones móviles se distribuyen como archivos APK firmados mediante
 **Preparación común (una sola vez):**
 
 1. En la consola de Firebase, crear el proyecto de Tata con la cuenta del equipo.
-2. Registrar la aplicación Android nativa con el identificador `com.vitahealth.tata.android` y la aplicación Flutter con `com.vitahealth.tata.flutter`, y descargar el archivo `google-services.json` de cada una.
+2. Registrar la aplicación Android nativa con el identificador `com.vitahealth.tata` y la aplicación Flutter con `com.vitahealth.tata.flutter`, y descargar el archivo `google-services.json` de cada una.
 3. En **App Distribution**, crear el grupo de testers `vitahealth-team` con los correos de los seis integrantes, y el grupo `validation-users` para los participantes de las entrevistas de validación (sección 4.3).
 4. Generar una llave de firma (*keystore*) por aplicación. El archivo `.jks` y sus contraseñas se guardan **fuera del repositorio** y se comparten solo dentro del equipo, porque cada versión nueva de una app debe firmarse con la misma llave para poder instalarse sobre la anterior.
 
 **Aplicación Android nativa (Kotlin):**
 
 1. Copiar `google-services.json` en la carpeta `app/`.
-2. Definir la URL del backend según el tipo de compilación en `app/build.gradle.kts`: en `debug` apunta al backend local y en `release` al backend desplegado en Render.
+2. Definir la URL del backend. En `app/build.gradle.kts` la URL se lee de la propiedad de Gradle `TATA_API_BASE_URL` y, si no se indica, apunta al backend local desde el emulador (`http://10.0.2.2:8080/`). Para la versión distribuida se compila indicando la URL del backend desplegado, sin escribirla en el código:
 
 ```kotlin
-android {
-    buildFeatures { buildConfig = true }
-    buildTypes {
-        debug {
-            buildConfigField("String", "API_BASE_URL", "\"http://10.0.2.2:8080/api/v1/\"")
-        }
-        release {
-            buildConfigField("String", "API_BASE_URL", "\"https://<servicio>.onrender.com/api/v1/\"")
-            signingConfig = signingConfigs.getByName("release")
-        }
-    }
+defaultConfig {
+    val apiBaseUrl = providers.gradleProperty("TATA_API_BASE_URL")
+        .orElse("http://10.0.2.2:8080/").get()
+    buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl}\"")
 }
 ```
 
 3. Configurar `signingConfigs.release` para que lea la ruta y las contraseñas de la llave desde un archivo `keystore.properties`, incluido en `.gitignore`.
 4. Actualizar `versionName` con la versión semántica de la release (por ejemplo, `1.0.0`) e incrementar `versionCode` en cada distribución.
-5. Generar el APK firmado con `./gradlew assembleRelease`. El archivo se genera en `app/build/outputs/apk/release/app-release.apk`.
-6. En **Firebase → App Distribution**, seleccionar la aplicación `com.vitahealth.tata.android`, subir el APK, escribir las notas de versión con las User Stories incluidas y distribuirlo a los grupos correspondientes.
+5. Generar el APK firmado con `./gradlew assembleRelease -PTATA_API_BASE_URL=https://<servicio>/`. El archivo se genera en `app/build/outputs/apk/release/app-release.apk`.
+6. En **Firebase → App Distribution**, seleccionar la aplicación `com.vitahealth.tata`, subir el APK, escribir las notas de versión con las User Stories incluidas y distribuirlo a los grupos correspondientes.
 7. Cada tester recibe un correo de invitación, acepta la distribución e instala el APK en su dispositivo físico, habilitando la instalación de aplicaciones de origen desconocido. Este es el dispositivo que se usa en la sustentación, como exige el enunciado.
 
 **Aplicación multiplataforma (Flutter):**
@@ -521,7 +524,7 @@ const apiBaseUrl = String.fromEnvironment(
 ```
 
 4. Configurar la firma en `android/app/build.gradle.kts` a partir de un archivo `android/key.properties`, incluido en `.gitignore`, siguiendo la guía oficial de Flutter para compilaciones Android de release.
-5. Generar el APK firmado con `flutter build apk --release --dart-define=API_BASE_URL=https://<servicio>.onrender.com/api/v1`. El archivo se genera en `build/app/outputs/flutter-apk/app-release.apk`.
+5. Generar el APK firmado con `flutter build apk --release --dart-define=API_BASE_URL=https://<servicio>/api/v1`. El archivo se genera en `build/app/outputs/flutter-apk/app-release.apk`.
 6. Subir el APK en **Firebase → App Distribution** para la aplicación `com.vitahealth.tata.flutter` y distribuirlo igual que la aplicación nativa.
 
 En el alcance actual, ambas aplicaciones se distribuyen como APK para Android, que es la plataforma de los dispositivos físicos usados en la sustentación y en las entrevistas de validación. La distribución de una compilación para iOS requiere una cuenta de Apple Developer Program y no forma parte de esta configuración.
@@ -533,8 +536,8 @@ El siguiente Deployment Diagram del C4 Model, presentado inicialmente en la secc
 | Nodo del diagrama | Plataforma elegida |
 | --- | --- |
 | Hosting web estático / CDN | GitHub Pages |
-| Plataforma de aplicaciones en la nube (API Gateway y módulos de los Bounded Contexts) | Render Web Service (Docker) |
-| Servicio administrado de PostgreSQL | Render PostgreSQL |
+| Plataforma de aplicaciones en la nube (API Gateway y módulos de los Bounded Contexts) | Render Web Service o Railway, con la imagen Docker del backend |
+| Servicio administrado de PostgreSQL | Neon o Railway PostgreSQL |
 | Dispositivo Android / Dispositivo móvil multiplataforma | Dispositivos físicos de los testers, con las apps instaladas desde Firebase App Distribution |
 | Servicio de notificaciones | Firebase Cloud Messaging |
 | Servicio Speech-to-Text | Proveedor seleccionado en el Spike 1, consumido desde Intake Execution BC |
@@ -557,7 +560,7 @@ Las evidencias de la ejecución de estos pasos en cada Sprint (creación de cuen
 #### 4.2.1.5. Testing Suite Evidence for Sprint Review
 #### 4.2.1.6. Execution Evidence for Sprint Review
 
-Durante el Sprint 1 el equipo implementó y publicó el Landing Page de Tata y construyó las primeras vistas de la aplicación Android nativa, enfocadas en el flujo inicial del familiar: registro de su cuenta, vinculación con el adulto mayor, registro de medicamentos y configuración del tratamiento, hasta la consulta de la próxima toma por parte del adulto mayor. Las vistas de la aplicación consumen los endpoints del backend implementados en el mismo Sprint.
+Durante el Sprint 1 el equipo implementó y publicó el Landing Page de Tata y construyó las vistas de la aplicación Android nativa para los flujos principales del familiar y del adulto mayor: acceso y registro, vinculación de cuidado, gestión de medicamentos y tratamientos, próxima toma y agenda, resumen familiar, analítica de adherencia, preferencias de accesibilidad e inventario de medicamentos. Las vistas consumen los endpoints del backend implementados en el mismo Sprint. Toda la interfaz está en inglés por defecto y traducida a español latinoamericano (es-419).
 
 El Landing Page se encuentra desplegado en GitHub Pages y puede visitarse en: https://vitahealth-upc.github.io/landing-page/
 
@@ -565,71 +568,98 @@ El Landing Page se encuentra desplegado en GitHub Pages y puede visitarse en: ht
 
 | Sección | User Story | Captura |
 | --- | --- | --- |
-| Encabezado y hero ("Cuidar los medicamentos sin complicarte") | US-46 |  |
-| Propuesta de valor y funcionalidades | US-47 |  |
-| La app de Tata y "Cómo funciona" | US-47 |  |
-| Historia detrás de Tata y testimonio | US-46 |  |
-| Planes y sección de preguntas | US-48 |  |
-| Llamado a la acción y footer | US-49 |  |
-| Vista responsive en dispositivo móvil | US-50 |  |
+| Encabezado y hero ("Manage your medications without the hassle") | US-46 | Figura 1 |
+| Propuesta de valor y funcionalidades | US-47 | Figura 2 |
+| La app de Tata y "How it works" | US-47 | Figura 3 |
+| Testimonio e historia detrás de Tata | US-46 | Figura 4 |
+| Planes y sección de soporte | US-48 | Figura 5 |
+| Llamado a la acción y footer | US-49 | Figura 6 |
+| Vista responsive en dispositivo móvil | US-50 | Figura 7 |
 
 ![Landing Page - Hero](assets/execution-evidence/landing-hero.png)
 
-*Figura. Sección principal del Landing Page de Tata.*
+*Figura 1. Encabezado y sección principal del Landing Page.*
+
+![Landing Page - Funcionalidades](assets/execution-evidence/landing-value-features.png)
+
+*Figura 2. Propuesta de valor y funcionalidades.*
+
+![Landing Page - App y cómo funciona](assets/execution-evidence/landing-app-how.png)
+
+*Figura 3. Presentación de la app y sección "How it works".*
+
+![Landing Page - Testimonio](assets/execution-evidence/landing-testimonial-about.png)
+
+*Figura 4. Testimonio e historia detrás de Tata.*
+
+![Landing Page - Planes y soporte](assets/execution-evidence/landing-plans-faq.png)
+
+*Figura 5. Planes de suscripción y sección de soporte.*
+
+![Landing Page - CTA y footer](assets/execution-evidence/landing-cta-footer.png)
+
+*Figura 6. Llamado a la acción y footer.*
+
+![Landing Page - Vista móvil](assets/execution-evidence/landing-mobile.png)
+
+*Figura 7. Vista del Landing Page en un dispositivo móvil.*
 
 **Aplicación Android nativa**
 
-| Vista | User Story | Descripción | Captura |
+| Módulo (Bounded Context) | Vista | User Stories | Descripción |
 | --- | --- | --- | --- |
-| Registro del familiar | US-10, US-11 | El familiar crea su cuenta y verifica su correo electrónico |  |
-| Vinculación con el adulto mayor | US-02, US-13 | El familiar solicita la vinculación y se registra el consentimiento del adulto mayor |  |
-| Registro de medicamento | US-03 | El familiar registra un medicamento con su nombre, presentación e indicaciones |  |
-| Creación de tratamiento | US-14 | El familiar crea un tratamiento para el adulto mayor |  |
-| Dosis y frecuencia | US-15 | Se define la dosis y la frecuencia de cada medicamento |  |
-| Horarios e instrucciones | US-16 | Se configuran los horarios de toma y las instrucciones |  |
-| Recordatorios del tratamiento | US-17 | Se configura la política de recordatorios |  |
-| Activación y pausa del tratamiento | US-18 | El familiar activa o pausa el tratamiento |  |
-| Detalle del tratamiento | US-19 | Se consulta el resumen del tratamiento configurado |  |
-| Próxima toma (inicio del adulto mayor) | US-20 | El adulto mayor visualiza su próxima toma pendiente |  |
-| Detalle de la toma | US-21 | Se muestra el medicamento, la dosis, las instrucciones y el estado de la toma |  |
+| `:identity` | Registro del familiar | US-10, US-11 | El familiar crea su cuenta y verifica su correo electrónico |
+| `:identity` | Acceso con contraseña y PIN | US-01 | Inicio de sesión del familiar y acceso del adulto mayor con PIN, según su rol |
+| `:carelink` | Perfiles de adultos mayores | US-12 | El familiar registra el perfil del adulto mayor y genera un código de vinculación |
+| `:carelink` | Vinculación de cuidado | US-02, US-13 | Se solicita la vinculación y se registra el consentimiento del adulto mayor |
+| `:treatment` | Registro y gestión de medicamentos | US-03, US-04 | El familiar registra, edita y desactiva medicamentos |
+| `:treatment` | Creación y configuración del tratamiento | US-14, US-15, US-16, US-17 | Tratamiento, dosis, frecuencia, horarios, instrucciones y recordatorios |
+| `:treatment` | Activación, pausa y detalle del tratamiento | US-18, US-19 | El familiar activa o pausa el tratamiento y consulta su resumen |
+| `:intake` | Próxima toma y detalle de la toma | US-20, US-21, US-06 | El adulto mayor ve su próxima toma y la confirma |
+| `:intake` | Agenda del día | US-24 | Tomas programadas del día con su estado |
+| `:monitoring` | Resumen familiar | US-25 | Estado reciente del cuidado del adulto mayor |
+| `:analytics` | Historial y recomendaciones de adherencia | US-08, US-09, US-32, US-33, US-34 | Tomas a tiempo, tardías u omitidas, patrones de omisión y recomendaciones |
+| `:preferences` | Accesibilidad y notificaciones | US-35, US-36, US-37, US-38, US-39 | Tamaño de texto, alto contraste, movimiento reducido, asistencia de lectura y horario de silencio |
+| `:inventory` | Inventario del medicamento | US-40, US-41, US-42, US-43 | Stock inicial, stock restante, alerta de stock bajo y registro de reposiciones con lote |
 
-![App Android - Próxima toma](assets/execution-evidence/android-next-dose.png)
+![App Android - Inventario](assets/execution-evidence/android-inventory.png)
 
-*Figura. Vista de la próxima toma en la aplicación Android de Tata.*
+*Figura 8. Vista de inventario (US-41, US-42) en sus estados de stock bajo y stock disponible.*
 
 **Video de ejecución**
 
-El siguiente video muestra la navegación del Landing Page y el recorrido por las vistas implementadas de la aplicación Android en el Sprint 1, desde el registro del familiar hasta la consulta de la próxima toma.
+El siguiente video muestra la navegación del Landing Page y el recorrido por las vistas implementadas de la aplicación Android en el Sprint 1.
 
 - Enlace al video: 
-- Duración:
+- Duración: 
 
 #### 4.2.1.7. Services Documentation Evidence for Sprint Review
 #### 4.2.1.8. Software Deployment Evidence for Sprint Review
 #### 4.2.1.9. Team Collaboration Insights during Sprint
 
-Durante el Sprint 1 el equipo trabajó en tres repositorios de la organización `vitaHealth-UPC`, aplicando el flujo GitFlow descrito en la sección 4.1.2. Cada User Story o Technical Story se desarrolló en su propia rama de feature, nombrada con el identificador de la historia (por ejemplo, `feature/ts-02-care-link-api`, `feature/us-03-register-medication` y `feature/us-46-header-hero`), y se integró a `develop` mediante Pull Request. Los mensajes de commit siguen Conventional Commits, con el Bounded Context como scope (por ejemplo, `feat(care-link): implement care linking lifecycle` o `feat(intake): implement US-20 next dose home`), lo que permite trazar cada cambio hacia la historia que lo originó.
+Durante el Sprint 1 el equipo trabajó en cuatro repositorios de la organización `vitaHealth-UPC` (Landing Page, Web Services, aplicación Android e informe), aplicando el flujo GitFlow descrito en la sección 4.1.2. Cada User Story o Technical Story se desarrolló en su propia rama de feature, nombrada con el identificador de la historia (por ejemplo, `feature/ts-12-inventory-replenishment-api`, `feature/us-40-initial-inventory` y `feature/us-46-header-hero`), y se integró a `develop` mediante Pull Request. Los mensajes de commit siguen Conventional Commits, con el Bounded Context o la historia como scope (por ejemplo, `feat(inventory): add quantity and reorder threshold value objects` o `feat(us-19): reopen existing treatments`), lo que permite trazar cada cambio hacia la historia que lo originó.
 
-| Repositorio | Producto | Ramas de feature | Pull Requests integrados a `develop` | Commits en el Sprint |
+Las cifras corresponden a la rama `develop` de cada repositorio al cierre del Sprint 1 (7 de octubre de 2026).
+
+| Repositorio | Producto | Ramas de feature | Pull Requests integrados a `develop` | Commits en `develop` (sin merges) |
 | --- | --- | --- | --- | --- |
-| [landing-page](https://github.com/vitaHealth-UPC/landing-page) | Landing Page |  |  |  |
-| [web-services](https://github.com/vitaHealth-UPC/web-services) | Web Services |  |  |  |
-| [mobile-android](https://github.com/vitaHealth-UPC/mobile-android) | Aplicación Android |  |  |  |
+| [landing-page](https://github.com/vitaHealth-UPC/landing-page) | Landing Page | 7 | 2 | 40 |
+| [web-services](https://github.com/vitaHealth-UPC/web-services) | Web Services | 14 (+3 de corrección) | 19 | 83 |
+| [mobile-android](https://github.com/vitaHealth-UPC/mobile-android) | Aplicación Android | 48 (33 con trabajo, +2 de corrección) | 14 | 93 |
 
-**Landing Page**
+**Commits por integrante (rama `develop`, sin contar merges)**
 
-![Insights - Contributors landing-page](assets/collaboration-insights/landing-page-contributors.png)
+| Integrante | landing-page | web-services | mobile-android | Total |
+| --- | --- | --- | --- | --- |
+| Morales Venegas, David Joel | 40 | 32 | 61 | 133 |
+| Velasquez Laquihuanaco, Eduardo David | 0 | 30 | 6 | 36 |
+| Cabrera Novoa, Leonardo Moises | 0 | 12 | 17 | 29 |
+| Diaz Yurivilca, Sofía | 0 | 3 | 9 | 12 |
+| Alfaro Mallma, Alberto Joaquín | 0 | 1 | 0 | 1 |
+| Joseph Salazar | 0 | 5 | 0 | 5 |
 
-*Figura. Contribuciones al repositorio landing-page durante el Sprint 1.*
+**Interpretación de los analíticos**
 
-**Web Services**
-
-![Insights - Contributors web-services](assets/collaboration-insights/web-services-contributors.png)
-
-*Figura. Contribuciones al repositorio web-services durante el Sprint 1.*
-
-**Aplicación Android**
-
-![Insights - Contributors mobile-android](assets/collaboration-insights/mobile-android-contributors.png)
-
-*Figura. Contribuciones al repositorio mobile-android durante el Sprint 1.*
+- **Landing Page.** El Landing Page se construyó en una sola jornada (2 de octubre), en siete ramas de feature, una por bloque de User Stories (US-46 a US-50), integradas y publicadas en GitHub Pages ese mismo día.
+- **Web Services.** El backend concentra el mayor número de Pull Requests (19). David Morales lideró la arquitectura y la integración de los Bounded Contexts; Eduardo Velásquez implementó Accessibility & Preferences y las consultas de medicamentos y tratamientos; Leonardo Cabrera implementó Inventory & Replenishment (TS-12); Sofía Díaz las vistas de Adherence Analytics; y Joseph Salazar la configuración de despliegue (Docker, health check y conexión a PostgreSQL).
+- **Aplicación Android.** Se crearon 48 ramas, una por User Story del backlog. 33 tienen trabajo y 15 quedaron preparadas para historias de Sprints siguientes. Las historias de inventario (US-40 a US-43) se trabajaron en una sola rama porque comparten la misma vista y el mismo módulo `:inventory`.
