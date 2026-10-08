@@ -239,6 +239,7 @@ de las actividades por cada entrega.
 - [Glosario](#glosario)
 - [Bibliografía](#bibliografía)
 - [Anexos](#anexos)
+  - [Capítulo I](#capítulo-i)
   - [Capítulo II](#capítulo-ii)
   - [Capítulo III](#capítulo-iii)
   - [Capítulo IV](#capítulo-iv)
@@ -6366,6 +6367,13 @@ W3Schools. (s. f.). *HTML style guide and coding conventions*. https://www.w3sch
 ---
 
 # Anexos
+
+## Capítulo I
+
+- Anexo A. Student Outcome (sustento individual de cada integrante): [ver sección Student Outcome](#student-outcome).
+- Fuente de las cifras de población adulta mayor citadas en 1.2.1 y 1.3 (proyecciones del INEI al 2024): Instituto Nacional de Estadística e Informática (2024), *Situación de la población adulta mayor: Trimestre enero-febrero-marzo 2024*: <https://cdn.www.gob.pe/uploads/document/file/6548711/5706764-situacion-de-la-poblacion-adulta-mayor-enero-febrero-marzo-2024.pdf>
+- Organización de GitHub del equipo: <https://github.com/orgs/vitaHealth-UPC/repositories>
+- Evidencia de colaboración en el informe: [report_collaboration.png](assets/report_collaboration.png)
 
 ## Capítulo II
 
