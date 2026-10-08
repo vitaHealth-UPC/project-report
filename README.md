@@ -6225,11 +6225,11 @@ A partir del trabajo realizado en la primera entrega (AV1), correspondiente a la
 
 ### Recomendaciones
 
-- Completar las secciones que quedan pendientes del Capítulo IV: Testing Suite Evidence, Services Documentation Evidence, Software Deployment Evidence, Aspect Leaders and Collaborators y Sprint Backlog del Sprint 1, así como las Validation Interviews (sección 4.3) con el prototipo y la aplicación distribuida a los grupos de testers.
-- Contrastar el diseño con usuarios reales mediante las Validation Interviews y las evaluaciones heurísticas, en particular la navegación inferior del adulto mayor y las pantallas de accesibilidad, antes de consolidar el diseño de los siguientes sprints.
-- Normalizar en el Sprint 2 el formato del código (archivo `.editorconfig` en los tres repositorios) y renombrar los repositorios que aún conservan el prefijo `I`, tal como se documentó en la guía de estilo.
-- Equilibrar la distribución de tareas de implementación entre los integrantes en los siguientes sprints, de modo que el conocimiento de cada repositorio no quede concentrado en pocas personas.
-- Ejecutar la entrevista N.° 3 pendiente del Segmento 1 (adultos mayores) y mantener actualizada la evidencia de commits y de ejecución al cierre de cada sprint.
+- Evaluar periódicamente la experiencia con adultos mayores y familiares, considerando la claridad de los mensajes, la navegación y la accesibilidad.
+- Mantener responsabilidades claras entre los módulos y convenciones de código uniformes para facilitar el mantenimiento y la colaboración.
+- Proteger los datos personales mediante controles de acceso, consentimiento informado y gestión segura de credenciales.
+- Incorporar pruebas automatizadas y revisiones de código al flujo de trabajo para conservar la calidad de cada versión.
+- Compartir el conocimiento entre los integrantes y mantener una documentación clara de las decisiones del proyecto.
 
 ---
 
