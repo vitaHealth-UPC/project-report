@@ -4519,7 +4519,7 @@ El equipo definió un único set de fundamentos de diseño para Tata "Tata Desig
 
 Los tamaños entre 8.5 y 10 sp solo se usan en metadata secundaria o navegación nunca en dosis, medicamento u horario de toma. Se usa sp y no dp para que el tamaño de letra respete el ajuste de accesibilidad del sistema operativo.
 
-![Tata Design Foundations: paleta de colores y tipografía](assets/tata-design-foundations-colors-typography.png)
+![Tata Design Foundations: paleta de colores y tipografía](./assets/tata-design-foundations-colors-typography.png)
 
 *Figura. Paleta de colores y sistema tipográfico de Tata Design Foundations.*
 
@@ -4691,6 +4691,11 @@ La barra de navegación superior permanece fija (sticky) durante el scroll, y el
 
 ### 3.1.3. Landing Page UI Design
 
+
+![Fundamentos visuales de la landing](assets/landing-foundations.png)
+
+*Figura. Fundamentos de diseño de la landing page. Nota. Elaboración propia; exportación del [tablero de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=557-2).*
+
 La landing page de Tata fue diseñada como el principal punto de entrada público al producto. Su propósito es comunicar de forma clara la propuesta de valor, explicar las funciones principales, mostrar el proceso de uso, presentar los planes disponibles y proporcionar medios de contacto antes del registro o ingreso a la aplicación.
 
 El diseño se desarrolló considerando dos formatos: desktop y mobile. Ambas versiones mantienen la misma arquitectura de información, contenido y jerarquía general, pero reorganizan los elementos según el espacio disponible. La versión desktop aprovecha una composición horizontal y bloques de mayor amplitud, mientras que la versión mobile transforma las secciones en recorridos verticales, ajusta el tamaño de los controles y reorganiza las tarjetas para conservar legibilidad y facilidad de interacción.
@@ -4699,19 +4704,21 @@ La estructura de la landing page mantiene relación visual con la aplicación m�
 
 #### 3.1.3.1. Landing Page Wireframe
 
+[Wireframes originales: desktop y mobile](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=546-2).
+
 El wireframe de la landing page se elaboró en baja fidelidad con el objetivo de validar la arquitectura de información, el orden de lectura y la distribución de las secciones antes de incorporar el tratamiento visual definitivo.
 
 La estructura comienza con una barra de navegación superior y una sección hero destinada a comunicar la propuesta principal de Tata. A continuación, se presentan los beneficios centrales del producto, las funciones relacionadas con recordatorios, seguimiento familiar e insights, una explicación resumida del proceso de uso, testimonios, comparación de planes, opciones de soporte y una llamada a la acción final.
 
 En la versión desktop, los bloques aprovechan el ancho disponible mediante composiciones horizontales, tarjetas distribuidas en columnas y una presentación paralela entre contenido textual y recursos visuales. En la adaptación mobile, los mismos elementos se reorganizan verticalmente, reduciendo el número de columnas y priorizando una secuencia de lectura continua.
 
-![Wireframe de la landing page en versión desktop](assets/landing-page/Landing%20Page%20Wireframe%20Desktop.png)
+![Wireframe de la landing page en versión desktop](assets/landing-page-wireframe-desktop.png)
 
 *Figura. Wireframe desktop de la landing page de Tata.*
 
 *Nota. Elaboración propia.*
 
-![Wireframe de la landing page en versión mobile](assets/landing-page/Landing%20Page%20Wireframe%20Mobile.png)
+![Wireframe de la landing page en versión mobile](assets/landing-page-wireframe-mobile.png)
 
 *Figura. Wireframe mobile de la landing page de Tata.*
 
@@ -4721,13 +4728,15 @@ La correspondencia entre ambas versiones permite validar el comportamiento respo
 
 #### 3.1.3.2. Landing Page Mock-up
 
+[Mock-ups originales: desktop y mobile](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=400-2).
+
 El mock-up aplica el sistema visual definitivo sobre la estructura previamente validada en los wireframes. La propuesta utiliza la identidad gráfica de Tata, una paleta basada principalmente en azul oscuro, violeta, tonos neutros y colores de apoyo, además de tarjetas de bordes suaves, iconografía funcional y recursos fotográficos relacionados con el adulto mayor y su familia.
 
 La sección hero combina la propuesta de valor con una fotografía contextual y elementos de interfaz que representan recordatorios, confirmaciones y seguimiento familiar. De esta manera, la funcionalidad del producto se comunica visualmente sin depender únicamente del texto.
 
 Las siguientes secciones desarrollan los beneficios principales, las funcionalidades de recordatorios, seguimiento e insights, el proceso resumido en tres pasos, testimonios, planes, soporte y la llamada a la acción final. Se mantiene suficiente separación vertical entre bloques para facilitar la lectura y evitar que la landing page se perciba excesivamente comprimida.
 
-![Mock-up de la landing page en versión desktop](assets/landing-page/Landing%20Page%20Mockup%20Desktop.png)
+![Mock-up de la landing page en versión desktop](assets/landing-page-mockup-desktop.png)
 
 *Figura. Mock-up desktop de la landing page de Tata.*
 
@@ -4735,7 +4744,7 @@ Las siguientes secciones desarrollan los beneficios principales, las funcionalid
 
 La versión mobile conserva el contenido esencial de la versión desktop, pero utiliza una disposición de una sola columna. Las tarjetas, botones, encabezados, imágenes y bloques informativos se adaptan al ancho disponible y aumentan el recorrido vertical. Esta adaptación evita reducir excesivamente los contenidos y conserva una jerarquía visual equivalente a la versión desktop.
 
-![Mock-up de la landing page en versión mobile](assets/landing-page/Landing%20Page%20Mockup%20Mobile.png)
+![Mock-up de la landing page en versión mobile](assets/landing-page-mockup-mobile.png)
 
 *Figura. Mock-up mobile responsive de la landing page de Tata.*
 
@@ -4761,6 +4770,8 @@ Las variantes identificadas con el sufijo `EN` en Figma corresponden a traduccio
 Para facilitar la lectura del informe, los wireframes y los mock-ups se presentan por grupos correspondientes a las filas organizadas en Figma. Cada grupo reúne siete pantallas relacionadas funcionalmente y evita repetir una explicación individual para cada vista. Los wireflows, en cambio, se presentan uno por uno porque cada diagrama corresponde a un User Goal específico y contiene sus propias condiciones y bifurcaciones.
 
 #### 3.1.4.1. Mobile Applications Wireframes
+
+Los artefactos se presentan por filas del tablero original: **70 variantes en español**, organizadas en **10 filas de 7 vistas**. Cada fila conserva la numeración visible en Figma y puede ampliarse desde la imagen. Las variantes representan vistas principales y resultados alternos; no equivalen a 70 funcionalidades independientes. [Fuente: tablero de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=260-2).
 
 Los wireframes fueron elaborados en baja fidelidad para revisar la estructura de las pantallas antes de aplicar el sistema visual definitivo. Se utilizaron bloques, campos, botones, etiquetas, controles simples y placeholders para imágenes, gráficos e ilustraciones. Este nivel de fidelidad permitió concentrar la evaluación en la arquitectura de información, la jerarquía de contenidos, la ubicación de las acciones, la navegación inferior, la accesibilidad y los estados alternos requeridos por las User Stories.
 
@@ -4904,7 +4915,7 @@ Cada wireflow mantiene correspondencia con un User Persona y utiliza como nodos 
 
 Este wireflow representa el acceso del adulto mayor a Tata mediante un PIN de cuatro dígitos. Después de crear el PIN y realizar un acceso válido, el usuario llega al inicio y puede consultar la próxima toma. También se representan un PIN incorrecto, el bloqueo temporal por intentos fallidos y el estado en el que no existe una toma próxima.
 
-![WF01 acceso con PIN y próxima toma](assets/wireflows/Wireflow%2001.png)
+![WF01 acceso con PIN y próxima toma](assets/mobile-app-wireflow-pin-access-next-dose.png)
 
 *Figura. WF01, acceso con PIN y consulta de la próxima toma.*
 
@@ -4920,7 +4931,7 @@ Este wireflow representa el acceso del adulto mayor a Tata mediante un PIN de cu
 
 El recorrido muestra las dos formas principales de confirmar una toma. El usuario puede confirmar directamente desde el inicio o utilizar la confirmación por voz. El diagrama también contempla una toma previamente confirmada, una voz no reconocida, una confirmación tardía dentro del periodo de tolerancia y una omisión preservada cuando el periodo permitido ya finalizó.
 
-![WF02 confirmación de toma](assets/wireflows/Wireflow%2002.png)
+![WF02 confirmación de toma](assets/mobile-app-wireflow-dose-confirmation.png)
 
 *Figura. WF02, confirmación de una toma por toque o por voz y estados posteriores.*
 
@@ -4936,7 +4947,7 @@ El recorrido muestra las dos formas principales de confirmar una toma. El usuari
 
 El recorrido parte del inicio, continúa hacia la lista de medicamentos y permite abrir el detalle de una pauta. Desde el detalle se representan los estados pendiente, confirmado, tardío y omitido para que el adulto mayor pueda reconocer el estado de la toma dentro de la misma estructura de navegación.
 
-![WF03 medicamentos y estados de toma](assets/wireflows/Wireflow%2003.png)
+![WF03 medicamentos y estados de toma](assets/mobile-app-wireflow-medications-dose-states.png)
 
 *Figura. WF03, consulta de medicamentos y estados de una pauta.*
 
@@ -4952,7 +4963,7 @@ El recorrido parte del inicio, continúa hacia la lista de medicamentos y permit
 
 Este wireflow muestra el acceso desde el inicio hacia la agenda semanal. La primera vista permite consultar las tomas programadas y, desde ella, se accede al estado de las tomas para distinguir visualmente cuáles se encuentran confirmadas, pendientes, tardías u omitidas dentro del periodo mostrado.
 
-![WF04 agenda y estados](assets/wireflows/Wireflow%2004.png)
+![WF04 agenda y estados](assets/mobile-app-wireflow-schedule-dose-statuses.png)
 
 *Figura. WF04, consulta de agenda semanal y visualización de estados.*
 
@@ -4968,7 +4979,7 @@ Este wireflow muestra el acceso desde el inicio hacia la agenda semanal. La prim
 
 El recorrido parte del inicio y accede a la sección de accesibilidad. Desde esa pantalla se representan los estados generados al aumentar el tamaño del texto, activar el contraste reforzado, reducir el movimiento y habilitar la ayuda de lectura. Cada resultado conserva la estructura de configuración y evidencia que la preferencia seleccionada ha sido guardada.
 
-![WF05 accesibilidad](assets/wireflows/Wireflow%2005.png)
+![WF05 accesibilidad](assets/mobile-app-wireflow-accessibility-preferences.png)
 
 *Figura. WF05, configuración y persistencia de preferencias de accesibilidad.*
 
@@ -4984,7 +4995,7 @@ El recorrido parte del inicio y accede a la sección de accesibilidad. Desde esa
 
 Este wireflow reúne el ingreso desde la bienvenida, el registro del cuidador, la verificación del correo, la vinculación con el adulto mayor y el acceso al resumen familiar cuando el vínculo es aceptado. Como rutas alternativas se incluyen un correo ya registrado, una verificación vencida, un código de vinculación inválido y el seguimiento restringido cuando no existe consentimiento.
 
-![WF06 registro y vinculación](assets/wireflows/Wireflow%2006.png)
+![WF06 registro y vinculación](assets/mobile-app-wireflow-registration-link-consent.png)
 
 *Figura. WF06, registro, verificación y vinculación con consentimiento.*
 
@@ -5000,7 +5011,7 @@ Este wireflow reúne el ingreso desde la bienvenida, el registro del cuidador, l
 
 El recorrido comienza en la persona vinculada, continúa con el registro de un medicamento y la creación de un tratamiento, y finaliza en la gestión del tratamiento. También se representan la falta de datos obligatorios, una pauta incompleta, un tratamiento pausado y el acceso restringido cuando el tratamiento no corresponde a la persona vinculada.
 
-![WF07 medicamento y tratamiento](assets/wireflows/Wireflow%2007.png)
+![WF07 medicamento y tratamiento](assets/mobile-app-wireflow-medication-treatment-management.png)
 
 *Figura. WF07, registro de medicamento y gestión del tratamiento.*
 
@@ -5016,7 +5027,7 @@ El recorrido comienza en la persona vinculada, continúa con el registro de un m
 
 Este wireflow relaciona el resumen familiar con el historial y la lista de alertas. También contempla un historial sin datos suficientes para calcular adherencia, un periodo sin resultados y la actualización del periodo consultado. Estas rutas permiten representar situaciones en las que el seguimiento no dispone siempre de información completa.
 
-![WF08 seguimiento historial y alertas](assets/wireflows/Wireflow%2008.png)
+![WF08 seguimiento historial y alertas](assets/mobile-app-wireflow-family-history-alerts.png)
 
 *Figura. WF08, seguimiento familiar, historial y alertas.*
 
@@ -5032,7 +5043,7 @@ Este wireflow relaciona el resumen familiar con el historial y la lista de alert
 
 El recorrido parte de la lista de alertas, abre el detalle de una alerta y permite registrar una intervención antes de marcarla como atendida. También se representa el caso en el que no existe un canal de contacto válido para la persona vinculada, por lo que la acción de contacto no puede completarse.
 
-![WF09 atención de alertas](assets/wireflows/Wireflow%2009.png)
+![WF09 atención de alertas](assets/mobile-app-wireflow-alert-intervention.png)
 
 *Figura. WF09, atención de alertas y registro de intervención.*
 
@@ -5048,7 +5059,7 @@ El recorrido parte de la lista de alertas, abre el detalle de una alerta y permi
 
 El recorrido parte del historial de adherencia y conduce a la pantalla de recomendaciones cuando existen datos suficientes para detectar un patrón. Desde allí puede aplicarse un ajuste al tratamiento. Como rutas alternativas se incluyen el cambio del periodo de análisis y el estado de evidencia insuficiente, en el que no se presenta una recomendación concluyente.
 
-![WF10 recomendaciones y evidencia](assets/wireflows/Wireflow%2010.png)
+![WF10 recomendaciones y evidencia](assets/mobile-app-wireflow-evidence-recommendations.png)
 
 *Figura. WF10, análisis de adherencia y recomendaciones basadas en evidencia.*
 
@@ -5064,7 +5075,7 @@ El recorrido parte del historial de adherencia y conduce a la pantalla de recome
 
 Este wireflow muestra el acceso desde la gestión del tratamiento hacia el inventario, el registro de una reposición y el estado resultante con el stock actualizado. Como ruta alternativa se representa la validación de una cantidad inválida antes de guardar la reposición.
 
-![WF11 inventario y reposición](assets/wireflows/Wireflow%2011.png)
+![WF11 inventario y reposición](assets/mobile-app-wireflow-inventory-restock.png)
 
 *Figura. WF11, control de inventario y registro de reposición.*
 
@@ -5080,7 +5091,7 @@ Este wireflow muestra el acceso desde la gestión del tratamiento hacia el inven
 
 El recorrido parte del resumen familiar, accede a las preferencias de notificación y finaliza con la configuración guardada. La pantalla permite organizar categorías de avisos, canales de comunicación y horario de silencio dentro de una misma configuración.
 
-![WF12 preferencias de notificación](assets/wireflows/Wireflow%2012.png)
+![WF12 preferencias de notificación](assets/mobile-app-wireflow-notification-preferences.png)
 
 *Figura. WF12, configuración y guardado de preferencias de notificación.*
 
@@ -5096,7 +5107,7 @@ El recorrido parte del resumen familiar, accede a las preferencias de notificaci
 
 Este wireflow muestra el acceso desde el resumen familiar hacia la gestión del plan. El usuario consulta su plan actual, revisa las alternativas disponibles y confirma el cambio de suscripción. El estado final evidencia que el nuevo plan se encuentra activo sin alterar el historial ni los vínculos existentes.
 
-![WF13 plan y suscripción](assets/wireflows/Wireflow%2013.png)
+![WF13 plan y suscripción](assets/mobile-app-wireflow-plan-subscription.png)
 
 *Figura. WF13, consulta y actualización del plan de suscripción.*
 
@@ -5112,7 +5123,7 @@ Este wireflow muestra el acceso desde el resumen familiar hacia la gestión del 
 
 El recorrido representa la administración de un medicamento dentro de un tratamiento. El cuidador puede guardar cambios en la pauta o desactivar el medicamento. En ambos casos se conserva el historial previo y el sistema diferencia el estado actualizado del estado desactivado.
 
-![WF14 editar y desactivar medicamento](assets/wireflows/Wireflow%2014.png)
+![WF14 editar y desactivar medicamento](assets/mobile-app-wireflow-edit-disable-medication.png)
 
 *Figura. WF14, edición y desactivación de un medicamento.*
 
@@ -5128,7 +5139,7 @@ El recorrido representa la administración de un medicamento dentro de un tratam
 
 Este flujo representa el comportamiento posterior a una toma que no fue confirmada en el momento esperado. El sistema emite un segundo recordatorio y permite una confirmación tardía mientras la toma permanece dentro del periodo de tolerancia. Cuando ese periodo vence, la toma se mantiene registrada como omitida y una confirmación posterior no reemplaza automáticamente dicho estado.
 
-![WF15 recordatorio reforzado confirmación tardía y omisión](assets/wireflows/Wireflow%2015.png)
+![WF15 recordatorio reforzado confirmación tardía y omisión](assets/mobile-app-wireflow-reinforced-reminder-late-omission.png)
 
 *Figura. WF15, recordatorio reforzado, confirmación tardía y omisión.*
 
@@ -5144,7 +5155,7 @@ Este flujo representa el comportamiento posterior a una toma que no fue confirma
 
 Este wireflow representa la navegación del usuario visitante. El recorrido parte de la presentación de Tata, continúa hacia la comparación de planes y contempla el caso en el que un destino externo asociado con la opción de contacto no se encuentra disponible. Este estado permite mantener una respuesta visible dentro del producto en lugar de dejar la interacción sin retroalimentación.
 
-![WF16 landing planes y destino externo](assets/wireflows/Wireflow%2016.png)
+![WF16 landing planes y destino externo](assets/mobile-app-wireflow-landing-plans-external-destination.png)
 
 *Figura. WF16, navegación del visitante, comparación de planes y destino externo no disponible.*
 
@@ -5155,6 +5166,8 @@ Los dieciséis wireflows muestran que las pantallas no fueron diseñadas como vi
 La incorporación posterior de las pantallas Login, Notes - Adult, Notes - Caregiver e Internationalization amplía los destinos disponibles en el prototipo sin modificar la lógica principal representada por estos dieciséis User Goals.
 
 #### 3.1.4.3. Mobile Applications Mock-ups
+
+Las diez imágenes siguientes corresponden a las diez filas del [tablero de mock-ups](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=31-2), con siete variantes por fila y la misma numeración que los wireframes.
 
 Los mock-ups representan la versión de alta fidelidad de las pantallas definidas previamente en los wireframes. La estructura funcional se mantiene, pero se incorpora el sistema visual de Tata mediante tipografías, jerarquías, colores, tarjetas, botones, iconografía, estados de navegación y elementos de apoyo visual.
 
@@ -5291,7 +5304,26 @@ Las versiones en inglés mantienen esta misma estructura y constituyen variantes
 
 #### 3.1.4.4. Mobile Applications User Flow Diagrams
 
+Los recorridos se organizan por objetivo del usuario y rol. Los diagramas de la sección 3.1.4.2 muestran las transiciones entre vistas y sus estados; esta sección identifica el punto de entrada, las decisiones y el resultado de cada recorrido. Se mantiene la numeración del [tablero de wireflows](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=283-2) para relacionar cada objetivo con su diagrama visual.
+
+| Perfil | Objetivo | Recorrido y decisiones | Diagrama |
+| --- | --- | --- | --- |
+| Adulto mayor | Acceder y consultar la próxima toma | Ingresar PIN → validar acceso → Inicio → próxima toma; el PIN incorrecto y el bloqueo ofrecen estados alternos. | WF01 |
+| Adulto mayor | Confirmar una toma | Próxima toma → confirmar por toque o voz → resultado; la voz no reconocida permite reintentar y una toma confirmada conserva su registro. | WF02 |
+| Adulto mayor | Consultar medicación y agenda | Medicamentos → detalle; Agenda → toma → estado pendiente, confirmado, tardío u omitido. | WF03–WF04 |
+| Adulto mayor | Ajustar accesibilidad | Más → Accesibilidad → elegir preferencia → interfaz con ajuste aplicado. | WF05 |
+| Familiar/cuidador | Crear cuenta y vincular al adulto | Registro → verificación → código de vínculo → solicitud → consentimiento; los datos inválidos permiten corregir el paso. | WF06 |
+| Familiar/cuidador | Configurar y administrar un tratamiento | Registrar medicamento → definir pauta → gestionar tratamiento; editar, pausar o desactivar según la acción elegida. | WF07, WF14 |
+| Familiar/cuidador | Revisar adherencia y actuar ante una alerta | Resumen → persona vinculada → historial o alertas → detalle → contacto o nota → alerta atendida. | WF08–WF10 |
+| Familiar/cuidador | Mantener la continuidad del cuidado | Inventario → reposición → cantidad actualizada; preferencias → guardar; plan → elegir → suscripción actualizada. | WF11–WF13 |
+| Adulto mayor y familiar | Gestionar una toma fuera de horario | Recordatorio reforzado → confirmación tardía u omisión conservada → agenda e historial. | WF15 |
+| Visitante | Conocer Tata y elegir un plan | Propuesta de valor → funciones → comparación de planes → registro o contacto; el destino externo dispone de un estado de indisponibilidad. | WF16 |
+
+Cada fila de wireframes y mock-ups incluye los resultados alternos de estos recorridos, evitando tratar las validaciones, errores y confirmaciones como destinos aislados.
+
 #### 3.1.4.5. Mobile Applications Prototyping
+
+[Abrir prototipo interactivo en español](https://www.figma.com/proto/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-5). [Consultar conexiones en el archivo de diseño](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2).
 
 El prototipo interactivo de la aplicación móvil de Tata fue construido a partir de los mock-ups de alta fidelidad y conserva la correspondencia de las **70 pantallas funcionales** definidas previamente. Su objetivo es validar la navegación real entre vistas, comprobar que las acciones principales conducen al estado esperado y representar de forma interactiva los recorridos previamente analizados mediante los wireflow diagrams.
 
@@ -5327,11 +5359,7 @@ Las acciones contextuales también fueron conectadas con sus respectivos estados
 
 La pantalla de inicio de sesión incorpora el acceso mediante correo electrónico y contraseña, además de las alternativas de continuación representadas en la interfaz. Por su parte, la pantalla de internacionalización extiende las configuraciones de accesibilidad mediante la selección del idioma de la aplicación y permite enlazar conceptualmente con las variantes traducidas de la interfaz.
 
-![Ejemplo de conexiones entre pantallas del prototipo](assets/mobile-app-prototyping-interactions.png)
-
-*Figura. Ejemplo de conexiones entre acciones, pantallas y estados dentro del prototipo móvil.*
-
-*Nota. Elaboración propia.*
+Las conexiones interactivas se consultan en el [prototipo original de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2), donde se pueden inspeccionar los destinos de cada acción.
 
 La incorporación de las pantallas **21 Notes - Adult** y **27 Notes - Caregiver** completa la navegación de la opción Notas para ambos perfiles. Estas vistas permiten evitar destinos inexistentes dentro de la barra inferior y mantienen la diferenciación de contenido entre la información personal del adulto mayor y las notas de seguimiento registradas por el familiar o cuidador.
 

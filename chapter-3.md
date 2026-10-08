@@ -210,7 +210,12 @@ Navegación de una sola página con anclas, sin cambiar de URL entre secciones, 
 
 La barra de navegación superior permanece fija (sticky) durante el scroll, y el layout se adapta entre mobile y desktop sin perder el orden de las secciones (US-50, acceso adaptable al Landing Page).
 
-# 3.1.3. Landing Page UI Design
+### 3.1.3. Landing Page UI Design
+
+
+![Fundamentos visuales de la landing](assets/landing-foundations.png)
+
+*Figura. Fundamentos de diseño de la landing page. Nota. Elaboración propia; exportación del [tablero de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=557-2).*
 
 La landing page de Tata fue diseñada como el principal punto de entrada público al producto. Su propósito es comunicar de forma clara la propuesta de valor, explicar las funciones principales, mostrar el proceso de uso, presentar los planes disponibles y proporcionar medios de contacto antes del registro o ingreso a la aplicación.
 
@@ -218,7 +223,9 @@ El diseño se desarrolló considerando dos formatos: desktop y mobile. Ambas ver
 
 La estructura de la landing page mantiene relación visual con la aplicación móvil mediante el uso de la identidad de Tata, la misma familia cromática, componentes redondeados, jerarquías tipográficas y elementos visuales asociados con recordatorios, acompañamiento familiar y adherencia.
 
-## 3.1.3.1. Landing Page Wireframe
+#### 3.1.3.1. Landing Page Wireframe
+
+[Wireframes originales: desktop y mobile](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=546-2).
 
 El wireframe de la landing page se elaboró en baja fidelidad con el objetivo de validar la arquitectura de información, el orden de lectura y la distribución de las secciones antes de incorporar el tratamiento visual definitivo.
 
@@ -240,7 +247,9 @@ En la versión desktop, los bloques aprovechan el ancho disponible mediante comp
 
 La correspondencia entre ambas versiones permite validar el comportamiento responsive de la landing page desde la etapa de baja fidelidad. No se eliminan funciones esenciales en la versión mobile; únicamente se modifica la disposición de los componentes para adecuarlos al ancho reducido de pantalla.
 
-## 3.1.3.2. Landing Page Mock-up
+#### 3.1.3.2. Landing Page Mock-up
+
+[Mock-ups originales: desktop y mobile](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=400-2).
 
 El mock-up aplica el sistema visual definitivo sobre la estructura previamente validada en los wireframes. La propuesta utiliza la identidad gráfica de Tata, una paleta basada principalmente en azul oscuro, violeta, tonos neutros y colores de apoyo, además de tarjetas de bordes suaves, iconografía funcional y recursos fotográficos relacionados con el adulto mayor y su familia.
 
@@ -264,11 +273,8 @@ La versión mobile conserva el contenido esencial de la versión desktop, pero u
 
 En conjunto, el wireframe y el mock-up permiten comprobar que la landing page conserva su estructura y propósito en ambos formatos. La versión de alta fidelidad añade identidad visual y contenido gráfico sin modificar la arquitectura de información establecida previamente.
 
---------------------------------------------------------
-MOBILE APPLICATIONS
---------------------------------------------------------
 
-# 3.1.4. Mobile Applications UX/UI Design
+### 3.1.4. Mobile Applications UX/UI Design
 
 El diseño UX/UI de la aplicación móvil de Tata se organizó mediante tres artefactos complementarios: wireframes, wireflow diagrams y mock-ups. Los wireframes permitieron definir la estructura, la jerarquía de información y la distribución de controles sin incorporar todavía el tratamiento visual definitivo. Los wireflows relacionaron estas pantallas mediante recorridos asociados con los User Goals, incluyendo rutas principales, validaciones, estados alternos y situaciones de error. Finalmente, los mock-ups trasladaron la estructura validada a una propuesta visual de alta fidelidad mediante la tipografía, la paleta, los componentes, la iconografía y los estados de interacción definidos para Tata.
 
@@ -284,11 +290,13 @@ Las variantes identificadas con el sufijo `EN` en Figma corresponden a traduccio
 
 Para facilitar la lectura del informe, los wireframes y los mock-ups se presentan por grupos correspondientes a las filas organizadas en Figma. Cada grupo reúne siete pantallas relacionadas funcionalmente y evita repetir una explicación individual para cada vista. Los wireflows, en cambio, se presentan uno por uno porque cada diagrama corresponde a un User Goal específico y contiene sus propias condiciones y bifurcaciones.
 
-## 3.1.4.1. Mobile Applications Wireframes
+#### 3.1.4.1. Mobile Applications Wireframes
+
+Los artefactos se presentan por filas del tablero original: **70 variantes en español**, organizadas en **10 filas de 7 vistas**. Cada fila conserva la numeración visible en Figma y puede ampliarse desde la imagen. Las variantes representan vistas principales y resultados alternos; no equivalen a 70 funcionalidades independientes. [Fuente: tablero de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=260-2).
 
 Los wireframes fueron elaborados en baja fidelidad para revisar la estructura de las pantallas antes de aplicar el sistema visual definitivo. Se utilizaron bloques, campos, botones, etiquetas, controles simples y placeholders para imágenes, gráficos e ilustraciones. Este nivel de fidelidad permitió concentrar la evaluación en la arquitectura de información, la jerarquía de contenidos, la ubicación de las acciones, la navegación inferior, la accesibilidad y los estados alternos requeridos por las User Stories.
 
-### 01. Entry, Onboarding & Access
+##### 01. Entry, Onboarding & Access
 
 Este grupo reúne los puntos de entrada a Tata y las pantallas necesarias para iniciar el uso del producto. Incluye la presentación de valor, la consulta de planes, el onboarding, el registro del familiar o cuidador, la vinculación con el adulto mayor, el acceso mediante PIN y el inicio de sesión para usuarios que ya poseen una cuenta.
 
@@ -300,7 +308,7 @@ Este grupo reúne los puntos de entrada a Tata y las pantallas necesarias para i
 
 *Nota. Elaboración propia.*
 
-### 02. Older Adult Daily Experience
+##### 02. Older Adult Daily Experience
 
 Este grupo corresponde a la experiencia principal del adulto mayor. Se muestran la pantalla de inicio, la consulta de medicamentos, el detalle de una pauta, la agenda semanal, la confirmación por voz, la confirmación de una toma y la configuración general de accesibilidad.
 
@@ -312,7 +320,7 @@ Este grupo corresponde a la experiencia principal del adulto mayor. Se muestran 
 
 *Nota. Elaboración propia.*
 
-### 03. Monitoring, Insights & Adult Notes
+##### 03. Monitoring, Insights & Adult Notes
 
 Este grupo concentra las principales funciones de seguimiento y consulta. Incluye el resumen familiar, la persona vinculada, la lista de alertas, el detalle de una alerta, el historial con indicadores de adherencia y las recomendaciones derivadas del comportamiento reciente. La fila incorpora además la pantalla de notas del adulto mayor, que funciona como destino de la opción “Notas” dentro de su navegación inferior.
 
@@ -324,7 +332,7 @@ Este grupo concentra las principales funciones de seguimiento y consulta. Incluy
 
 *Nota. Elaboración propia.*
 
-### 04. Caregiver Treatment Management & Notes
+##### 04. Caregiver Treatment Management & Notes
 
 Este conjunto reúne las funciones de configuración y administración realizadas principalmente por el familiar o cuidador. Incluye el registro de medicamentos, la creación y gestión de tratamientos, el control de inventario, las preferencias de notificación, las notas del cuidador y la administración del plan contratado.
 
@@ -336,7 +344,7 @@ Este conjunto reúne las funciones de configuración y administración realizada
 
 *Nota. Elaboración propia.*
 
-### 05. Access, Registration & Consent States
+##### 05. Access, Registration & Consent States
 
 Este grupo incorpora estados alternos relacionados con el acceso, el registro y la vinculación. Se representan la creación del PIN, un PIN incorrecto, el bloqueo temporal por intentos fallidos, un correo ya registrado, una verificación vencida, un código de vinculación inválido y el seguimiento restringido cuando no existe consentimiento.
 
@@ -348,7 +356,7 @@ Este grupo incorpora estados alternos relacionados con el acceso, el registro y 
 
 *Nota. Elaboración propia.*
 
-### 06. Medication, Reminder & Adherence States
+##### 06. Medication, Reminder & Adherence States
 
 Las pantallas de este grupo muestran validaciones y estados derivados de la gestión de medicamentos y de la confirmación de tomas. Se incluyen campos obligatorios incompletos, actualización y desactivación de medicamentos, recordatorio de toma, voz no reconocida, toma previamente confirmada y ausencia de datos para calcular adherencia.
 
@@ -360,7 +368,7 @@ Las pantallas de este grupo muestran validaciones y estados derivados de la gest
 
 *Nota. Elaboración propia.*
 
-### 07. Treatment & Dose States
+##### 07. Treatment & Dose States
 
 Este grupo representa variaciones del tratamiento y de una toma individual. Se consideran un tratamiento incompleto, un tratamiento pausado, un acceso restringido, la ausencia de una próxima toma y los estados pendiente, confirmado y tardío del detalle de una toma.
 
@@ -372,7 +380,7 @@ Este grupo representa variaciones del tratamiento y de una toma individual. Se c
 
 *Nota. Elaboración propia.*
 
-### 08. Omission, Reinforcement & Follow-up States
+##### 08. Omission, Reinforcement & Follow-up States
 
 Este grupo amplía los escenarios de adherencia y seguimiento. Se representa una toma omitida, el recordatorio reforzado, la confirmación tardía, la preservación de una omisión después del vencimiento, una agenda con estados, un historial sin resultados y la imposibilidad de contactar al adulto mayor.
 
@@ -384,7 +392,7 @@ Este grupo amplía los escenarios de adherencia y seguimiento. Se representa una
 
 *Nota. Elaboración propia.*
 
-### 09. Follow-up & Accessibility States
+##### 09. Follow-up & Accessibility States
 
 Este grupo reúne resultados posteriores a acciones del cuidador y configuraciones de accesibilidad. Incluye una nota de seguimiento guardada, una alerta atendida, un cambio del periodo de análisis, la falta de evidencia suficiente para generar recomendaciones y tres estados de accesibilidad activados.
 
@@ -396,7 +404,7 @@ Este grupo reúne resultados posteriores a acciones del cuidador y configuracion
 
 *Nota. Elaboración propia.*
 
-### 10. Preferences, Inventory, Subscription & Internationalization
+##### 10. Preferences, Inventory, Subscription & Internationalization
 
 El último grupo reúne configuraciones guardadas y estados asociados con accesibilidad, inventario, suscripción, navegación externa e internacionalización. Se muestra la ayuda de lectura habilitada, las preferencias de notificación guardadas, una cantidad inválida de inventario, el stock repuesto, la suscripción actualizada, un destino externo no disponible y la configuración de idioma de la aplicación.
 
@@ -412,13 +420,13 @@ La pantalla de internacionalización mantiene la estructura de accesibilidad y a
 
 En conjunto, los **70 wireframes** permiten comprobar la cobertura estructural de la aplicación antes de incorporar el tratamiento visual de alta fidelidad. Los estados alternos se mantienen como pantallas independientes porque representan respuestas distintas del sistema frente a acciones, restricciones o condiciones específicas de las User Stories. Las versiones traducidas al inglés conservan la misma estructura y no modifican este conteo.
 
-## 3.1.4.2. Mobile Applications Wireflow Diagrams
+#### 3.1.4.2. Mobile Applications Wireflow Diagrams
 
 Los wireflow diagrams relacionan los wireframes mediante recorridos de navegación asociados con User Goals concretos. Cada diagrama muestra la ruta principal y, cuando corresponde, las rutas alternativas que aparecen como consecuencia de validaciones, errores, restricciones o cambios de estado. Las flechas representan transiciones entre pantallas y sus etiquetas indican la acción o condición que produce cada cambio.
 
 Cada wireflow mantiene correspondencia con un User Persona y utiliza como nodos los mismos estados representados en los wireframes. De este modo, cuando una interacción modifica el contenido o el estado de una pantalla, el flujo incorpora una vista específica que evidencia ese resultado.
 
-### WF01. Acceso con PIN y consulta de próxima toma
+##### WF01. Acceso con PIN y consulta de próxima toma
 
 **User Persona:** Doña Carmen Rodríguez.
 
@@ -434,7 +442,7 @@ Este wireflow representa el acceso del adulto mayor a Tata mediante un PIN de cu
 
 *Nota. Elaboración propia.*
 
-### WF02. Confirmación de una toma por toque o por voz
+##### WF02. Confirmación de una toma por toque o por voz
 
 **User Persona:** Doña Carmen Rodríguez.
 
@@ -450,7 +458,7 @@ El recorrido muestra las dos formas principales de confirmar una toma. El usuari
 
 *Nota. Elaboración propia.*
 
-### WF03. Consulta de medicamentos y estados de una pauta
+##### WF03. Consulta de medicamentos y estados de una pauta
 
 **User Persona:** Doña Carmen Rodríguez.
 
@@ -466,7 +474,7 @@ El recorrido parte del inicio, continúa hacia la lista de medicamentos y permit
 
 *Nota. Elaboración propia.*
 
-### WF04. Consulta de agenda y visualización de estados
+##### WF04. Consulta de agenda y visualización de estados
 
 **User Persona:** Doña Carmen Rodríguez.
 
@@ -482,7 +490,7 @@ Este wireflow muestra el acceso desde el inicio hacia la agenda semanal. La prim
 
 *Nota. Elaboración propia.*
 
-### WF05. Configuración de accesibilidad
+##### WF05. Configuración de accesibilidad
 
 **User Persona:** Doña Carmen Rodríguez.
 
@@ -498,7 +506,7 @@ El recorrido parte del inicio y accede a la sección de accesibilidad. Desde esa
 
 *Nota. Elaboración propia.*
 
-### WF06. Registro y vinculación del familiar o cuidador
+##### WF06. Registro y vinculación del familiar o cuidador
 
 **User Persona:** Diego Dani Mendoza.
 
@@ -514,7 +522,7 @@ Este wireflow reúne el ingreso desde la bienvenida, el registro del cuidador, l
 
 *Nota. Elaboración propia.*
 
-### WF07. Registro de medicamento y gestión del tratamiento
+##### WF07. Registro de medicamento y gestión del tratamiento
 
 **User Persona:** Diego Dani Mendoza.
 
@@ -530,7 +538,7 @@ El recorrido comienza en la persona vinculada, continúa con el registro de un m
 
 *Nota. Elaboración propia.*
 
-### WF08. Seguimiento familiar, historial y alertas
+##### WF08. Seguimiento familiar, historial y alertas
 
 **User Persona:** Diego Dani Mendoza.
 
@@ -546,7 +554,7 @@ Este wireflow relaciona el resumen familiar con el historial y la lista de alert
 
 *Nota. Elaboración propia.*
 
-### WF09. Atención de alertas e intervención del cuidador
+##### WF09. Atención de alertas e intervención del cuidador
 
 **User Persona:** Diego Dani Mendoza.
 
@@ -562,7 +570,7 @@ El recorrido parte de la lista de alertas, abre el detalle de una alerta y permi
 
 *Nota. Elaboración propia.*
 
-### WF10. Recomendaciones basadas en evidencia
+##### WF10. Recomendaciones basadas en evidencia
 
 **User Persona:** Diego Dani Mendoza.
 
@@ -578,7 +586,7 @@ El recorrido parte del historial de adherencia y conduce a la pantalla de recome
 
 *Nota. Elaboración propia.*
 
-### WF11. Inventario y reposición
+##### WF11. Inventario y reposición
 
 **User Persona:** Diego Dani Mendoza.
 
@@ -594,7 +602,7 @@ Este wireflow muestra el acceso desde la gestión del tratamiento hacia el inven
 
 *Nota. Elaboración propia.*
 
-### WF12. Preferencias de notificación
+##### WF12. Preferencias de notificación
 
 **User Persona:** Diego Dani Mendoza.
 
@@ -610,7 +618,7 @@ El recorrido parte del resumen familiar, accede a las preferencias de notificaci
 
 *Nota. Elaboración propia.*
 
-### WF13. Plan y suscripción
+##### WF13. Plan y suscripción
 
 **User Persona:** Diego Dani Mendoza.
 
@@ -626,7 +634,7 @@ Este wireflow muestra el acceso desde el resumen familiar hacia la gestión del 
 
 *Nota. Elaboración propia.*
 
-### WF14. Edición o desactivación de un medicamento
+##### WF14. Edición o desactivación de un medicamento
 
 **User Persona:** Diego Dani Mendoza.
 
@@ -642,7 +650,7 @@ El recorrido representa la administración de un medicamento dentro de un tratam
 
 *Nota. Elaboración propia.*
 
-### WF15. Recordatorio reforzado, confirmación tardía y omisión
+##### WF15. Recordatorio reforzado, confirmación tardía y omisión
 
 **User Persona:** Doña Carmen Rodríguez.
 
@@ -658,7 +666,7 @@ Este flujo representa el comportamiento posterior a una toma que no fue confirma
 
 *Nota. Elaboración propia.*
 
-### WF16. Landing, comparación de planes y destino externo no disponible
+##### WF16. Landing, comparación de planes y destino externo no disponible
 
 **User Persona:** Usuario visitante.
 
@@ -678,7 +686,9 @@ Los dieciséis wireflows muestran que las pantallas no fueron diseñadas como vi
 
 La incorporación posterior de las pantallas Login, Notes - Adult, Notes - Caregiver e Internationalization amplía los destinos disponibles en el prototipo sin modificar la lógica principal representada por estos dieciséis User Goals.
 
-## 3.1.4.3. Mobile Applications Mock-ups
+#### 3.1.4.3. Mobile Applications Mock-ups
+
+Las diez imágenes siguientes corresponden a las diez filas del [tablero de mock-ups](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=31-2), con siete variantes por fila y la misma numeración que los wireframes.
 
 Los mock-ups representan la versión de alta fidelidad de las pantallas definidas previamente en los wireframes. La estructura funcional se mantiene, pero se incorpora el sistema visual de Tata mediante tipografías, jerarquías, colores, tarjetas, botones, iconografía, estados de navegación y elementos de apoyo visual.
 
@@ -686,7 +696,7 @@ La propuesta mantiene consistencia entre las pantallas del adulto mayor y las de
 
 Los mock-ups conservan correspondencia directa con los wireframes. La versión funcional final está compuesta por **70 pantallas** y mantiene la misma numeración utilizada en los wireframes y en el prototipo. Las variantes `EN` corresponden únicamente a traducciones de estas vistas y no se contabilizan como pantallas adicionales.
 
-### 01. Entry, Onboarding & Access
+##### 01. Entry, Onboarding & Access
 
 El primer grupo presenta la identidad visual de Tata desde los puntos de entrada y continúa con el onboarding, el registro, la vinculación, el acceso mediante PIN y el inicio de sesión de usuarios existentes. La composición prioriza las acciones principales, la información contextual y los estados de acceso sin perder continuidad entre pantallas.
 
@@ -698,7 +708,7 @@ El primer grupo presenta la identidad visual de Tata desde los puntos de entrada
 
 *Nota. Elaboración propia.*
 
-### 02. Older Adult Daily Experience
+##### 02. Older Adult Daily Experience
 
 Este grupo representa la experiencia cotidiana del adulto mayor. El diseño prioriza la próxima toma, el progreso diario, la consulta de medicamentos, la agenda, la confirmación de toma y los ajustes de accesibilidad mediante una jerarquía visual simple y acciones de fácil reconocimiento.
 
@@ -710,7 +720,7 @@ Este grupo representa la experiencia cotidiana del adulto mayor. El diseño prio
 
 *Nota. Elaboración propia.*
 
-### 03. Monitoring, Insights & Adult Notes
+##### 03. Monitoring, Insights & Adult Notes
 
 Las pantallas de este grupo corresponden principalmente al seguimiento realizado por el familiar o cuidador mediante el resumen familiar, la persona vinculada, las alertas, el historial y las recomendaciones. La fila incorpora además la pantalla de notas del adulto mayor, utilizada como destino de la pestaña “Notas” dentro de su navegación principal.
 
@@ -722,7 +732,7 @@ Las pantallas de este grupo corresponden principalmente al seguimiento realizado
 
 *Nota. Elaboración propia.*
 
-### 04. Caregiver Treatment Management & Notes
+##### 04. Caregiver Treatment Management & Notes
 
 Este conjunto incorpora la gestión del tratamiento. La interfaz utiliza formularios, tarjetas de estado y acciones principales para registrar medicamentos, crear y administrar tratamientos, controlar inventario, configurar notificaciones, consultar las notas del cuidador y gestionar la suscripción.
 
@@ -734,7 +744,7 @@ Este conjunto incorpora la gestión del tratamiento. La interfaz utiliza formula
 
 *Nota. Elaboración propia.*
 
-### 05. Access, Registration & Consent States
+##### 05. Access, Registration & Consent States
 
 Los estados de validación conservan la estructura principal de las pantallas base, pero incorporan mensajes y tratamientos visuales específicos para comunicar un PIN incorrecto, bloqueo temporal, correo duplicado, verificación vencida, código inválido o falta de consentimiento.
 
@@ -746,7 +756,7 @@ Los estados de validación conservan la estructura principal de las pantallas ba
 
 *Nota. Elaboración propia.*
 
-### 06. Medication, Reminder & Adherence States
+##### 06. Medication, Reminder & Adherence States
 
 Este grupo presenta estados alternos de medicamentos, confirmación de tomas e historial. Los mensajes visuales permiten diferenciar datos obligatorios faltantes, cambios guardados, desactivación, recordatorios, voz no reconocida, confirmación duplicada y ausencia de información suficiente para calcular adherencia.
 
@@ -758,7 +768,7 @@ Este grupo presenta estados alternos de medicamentos, confirmación de tomas e h
 
 *Nota. Elaboración propia.*
 
-### 07. Treatment & Dose States
+##### 07. Treatment & Dose States
 
 Las pantallas de este grupo presentan estados de configuración y de una toma individual. Se conserva la estructura de las pantallas principales y se emplean mensajes, etiquetas y tarjetas diferenciadas para tratamiento incompleto, pausado, restringido, ausencia de próxima toma y estados pendiente, confirmado y tardío.
 
@@ -770,7 +780,7 @@ Las pantallas de este grupo presentan estados de configuración y de una toma in
 
 *Nota. Elaboración propia.*
 
-### 08. Omission, Reinforcement & Follow-up States
+##### 08. Omission, Reinforcement & Follow-up States
 
 Este grupo muestra los estados asociados con una omisión y el seguimiento posterior. La interfaz diferencia una toma omitida, un recordatorio reforzado, una confirmación tardía, la preservación de la omisión, la agenda con estados, la ausencia de resultados y la falta de un canal de contacto válido.
 
@@ -782,7 +792,7 @@ Este grupo muestra los estados asociados con una omisión y el seguimiento poste
 
 *Nota. Elaboración propia.*
 
-### 09. Follow-up & Accessibility States
+##### 09. Follow-up & Accessibility States
 
 Este grupo muestra resultados posteriores a acciones del cuidador y variaciones de accesibilidad. Se utilizan mensajes de confirmación para el registro de notas, la atención de alertas y el cambio de periodo, además de estados de interfaz que evidencian el aumento de texto, el contraste reforzado y la reducción de movimiento.
 
@@ -794,7 +804,7 @@ Este grupo muestra resultados posteriores a acciones del cuidador y variaciones 
 
 *Nota. Elaboración propia.*
 
-### 10. Preferences, Inventory, Subscription & Internationalization
+##### 10. Preferences, Inventory, Subscription & Internationalization
 
 El último grupo reúne la ayuda de lectura activada, la confirmación de preferencias de notificación, los estados de inventario y reposición, la actualización de la suscripción, la indisponibilidad de un destino externo y la selección del idioma de la aplicación.
 
@@ -812,11 +822,29 @@ Los **70 mock-ups** mantienen correspondencia con los wireframes y con los recor
 
 Las versiones en inglés mantienen esta misma estructura y constituyen variantes de localización, por lo que no incrementan el número de pantallas funcionales considerado en el diseño.
 
---------------------------------------------------------
-MOBILE APPLICATIONS PROTOTYPING
---------------------------------------------------------
 
-## 3.1.4.5. Mobile Applications Prototyping
+#### 3.1.4.4. Mobile Applications User Flow Diagrams
+
+Los recorridos se organizan por objetivo del usuario y rol. Los diagramas de la sección 3.1.4.2 muestran las transiciones entre vistas y sus estados; esta sección identifica el punto de entrada, las decisiones y el resultado de cada recorrido. Se mantiene la numeración del [tablero de wireflows](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=283-2) para relacionar cada objetivo con su diagrama visual.
+
+| Perfil | Objetivo | Recorrido y decisiones | Diagrama |
+| --- | --- | --- | --- |
+| Adulto mayor | Acceder y consultar la próxima toma | Ingresar PIN → validar acceso → Inicio → próxima toma; el PIN incorrecto y el bloqueo ofrecen estados alternos. | WF01 |
+| Adulto mayor | Confirmar una toma | Próxima toma → confirmar por toque o voz → resultado; la voz no reconocida permite reintentar y una toma confirmada conserva su registro. | WF02 |
+| Adulto mayor | Consultar medicación y agenda | Medicamentos → detalle; Agenda → toma → estado pendiente, confirmado, tardío u omitido. | WF03–WF04 |
+| Adulto mayor | Ajustar accesibilidad | Más → Accesibilidad → elegir preferencia → interfaz con ajuste aplicado. | WF05 |
+| Familiar/cuidador | Crear cuenta y vincular al adulto | Registro → verificación → código de vínculo → solicitud → consentimiento; los datos inválidos permiten corregir el paso. | WF06 |
+| Familiar/cuidador | Configurar y administrar un tratamiento | Registrar medicamento → definir pauta → gestionar tratamiento; editar, pausar o desactivar según la acción elegida. | WF07, WF14 |
+| Familiar/cuidador | Revisar adherencia y actuar ante una alerta | Resumen → persona vinculada → historial o alertas → detalle → contacto o nota → alerta atendida. | WF08–WF10 |
+| Familiar/cuidador | Mantener la continuidad del cuidado | Inventario → reposición → cantidad actualizada; preferencias → guardar; plan → elegir → suscripción actualizada. | WF11–WF13 |
+| Adulto mayor y familiar | Gestionar una toma fuera de horario | Recordatorio reforzado → confirmación tardía u omisión conservada → agenda e historial. | WF15 |
+| Visitante | Conocer Tata y elegir un plan | Propuesta de valor → funciones → comparación de planes → registro o contacto; el destino externo dispone de un estado de indisponibilidad. | WF16 |
+
+Cada fila de wireframes y mock-ups incluye los resultados alternos de estos recorridos, evitando tratar las validaciones, errores y confirmaciones como destinos aislados.
+
+#### 3.1.4.5. Mobile Applications Prototyping
+
+[Abrir prototipo interactivo en español](https://www.figma.com/proto/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-5). [Consultar conexiones en el archivo de diseño](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2).
 
 El prototipo interactivo de la aplicación móvil de Tata fue construido a partir de los mock-ups de alta fidelidad y conserva la correspondencia de las **70 pantallas funcionales** definidas previamente. Su objetivo es validar la navegación real entre vistas, comprobar que las acciones principales conducen al estado esperado y representar de forma interactiva los recorridos previamente analizados mediante los wireflow diagrams.
 
@@ -852,19 +880,10 @@ Las acciones contextuales también fueron conectadas con sus respectivos estados
 
 La pantalla de inicio de sesión incorpora el acceso mediante correo electrónico y contraseña, además de las alternativas de continuación representadas en la interfaz. Por su parte, la pantalla de internacionalización extiende las configuraciones de accesibilidad mediante la selección del idioma de la aplicación y permite enlazar conceptualmente con las variantes traducidas de la interfaz.
 
-![Ejemplo de conexiones entre pantallas del prototipo](assets/mobile-app-prototyping-interactions.png)
-
-*Figura. Ejemplo de conexiones entre acciones, pantallas y estados dentro del prototipo móvil.*
-
-*Nota. Elaboración propia.*
+Las conexiones interactivas se consultan en el [prototipo original de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2), donde se pueden inspeccionar los destinos de cada acción.
 
 La incorporación de las pantallas **21 Notes - Adult** y **27 Notes - Caregiver** completa la navegación de la opción Notas para ambos perfiles. Estas vistas permiten evitar destinos inexistentes dentro de la barra inferior y mantienen la diferenciación de contenido entre la información personal del adulto mayor y las notas de seguimiento registradas por el familiar o cuidador.
 
 Asimismo, la incorporación de **07 Login** proporciona un punto de acceso explícito para usuarios previamente registrados, mientras que **70 Internationalization** completa la configuración de idioma de la aplicación. Las traducciones `EN` derivadas de esta configuración mantienen la misma estructura funcional y no se contabilizan como pantallas independientes.
 
 En conjunto, el prototipo permite comprobar que los componentes visuales de los mock-ups no funcionan como elementos aislados, sino como parte de recorridos navegables. La relación entre wireframes, wireflows, mock-ups y prototipado proporciona continuidad entre la estructura inicial, los escenarios funcionales, la representación visual definitiva y la interacción esperada de la aplicación móvil de Tata.
-#### 3.1.4.3. Mobile Applications Mock-ups
-
-#### 3.1.4.4. Mobile Applications User Flow Diagrams
-
-#### 3.1.4.5. Mobile Applications Prototyping
