@@ -3940,7 +3940,7 @@ A partir del trabajo realizado hasta esta entrega (AV1), correspondiente a la Pr
 - Los **Hypothesis Statements** planteados encuentran sustento inicial en los hallazgos de las entrevistas (100% de los adultos mayores entrevistados olvidó alguna toma; 100% de los familiares entrevistados reportó incertidumbre sobre el cumplimiento del tratamiento), lo que refuerza la pertinencia de las funcionalidades priorizadas en el Product Backlog para el Sprint 1 (recordatorios, confirmación accesible y alertas al cuidador).
 - El **análisis competitivo** confirmó que ningún competidor directo combina simultáneamente accesibilidad extrema para el adulto mayor con anticipación de olvidos mediante detección de patrones, validando el enfoque diferenciador de Tata.
 - El **diseño estratégico de Domain-Driven Design** (EventStorming, Bounded Context Canvases, Context Mapping) permitió establecer nueve Bounded Contexts con responsabilidades claras y patrones de relación explícitos (Customer/Supplier, Conformist, Shared Kernel, Anti-Corruption Layer), sentando una base sólida para el diseño táctico y la arquitectura de software que se detalla en el Capítulo II.
-- Como siguientes pasos, el equipo recomienda completar la Entrevista N.° 3 pendiente del Segmento 1 (adultos mayores), iniciar la implementación de las User Stories priorizadas para el Sprint 1 y preparar las primeras Validation Interviews con el prototipo del flujo de confirmación de tomas, a fin de contrastar los criterios de éxito establecidos en el proceso de Lean UX con datos reales de uso.
+- Se recomienda contrastar periódicamente las decisiones de diseño con adultos mayores y familiares, y utilizar los resultados para orientar la evolución del producto.
 
 ---
 
