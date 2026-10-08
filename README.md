@@ -50,7 +50,7 @@
 | Versión | Fecha | Autor | Descripción de modificación |
 |---------|-------|-------|-----------------------------|
 | AV1 | 16/09/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | Para esta primera entrega desarrollamos de manera colaborativa los dos primeros capítulos del informe, definiendo los segmentos objetivo, user stories, bounded contexts y más. |
-| AV2 | 07/10/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | Para esta segunda entrega se incorporaron el Capítulo III (Solution UI/UX Design) y el Capítulo IV (Product Implementation & Validation, Sprint 1), junto con las conclusiones, la bibliografía y los anexos actualizados. |
+| TB1 | 07/10/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | Para esta segunda entrega se incorporaron el Capítulo III (Solution UI/UX Design) y el Capítulo IV (Product Implementation & Validation, Sprint 1), junto con las conclusiones, la bibliografía y los anexos actualizados. |
 
 <br>
 <br>
@@ -4479,33 +4479,39 @@ Relaciones: OMISSION_CASES (1) - (N) CARE_ALERTS; OMISSION_CASES (1) - (N) ESCAL
 
 # Capítulo III: Solution UI/UX Design
 
+
+
 ## 3.1. Product design
+
+
 
 ### 3.1.1. Style Guidelines
 
-El equipo definió un único set de fundamentos de diseño para Tata "Tata Design Foundations" paleta de colores, tipografía y tokens de espaciado/interacción, además del logotipo oficial. Estos fundamentos se aplican de manera consistente en el Landing Page, en la aplicación Android nativa y en la aplicación multiplataforma, y son la referencia para los Wireframes, Mock-ups y Prototypes de este capítulo.
+Tata utiliza una identidad visual común en la landing y la aplicación: tipografía legible, superficies suaves y controles amplios.
+
+
 
 #### 3.1.1.1. General Style Guidelines
 
+
+
 ##### Branding
+
+La marca Tata utiliza un isotipo de mariposa y un logotipo en Dancing Script. El nombre expresa cercanía con el adulto mayor.
 
 <p align="center">
   <img src="./assets/Tata.png" alt="Logotipo de Tata" width="320">
 </p>
 
-- **Naming:** "Tata" es el término afectivo que en el Perú se usa para referirse a un abuelo o adulto mayor querido, lo que refuerza el vínculo familiar del producto frente a nombres más funcionales o clínicos, como los de la competencia (Medisafe, MyTherapy).
-- **Isotipo:** una mariposa en dos tonos de morado, en vez de la iconografía médica (cruces, pastillas) que usan los competidores. Transmite cuidado y ligereza sin verse clínica.
-- **Wordmark:** el logotipo usa Dancing Script (cursiva), reservada solo para la marca. No se usa en contenido funcional de la interfaz porque su legibilidad no alcanza para el adulto mayor.
-
 ##### Typography
+
+**Escala tipográfica:**
 
 | Tipografía | Uso | Pesos disponibles |
 | --- | --- | --- |
 | DM Serif Display | Display / headings | Regular |
 | Inter | UI / body | Regular, Medium, Semi Bold, Bold |
 | Dancing Script | Brand only (wordmark "Tata") | Bold |
-
-**Escala tipográfica:**
 
 | Nivel | Tamaño | Fuente | Uso |
 | --- | --- | --- | --- |
@@ -4517,13 +4523,15 @@ El equipo definió un único set de fundamentos de diseño para Tata "Tata Desig
 | Label | 13 sp | Inter Medium | Etiquetas de campos y estados |
 | Caption | 11 sp | Inter Regular | Metadata secundaria o navegación |
 
-Los tamaños entre 8.5 y 10 sp solo se usan en metadata secundaria o navegación nunca en dosis, medicamento u horario de toma. Se usa sp y no dp para que el tamaño de letra respete el ajuste de accesibilidad del sistema operativo.
-
-![Tata Design Foundations: paleta de colores y tipografía](./assets/tata-design-foundations-colors-typography.png)
+<p align="center">
+  <img src="./assets/tata-design-foundations-colors-typography.png" alt="Tata Design Foundations: paleta de colores y tipografía" width="960">
+</p>
 
 *Figura. Paleta de colores y sistema tipográfico de Tata Design Foundations.*
 
 ##### Colors
+
+El sistema visual utiliza texto e iconos para identificar los estados y contempla contraste legible sobre las superficies.
 
 | Token | Valor | Uso |
 | --- | --- | --- |
@@ -4535,22 +4543,22 @@ Los tamaños entre 8.5 y 10 sp solo se usan en metadata secundaria o navegación
 | Cream | `#FFF3E2` | Estados pendientes o de atención moderada (toma por confirmar). |
 | Canvas | `#F8F8FE` | Fondo general de las pantallas. |
 
-Todo texto sobre fondo cumple un contraste mínimo de 4.5:1 (3:1 en texto grande), y ningún estado depende solo del color: siempre se refuerza con texto e ícono.
-
 ##### Spacing
+
+El CTA principal (56-64 dp) es más alto que el touch target mínimo para reducir errores de precisión en el adulto mayor.
 
 | Token | Valor | Descripción |
 | --- | --- | --- |
 | Grid base | 8 dp | Espaciado principal en múltiplos de 8, 4 dp solo para microajustes. |
-| Touch target | 44 × 44 dp | Área táctil mínima para botones, íconos y controles. |
+| Touch target | 44  x  44 dp | Área táctil mínima para botones, íconos y controles. |
 | Card radius | 16-24 dp | 16 dp en controles, 20-24 dp en cards, 28+ dp en superficies hero. |
 | Page padding | 16-24 dp | 16 dp como mínimo, 20-24 dp recomendado para contenido principal. |
 | Primary CTA | 56-64 dp de altura | Confirmaciones y acciones principales, como confirmar una toma. |
 | Focus | 1 acción primaria | Una única acción dominante por pantalla. |
 
-El CTA principal (56-64 dp) es más alto que el touch target mínimo para reducir errores de precisión en el adulto mayor. La regla de una sola acción primaria por pantalla responde a la sobrecarga de decisiones identificada en las entrevistas y el Empathy Mapping del segmento.
-
-![Tata Design Foundations: escala tipográfica y reglas de layout e interacción](./assets/tata-design-foundations-layout-interaction.png)
+<p align="center">
+  <img src="./assets/tata-design-foundations-layout-interaction.png" alt="Tata Design Foundations: escala tipográfica y reglas de layout e interacción" width="960">
+</p>
 
 *Figura. Escala tipográfica y reglas de Layout & Interaction de Tata Design Foundations.*
 
@@ -4565,35 +4573,31 @@ El CTA principal (56-64 dp) es más alto que el touch target mínimo para reduci
 
 ### 3.1.2. Information Architecture
 
-El equipo definió la arquitectura de información de Tata separando dos audiencias con necesidades opuestas: el adulto mayor, que requiere la mínima cantidad de decisiones y pasos posibles, y el familiar o cuidador, que necesita profundidad suficiente para configurar tratamientos y revisar resultados. El Landing Page se organiza además como una tercera experiencia, orientada a que el visitante entienda la propuesta de valor y continúe hacia el registro. Las decisiones de esta sección se apoyan en los hallazgos de las entrevistas y en los principios ya definidos en Tata Design Foundations, particularmente "Reconocimiento > memoria" y "Prioridad temporal".
+La información se organiza para el adulto mayor, el familiar o cuidador y el visitante de la landing. Cada perfil dispone de navegación y contenido acordes con sus acciones principales.
+
+
 
 #### 3.1.2.1. Organization Systems
 
-##### Organización visual del contenido
+El contenido se organiza por perfil, secuencia de acciones y estado de las tomas.
 
-| Sistema de organización | Grupo de contenido | Justificación |
-| --- | --- | --- |
-| Jerárquica (visual hierarchy) | Inicio del adulto mayor (US-20) | La próxima toma domina la pantalla; el historial y los ajustes quedan subordinados, siguiendo el principio "Prioridad temporal" ya definido en Tata Design Foundations. |
-| Jerárquica (visual hierarchy) | Inicio del familiar (US-25) | El estado reciente del adulto mayor y las alertas abiertas se muestran primero; el resumen de adherencia y el acceso a tratamientos quedan en un segundo nivel. |
-| Jerárquica (visual hierarchy) | Landing Page (US-46, US-47) | La propuesta de valor ocupa el hero; funcionalidades y planes se despliegan en orden descendente de importancia hacia el CTA final. |
-| Secuencial (step-by-step) | Registro y vinculación de cuentas (US-10, US-11, US-02, US-13, US-12, US-01) | El familiar no puede vincular al adulto mayor sin verificar su correo, ni el adulto mayor puede ingresar sin que la cuenta esté habilitada; el flujo se presenta como pasos obligatorios en orden. |
-| Secuencial (step-by-step) | Creación de un tratamiento (US-14, US-15, US-16, US-17) | Definir el medicamento, la dosis, el horario y el recordatorio son decisiones dependientes entre sí; se guía al familiar paso a paso en un wizard. |
-| Secuencial (step-by-step) | Activación o cambio de suscripción (US-45) | Selección de plan, confirmación y activación se presentan en una secuencia corta y lineal. |
-| Matricial | Agenda diaria de tomas (US-24) | Cruza los horarios del día con los medicamentos correspondientes a cada horario. |
-| Matricial | Historial e insights de adherencia (US-32, US-09) | Cruza periodos de tiempo con el estado de cada toma (confirmada, tardía, omitida), permitiendo identificar patrones por franja horaria. |
+| Sistema | Aplicación |
+| --- | --- |
+| Jerárquico | Próxima toma en Inicio, alertas en el resumen familiar y propuesta de valor en la landing |
+| Secuencial | Registro, verificación, vinculación y configuración del tratamiento |
+| Matricial | Agenda por horarios e historial por periodos y estados |
 
-##### Esquemas de categorización
-
-| Esquema | Aplicación | Justificación |
-| --- | --- | --- |
-| Por audiencia (grupos de usuarios) | Separación completa entre la experiencia del adulto mayor, la del familiar/cuidador y el Landing Page del visitante | Es el esquema principal de Tata: cada audiencia tiene una profundidad de información y un nivel de autonomía distintos, sustentado en las entrevistas (baja alfabetización digital del adulto mayor frente a la necesidad de control remoto del familiar). |
-| Cronológico | Historial reciente de tomas (US-26), historial de adherencia (US-32), notas de seguimiento (US-30) y alertas | Se listan del más reciente al más antiguo, priorizando lo que necesita atención inmediata. |
-| Por tópicos | Navegación principal de la app del familiar (Medicación, Adherencia, Alertas, Cuenta) | Cada Epic (EPIC-02, EPIC-05, EPIC-04, EPIC-08) corresponde a una sección propia, evitando mezclar responsabilidades distintas en una misma pantalla. |
-| Alfabético | No se utiliza en ningún listado de Tata (ni en medicamentos, ni en planes) | El orden relevante para ambas audiencias es temporal (próxima toma) o de valor (comparación de planes, US-48), no alfabético; usar orden alfabético obligaría al adulto mayor a recordar el nombre exacto en vez de reconocerlo por contexto, contradiciendo el principio "Reconocimiento > memoria". |
+| Categorización | Contenido |
+| --- | --- |
+| Por audiencia | Adulto mayor, familiar o cuidador y visitante |
+| Cronológica | Tomas, alertas y notas de seguimiento |
+| Por tema | Medicación, adherencia, alertas y cuenta |
 
 #### 3.1.2.2. Labelling Systems
 
-Todas las etiquetas de Tata siguen la convención **verbo + objeto** ya definida en Tata Design Foundations (p. ej. "Confirmar toma", no "Confirmación"), evitando etiquetas vagas y manteniendo el mismo texto para la misma acción entre la app del adulto mayor y la del familiar cuando la funcionalidad es compartida.
+Todas las etiquetas de Tata siguen la convención **verbo + objeto** ya definida en Tata Design Foundations (p.
+
+
 
 ##### Etiquetas de acción
 
@@ -4637,8 +4641,6 @@ Todas las etiquetas de Tata siguen la convención **verbo + objeto** ya definida
 | Keywords | adherencia al tratamiento, medicación adultos mayores, cuidado remoto, recordatorio de medicamentos, salud digital Perú |
 | Author | VitaHealth |
 
-**Aplicaciones móviles (ASO)**
-
 | Elemento ASO | Contenido |
 | --- | --- |
 | App Title | Tata: Medicación y Cuidado |
@@ -4648,7 +4650,11 @@ Todas las etiquetas de Tata siguen la convención **verbo + objeto** ya definida
 
 #### 3.1.2.4. Searching Systems
 
+
+
 #### 3.1.2.5. Navigation Systems
+
+
 
 ##### App del adulto mayor
 
@@ -4659,8 +4665,6 @@ Navegación reducida a lo esencial, con un máximo de 3 accesos principales para
 | Inicio | Próxima toma y confirmación por toque o voz | US-20, US-06, TS-11 |
 | Mi medicación | Agenda diaria y detalle de cada tratamiento (solo lectura) | US-24, US-19, US-21 |
 | Ajustes | Accesibilidad: tamaño de texto, contraste, lectura asistida | US-35, US-36, US-38 |
-
-La confirmación por voz (TS-11) funciona como una vía de navegación alternativa a la táctil para la acción principal, sin reemplazar el flujo por toque.
 
 ##### App del familiar o cuidador
 
@@ -4674,8 +4678,6 @@ Barra de navegación inferior con 5 secciones, el máximo definido en Tata Desig
 | Alertas | Detalle, contacto y seguimiento de alertas | EPIC-04 |
 | Cuenta | Vínculo, plan/suscripción y accesibilidad | EPIC-01, EPIC-08, EPIC-06 |
 
-El acceso a cada tab mantiene la misma posición y el mismo ícono en toda la app (principio de Consistencia ya definido), y ninguna pantalla obliga a más de dos niveles de profundidad desde el tab principal (tab → lista → detalle).
-
 ##### Landing Page
 
 Navegación de una sola página con anclas, sin cambiar de URL entre secciones, para que el visitante recorra la propuesta de valor sin fricción:
@@ -4687,101 +4689,95 @@ Navegación de una sola página con anclas, sin cambiar de URL entre secciones, 
 | Planes | Comparación de planes disponibles | US-48 |
 | Comenzar | CTA hacia registro o contacto | US-49 |
 
-La barra de navegación superior permanece fija (sticky) durante el scroll, y el layout se adapta entre mobile y desktop sin perder el orden de las secciones (US-50, acceso adaptable al Landing Page).
-
 ### 3.1.3. Landing Page UI Design
 
+La landing presenta la propuesta de Tata, sus funcionalidades, planes y contacto. Las versiones desktop y mobile comparten el contenido y adaptan su distribución al ancho de pantalla.
 
-![Fundamentos visuales de la landing](assets/landing-foundations.png)
+<p align="center">
+  <img src="assets/landing-foundations.png" alt="Fundamentos visuales de la landing" width="960">
+</p>
 
-*Figura. Fundamentos de diseño de la landing page. Nota. Elaboración propia; exportación del [tablero de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=557-2).*
+*Figura. Fundamentos de diseño de la landing page. Nota. Elaboración propia; exportación del tablero de Figma.*
 
-La landing page de Tata fue diseñada como el principal punto de entrada público al producto. Su propósito es comunicar de forma clara la propuesta de valor, explicar las funciones principales, mostrar el proceso de uso, presentar los planes disponibles y proporcionar medios de contacto antes del registro o ingreso a la aplicación.
+Enlace a tablero de figma:
 
-El diseño se desarrolló considerando dos formatos: desktop y mobile. Ambas versiones mantienen la misma arquitectura de información, contenido y jerarquía general, pero reorganizan los elementos según el espacio disponible. La versión desktop aprovecha una composición horizontal y bloques de mayor amplitud, mientras que la versión mobile transforma las secciones en recorridos verticales, ajusta el tamaño de los controles y reorganiza las tarjetas para conservar legibilidad y facilidad de interacción.
+https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=557-2
 
-La estructura de la landing page mantiene relación visual con la aplicación móvil mediante el uso de la identidad de Tata, la misma familia cromática, componentes redondeados, jerarquías tipográficas y elementos visuales asociados con recordatorios, acompañamiento familiar y adherencia.
 
 #### 3.1.3.1. Landing Page Wireframe
 
-[Wireframes originales: desktop y mobile](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=546-2).
+Los wireframes definen la navegación, el orden de las secciones y la distribución del contenido en desktop y mobile.
 
-El wireframe de la landing page se elaboró en baja fidelidad con el objetivo de validar la arquitectura de información, el orden de lectura y la distribución de las secciones antes de incorporar el tratamiento visual definitivo.
-
-La estructura comienza con una barra de navegación superior y una sección hero destinada a comunicar la propuesta principal de Tata. A continuación, se presentan los beneficios centrales del producto, las funciones relacionadas con recordatorios, seguimiento familiar e insights, una explicación resumida del proceso de uso, testimonios, comparación de planes, opciones de soporte y una llamada a la acción final.
-
-En la versión desktop, los bloques aprovechan el ancho disponible mediante composiciones horizontales, tarjetas distribuidas en columnas y una presentación paralela entre contenido textual y recursos visuales. En la adaptación mobile, los mismos elementos se reorganizan verticalmente, reduciendo el número de columnas y priorizando una secuencia de lectura continua.
-
-![Wireframe de la landing page en versión desktop](assets/landing-page-wireframe-desktop.png)
+<p align="center">
+  <img src="assets/landing-page-wireframe-desktop.png" alt="Wireframe de la landing page en versión desktop" width="960">
+</p>
 
 *Figura. Wireframe desktop de la landing page de Tata.*
 
 *Nota. Elaboración propia.*
 
-![Wireframe de la landing page en versión mobile](assets/landing-page-wireframe-mobile.png)
+<p align="center">
+  <img src="assets/landing-page-wireframe-mobile.png" alt="Wireframe de la landing page en versión mobile" width="960">
+</p>
 
 *Figura. Wireframe mobile de la landing page de Tata.*
 
 *Nota. Elaboración propia.*
 
-La correspondencia entre ambas versiones permite validar el comportamiento responsive de la landing page desde la etapa de baja fidelidad. No se eliminan funciones esenciales en la versión mobile; únicamente se modifica la disposición de los componentes para adecuarlos al ancho reducido de pantalla.
+Wireframes originales: desktop y mobile:
+
+https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=546-2
+
 
 #### 3.1.3.2. Landing Page Mock-up
 
-[Mock-ups originales: desktop y mobile](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=400-2).
+Los mockups aplican la identidad de Tata sobre la estructura de la landing, con fotografía, tarjetas, tipografía y botones adaptados a ambos formatos.
 
-El mock-up aplica el sistema visual definitivo sobre la estructura previamente validada en los wireframes. La propuesta utiliza la identidad gráfica de Tata, una paleta basada principalmente en azul oscuro, violeta, tonos neutros y colores de apoyo, además de tarjetas de bordes suaves, iconografía funcional y recursos fotográficos relacionados con el adulto mayor y su familia.
-
-La sección hero combina la propuesta de valor con una fotografía contextual y elementos de interfaz que representan recordatorios, confirmaciones y seguimiento familiar. De esta manera, la funcionalidad del producto se comunica visualmente sin depender únicamente del texto.
-
-Las siguientes secciones desarrollan los beneficios principales, las funcionalidades de recordatorios, seguimiento e insights, el proceso resumido en tres pasos, testimonios, planes, soporte y la llamada a la acción final. Se mantiene suficiente separación vertical entre bloques para facilitar la lectura y evitar que la landing page se perciba excesivamente comprimida.
-
-![Mock-up de la landing page en versión desktop](assets/landing-page-mockup-desktop.png)
+<p align="center">
+  <img src="assets/landing-page-mockup-desktop.png" alt="Mock-up de la landing page en versión desktop" width="960">
+</p>
 
 *Figura. Mock-up desktop de la landing page de Tata.*
 
 *Nota. Elaboración propia.*
 
-La versión mobile conserva el contenido esencial de la versión desktop, pero utiliza una disposición de una sola columna. Las tarjetas, botones, encabezados, imágenes y bloques informativos se adaptan al ancho disponible y aumentan el recorrido vertical. Esta adaptación evita reducir excesivamente los contenidos y conserva una jerarquía visual equivalente a la versión desktop.
-
-![Mock-up de la landing page en versión mobile](assets/landing-page-mockup-mobile.png)
+<p align="center">
+  <img src="assets/landing-page-mockup-mobile.png" alt="Mock-up de la landing page en versión mobile" width="960">
+</p>
 
 *Figura. Mock-up mobile responsive de la landing page de Tata.*
 
 *Nota. Elaboración propia.*
 
-En conjunto, el wireframe y el mock-up permiten comprobar que la landing page conserva su estructura y propósito en ambos formatos. La versión de alta fidelidad añade identidad visual y contenido gráfico sin modificar la arquitectura de información establecida previamente.
+Mock-ups originales: desktop y mobile:
+
+https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=400-2
 
 
 ### 3.1.4. Mobile Applications UX/UI Design
 
-El diseño UX/UI de la aplicación móvil de Tata se organizó mediante tres artefactos complementarios: wireframes, wireflow diagrams y mock-ups. Los wireframes permitieron definir la estructura, la jerarquía de información y la distribución de controles sin incorporar todavía el tratamiento visual definitivo. Los wireflows relacionaron estas pantallas mediante recorridos asociados con los User Goals, incluyendo rutas principales, validaciones, estados alternos y situaciones de error. Finalmente, los mock-ups trasladaron la estructura validada a una propuesta visual de alta fidelidad mediante la tipografía, la paleta, los componentes, la iconografía y los estados de interacción definidos para Tata.
+El diseño móvil comprende 70 variantes en español, organizadas en diez filas de siete vistas. Incluye pantallas principales, validaciones y resultados de las acciones.
 
-La propuesta considera dos perfiles principales dentro de la aplicación: el adulto mayor y el familiar o cuidador. Además, se contempla al usuario visitante en los puntos de entrada públicos relacionados con la presentación del producto, la consulta de planes, el registro y el inicio de sesión. Esta separación se refleja en la navegación, la información disponible y las acciones permitidas para cada perfil.
 
-El adulto mayor utiliza una navegación orientada a la rutina diaria, medicamentos, agenda, notas y confirmación de tomas. El familiar o cuidador dispone de funciones de seguimiento, alertas, notas de seguimiento, gestión de la persona vinculada, tratamientos, inventario, preferencias y suscripción.
-
-El diseño contempla estados de validación, bloqueo, ausencia de datos, falta de consentimiento, recordatorios reforzados, accesibilidad, gestión de tratamientos, inventario, alertas, suscripción e internacionalización. De esta forma, los artefactos no representan únicamente escenarios exitosos, sino también los estados necesarios para cubrir los criterios de aceptación de las User Stories.
-
-La versión final comprende **70 pantallas funcionales**, estructuradas de forma equivalente entre wireframes, mock-ups y prototipado. Dentro de esta organización se incorporan la pantalla **07 Login**, utilizada para el ingreso de usuarios con una cuenta existente; la pantalla **21 Notes - Adult**, correspondiente a las notas del adulto mayor; la pantalla **27 Notes - Caregiver**, correspondiente a las notas del familiar o cuidador; y la pantalla **70 Internationalization**, que permite representar el cambio de idioma de la aplicación.
-
-Las variantes identificadas con el sufijo `EN` en Figma corresponden a traducciones al inglés de las mismas 70 pantallas y, por tanto, no se contabilizan como pantallas funcionales adicionales.
-
-Para facilitar la lectura del informe, los wireframes y los mock-ups se presentan por grupos correspondientes a las filas organizadas en Figma. Cada grupo reúne siete pantallas relacionadas funcionalmente y evita repetir una explicación individual para cada vista. Los wireflows, en cambio, se presentan uno por uno porque cada diagrama corresponde a un User Goal específico y contiene sus propias condiciones y bifurcaciones.
 
 #### 3.1.4.1. Mobile Applications Wireframes
 
-Los artefactos se presentan por filas del tablero original: **70 variantes en español**, organizadas en **10 filas de 7 vistas**. Cada fila conserva la numeración visible en Figma y puede ampliarse desde la imagen. Las variantes representan vistas principales y resultados alternos; no equivalen a 70 funcionalidades independientes. [Fuente: tablero de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=260-2).
+Las diez filas de wireframes presentan la estructura, los campos y las acciones de las 70 variantes.
 
-Los wireframes fueron elaborados en baja fidelidad para revisar la estructura de las pantallas antes de aplicar el sistema visual definitivo. Se utilizaron bloques, campos, botones, etiquetas, controles simples y placeholders para imágenes, gráficos e ilustraciones. Este nivel de fidelidad permitió concentrar la evaluación en la arquitectura de información, la jerarquía de contenidos, la ubicación de las acciones, la navegación inferior, la accesibilidad y los estados alternos requeridos por las User Stories.
+Fuente: tablero de Figma:
+
+https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=260-2
+
 
 ##### 01. Entry, Onboarding & Access
 
-Este grupo reúne los puntos de entrada a Tata y las pantallas necesarias para iniciar el uso del producto. Incluye la presentación de valor, la consulta de planes, el onboarding, el registro del familiar o cuidador, la vinculación con el adulto mayor, el acceso mediante PIN y el inicio de sesión para usuarios que ya poseen una cuenta.
+El acceso reúne la landing resumida, onboarding, registro, vinculación, PIN e inicio de sesión. Los campos y acciones conservan una jerarquía común.
 
 **Pantallas incluidas:** 01 Landing - Value & Features; 02 Landing - Plans & Contact; 03 Onboarding; 04 Caregiver Registration; 05 Link & Consent; 06 PIN Access; 07 Login.
 
-![Wireframes de entrada, onboarding y acceso](assets/mobile-app-wireframes-entry-onboarding-access.png)
+<p align="center">
+  <img src="assets/mobile-app-wireframes-entry-onboarding-access.png" alt="Wireframes de entrada, onboarding y acceso" width="960">
+</p>
 
 *Figura. Wireframes de entrada, onboarding y acceso a Tata.*
 
@@ -4789,11 +4785,13 @@ Este grupo reúne los puntos de entrada a Tata y las pantallas necesarias para i
 
 ##### 02. Older Adult Daily Experience
 
-Este grupo corresponde a la experiencia principal del adulto mayor. Se muestran la pantalla de inicio, la consulta de medicamentos, el detalle de una pauta, la agenda semanal, la confirmación por voz, la confirmación de una toma y la configuración general de accesibilidad.
+La experiencia del adulto mayor reúne Inicio, medicamentos, detalle, agenda, confirmación de toma y accesibilidad. La próxima toma ocupa el primer nivel de atención.
 
 **Pantallas incluidas:** 08 Home; 09 My Medications; 10 Medication Detail; 11 Weekly Schedule; 12 Voice Confirmation; 13 Dose Confirmed; 14 Accessibility.
 
-![Wireframes de la experiencia diaria del adulto mayor](assets/mobile-app-wireframes-older-adult-daily-experience.png)
+<p align="center">
+  <img src="assets/mobile-app-wireframes-older-adult-daily-experience.png" alt="Wireframes de la experiencia diaria del adulto mayor" width="960">
+</p>
 
 *Figura. Wireframes de la experiencia diaria del adulto mayor.*
 
@@ -4801,11 +4799,13 @@ Este grupo corresponde a la experiencia principal del adulto mayor. Se muestran 
 
 ##### 03. Monitoring, Insights & Adult Notes
 
-Este grupo concentra las principales funciones de seguimiento y consulta. Incluye el resumen familiar, la persona vinculada, la lista de alertas, el detalle de una alerta, el historial con indicadores de adherencia y las recomendaciones derivadas del comportamiento reciente. La fila incorpora además la pantalla de notas del adulto mayor, que funciona como destino de la opción “Notas” dentro de su navegación inferior.
+El seguimiento reúne el resumen familiar, persona vinculada, alertas, historial, recomendaciones y notas del adulto mayor. El estado reciente y las acciones de seguimiento se presentan en tarjetas.
 
 **Pantallas incluidas:** 15 Family Summary; 16 Linked Person; 17 Alerts; 18 Alert Detail; 19 History & Insights; 20 Adherence Recommendations; 21 Notes - Adult.
 
-![Wireframes de seguimiento, insights y notas del adulto mayor](assets/mobile-app-wireframes-monitoring-insights-adult-notes.png)
+<p align="center">
+  <img src="assets/mobile-app-wireframes-monitoring-insights-adult-notes.png" alt="Wireframes de seguimiento, insights y notas del adulto mayor" width="960">
+</p>
 
 *Figura. Wireframes de seguimiento familiar, alertas, insights y notas del adulto mayor.*
 
@@ -4813,11 +4813,13 @@ Este grupo concentra las principales funciones de seguimiento y consulta. Incluy
 
 ##### 04. Caregiver Treatment Management & Notes
 
-Este conjunto reúne las funciones de configuración y administración realizadas principalmente por el familiar o cuidador. Incluye el registro de medicamentos, la creación y gestión de tratamientos, el control de inventario, las preferencias de notificación, las notas del cuidador y la administración del plan contratado.
+La gestión del cuidador reúne el registro de medicamentos, la creación y administración del tratamiento, inventario, notificaciones, notas y suscripción.
 
 **Pantallas incluidas:** 22 Add Medication - Caregiver; 23 Create Treatment; 24 Treatment Management; 25 Inventory & Restock; 26 Notification Preferences; 27 Notes - Caregiver; 28 Plan & Subscription.
 
-![Wireframes de gestión del tratamiento y notas del cuidador](assets/mobile-app-wireframes-caregiver-treatment-management-notes.png)
+<p align="center">
+  <img src="assets/mobile-app-wireframes-caregiver-treatment-management-notes.png" alt="Wireframes de gestión del tratamiento y notas del cuidador" width="960">
+</p>
 
 *Figura. Wireframes de gestión del tratamiento, inventario, notificaciones, notas y suscripción.*
 
@@ -4825,11 +4827,13 @@ Este conjunto reúne las funciones de configuración y administración realizada
 
 ##### 05. Access, Registration & Consent States
 
-Este grupo incorpora estados alternos relacionados con el acceso, el registro y la vinculación. Se representan la creación del PIN, un PIN incorrecto, el bloqueo temporal por intentos fallidos, un correo ya registrado, una verificación vencida, un código de vinculación inválido y el seguimiento restringido cuando no existe consentimiento.
+Las variantes de acceso muestran la creación de PIN, credenciales incorrectas, bloqueo, correo duplicado, verificación vencida, código inválido y consentimiento requerido.
 
 **Pantallas incluidas:** 29 PIN Setup; 30 PIN Incorrect; 31 PIN Temporarily Blocked; 32 Duplicate Email; 33 Verification Expired; 34 Invalid Link Code; 35 Consent Required.
 
-![Wireframes de validaciones de acceso, registro y consentimiento](assets/mobile-app-wireframes-access-registration-consent-states.png)
+<p align="center">
+  <img src="assets/mobile-app-wireframes-access-registration-consent-states.png" alt="Wireframes de validaciones de acceso, registro y consentimiento" width="960">
+</p>
 
 *Figura. Wireframes de validaciones de acceso, registro y consentimiento.*
 
@@ -4837,11 +4841,13 @@ Este grupo incorpora estados alternos relacionados con el acceso, el registro y 
 
 ##### 06. Medication, Reminder & Adherence States
 
-Las pantallas de este grupo muestran validaciones y estados derivados de la gestión de medicamentos y de la confirmación de tomas. Se incluyen campos obligatorios incompletos, actualización y desactivación de medicamentos, recordatorio de toma, voz no reconocida, toma previamente confirmada y ausencia de datos para calcular adherencia.
+Las variantes de medicación muestran validaciones, edición, desactivación, recordatorio de toma, error de voz, toma ya confirmada y ausencia de datos de adherencia.
 
 **Pantallas incluidas:** 36 Medication Required Fields Error; 37 Medication Updated; 38 Medication Deactivated; 39 Medication Reminder Due; 40 Voice Not Recognized; 41 Dose Already Confirmed; 42 No Adherence Data.
 
-![Wireframes de estados de medicamentos, recordatorios y adherencia](assets/mobile-app-wireframes-medication-reminder-adherence-states.png)
+<p align="center">
+  <img src="assets/mobile-app-wireframes-medication-reminder-adherence-states.png" alt="Wireframes de estados de medicamentos, recordatorios y adherencia" width="960">
+</p>
 
 *Figura. Wireframes de validaciones de medicamentos, recordatorios y adherencia.*
 
@@ -4849,11 +4855,13 @@ Las pantallas de este grupo muestran validaciones y estados derivados de la gest
 
 ##### 07. Treatment & Dose States
 
-Este grupo representa variaciones del tratamiento y de una toma individual. Se consideran un tratamiento incompleto, un tratamiento pausado, un acceso restringido, la ausencia de una próxima toma y los estados pendiente, confirmado y tardío del detalle de una toma.
+Las variantes del tratamiento muestran datos incompletos, pausa, acceso restringido, ausencia de próxima toma y detalle de toma pendiente, confirmada o tardía.
 
 **Pantallas incluidas:** 43 Treatment Incomplete; 44 Treatment Paused; 45 Treatment Access Denied; 46 No Next Dose; 47 Dose Detail - Pending; 48 Dose Detail - Confirmed; 49 Dose Detail - Late.
 
-![Wireframes de estados de tratamiento y toma](assets/mobile-app-wireframes-treatment-dose-states.png)
+<p align="center">
+  <img src="assets/mobile-app-wireframes-treatment-dose-states.png" alt="Wireframes de estados de tratamiento y toma" width="960">
+</p>
 
 *Figura. Wireframes de estados de tratamiento y de una toma.*
 
@@ -4861,11 +4869,13 @@ Este grupo representa variaciones del tratamiento y de una toma individual. Se c
 
 ##### 08. Omission, Reinforcement & Follow-up States
 
-Este grupo amplía los escenarios de adherencia y seguimiento. Se representa una toma omitida, el recordatorio reforzado, la confirmación tardía, la preservación de una omisión después del vencimiento, una agenda con estados, un historial sin resultados y la imposibilidad de contactar al adulto mayor.
+Las variantes de seguimiento de la toma muestran omisión, recordatorio reforzado, confirmación tardía, agenda con estados, historial vacío y contacto no disponible.
 
 **Pantallas incluidas:** 50 Dose Detail - Omitted; 51 Reinforced Reminder; 52 Late Dose Confirmed; 53 Omission Preserved; 54 Agenda With Statuses; 55 Empty Intake History; 56 Contact Unavailable.
 
-![Wireframes de omisiones, recordatorios reforzados y seguimiento](assets/mobile-app-wireframes-omission-reinforcement-follow-up.png)
+<p align="center">
+  <img src="assets/mobile-app-wireframes-omission-reinforcement-follow-up.png" alt="Wireframes de omisiones, recordatorios reforzados y seguimiento" width="960">
+</p>
 
 *Figura. Wireframes de omisiones, recordatorios reforzados y seguimiento.*
 
@@ -4873,11 +4883,13 @@ Este grupo amplía los escenarios de adherencia y seguimiento. Se representa una
 
 ##### 09. Follow-up & Accessibility States
 
-Este grupo reúne resultados posteriores a acciones del cuidador y configuraciones de accesibilidad. Incluye una nota de seguimiento guardada, una alerta atendida, un cambio del periodo de análisis, la falta de evidencia suficiente para generar recomendaciones y tres estados de accesibilidad activados.
+Las variantes de seguimiento y accesibilidad muestran notas guardadas, alertas atendidas, cambio de periodo, evidencia insuficiente, texto grande, contraste y movimiento reducido.
 
 **Pantallas incluidas:** 57 Follow-up Note Saved; 58 Alert Attended; 59 Adherence Period Changed; 60 Insufficient Evidence; 61 Large Text Enabled; 62 High Contrast Enabled; 63 Reduced Motion Enabled.
 
-![Wireframes de seguimiento y accesibilidad](assets/mobile-app-wireframes-follow-up-accessibility-states.png)
+<p align="center">
+  <img src="assets/mobile-app-wireframes-follow-up-accessibility-states.png" alt="Wireframes de seguimiento y accesibilidad" width="960">
+</p>
 
 *Figura. Wireframes de seguimiento, evidencia y configuraciones de accesibilidad.*
 
@@ -4885,37 +4897,31 @@ Este grupo reúne resultados posteriores a acciones del cuidador y configuracion
 
 ##### 10. Preferences, Inventory, Subscription & Internationalization
 
-El último grupo reúne configuraciones guardadas y estados asociados con accesibilidad, inventario, suscripción, navegación externa e internacionalización. Se muestra la ayuda de lectura habilitada, las preferencias de notificación guardadas, una cantidad inválida de inventario, el stock repuesto, la suscripción actualizada, un destino externo no disponible y la configuración de idioma de la aplicación.
-
-La pantalla de internacionalización mantiene la estructura de accesibilidad y añade la opción “Idioma de la aplicación”, desde la cual puede seleccionarse otra versión lingüística de la interfaz. Las vistas identificadas con `EN` en Figma representan dicha traducción y no constituyen pantallas adicionales dentro del conteo funcional.
+Las variantes finales muestran ayuda de lectura, preferencias guardadas, validación de inventario, reposición, suscripción, destino externo e idioma.
 
 **Pantallas incluidas:** 64 Reading Assistance Enabled; 65 Notification Preferences Saved; 66 Invalid Inventory Quantity; 67 Stock Replenished; 68 Subscription Updated; 69 External Destination Unavailable; 70 Internationalization.
 
-![Wireframes de preferencias, inventario, suscripción e internacionalización](assets/mobile-app-wireframes-preferences-inventory-subscription-states.png)
+<p align="center">
+  <img src="assets/mobile-app-wireframes-preferences-inventory-subscription-states.png" alt="Wireframes de preferencias, inventario, suscripción e internacionalización" width="960">
+</p>
 
 *Figura. Wireframes de preferencias guardadas, inventario, suscripción, destino externo e internacionalización.*
 
 *Nota. Elaboración propia.*
 
-En conjunto, los **70 wireframes** permiten comprobar la cobertura estructural de la aplicación antes de incorporar el tratamiento visual de alta fidelidad. Los estados alternos se mantienen como pantallas independientes porque representan respuestas distintas del sistema frente a acciones, restricciones o condiciones específicas de las User Stories. Las versiones traducidas al inglés conservan la misma estructura y no modifican este conteo.
-
 #### 3.1.4.2. Mobile Applications Wireflow Diagrams
 
-Los wireflow diagrams relacionan los wireframes mediante recorridos de navegación asociados con User Goals concretos. Cada diagrama muestra la ruta principal y, cuando corresponde, las rutas alternativas que aparecen como consecuencia de validaciones, errores, restricciones o cambios de estado. Las flechas representan transiciones entre pantallas y sus etiquetas indican la acción o condición que produce cada cambio.
+Los dieciséis wireflows relacionan los objetivos de ambos perfiles con las vistas y sus resultados alternos.
 
-Cada wireflow mantiene correspondencia con un User Persona y utiliza como nodos los mismos estados representados en los wireframes. De este modo, cuando una interacción modifica el contenido o el estado de una pantalla, el flujo incorpora una vista específica que evidencia ese resultado.
+
 
 ##### WF01. Acceso con PIN y consulta de próxima toma
 
-**User Persona:** Doña Carmen Rodríguez.
+El adulto mayor crea o ingresa su PIN y consulta la próxima toma. El recorrido incluye PIN incorrecto, bloqueo y ausencia de una toma programada.
 
-**User Goal:** Ingresar con un PIN simple y consultar la próxima toma.
-
-**User Stories relacionadas:** US-01 y US-20.
-
-Este wireflow representa el acceso del adulto mayor a Tata mediante un PIN de cuatro dígitos. Después de crear el PIN y realizar un acceso válido, el usuario llega al inicio y puede consultar la próxima toma. También se representan un PIN incorrecto, el bloqueo temporal por intentos fallidos y el estado en el que no existe una toma próxima.
-
-![WF01 acceso con PIN y próxima toma](assets/mobile-app-wireflow-pin-access-next-dose.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-pin-access-next-dose.png" alt="WF01 acceso con PIN y próxima toma" width="960">
+</p>
 
 *Figura. WF01, acceso con PIN y consulta de la próxima toma.*
 
@@ -4923,15 +4929,11 @@ Este wireflow representa el acceso del adulto mayor a Tata mediante un PIN de cu
 
 ##### WF02. Confirmación de una toma por toque o por voz
 
-**User Persona:** Doña Carmen Rodríguez.
+El adulto mayor confirma una toma por toque o voz. El flujo incluye voz no reconocida, toma ya confirmada, registro tardío y omisión.
 
-**User Goal:** Confirmar una toma por toque o por voz y verificar el registro.
-
-**User Stories relacionadas:** US-05, US-06 y US-23.
-
-El recorrido muestra las dos formas principales de confirmar una toma. El usuario puede confirmar directamente desde el inicio o utilizar la confirmación por voz. El diagrama también contempla una toma previamente confirmada, una voz no reconocida, una confirmación tardía dentro del periodo de tolerancia y una omisión preservada cuando el periodo permitido ya finalizó.
-
-![WF02 confirmación de toma](assets/mobile-app-wireflow-dose-confirmation.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-dose-confirmation.png" alt="WF02 confirmación de toma" width="960">
+</p>
 
 *Figura. WF02, confirmación de una toma por toque o por voz y estados posteriores.*
 
@@ -4939,15 +4941,11 @@ El recorrido muestra las dos formas principales de confirmar una toma. El usuari
 
 ##### WF03. Consulta de medicamentos y estados de una pauta
 
-**User Persona:** Doña Carmen Rodríguez.
+El adulto mayor consulta sus medicamentos y abre el detalle de una toma. Los estados distinguen tomas pendientes, confirmadas, tardías y omitidas.
 
-**User Goal:** Consultar mis medicamentos y revisar una pauta y sus estados.
-
-**User Stories relacionadas:** US-21 y US-23.
-
-El recorrido parte del inicio, continúa hacia la lista de medicamentos y permite abrir el detalle de una pauta. Desde el detalle se representan los estados pendiente, confirmado, tardío y omitido para que el adulto mayor pueda reconocer el estado de la toma dentro de la misma estructura de navegación.
-
-![WF03 medicamentos y estados de toma](assets/mobile-app-wireflow-medications-dose-states.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-medications-dose-states.png" alt="WF03 medicamentos y estados de toma" width="960">
+</p>
 
 *Figura. WF03, consulta de medicamentos y estados de una pauta.*
 
@@ -4955,15 +4953,11 @@ El recorrido parte del inicio, continúa hacia la lista de medicamentos y permit
 
 ##### WF04. Consulta de agenda y visualización de estados
 
-**User Persona:** Doña Carmen Rodríguez.
+El adulto mayor consulta la agenda y reconoce el estado de las tomas programadas.
 
-**User Goal:** Consultar la agenda y distinguir el estado de cada toma.
-
-**User Stories relacionadas:** US-24.
-
-Este wireflow muestra el acceso desde el inicio hacia la agenda semanal. La primera vista permite consultar las tomas programadas y, desde ella, se accede al estado de las tomas para distinguir visualmente cuáles se encuentran confirmadas, pendientes, tardías u omitidas dentro del periodo mostrado.
-
-![WF04 agenda y estados](assets/mobile-app-wireflow-schedule-dose-statuses.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-schedule-dose-statuses.png" alt="WF04 agenda y estados" width="960">
+</p>
 
 *Figura. WF04, consulta de agenda semanal y visualización de estados.*
 
@@ -4971,15 +4965,11 @@ Este wireflow muestra el acceso desde el inicio hacia la agenda semanal. La prim
 
 ##### WF05. Configuración de accesibilidad
 
-**User Persona:** Doña Carmen Rodríguez.
+El adulto mayor ajusta texto, contraste, movimiento, ayuda de lectura e idioma desde Accesibilidad.
 
-**User Goal:** Adaptar la interfaz y conservar cada preferencia de accesibilidad.
-
-**User Stories relacionadas:** US-35, US-36, US-37 y US-38.
-
-El recorrido parte del inicio y accede a la sección de accesibilidad. Desde esa pantalla se representan los estados generados al aumentar el tamaño del texto, activar el contraste reforzado, reducir el movimiento y habilitar la ayuda de lectura. Cada resultado conserva la estructura de configuración y evidencia que la preferencia seleccionada ha sido guardada.
-
-![WF05 accesibilidad](assets/mobile-app-wireflow-accessibility-preferences.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-accessibility-preferences.png" alt="WF05 accesibilidad" width="960">
+</p>
 
 *Figura. WF05, configuración y persistencia de preferencias de accesibilidad.*
 
@@ -4987,15 +4977,11 @@ El recorrido parte del inicio y accede a la sección de accesibilidad. Desde esa
 
 ##### WF06. Registro y vinculación del familiar o cuidador
 
-**User Persona:** Diego Dani Mendoza.
+El familiar crea su cuenta, verifica el correo y solicita un vínculo con consentimiento del adulto mayor. El flujo incluye validaciones del registro y del código.
 
-**User Goal:** Crear mi cuenta y vincular a Rosa con consentimiento.
-
-**User Stories relacionadas:** US-10, US-11, US-02, US-12 y US-13.
-
-Este wireflow reúne el ingreso desde la bienvenida, el registro del cuidador, la verificación del correo, la vinculación con el adulto mayor y el acceso al resumen familiar cuando el vínculo es aceptado. Como rutas alternativas se incluyen un correo ya registrado, una verificación vencida, un código de vinculación inválido y el seguimiento restringido cuando no existe consentimiento.
-
-![WF06 registro y vinculación](assets/mobile-app-wireflow-registration-link-consent.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-registration-link-consent.png" alt="WF06 registro y vinculación" width="960">
+</p>
 
 *Figura. WF06, registro, verificación y vinculación con consentimiento.*
 
@@ -5003,15 +4989,11 @@ Este wireflow reúne el ingreso desde la bienvenida, el registro del cuidador, l
 
 ##### WF07. Registro de medicamento y gestión del tratamiento
 
-**User Persona:** Diego Dani Mendoza.
+El familiar registra un medicamento, define la pauta y administra el tratamiento. Las variantes muestran datos incompletos, pausa y acceso restringido.
 
-**User Goal:** Registrar un medicamento y activar o gestionar un tratamiento.
-
-**User Stories relacionadas:** US-03, US-14, US-15, US-16, US-17, US-18 y US-19.
-
-El recorrido comienza en la persona vinculada, continúa con el registro de un medicamento y la creación de un tratamiento, y finaliza en la gestión del tratamiento. También se representan la falta de datos obligatorios, una pauta incompleta, un tratamiento pausado y el acceso restringido cuando el tratamiento no corresponde a la persona vinculada.
-
-![WF07 medicamento y tratamiento](assets/mobile-app-wireflow-medication-treatment-management.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-medication-treatment-management.png" alt="WF07 medicamento y tratamiento" width="960">
+</p>
 
 *Figura. WF07, registro de medicamento y gestión del tratamiento.*
 
@@ -5019,15 +5001,11 @@ El recorrido comienza en la persona vinculada, continúa con el registro de un m
 
 ##### WF08. Seguimiento familiar, historial y alertas
 
-**User Persona:** Diego Dani Mendoza.
+El familiar consulta el resumen, historial y alertas. Los resultados incluyen historial vacío, ausencia de datos y cambio de periodo.
 
-**User Goal:** Consultar el estado reciente y profundizar en historial o alertas.
-
-**User Stories relacionadas:** US-25, US-26, US-08, US-32 y US-33.
-
-Este wireflow relaciona el resumen familiar con el historial y la lista de alertas. También contempla un historial sin datos suficientes para calcular adherencia, un periodo sin resultados y la actualización del periodo consultado. Estas rutas permiten representar situaciones en las que el seguimiento no dispone siempre de información completa.
-
-![WF08 seguimiento historial y alertas](assets/mobile-app-wireflow-family-history-alerts.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-family-history-alerts.png" alt="WF08 seguimiento historial y alertas" width="960">
+</p>
 
 *Figura. WF08, seguimiento familiar, historial y alertas.*
 
@@ -5035,15 +5013,11 @@ Este wireflow relaciona el resumen familiar con el historial y la lista de alert
 
 ##### WF09. Atención de alertas e intervención del cuidador
 
-**User Persona:** Diego Dani Mendoza.
+El familiar abre una alerta y registra una intervención mediante contacto o nota. El resultado identifica la alerta atendida y la indisponibilidad del contacto.
 
-**User Goal:** Atender una alerta y dejar registrada la intervención.
-
-**User Stories relacionadas:** US-27, US-29, US-30 y US-31.
-
-El recorrido parte de la lista de alertas, abre el detalle de una alerta y permite registrar una intervención antes de marcarla como atendida. También se representa el caso en el que no existe un canal de contacto válido para la persona vinculada, por lo que la acción de contacto no puede completarse.
-
-![WF09 atención de alertas](assets/mobile-app-wireflow-alert-intervention.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-alert-intervention.png" alt="WF09 atención de alertas" width="960">
+</p>
 
 *Figura. WF09, atención de alertas y registro de intervención.*
 
@@ -5051,15 +5025,11 @@ El recorrido parte de la lista de alertas, abre el detalle de una alerta y permi
 
 ##### WF10. Recomendaciones basadas en evidencia
 
-**User Persona:** Diego Dani Mendoza.
+El familiar consulta recomendaciones y revisa el tratamiento asociado. El flujo distingue los periodos con datos y los resultados con evidencia insuficiente.
 
-**User Goal:** Revisar patrones y aplicar un ajuste solo con evidencia suficiente.
-
-**User Stories relacionadas:** US-09, US-32, US-33 y US-34.
-
-El recorrido parte del historial de adherencia y conduce a la pantalla de recomendaciones cuando existen datos suficientes para detectar un patrón. Desde allí puede aplicarse un ajuste al tratamiento. Como rutas alternativas se incluyen el cambio del periodo de análisis y el estado de evidencia insuficiente, en el que no se presenta una recomendación concluyente.
-
-![WF10 recomendaciones y evidencia](assets/mobile-app-wireflow-evidence-recommendations.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-evidence-recommendations.png" alt="WF10 recomendaciones y evidencia" width="960">
+</p>
 
 *Figura. WF10, análisis de adherencia y recomendaciones basadas en evidencia.*
 
@@ -5067,15 +5037,11 @@ El recorrido parte del historial de adherencia y conduce a la pantalla de recome
 
 ##### WF11. Inventario y reposición
 
-**User Persona:** Diego Dani Mendoza.
+El familiar consulta el stock y registra una reposición. La validación conserva el inventario ante cantidades inválidas.
 
-**User Goal:** Controlar el stock y registrar una reposición.
-
-**User Stories relacionadas:** US-40, US-41, US-42 y US-43.
-
-Este wireflow muestra el acceso desde la gestión del tratamiento hacia el inventario, el registro de una reposición y el estado resultante con el stock actualizado. Como ruta alternativa se representa la validación de una cantidad inválida antes de guardar la reposición.
-
-![WF11 inventario y reposición](assets/mobile-app-wireflow-inventory-restock.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-inventory-restock.png" alt="WF11 inventario y reposición" width="960">
+</p>
 
 *Figura. WF11, control de inventario y registro de reposición.*
 
@@ -5083,15 +5049,11 @@ Este wireflow muestra el acceso desde la gestión del tratamiento hacia el inven
 
 ##### WF12. Preferencias de notificación
 
-**User Persona:** Diego Dani Mendoza.
+El familiar configura las preferencias de notificación y guarda los cambios.
 
-**User Goal:** Configurar qué notificaciones recibir y en qué horario.
-
-**User Stories relacionadas:** US-28 y US-39.
-
-El recorrido parte del resumen familiar, accede a las preferencias de notificación y finaliza con la configuración guardada. La pantalla permite organizar categorías de avisos, canales de comunicación y horario de silencio dentro de una misma configuración.
-
-![WF12 preferencias de notificación](assets/mobile-app-wireflow-notification-preferences.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-notification-preferences.png" alt="WF12 preferencias de notificación" width="960">
+</p>
 
 *Figura. WF12, configuración y guardado de preferencias de notificación.*
 
@@ -5099,15 +5061,11 @@ El recorrido parte del resumen familiar, accede a las preferencias de notificaci
 
 ##### WF13. Plan y suscripción
 
-**User Persona:** Diego Dani Mendoza.
+El familiar consulta su plan, elige una opción y recibe la confirmación del cambio de suscripción.
 
-**User Goal:** Consultar el plan actual y cambiar de suscripción.
-
-**User Stories relacionadas:** US-44 y US-45.
-
-Este wireflow muestra el acceso desde el resumen familiar hacia la gestión del plan. El usuario consulta su plan actual, revisa las alternativas disponibles y confirma el cambio de suscripción. El estado final evidencia que el nuevo plan se encuentra activo sin alterar el historial ni los vínculos existentes.
-
-![WF13 plan y suscripción](assets/mobile-app-wireflow-plan-subscription.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-plan-subscription.png" alt="WF13 plan y suscripción" width="960">
+</p>
 
 *Figura. WF13, consulta y actualización del plan de suscripción.*
 
@@ -5115,15 +5073,11 @@ Este wireflow muestra el acceso desde el resumen familiar hacia la gestión del 
 
 ##### WF14. Edición o desactivación de un medicamento
 
-**User Persona:** Diego Dani Mendoza.
+El familiar edita o desactiva un medicamento desde la gestión del tratamiento.
 
-**User Goal:** Editar una pauta o desactivar un medicamento sin perder el historial.
-
-**User Stories relacionadas:** US-04.
-
-El recorrido representa la administración de un medicamento dentro de un tratamiento. El cuidador puede guardar cambios en la pauta o desactivar el medicamento. En ambos casos se conserva el historial previo y el sistema diferencia el estado actualizado del estado desactivado.
-
-![WF14 editar y desactivar medicamento](assets/mobile-app-wireflow-edit-disable-medication.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-edit-disable-medication.png" alt="WF14 editar y desactivar medicamento" width="960">
+</p>
 
 *Figura. WF14, edición y desactivación de un medicamento.*
 
@@ -5131,15 +5085,11 @@ El recorrido representa la administración de un medicamento dentro de un tratam
 
 ##### WF15. Recordatorio reforzado, confirmación tardía y omisión
 
-**User Persona:** Doña Carmen Rodríguez.
+El adulto mayor recibe un recordatorio reforzado y confirma la toma dentro del periodo de tolerancia. La omisión conserva su estado cuando corresponde.
 
-**User Goal:** Recibir recordatorios reforzados y resolver una toma tardía u omitida.
-
-**User Stories relacionadas:** US-05, US-22 y US-23.
-
-Este flujo representa el comportamiento posterior a una toma que no fue confirmada en el momento esperado. El sistema emite un segundo recordatorio y permite una confirmación tardía mientras la toma permanece dentro del periodo de tolerancia. Cuando ese periodo vence, la toma se mantiene registrada como omitida y una confirmación posterior no reemplaza automáticamente dicho estado.
-
-![WF15 recordatorio reforzado confirmación tardía y omisión](assets/mobile-app-wireflow-reinforced-reminder-late-omission.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-reinforced-reminder-late-omission.png" alt="WF15 recordatorio reforzado confirmación tardía y omisión" width="960">
+</p>
 
 *Figura. WF15, recordatorio reforzado, confirmación tardía y omisión.*
 
@@ -5147,41 +5097,34 @@ Este flujo representa el comportamiento posterior a una toma que no fue confirma
 
 ##### WF16. Landing, comparación de planes y destino externo no disponible
 
-**User Persona:** Usuario visitante.
+El visitante consulta la propuesta de Tata, compara planes y continúa hacia acceso, registro o contacto. El recorrido incluye un destino externo no disponible.
 
-**User Goal:** Conocer Tata, comparar planes y gestionar un destino externo no disponible.
-
-**User Stories relacionadas:** US-49.
-
-Este wireflow representa la navegación del usuario visitante. El recorrido parte de la presentación de Tata, continúa hacia la comparación de planes y contempla el caso en el que un destino externo asociado con la opción de contacto no se encuentra disponible. Este estado permite mantener una respuesta visible dentro del producto en lugar de dejar la interacción sin retroalimentación.
-
-![WF16 landing planes y destino externo](assets/mobile-app-wireflow-landing-plans-external-destination.png)
+<p align="center">
+  <img src="assets/mobile-app-wireflow-landing-plans-external-destination.png" alt="WF16 landing planes y destino externo" width="960">
+</p>
 
 *Figura. WF16, navegación del visitante, comparación de planes y destino externo no disponible.*
 
 *Nota. Elaboración propia.*
 
-Los dieciséis wireflows muestran que las pantallas no fueron diseñadas como vistas aisladas. Cada vista forma parte de un recorrido asociado con un objetivo de usuario y sus estados alternos responden a condiciones concretas de interacción. Esta relación permitió comprobar la continuidad entre la arquitectura de información, los criterios de aceptación y los cambios de estado antes de consolidar el diseño visual de alta fidelidad.
-
-La incorporación posterior de las pantallas Login, Notes - Adult, Notes - Caregiver e Internationalization amplía los destinos disponibles en el prototipo sin modificar la lógica principal representada por estos dieciséis User Goals.
-
 #### 3.1.4.3. Mobile Applications Mock-ups
 
-Las diez imágenes siguientes corresponden a las diez filas del [tablero de mock-ups](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=31-2), con siete variantes por fila y la misma numeración que los wireframes.
+Los mockups presentan las mismas 70 variantes con el sistema visual de Tata y conservan la numeración de los wireframes.
 
-Los mock-ups representan la versión de alta fidelidad de las pantallas definidas previamente en los wireframes. La estructura funcional se mantiene, pero se incorpora el sistema visual de Tata mediante tipografías, jerarquías, colores, tarjetas, botones, iconografía, estados de navegación y elementos de apoyo visual.
+tablero de mock-ups:
 
-La propuesta mantiene consistencia entre las pantallas del adulto mayor y las del familiar o cuidador, pero adapta la navegación y la prioridad de la información a las tareas de cada perfil. Los estados de éxito, advertencia, error, información y confirmación utilizan tratamientos visuales diferenciados para facilitar su reconocimiento. Asimismo, se aplican criterios de diseño inclusivo mediante tamaño legible de controles y textos, contraste suficiente, reducción de movimiento, confirmación por voz y ayuda de lectura.
+https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=31-2
 
-Los mock-ups conservan correspondencia directa con los wireframes. La versión funcional final está compuesta por **70 pantallas** y mantiene la misma numeración utilizada en los wireframes y en el prototipo. Las variantes `EN` corresponden únicamente a traducciones de estas vistas y no se contabilizan como pantallas adicionales.
 
 ##### 01. Entry, Onboarding & Access
 
-El primer grupo presenta la identidad visual de Tata desde los puntos de entrada y continúa con el onboarding, el registro, la vinculación, el acceso mediante PIN y el inicio de sesión de usuarios existentes. La composición prioriza las acciones principales, la información contextual y los estados de acceso sin perder continuidad entre pantallas.
+El acceso reúne la landing resumida, onboarding, registro, vinculación, PIN e inicio de sesión. Los campos y acciones conservan una jerarquía común.
 
 **Pantallas incluidas:** 01 Landing - Value & Features; 02 Landing - Plans & Contact; 03 Onboarding; 04 Caregiver Registration; 05 Link & Consent; 06 PIN Access; 07 Login.
 
-![Mock-ups de entrada, onboarding y acceso](assets/mobile-app-mockups-entry-onboarding-access.png)
+<p align="center">
+  <img src="assets/mobile-app-mockups-entry-onboarding-access.png" alt="Mock-ups de entrada, onboarding y acceso" width="960">
+</p>
 
 *Figura. Mock-ups de entrada, onboarding y acceso a Tata.*
 
@@ -5189,11 +5132,13 @@ El primer grupo presenta la identidad visual de Tata desde los puntos de entrada
 
 ##### 02. Older Adult Daily Experience
 
-Este grupo representa la experiencia cotidiana del adulto mayor. El diseño prioriza la próxima toma, el progreso diario, la consulta de medicamentos, la agenda, la confirmación de toma y los ajustes de accesibilidad mediante una jerarquía visual simple y acciones de fácil reconocimiento.
+La experiencia del adulto mayor reúne Inicio, medicamentos, detalle, agenda, confirmación de toma y accesibilidad. La próxima toma ocupa el primer nivel de atención.
 
 **Pantallas incluidas:** 08 Home; 09 My Medications; 10 Medication Detail; 11 Weekly Schedule; 12 Voice Confirmation; 13 Dose Confirmed; 14 Accessibility.
 
-![Mock-ups de la experiencia diaria del adulto mayor](assets/mobile-app-mockups-older-adult-daily-experience.png)
+<p align="center">
+  <img src="assets/mobile-app-mockups-older-adult-daily-experience.png" alt="Mock-ups de la experiencia diaria del adulto mayor" width="960">
+</p>
 
 *Figura. Mock-ups de la experiencia diaria del adulto mayor.*
 
@@ -5201,11 +5146,13 @@ Este grupo representa la experiencia cotidiana del adulto mayor. El diseño prio
 
 ##### 03. Monitoring, Insights & Adult Notes
 
-Las pantallas de este grupo corresponden principalmente al seguimiento realizado por el familiar o cuidador mediante el resumen familiar, la persona vinculada, las alertas, el historial y las recomendaciones. La fila incorpora además la pantalla de notas del adulto mayor, utilizada como destino de la pestaña “Notas” dentro de su navegación principal.
+El seguimiento reúne el resumen familiar, persona vinculada, alertas, historial, recomendaciones y notas del adulto mayor. El estado reciente y las acciones de seguimiento se presentan en tarjetas.
 
 **Pantallas incluidas:** 15 Family Summary; 16 Linked Person; 17 Alerts; 18 Alert Detail; 19 History & Insights; 20 Adherence Recommendations; 21 Notes - Adult.
 
-![Mock-ups de seguimiento, insights y notas del adulto mayor](assets/mobile-app-mockups-monitoring-insights-adult-notes.png)
+<p align="center">
+  <img src="assets/mobile-app-mockups-monitoring-insights-adult-notes.png" alt="Mock-ups de seguimiento, insights y notas del adulto mayor" width="960">
+</p>
 
 *Figura. Mock-ups de seguimiento familiar, alertas, insights y notas del adulto mayor.*
 
@@ -5213,11 +5160,13 @@ Las pantallas de este grupo corresponden principalmente al seguimiento realizado
 
 ##### 04. Caregiver Treatment Management & Notes
 
-Este conjunto incorpora la gestión del tratamiento. La interfaz utiliza formularios, tarjetas de estado y acciones principales para registrar medicamentos, crear y administrar tratamientos, controlar inventario, configurar notificaciones, consultar las notas del cuidador y gestionar la suscripción.
+La gestión del cuidador reúne el registro de medicamentos, la creación y administración del tratamiento, inventario, notificaciones, notas y suscripción.
 
 **Pantallas incluidas:** 22 Add Medication - Caregiver; 23 Create Treatment; 24 Treatment Management; 25 Inventory & Restock; 26 Notification Preferences; 27 Notes - Caregiver; 28 Plan & Subscription.
 
-![Mock-ups de gestión del tratamiento y notas del cuidador](assets/mobile-app-mockups-caregiver-treatment-management-notes.png)
+<p align="center">
+  <img src="assets/mobile-app-mockups-caregiver-treatment-management-notes.png" alt="Mock-ups de gestión del tratamiento y notas del cuidador" width="960">
+</p>
 
 *Figura. Mock-ups de gestión del tratamiento, inventario, notificaciones, notas y suscripción.*
 
@@ -5225,11 +5174,13 @@ Este conjunto incorpora la gestión del tratamiento. La interfaz utiliza formula
 
 ##### 05. Access, Registration & Consent States
 
-Los estados de validación conservan la estructura principal de las pantallas base, pero incorporan mensajes y tratamientos visuales específicos para comunicar un PIN incorrecto, bloqueo temporal, correo duplicado, verificación vencida, código inválido o falta de consentimiento.
+Las variantes de acceso muestran la creación de PIN, credenciales incorrectas, bloqueo, correo duplicado, verificación vencida, código inválido y consentimiento requerido.
 
 **Pantallas incluidas:** 29 PIN Setup; 30 PIN Incorrect; 31 PIN Temporarily Blocked; 32 Duplicate Email; 33 Verification Expired; 34 Invalid Link Code; 35 Consent Required.
 
-![Mock-ups de validaciones de acceso registro y consentimiento](assets/mobile-app-mockups-access-registration-consent-states.png)
+<p align="center">
+  <img src="assets/mobile-app-mockups-access-registration-consent-states.png" alt="Mock-ups de validaciones de acceso registro y consentimiento" width="960">
+</p>
 
 *Figura. Mock-ups de validaciones de acceso, registro y consentimiento.*
 
@@ -5237,11 +5188,13 @@ Los estados de validación conservan la estructura principal de las pantallas ba
 
 ##### 06. Medication, Reminder & Adherence States
 
-Este grupo presenta estados alternos de medicamentos, confirmación de tomas e historial. Los mensajes visuales permiten diferenciar datos obligatorios faltantes, cambios guardados, desactivación, recordatorios, voz no reconocida, confirmación duplicada y ausencia de información suficiente para calcular adherencia.
+Las variantes de medicación muestran validaciones, edición, desactivación, recordatorio de toma, error de voz, toma ya confirmada y ausencia de datos de adherencia.
 
 **Pantallas incluidas:** 36 Medication Required Fields Error; 37 Medication Updated; 38 Medication Deactivated; 39 Medication Reminder Due; 40 Voice Not Recognized; 41 Dose Already Confirmed; 42 No Adherence Data.
 
-![Mock-ups de medicamentos recordatorios y adherencia](assets/mobile-app-mockups-medication-reminder-adherence-states.png)
+<p align="center">
+  <img src="assets/mobile-app-mockups-medication-reminder-adherence-states.png" alt="Mock-ups de medicamentos recordatorios y adherencia" width="960">
+</p>
 
 *Figura. Mock-ups de validaciones de medicamentos, recordatorios y adherencia.*
 
@@ -5249,11 +5202,13 @@ Este grupo presenta estados alternos de medicamentos, confirmación de tomas e h
 
 ##### 07. Treatment & Dose States
 
-Las pantallas de este grupo presentan estados de configuración y de una toma individual. Se conserva la estructura de las pantallas principales y se emplean mensajes, etiquetas y tarjetas diferenciadas para tratamiento incompleto, pausado, restringido, ausencia de próxima toma y estados pendiente, confirmado y tardío.
+Las variantes del tratamiento muestran datos incompletos, pausa, acceso restringido, ausencia de próxima toma y detalle de toma pendiente, confirmada o tardía.
 
 **Pantallas incluidas:** 43 Treatment Incomplete; 44 Treatment Paused; 45 Treatment Access Denied; 46 No Next Dose; 47 Dose Detail - Pending; 48 Dose Detail - Confirmed; 49 Dose Detail - Late.
 
-![Mock-ups de estados de tratamiento y toma](assets/mobile-app-mockups-treatment-dose-states.png)
+<p align="center">
+  <img src="assets/mobile-app-mockups-treatment-dose-states.png" alt="Mock-ups de estados de tratamiento y toma" width="960">
+</p>
 
 *Figura. Mock-ups de estados de tratamiento y de una toma.*
 
@@ -5261,11 +5216,13 @@ Las pantallas de este grupo presentan estados de configuración y de una toma in
 
 ##### 08. Omission, Reinforcement & Follow-up States
 
-Este grupo muestra los estados asociados con una omisión y el seguimiento posterior. La interfaz diferencia una toma omitida, un recordatorio reforzado, una confirmación tardía, la preservación de la omisión, la agenda con estados, la ausencia de resultados y la falta de un canal de contacto válido.
+Las variantes de seguimiento de la toma muestran omisión, recordatorio reforzado, confirmación tardía, agenda con estados, historial vacío y contacto no disponible.
 
 **Pantallas incluidas:** 50 Dose Detail - Omitted; 51 Reinforced Reminder; 52 Late Dose Confirmed; 53 Omission Preserved; 54 Agenda With Statuses; 55 Empty Intake History; 56 Contact Unavailable.
 
-![Mock-ups de omisiones y seguimiento](assets/mobile-app-mockups-omission-reinforcement-follow-up.png)
+<p align="center">
+  <img src="assets/mobile-app-mockups-omission-reinforcement-follow-up.png" alt="Mock-ups de omisiones y seguimiento" width="960">
+</p>
 
 *Figura. Mock-ups de omisiones, recordatorios reforzados y seguimiento.*
 
@@ -5273,11 +5230,13 @@ Este grupo muestra los estados asociados con una omisión y el seguimiento poste
 
 ##### 09. Follow-up & Accessibility States
 
-Este grupo muestra resultados posteriores a acciones del cuidador y variaciones de accesibilidad. Se utilizan mensajes de confirmación para el registro de notas, la atención de alertas y el cambio de periodo, además de estados de interfaz que evidencian el aumento de texto, el contraste reforzado y la reducción de movimiento.
+Las variantes de seguimiento y accesibilidad muestran notas guardadas, alertas atendidas, cambio de periodo, evidencia insuficiente, texto grande, contraste y movimiento reducido.
 
 **Pantallas incluidas:** 57 Follow-up Note Saved; 58 Alert Attended; 59 Adherence Period Changed; 60 Insufficient Evidence; 61 Large Text Enabled; 62 High Contrast Enabled; 63 Reduced Motion Enabled.
 
-![Mock-ups de seguimiento y accesibilidad](assets/mobile-app-mockups-follow-up-accessibility-states.png)
+<p align="center">
+  <img src="assets/mobile-app-mockups-follow-up-accessibility-states.png" alt="Mock-ups de seguimiento y accesibilidad" width="960">
+</p>
 
 *Figura. Mock-ups de seguimiento, evidencia y configuraciones de accesibilidad.*
 
@@ -5285,643 +5244,218 @@ Este grupo muestra resultados posteriores a acciones del cuidador y variaciones 
 
 ##### 10. Preferences, Inventory, Subscription & Internationalization
 
-El último grupo reúne la ayuda de lectura activada, la confirmación de preferencias de notificación, los estados de inventario y reposición, la actualización de la suscripción, la indisponibilidad de un destino externo y la selección del idioma de la aplicación.
-
-La pantalla de internacionalización se integra dentro de la sección de accesibilidad y mantiene el mismo sistema visual de controles y configuraciones. La opción de idioma permite representar el cambio hacia la interfaz en inglés, cuyas vistas `EN` reproducen la misma arquitectura y funcionalidad de las pantallas principales.
+Las variantes finales muestran ayuda de lectura, preferencias guardadas, validación de inventario, reposición, suscripción, destino externo e idioma.
 
 **Pantallas incluidas:** 64 Reading Assistance Enabled; 65 Notification Preferences Saved; 66 Invalid Inventory Quantity; 67 Stock Replenished; 68 Subscription Updated; 69 External Destination Unavailable; 70 Internationalization.
 
-![Mock-ups de preferencias inventario suscripción e internacionalización](assets/mobile-app-mockups-preferences-inventory-subscription-states.png)
+<p align="center">
+  <img src="assets/mobile-app-mockups-preferences-inventory-subscription-states.png" alt="Mock-ups de preferencias inventario suscripción e internacionalización" width="960">
+</p>
 
 *Figura. Mock-ups de preferencias guardadas, inventario, suscripción, destino externo e internacionalización.*
 
 *Nota. Elaboración propia.*
 
-Los **70 mock-ups** mantienen correspondencia con los wireframes y con los recorridos definidos en los wireflows. Las variaciones visuales no modifican el objetivo funcional de cada pantalla, sino que comunican con mayor claridad la jerarquía, los estados, las acciones y la retroalimentación del sistema.
-
-Las versiones en inglés mantienen esta misma estructura y constituyen variantes de localización, por lo que no incrementan el número de pantallas funcionales considerado en el diseño.
-
-
 #### 3.1.4.4. Mobile Applications User Flow Diagrams
 
-Los recorridos se organizan por objetivo del usuario y rol. Los diagramas de la sección 3.1.4.2 muestran las transiciones entre vistas y sus estados; esta sección identifica el punto de entrada, las decisiones y el resultado de cada recorrido. Se mantiene la numeración del [tablero de wireflows](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=283-2) para relacionar cada objetivo con su diagrama visual.
+Los recorridos agrupan las acciones por perfil y objetivo. La tabla relaciona los puntos de entrada, decisiones y resultados con sus wireflows.
 
 | Perfil | Objetivo | Recorrido y decisiones | Diagrama |
 | --- | --- | --- | --- |
-| Adulto mayor | Acceder y consultar la próxima toma | Ingresar PIN → validar acceso → Inicio → próxima toma; el PIN incorrecto y el bloqueo ofrecen estados alternos. | WF01 |
-| Adulto mayor | Confirmar una toma | Próxima toma → confirmar por toque o voz → resultado; la voz no reconocida permite reintentar y una toma confirmada conserva su registro. | WF02 |
-| Adulto mayor | Consultar medicación y agenda | Medicamentos → detalle; Agenda → toma → estado pendiente, confirmado, tardío u omitido. | WF03–WF04 |
-| Adulto mayor | Ajustar accesibilidad | Más → Accesibilidad → elegir preferencia → interfaz con ajuste aplicado. | WF05 |
-| Familiar/cuidador | Crear cuenta y vincular al adulto | Registro → verificación → código de vínculo → solicitud → consentimiento; los datos inválidos permiten corregir el paso. | WF06 |
-| Familiar/cuidador | Configurar y administrar un tratamiento | Registrar medicamento → definir pauta → gestionar tratamiento; editar, pausar o desactivar según la acción elegida. | WF07, WF14 |
-| Familiar/cuidador | Revisar adherencia y actuar ante una alerta | Resumen → persona vinculada → historial o alertas → detalle → contacto o nota → alerta atendida. | WF08–WF10 |
-| Familiar/cuidador | Mantener la continuidad del cuidado | Inventario → reposición → cantidad actualizada; preferencias → guardar; plan → elegir → suscripción actualizada. | WF11–WF13 |
-| Adulto mayor y familiar | Gestionar una toma fuera de horario | Recordatorio reforzado → confirmación tardía u omisión conservada → agenda e historial. | WF15 |
-| Visitante | Conocer Tata y elegir un plan | Propuesta de valor → funciones → comparación de planes → registro o contacto; el destino externo dispone de un estado de indisponibilidad. | WF16 |
+| Adulto mayor | Acceder y consultar la próxima toma | Ingresar PIN  /  validar acceso  /  Inicio  /  próxima toma; el PIN incorrecto y el bloqueo ofrecen estados alternos. | WF01 |
+| Adulto mayor | Confirmar una toma | Próxima toma  /  confirmar por toque o voz  /  resultado; la voz no reconocida permite reintentar y una toma confirmada conserva su registro. | WF02 |
+| Adulto mayor | Consultar medicación y agenda | Medicamentos  /  detalle; Agenda  /  toma  /  estado pendiente, confirmado, tardío u omitido. | WF03-WF04 |
+| Adulto mayor | Ajustar accesibilidad | Más  /  Accesibilidad  /  elegir preferencia  /  interfaz con ajuste aplicado. | WF05 |
+| Familiar/cuidador | Crear cuenta y vincular al adulto | Registro  /  verificación  /  código de vínculo  /  solicitud  /  consentimiento; los datos inválidos permiten corregir el paso. | WF06 |
+| Familiar/cuidador | Configurar y administrar un tratamiento | Registrar medicamento  /  definir pauta  /  gestionar tratamiento; editar, pausar o desactivar según la acción elegida. | WF07, WF14 |
+| Familiar/cuidador | Revisar adherencia y actuar ante una alerta | Resumen  /  persona vinculada  /  historial o alertas  /  detalle  /  contacto o nota  /  alerta atendida. | WF08-WF10 |
+| Familiar/cuidador | Mantener la continuidad del cuidado | Inventario  /  reposición  /  cantidad actualizada; preferencias  /  guardar; plan  /  elegir  /  suscripción actualizada. | WF11-WF13 |
+| Adulto mayor y familiar | Gestionar una toma fuera de horario | Recordatorio reforzado  /  confirmación tardía u omisión conservada  /  agenda e historial. | WF15 |
+| Visitante | Conocer Tata y elegir un plan | Propuesta de valor  /  funciones  /  comparación de planes  /  registro o contacto; el destino externo dispone de un estado de indisponibilidad. | WF16 |
 
-Cada fila de wireframes y mock-ups incluye los resultados alternos de estos recorridos, evitando tratar las validaciones, errores y confirmaciones como destinos aislados.
+tablero de wireflows:
+
+https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=283-2
+
 
 #### 3.1.4.5. Mobile Applications Prototyping
 
-[Abrir prototipo interactivo en español](https://www.figma.com/proto/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-5). [Consultar conexiones en el archivo de diseño](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2).
+El prototipo conecta las vistas y sus acciones para recorrer el acceso, tratamiento, tomas y seguimiento familiar. La función de idioma permite utilizar la interfaz en inglés mediante la variante EN.
 
-El prototipo interactivo de la aplicación móvil de Tata fue construido a partir de los mock-ups de alta fidelidad y conserva la correspondencia de las **70 pantallas funcionales** definidas previamente. Su objetivo es validar la navegación real entre vistas, comprobar que las acciones principales conducen al estado esperado y representar de forma interactiva los recorridos previamente analizados mediante los wireflow diagrams.
-
-Cada pantalla utilizada en el prototipo mantiene la misma numeración y estructura que su wireframe y mock-up correspondiente. Esto permite relacionar directamente los artefactos del informe con las vistas implementadas en Figma y facilita la trazabilidad entre wireframe, mock-up, flujo y prototipo.
-
-Las versiones `EN` disponibles en Figma constituyen traducciones de las mismas pantallas y no se consideran prototipos funcionales adicionales dentro del conteo de 70 vistas.
-
-![Vista general del prototipo móvil](assets/mobile-app-prototyping-overview.png)
+<p align="center">
+  <img src="assets/mobile-app-prototyping-overview.png" alt="Vista general del prototipo móvil" width="960">
+</p>
 
 *Figura. Vista general de las 70 pantallas utilizadas en el prototipo interactivo de Tata.*
 
 *Nota. Elaboración propia.*
 
-El prototipo contempla interacciones correspondientes al onboarding, registro del cuidador, inicio de sesión, vinculación, acceso mediante PIN, consulta de próximas tomas, medicamentos, agenda, confirmación por voz, seguimiento familiar, alertas, tratamientos, inventario, accesibilidad, preferencias, suscripción e internacionalización. Asimismo, los estados alternos de validación y error se conectan con las pantallas que representan sus respectivos resultados.
-
-La navegación inferior también fue incorporada al prototipo. Para el perfil del adulto mayor se utilizan las opciones **Inicio, Medicamentos, Agenda, Notas y Más**. La opción **Notas** conduce a la pantalla **21 Notes - Adult**. Para el perfil del familiar o cuidador se utilizan **Inicio, Alertas, Notas, Persona y Más**, donde la opción **Notas** conduce a la pantalla **27 Notes - Caregiver**.
-
-![Prototipo de navegación inferior del adulto mayor](assets/mobile-app-prototyping-older-adult-bottom-navigation.png)
+<p align="center">
+  <img src="assets/mobile-app-prototyping-older-adult-bottom-navigation.png" alt="Prototipo de navegación inferior del adulto mayor" width="960">
+</p>
 
 *Figura. Navegación inferior interactiva correspondiente al perfil del adulto mayor.*
 
 *Nota. Elaboración propia.*
 
-![Prototipo de navegación inferior del familiar o cuidador](assets/mobile-app-prototyping-caregiver-bottom-navigation.png)
+<p align="center">
+  <img src="assets/mobile-app-prototyping-caregiver-bottom-navigation.png" alt="Prototipo de navegación inferior del familiar o cuidador" width="960">
+</p>
 
 *Figura. Navegación inferior interactiva correspondiente al perfil del familiar o cuidador.*
 
 *Nota. Elaboración propia.*
 
-En las pantallas que incorporan una barra de navegación inferior, cada opción funciona como un destino independiente y no como un único elemento interactivo. De esta manera, el usuario puede desplazarse directamente entre las secciones principales desde las distintas vistas del prototipo, manteniendo el comportamiento esperado de una aplicación móvil.
+Enlace a prototipo:
 
-Las acciones contextuales también fueron conectadas con sus respectivos estados. Por ejemplo, la selección de un medicamento permite abrir su detalle, la agenda permite acceder a las tomas correspondientes, la confirmación por voz conduce al resultado de la toma, una alerta puede abrir su detalle y posteriormente actualizarse como atendida, y las configuraciones de accesibilidad conducen a vistas donde se evidencia la preferencia aplicada.
+https://www.figma.com/proto/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-5
 
-La pantalla de inicio de sesión incorpora el acceso mediante correo electrónico y contraseña, además de las alternativas de continuación representadas en la interfaz. Por su parte, la pantalla de internacionalización extiende las configuraciones de accesibilidad mediante la selección del idioma de la aplicación y permite enlazar conceptualmente con las variantes traducidas de la interfaz.
 
-Las conexiones interactivas se consultan en el [prototipo original de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2), donde se pueden inspeccionar los destinos de cada acción.
+Enlace a archivo de diseño:
 
-La incorporación de las pantallas **21 Notes - Adult** y **27 Notes - Caregiver** completa la navegación de la opción Notas para ambos perfiles. Estas vistas permiten evitar destinos inexistentes dentro de la barra inferior y mantienen la diferenciación de contenido entre la información personal del adulto mayor y las notas de seguimiento registradas por el familiar o cuidador.
+https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2
 
-Asimismo, la incorporación de **07 Login** proporciona un punto de acceso explícito para usuarios previamente registrados, mientras que **70 Internationalization** completa la configuración de idioma de la aplicación. Las traducciones `EN` derivadas de esta configuración mantienen la misma estructura funcional y no se contabilizan como pantallas independientes.
 
-En conjunto, el prototipo permite comprobar que los componentes visuales de los mock-ups no funcionan como elementos aislados, sino como parte de recorridos navegables. La relación entre wireframes, wireflows, mock-ups y prototipado proporciona continuidad entre la estructura inicial, los escenarios funcionales, la representación visual definitiva y la interacción esperada de la aplicación móvil de Tata.
+prototipo original de Figma:
+
+https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2
 
 # Capítulo IV: Product Implementation & Validation
-
 
 ## 4.1. Software Configuration Management
 
 ### 4.1.1. Software Development Environment Configuration
 
-| Actividad | Producto | Propósito | Ruta de referencia / descarga |
-| --- | --- | --- | --- |
-| Project Management / Requirements Management | Trello | Gestión del Product Backlog, los Sprints y las User Stories, Technical Stories y Spike Stories | https://trello.com/b/wuHmMypU/apps-moviles |
-| Product UX/UI Design | Figma | Elaboración de Wireframes, Mock-ups y Prototypes del Landing Page y las aplicaciones móviles | https://www.figma.com/ |
-| Product UX/UI Design | UXPressia | Elaboración de User Personas, Empathy Maps, User Journey Maps e Impact Mapping | https://uxpressia.com |
-| Software Development | Android Studio | IDE para el desarrollo de la aplicación Android nativa (Kotlin) y la aplicación multiplataforma (Flutter) | https://developer.android.com/studio |
-| Software Development | Spring Boot Framework (Java) | Framework para el desarrollo del backend RESTful | https://spring.io/projects/spring-boot |
-| Software Development | Miro | Big Picture EventStorming, EventStorming, Candidate Context Discovery, Domain Message Flows y Bounded Context Canvases | https://miro.com/app/board/uXjVHq5Jc9w=/ |
-| Software Development | Structurizr | Elaboración de los diagramas C4 (Context, Container, Deployment) de la arquitectura de software | https://structurizr.com |
-| Software Development | PlantUML | Elaboración de los Class Diagrams del Domain Layer por Bounded Context | https://plantuml.com |
-| Software Development | Vertabelo | Diseño de los diagramas de base de datos por Bounded Context | https://vertabelo.com |
-| Software Testing | JUnit 5 + Mockito | Unit testing de las clases del backend | https://junit.org/junit5/ |
-| Software Testing | Cucumber-JVM | Integration/Acceptance testing en Gherkin de los endpoints del backend | https://cucumber.io/docs/installation/java/ |
-| Software Testing | Espresso | Testing de UI de la aplicación Android nativa | https://developer.android.com/training/testing/espresso |
-| Software Testing | flutter_test | Unit e integration testing de la aplicación multiplataforma | https://docs.flutter.dev/testing |
-| Software Deployment | Render / Railway (Docker) | Despliegue del backend como contenedor Docker | https://render.com / https://railway.com |
-| Software Deployment | Neon / Railway PostgreSQL | Base de datos PostgreSQL administrada | https://neon.tech |
-| Software Deployment | GitHub Pages | Despliegue del Landing Page | https://pages.github.com |
-| Software Documentation | Swagger / OpenAPI | Documentación de los endpoints del backend | https://swagger.io |
+El equipo utiliza herramientas de planificación, diseño, desarrollo y despliegue para la landing, los servicios web y la aplicación Android.
+
+| Actividad | Herramientas | Uso |
+| --- | --- | --- |
+| Planificación | Trello y GitHub | Historias, tareas y control de versiones |
+| Diseño | Figma, UXPressia y Miro | Interfaces y artefactos de diseño |
+| Landing | WebStorm, HTML, CSS y JavaScript | Desarrollo del sitio responsive |
+| Servicios web | IntelliJ IDEA, Java, Spring Boot y Maven | API REST y pruebas |
+| Android | Android Studio, Kotlin, Compose y Gradle | Aplicación nativa y pruebas |
+| Persistencia | PostgreSQL y Room | Datos del servicio y almacenamiento local |
+| Integración y despliegue | GitHub Actions, Render, Neon y GitHub Pages | Compilación, pruebas y publicación |
+
+Enlace a tablero:
+
+https://trello.com/b/wuHmMypU/apps-moviles
+
+Enlace a Figma:
+
+https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth
+
+Enlace a Android Studio:
+
+https://developer.android.com/studio
+
+Enlace a Spring Boot:
+
+https://spring.io/projects/spring-boot
 
 ### 4.1.2. Source Code Management
 
-Para el control de versiones de todos los productos de VitaHealth (Tata) se utiliza Git gestionado desde GitHub, aplicando GitFlow como workflow, Semantic Versioning para los releases y Conventional Commits para los mensajes de commit.
- 
-#### Repositorios
- 
-| Producto | Repositorio | Contenido |
-|---|---|---|
-| Landing Page | https://github.com/vitaHealth-UPC/landing-page | Sitio estático (HTML5, CSS3, JavaScript), publicado en GitHub Pages |
-| Web Services | https://github.com/vitaHealth-UPC/web-services | Proyecto del backend (RESTful API), pruebas unitarias y pruebas de integración/aceptación (archivos `.feature`) |
-| Mobile Application | https://github.com/vitaHealth-UPC/mobile-android | App Tata en Kotlin (Android) |
-| Frontend Web Application | `https://github.com/<org>/<web-app>` | Aplicación web (si aplica a su alcance) |
- 
-#### GitFlow Workflow
- 
-Se trabaja con dos ramas de vida larga y tres tipos de ramas de apoyo.
- 
-##### Ramas permanentes
- 
-- **`main`**: contiene únicamente código estable y listo para producción. Cada merge a `main` corresponde a un release y se etiqueta con su versión.
-- **`develop`**: rama de integración. Recibe todas las features terminadas y es la base de los release branches.
-##### Ramas de apoyo
- 
-###### Feature branches
- 
-- Se crean desde `develop` y se fusionan de vuelta a `develop` mediante Pull Request.
-- Convención: `feature/<descripcion-corta-en-kebab-case>`
-- Ejemplos: `feature/medication-reminders`, `feature/user-login`, `feature/caregiver-linking`
-- Se eliminan después del merge.
-###### Release branches
- 
-- Se crean desde `develop` cuando el conjunto de features del sprint está completo. Solo admiten correcciones menores, ajustes de versión y documentación.
-- Convención: `release/<MAJOR.MINOR.PATCH>`, por ejemplo `release/1.0.0`
-- Se fusionan a `main` (con tag `vX.Y.Z`) y de vuelta a `develop`.
-###### Hotfix branches
- 
-- Se crean desde `main` para corregir errores críticos detectados en producción.
-- Convención: `hotfix/<MAJOR.MINOR.PATCH>` con el siguiente PATCH, por ejemplo `hotfix/1.0.1`
-- Se fusionan a `main` (con nuevo tag) y a `develop`.
-##### Reglas de colaboración
- 
-- No se hace push directo a `main` ni a `develop`; todo cambio entra por Pull Request con al menos una revisión de otro integrante.
-- Las ramas de feature se actualizan desde `develop` antes de abrir el PR para minimizar conflictos.
-#### Semantic Versioning 2.0.0
- 
-Los releases siguen el formato `MAJOR.MINOR.PATCH`:
- 
-- **MAJOR**: cambios incompatibles con versiones anteriores (por ejemplo, cambios que rompen la API).
-- **MINOR**: nueva funcionalidad compatible hacia atrás.
-- **PATCH**: corrección de errores compatible hacia atrás.
-Los tags se nombran `v1.0.0`, `v1.1.0`, `v1.1.1`. Las versiones previas a producción pueden usar sufijos como `v0.1.0` o `v1.0.0-beta.1`.
- 
-#### Conventional Commits
- 
-Los mensajes siguen la estructura:
- 
-```
-<type>(<scope opcional>): <descripción en inglés, en imperativo>
- 
-<cuerpo opcional>
- 
-<footer opcional>
-```
- 
-| Type | Uso |
-|---|---|
-| `feat` | Nueva funcionalidad |
-| `fix` | Corrección de un error |
-| `docs` | Cambios en documentación |
-| `style` | Formato, sin cambio de lógica |
-| `refactor` | Reestructuración de código sin cambiar comportamiento |
-| `test` | Creación o modificación de pruebas |
-| `chore` | Tareas de mantenimiento, configuración, dependencias |
-| `ci` | Cambios en integración/despliegue continuo |
- 
-Ejemplos:
- 
-- `feat(medication): add daily reminder scheduling`
-- `fix(auth): correct token expiration handling`
-- `test(medication): add acceptance scenarios for dose confirmation`
-- `feat(api)!: rename patient endpoint` (el `!` indica breaking change)
-#### Evidencia de commits
- 
-| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
-|---|---|---|---|---|---|
-| user/repositoryname | feature/... | `abc1234` | `feat: ...` | ... | dd/mm/aaaa |
+El equipo trabaja con GitFlow. Las historias se desarrollan en ramas feature, se revisan mediante Pull Requests y se integran en develop; las versiones estables se publican desde main con una etiqueta de release.
+
+| Rama | Uso |
+| --- | --- |
+| main | Versiones estables |
+| develop | Integración del trabajo |
+| feature/ | Desarrollo de historias |
+| fix/ | Correcciones |
+| release/ | Preparación de versiones |
+| hotfix/ | Correcciones de una versión publicada |
+
+Los commits utilizan Conventional Commits, con tipo, alcance y descripción. Las releases siguen Semantic Versioning; v1.0.0 identifica la versión publicada de los productos.
+
+**Landing Page**
+
+<p align="center">
+  <img src="assets/repository-evidence/landing-repository.png" alt="Repositorio de Landing Page en GitHub" width="960">
+</p>
+
+*Figura. Repositorio de Landing Page en GitHub.*
+
+Enlace a repositorio:
+
+https://github.com/vitaHealth-UPC/landing-page/tree/develop
+
+**Web Services**
+
+<p align="center">
+  <img src="assets/repository-evidence/backend-repository.png" alt="Repositorio de Web Services en GitHub" width="960">
+</p>
+
+*Figura. Repositorio de Web Services en GitHub.*
+
+Enlace a repositorio:
+
+https://github.com/vitaHealth-UPC/web-services/tree/develop
+
+**Aplicación Android**
+
+<p align="center">
+  <img src="assets/repository-evidence/android-repository.png" alt="Repositorio de Aplicación Android en GitHub" width="960">
+</p>
+
+*Figura. Repositorio de Aplicación Android en GitHub.*
+
+Enlace a repositorio:
+
+https://github.com/vitaHealth-UPC/mobile-android/tree/develop
 
 ### 4.1.3. Source Code Style Guide & Conventions
 
-En esta sección el equipo establece las guías de estilo y convenciones de código que se aplican en todos los productos de Tata. El objetivo es que el código escrito por los seis integrantes se lea como si lo hubiera escrito una sola persona, y que los nombres usados en el código correspondan a los conceptos definidos en el Ubiquitous Language (sección 2.3.6) y en el Tactical-Level Domain-Driven Design (sección 2.6).
+El código utiliza nombres en inglés y conceptos del dominio. Los textos de la interfaz se mantienen en recursos; el español es el idioma inicial y la función de idioma habilita la variante EN.
 
-La solución utiliza los siguientes lenguajes, y para cada uno se adopta una guía de referencia:
-
-| Lenguaje | Producto de Tata | Guía de referencia adoptada |
-| --- | --- | --- |
-| HTML5 | Landing Page | HTML Style Guide and Coding Conventions (W3Schools) y Google HTML/CSS Style Guide |
-| CSS3 | Landing Page | Google HTML/CSS Style Guide |
-| JavaScript | Landing Page | Google JavaScript Style Guide |
-| Java (Spring Boot) | Web Services (backend y API Gateway) | Google Java Style Guide y Spring Boot Features |
-| Kotlin | Aplicación Android nativa | Kotlin Coding Conventions y Android Kotlin Style Guide |
-| Dart (Flutter) | Aplicación móvil multiplataforma | Effective Dart |
-| Gherkin | Archivos `.feature` de pruebas de aceptación (Cucumber-JVM) | Gherkin Conventions for Readable Specifications |
-| SQL | Base de datos PostgreSQL | Convenciones propias del equipo, alineadas con los Database Design Diagrams de la sección 2.6 |
-
-#### Convenciones generales
-
-Las siguientes reglas aplican a todos los repositorios, independientemente del lenguaje:
-
-- **Nomenclatura en inglés.** Clases, métodos, variables, archivos, carpetas, endpoints, tablas y columnas se nombran en inglés. Los conceptos del dominio se toman de la versión en inglés del Ubiquitous Language para no inventar sinónimos: `Intake` (toma), `Treatment` (tratamiento), `Medication` (medicamento), `CareLink` (vínculo de cuidado), `OlderAdult` (adulto mayor), `Caregiver` (cuidador), `OmissionCase` (caso de omisión), `Alert` (alerta), `QuietHours` (horario de silencio). Por ejemplo, se escribe `confirmIntake()` y no `confirmarToma()` ni `confirmDose()`.
-- **Textos visibles fuera del código, en dos idiomas.** Todo texto que ve el adulto mayor o el familiar se escribe en español latinoamericano (es-419) como idioma inicial; la variante en inglés corresponde al prototipo EN y a la selección explícita de idioma. Los textos se ubican en archivos de recursos y nunca como literales dentro de la lógica: `res/values/strings.xml` para el español base, `res/values-b+es+419/strings.xml` para la variante regional y `res/values-en/strings.xml` para inglés en los módulos Android, `i18n/messages.properties` y `messages_es_419.properties` en el backend, y el diccionario de `js/i18n.js` con atributos `data-i18n` en el Landing Page. Esto permite revisar el tono de comunicación definido en la sección 3.1.1.1 sin modificar el código.
-- **Comentarios en inglés** y solo cuando explican el *porqué* de una decisión (por ejemplo, por qué una toma confirmada dos veces no genera un segundo registro). No se deja código comentado en los commits.
-- **Formato de archivo.** Codificación UTF-8, fin de línea LF y un salto de línea al final de cada archivo. La indentación es de 2 espacios para HTML, CSS, JavaScript, Java, Gherkin y YAML, y de 4 espacios para Kotlin. El repositorio `mobile-android` incluye un archivo `.editorconfig` en la raíz; `landing-page` y `web-services` lo incorporarán en el Sprint 2.
-- **Tokens de diseño compartidos.** Los colores y espaciados de *Tata Design Foundations* (sección 3.1.1.1) se definen una sola vez por producto y los componentes los referencian por nombre, para que un cambio de marca se haga en un solo lugar: en el Landing Page como variables CSS en `:root` de `css/styles.css`, y en Android en los objetos del módulo `:shared` (`TataColors.kt` y `TataSpacing.kt`).
-
-| Token | Landing Page (CSS) | Android (Kotlin, módulo `:shared`) |
-| --- | --- | --- |
-| Azul marino principal | `--tata-navy`, `--color-primary` | `TataNavy` |
-| Morado de acento | `--tata-purple` | `TataPurple` |
-| Texto principal | `--color-text` | `TataText` |
-| Texto secundario | `--color-muted` | `TataMuted` |
-| Bordes | `--color-border` | `TataBorder` |
-| Fondo crema (tarjetas de estado) | — | `TataCream` |
-| Espaciado base 8 | — | `TataSpacing.sm = 8.dp` |
-
-#### HTML5 (Landing Page)
-
-Se sigue *HTML Style Guide and Coding Conventions* y *Google HTML/CSS Style Guide*:
-
-- Se declara `<!DOCTYPE html>` y `<html lang="en">`, porque el idioma por defecto del Landing Page es el inglés. Cuando el visitante cambia a español, `js/i18n.js` reemplaza los textos marcados con `data-i18n` y actualiza el atributo a `lang="es-419"`, para que los lectores de pantalla pronuncien el contenido correctamente. Se incluyen `<meta charset="UTF-8">`, la etiqueta `viewport` y las meta tags definidas en la sección 3.1.2.3 (title, description, keywords y author).
-- Nombres de elementos y atributos en minúsculas, valores de atributos entre comillas dobles y todos los elementos cerrados correctamente.
-- Se usan elementos semánticos (`header`, `nav`, `main`, `section`, `footer`) en lugar de `div` genéricos, y un único `h1` por página.
-- Toda imagen informativa tiene un atributo `alt` descriptivo (por ejemplo, `alt="Tata"` en el logotipo), y las imágenes decorativas usan `alt=""` para que los lectores de pantalla las omitan. Las secciones sin encabezado visible se describen con `aria-label` (por ejemplo, `aria-label="Tata benefits"`).
-- No se usan estilos ni scripts en línea (`style=""`, `onclick=""`); se enlazan desde archivos externos.
-- Los `id` y las clases se escriben en inglés y en *kebab-case*, y se nombran por su función, no por su apariencia: `plans-section`, `plan-card`, `contact-form`, en lugar de `purple-box` o `seccion2`.
-- Estructura del repositorio: `index.html` en la raíz, los estilos en `css/` (`styles.css` y `responsive.css`), los scripts en `js/` (`main.js` e `i18n.js`) y los recursos gráficos en `assets/` (`icons/`, `images/` y `logo/`). Los nombres de archivo van en minúsculas y en *kebab-case*.
-
-#### CSS3 (Landing Page)
-
-Se sigue *Google HTML/CSS Style Guide*:
-
-- Una declaración por línea, un espacio después de los dos puntos, punto y coma al final de cada declaración y una línea en blanco entre reglas.
-- Los colores hexadecimales se escriben en minúsculas dentro del código (`#173b70`), aunque en la documentación de diseño aparezcan en mayúsculas.
-- Los tokens de diseño se declaran como variables CSS en `:root` y el resto de las reglas solo las referencia:
-
-```css
-:root {
-  --color-primary: #173b70;
-  --color-ink: #0e1729;
-  --color-secondary: #7b879b;
-  --color-lavender: #f1ecff;
-  --color-canvas: #f8f8fe;
-  --font-display: "DM Serif Display", serif;
-  --font-body: "Inter", sans-serif;
-  --space-unit: 8px;
-}
-
-.plan-card {
-  padding: calc(var(--space-unit) * 3);
-  border-radius: 20px;
-  background-color: var(--color-lavender);
-}
-```
-
-- Los tamaños de fuente se expresan en `rem` para respetar la configuración de tamaño de texto del navegador, en coherencia con el uso de `sp` en las aplicaciones móviles.
-
-#### JavaScript (Landing Page)
-
-Se sigue *Google JavaScript Style Guide*:
-
-- Se usa `const` por defecto, `let` solo cuando la variable se reasigna, y nunca `var`.
-- Variables y funciones en *lowerCamelCase* (`validateContactForm`); constantes de módulo en *UPPER_SNAKE_CASE* (`CONTACT_FORM_ID`).
-- Comparaciones con `===` y `!==`, punto y coma al final de cada sentencia y comillas simples para cadenas.
-- Los eventos se registran con `addEventListener` desde `assets/js/main.js`, no con atributos en el HTML.
-
-```javascript
-const CONTACT_FORM_ID = 'contact-form';
-
-function validateContactForm(form) {
-  const email = form.elements.email.value.trim();
-  return email !== '' && email.includes('@');
-}
-
-document.getElementById(CONTACT_FORM_ID).addEventListener('submit', (event) => {
-  if (!validateContactForm(event.target)) {
-    event.preventDefault();
-  }
-});
-```
-
-#### Java y Spring Boot (Web Services)
-
-Se toma como referencia *Google Java Style Guide*: una clase de nivel superior por archivo, llaves obligatorias incluso en bloques de una línea y nombres descriptivos en inglés. El formato se aplica con el formateador de IntelliJ IDEA. En el Sprint 1 una parte de los archivos quedó con indentación de 4 espacios (valor por defecto del IDE) y otra con los 2 espacios de la guía; el equipo normalizará el formato a 2 espacios en el Sprint 2 con el archivo `.editorconfig` mencionado en las convenciones generales.
-
-**Nomenclatura:**
-
-| Elemento | Convención | Ejemplo en Tata |
-| --- | --- | --- |
-| Paquete | minúsculas, sin guiones bajos, nombre completo del Bounded Context | `com.tata.intakeexecution.domain.model.aggregates` |
-| Clase / Record / Enum | *UpperCamelCase*, sustantivo | `Intake`, `MedicationSnapshot`, `IntakeStatus` |
-| Método | *lowerCamelCase*, verbo | `confirm()`, `registerReplenishment()`, `consumeUnit()` |
-| Variable / atributo | *lowerCamelCase* | `scheduledAt`, `remainingStock` |
-| Constante | *UPPER_SNAKE_CASE* | `MAX_PERIOD_DAYS`, `MINIMUM_ISSUES_FOR_PATTERN` |
-| Valor de enum | *UPPER_SNAKE_CASE* | `PENDING`, `CONFIRMED`, `LATE`, `OMITTED`, `TOUCH`, `VOICE` |
-
-**Organización de paquetes por Bounded Context.** El backend es un único desplegable (sección 2.5.3), pero cada Bounded Context tiene su propio paquete raíz bajo `com.tata` y, dentro de él, las cuatro capas definidas en la sección 2.6:
-
-| Bounded Context | Paquete raíz |
+| Tecnología | Convenciones |
 | --- | --- |
-| Identity & Subscription | `com.tata.identitysubscription` |
-| Care Link | `com.tata.carelink` |
-| Treatment Management | `com.tata.treatmentmanagement` |
-| Intake Execution | `com.tata.intakeexecution` |
-| Omission & Escalation | `com.tata.omissionescalation` |
-| Adherence Analytics | `com.tata.adherenceanalytics` |
-| Family Monitoring | `com.tata.familymonitoring` |
-| Accessibility & Preferences | `com.tata.accessibilitypreferences` |
-| Inventory & Replenishment | `com.tata.inventoryreplenishment` |
-| Elementos compartidos | `com.tata.shared` |
-
-Por ejemplo, el Bounded Context Intake Execution se organiza así en el repositorio:
-
-```text
-com.tata.intakeexecution
-├── domain
-│   ├── model
-│   │   ├── aggregates        -> Intake
-│   │   ├── valueobjects      -> MedicationSnapshot, IntakeStatus, ConfirmationChannel
-│   │   ├── commands          -> ConfirmIntakeCommand, ConfirmIntakeByVoiceCommand, GenerateIntakesCommand
-│   │   └── events            -> IntakeConfirmed, IntakeUnconfirmed
-│   ├── services              -> VoiceConfirmationValidationService
-│   └── repositories          -> IntakeRepository
-├── application
-│   ├── commandservices       -> ConfirmIntakeCommandService, ...          (contratos)
-│   ├── queryservices         -> GetNextIntakeQueryService, ...            (contratos)
-│   ├── models                -> IntakeResult, VoiceConfirmationResult
-│   ├── acl                   -> IntakeContextFacadeImpl
-│   └── internal
-│       ├── commandservices   -> ConfirmIntakeCommandHandler, ...          (implementaciones)
-│       ├── queryservices     -> GetNextIntakeQueryHandler, ...            (implementaciones)
-│       └── outboundservices  -> IVoiceRecognitionPort, IVoicePreferencePort
-├── interfaces
-│   ├── rest                  -> IntakesController, IntakeExceptionHandler
-│   │   ├── resources         -> IntakeResource, ConfirmIntakeResource, ...
-│   │   └── transform         -> IntakeResourceAssembler
-│   ├── acl                   -> IntakeContextFacade
-│   └── events                -> TreatmentScheduleChangedEventListener, ...
-└── infrastructure
-    ├── persistence/jpa
-    │   ├── entities          -> IntakePersistenceEntity
-    │   ├── repositories      -> IntakeJpaRepository
-    │   └── adapters          -> IntakeRepositoryImpl
-    ├── scheduling            -> IntakeUnconfirmedScheduler
-    └── external              -> VoiceRecognitionAdapter, HttpSpeechToTextProviderClient
-```
-
-**Sufijos por tipo de elemento.** Se mantienen los nombres definidos en el Tactical-Level Domain-Driven Design:
-
-| Tipo | Regla | Ejemplo |
-| --- | --- | --- |
-| Aggregate / Entity | Sustantivo del dominio, sin sufijo | `Intake`, `Treatment`, `Inventory`, `Batch` |
-| Value Object | Sustantivo, sin sufijo; se implementa como `record` cuando es inmutable | `MedicationSnapshot`, `StockLevel` |
-| Domain Event | Verbo en pasado, sin sufijo `Event` | `IntakeConfirmed`, `LowStockDetected`, `ReplenishmentRegistered` |
-| Command / Query | Verbo en imperativo + sufijo | `ConfirmIntakeCommand`, `GetRemainingStockQuery` |
-| Contrato de servicio de aplicación | Nombre + `CommandService` o `QueryService` | `ConfirmIntakeCommandService`, `InventoryQueryService` |
-| Implementación del servicio | Nombre + `CommandHandler`/`QueryHandler`, o contrato + `Impl` | `ConfirmIntakeCommandHandler`, `InventoryCommandServiceImpl` |
-| Repositorio (contrato de dominio) | Agregado + `Repository`, sin prefijo | `IntakeRepository`, `InventoryRepository` |
-| Repositorio (implementación) | Contrato + `Impl`, en `infrastructure/persistence/jpa/adapters` | `IntakeRepositoryImpl`, `InventoryRepositoryImpl` |
-| Repositorio de Spring Data / entidad JPA | Agregado + `JpaRepository` / `PersistenceEntity` | `IntakeJpaRepository`, `BatchPersistenceEntity` |
-| Puerto de salida (otro BC o servicio externo) | Prefijo `I` + nombre + `Port` | `IVoiceRecognitionPort`, `IMedicationLookupPort` |
-| Fachada ACL | Contexto + `ContextFacade` / `ContextFacadeImpl` | `TreatmentContextFacade`, `IntakeContextFacadeImpl` |
-| Resource (DTO REST) / Assembler | Sustantivo + `Resource` / `ResourceAssembler` | `InventoryResource`, `InventoryResourceAssembler` |
-| Controller | Recurso en plural + `Controller` | `IntakesController`, `TreatmentsController`, `InventoryController` |
-| Listener / Consumer / Scheduler | Responsabilidad + sufijo | `IntakeConfirmedEventListener`, `IntakeUnconfirmedScheduler` |
-
-El prefijo `I` se reserva para los **puertos de salida** de la capa Application, que representan dependencias hacia otro Bounded Context o hacia un servicio externo. Los repositorios de dominio no lo llevan: el contrato se llama como el agregado (`InventoryRepository`) y su implementación en Infrastructure añade el sufijo `Impl`. Algunos repositorios creados al inicio del Sprint 1 (`IOmissionCaseRepository`, `IFamilyMonitorRepository`, `IUserPreferencesRepository`) todavía conservan el prefijo y se renombrarán en el Sprint 2.
-
-**Convenciones de Spring Boot** (según *Spring Boot Features*):
-
-- Inyección de dependencias por constructor, con atributos `private final`; no se usa `@Autowired` sobre atributos.
-- Configuración externa en `application.properties` con perfiles `dev` y `prod` (`application-dev.properties` y `application-prod.properties`). El perfil activo se elige con `SPRING_PROFILES_ACTIVE`, que por defecto es `dev`. Las claves propias de Tata usan el prefijo `tata.` en *kebab-case*, por ejemplo `tata.cors.allowed-origins`.
-- Credenciales y cadenas de conexión se leen de variables de entorno y nunca se versionan en el repositorio.
-- Los mensajes de error visibles se resuelven con `MessageSource` desde `src/main/resources/i18n/messages.properties` (inglés) y `messages_es_419.properties` (español latinoamericano).
-
-**Convenciones de la API REST:**
-
-- Todas las rutas comienzan con `/api/v1`.
-- Los recursos se nombran con sustantivos en plural y en *kebab-case*: `/api/v1/treatments`, `/api/v1/medications`, `/api/v1/care-links`, `/api/v1/inventories`.
-- Las acciones que no son CRUD se modelan como subrecursos: la reposición de un inventario (US-43, TS-12) es `POST /api/v1/inventories/{medicationId}/replenishments`.
-- Las propiedades JSON se escriben en *lowerCamelCase* (`remainingStock`, `replenishmentThreshold`), que es el comportamiento por defecto de Jackson.
-- Los errores se devuelven con un cuerpo uniforme `{ "code": "...", "message": "..." }`. El `code` es estable y en *UPPER_SNAKE_CASE* (`INVENTORY_NOT_FOUND`, `INVENTORY_ALREADY_EXISTS`, `CONCURRENT_UPDATE`) para que las aplicaciones móviles lo traduzcan sin depender del texto.
-- Los códigos HTTP se usan según su significado: `200` y `201` para éxito, `400` para validación, `401` y `403` para autenticación o permisos, `404` para recursos inexistentes y `409` para conflictos de estado.
-
-**Pruebas.** Las clases de prueba se nombran como la clase probada más `Test` (`StockCoveragePolicyTest`, `InventoryRepositoryImplTest`). Las pruebas del backend usan una base H2 en memoria, de modo que se ejecutan sin PostgreSQL con `mvn test`.
-
-#### Kotlin (Aplicación Android nativa)
-
-Se siguen *Kotlin Coding Conventions* y *Android Kotlin Style Guide*, usando el esquema de formato *Kotlin style guide* de Android Studio: indentación de 4 espacios. La interfaz se construye con Jetpack Compose.
-
-- **Un módulo Gradle por Bounded Context**: `:identity`, `:carelink`, `:treatment`, `:intake`, `:omission`, `:monitoring`, `:analytics`, `:inventory` y `:preferences`. El módulo `:shared` contiene el tema, los componentes de diseño y la sesión, y el módulo `:app` contiene la navegación y la inyección de dependencias (`AppContainer`, `TataNavHost`).
-- Paquete base `com.vitahealth.tata.<contexto>` y, dentro de cada módulo, las capas `domain`, `application` (`commands`, `queries`, `handlers`, `readmodels`), `infrastructure` (`remote`, `local`) y `presentation`. Por ejemplo, `com.vitahealth.tata.inventory.presentation.inventory`.
-- Clases en *UpperCamelCase*; funciones y propiedades en *lowerCamelCase*; constantes (`const val`) en *UPPER_SNAKE_CASE*. El estado interno mutable de un ViewModel usa el prefijo `_` y se expone como inmutable: `private val _uiState` y `val uiState: StateFlow<...>`.
-- Sufijos por responsabilidad: `InventoryViewModel`, `InventoryUiState` (interfaz *sealed* con un estado por variante, por ejemplo `Loading`, `NotInitialized`, `Ready` y `Error`), `InventoryScreen` (composable sin estado) e `InventoryRoute` (composable que conecta el ViewModel), `RegisterReplenishmentCommand`, `RegisterReplenishmentCommandHandler`, `InventoryStockReadModel`, `InventoryApiService` (Retrofit) y `RemoteInventoryRepository`.
-- Un *frame* de Figma no equivale a una pantalla: los estados de una misma vista (stock bajo, stock disponible, cantidad inválida) se representan como variantes de su `UiState`, y cada una tiene su `@Preview`.
-- Los errores del backend se traducen por su `code` estable a recursos de texto; el texto nunca se toma directamente del `message` del backend.
-- Recursos en *snake_case* con el prefijo del módulo o de la pantalla: `inventory_status_low`, `treatment_open_inventory`, `agenda_bell.png`.
-- Los textos visibles están en `res/values/strings.xml` (inglés, por defecto) y `res/values-b+es+419/strings.xml` (español latinoamericano). Las vistas previas en español se declaran con `@Preview(locale = "b+es+419")`.
-- Los tamaños de texto se definen en `sp` y las dimensiones en `dp`, respetando la escala de la sección 3.1.1.1.
-
-#### Dart y Flutter (Aplicación móvil multiplataforma)
-
-Se sigue *Effective Dart* y se aplica el formateador oficial (`dart format`, 2 espacios y 80 caracteres por línea). El análisis estático se hace con `flutter analyze` usando las reglas de `flutter_lints` declaradas en `analysis_options.yaml`.
-
-- Archivos y carpetas en *lowercase_with_underscores*: `next_intake_screen.dart`, `intake_repository.dart`.
-- Clases, enums y typedefs en *UpperCamelCase* (`NextIntakeScreen`, `IntakeStatus`). Variables, funciones, parámetros y constantes en *lowerCamelCase*, incluidas las constantes (`const primaryColor`), tal como indica *Effective Dart*.
-- Los miembros privados de una librería llevan el prefijo `_` (`_confirmIntake()`).
-- Las importaciones se ordenan en tres bloques: `dart:`, luego `package:` y al final las importaciones relativas.
-- Estructura por Bounded Context: `lib/features/intake/{data,domain,presentation}` y los elementos comunes (tema, tokens, cliente HTTP) en `lib/core/`.
-- Los widgets reutilizables se nombran por su función: `IntakeCard`, `PrimaryConfirmButton`, `VoiceConfirmationButton`.
-
-#### Gherkin (archivos `.feature`)
-
-Se sigue *Gherkin Conventions for Readable Specifications*:
-
-- Las palabras clave (`Feature`, `Scenario`, `Given`, `When`, `Then`) y los textos se escriben en inglés, en coherencia con la regla de nomenclatura del enunciado.
-- Un archivo `.feature` por User Story o Technical Story, ubicado en `src/test/resources/features/<bounded-context>/` y nombrado en *snake_case* con el identificador de la historia: `ts04_intake_confirmation_api.feature`.
-- Cada `Feature` lleva etiquetas con el identificador de la historia y su Bounded Context (`@TS-04 @intake`), para trazarla con el Product Backlog.
-- `Given` describe el contexto, `When` una sola acción y `Then` un resultado observable. Los escenarios se redactan en tercera persona y en tiempo presente, sin detalles de interfaz. Se usa `Background` para el contexto compartido y `Scenario Outline` con `Examples` cuando solo cambian los datos.
-- Las clases de step definitions se nombran con el sufijo `StepDefinitions`: `IntakeConfirmationStepDefinitions`.
-
-Ejemplo basado en los criterios de aceptación de TS-04:
-
-```gherkin
-@TS-04 @intake
-Feature: Intake confirmation API
-  As a developer
-  I want to register the confirmation of an intake
-  So that its status is updated idempotently
-
-  Background:
-    Given a pending intake with id 101 exists for an older adult
-
-  Scenario: Confirm a pending intake by tap
-    When a POST request is sent to "/api/v1/intakes/101/confirmations" with channel "TAP"
-    Then the response status is 200
-    And the intake 101 has status "CONFIRMED"
-
-  Scenario: A repeated confirmation does not create a duplicate record
-    Given the intake 101 has already been confirmed
-    When a POST request is sent to "/api/v1/intakes/101/confirmations" with channel "TAP"
-    Then intake 101 has exactly one confirmation registered
-```
-
-#### SQL (PostgreSQL)
-
-Las convenciones siguen lo ya definido en los Database Design Diagrams de la sección 2.6:
-
-- Tablas en plural y en *snake_case*: `intakes`, `treatments`, `care_links`, `omission_cases`.
-- Columnas en *snake_case*. La clave primaria se llama `id` y las referencias lógicas a otros Bounded Contexts siguen el formato `<entidad>_id` (`treatment_id`, `older_adult_id`).
-- Las fechas y horas terminan en `_at` (`scheduled_at`, `confirmed_at`) y todas las tablas incluyen las columnas de auditoría `created_at` y `updated_at`.
-- Los enums se almacenan como texto en mayúsculas (`PENDING`, `TOUCH`), con los mismos valores que en Java.
-- Las referencias a entidades de otro Bounded Context se guardan como identificadores UUID en texto (`varchar(36)`), sin clave foránea, porque cada contexto es dueño de sus tablas. Por ejemplo, `inventories.medication_id` referencia a un medicamento de Treatment Management.
-- En las entidades JPA los atributos se escriben en *lowerCamelCase* (`scheduledAt`). La estrategia de nombres del proyecto (`SnakeCaseWithPluralizedTablePhysicalNamingStrategy`, en `com.tata.shared`) los convierte automáticamente a *snake_case* y pluraliza el nombre de la tabla, por lo que no es necesario repetir `@Column(name = ...)` ni `@Table(name = ...)` salvo excepciones.
-
+| HTML | Elementos semánticos, etiquetas y atributos en minúsculas |
+| CSS | Clases descriptivas, variables de diseño y reglas responsive |
+| JavaScript | lowerCamelCase, funciones breves y textos de interfaz separados |
+| Java | Clases en PascalCase, métodos en lowerCamelCase y paquetes por bounded context y capa |
+| Kotlin | Composables en PascalCase, estado en ViewModels y módulos por bounded context |
+| SQL | Nombres consistentes y relaciones definidas mediante claves |
+| Pruebas | Nombres que describen el comportamiento y resultado esperado |
+| Git | Commits con tipo y alcance; Pull Requests con descripción y validación |
 
 ### 4.1.4. Software Deployment Configuration
 
-En esta sección el equipo especifica la configuración y los pasos para desplegar o publicar cada producto digital de Tata a partir de su repositorio de código fuente. La solución comprende cuatro productos desplegables y una base de datos:
+GitHub Actions publica la landing en GitHub Pages. Render construye el backend desde su Dockerfile y utiliza PostgreSQL en Neon; Android recibe la URL del servicio mediante TATA_API_BASE_URL.
 
-| Producto | Repositorio | Plataforma de despliegue | Rama que se despliega | URL / forma de acceso |
-| --- | --- | --- | --- | --- |
-| Landing Page | [landing-page](https://github.com/vitaHealth-UPC/landing-page) | GitHub Pages | `main` | https://vitahealth-upc.github.io/landing-page/ |
-| Web Services (módulos de los 9 Bounded Contexts) | [web-services](https://github.com/vitaHealth-UPC/web-services) | Render, servicio con Docker | `develop` (despliegue del Sprint 1) | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) |
-| Base de datos central | — | PostgreSQL administrado (Neon o Railway) | — | Solo accesible desde el backend, mediante `DATABASE_URL` |
-| Aplicación Android nativa (Kotlin) | [mobile-android](https://github.com/vitaHealth-UPC/mobile-android) | Firebase App Distribution | `main` | Invitación por correo a los testers |
-| Aplicación multiplataforma (Flutter) |  | Firebase App Distribution | `main` | Invitación por correo a los testers |
-
-**Relación con el flujo de trabajo.** El desarrollo se realiza en ramas `feature/` y se integra en `develop` mediante Pull Request. El backend público del Sprint 1 se describe en 4.2.1.8 como un despliegue de `develop` en Render. Las versiones estables se preparan en `release/x.y.z`, se integran en `main` y se etiquetan como `vx.y.z`, siguiendo GitFlow y Semantic Versioning.
-
-**Manejo de credenciales.** Ningún repositorio contiene contraseñas, API keys ni keystores de firma. Estos valores se configuran como variables de entorno en la plataforma de despliegue o se guardan fuera del repositorio (archivos incluidos en `.gitignore`) y se comparten solo entre los integrantes del equipo.
-
-#### Landing Page: GitHub Pages
-
-El Landing Page es un sitio estático (HTML5, CSS3 y JavaScript), por lo que se publica directamente desde su repositorio sin un proceso de compilación.
-
-1. Verificar que el repositorio del Landing Page sea **público** dentro de la organización `vitaHealth-UPC`, ya que GitHub Pages para organizaciones con plan gratuito solo publica repositorios públicos.
-2. Verificar que `index.html` se encuentre en la raíz de la rama `main`.
-3. Verificar que las rutas a estilos, scripts e imágenes sean **relativas** (`assets/css/styles.css` y no `/assets/css/styles.css`). GitHub Pages sirve el sitio bajo la subruta `/<repositorio>/`, y las rutas absolutas dejarían el sitio sin estilos.
-4. En el repositorio, ir a **Settings → Pages → Build and deployment**, seleccionar **Source: Deploy from a branch**, elegir la rama `main` y la carpeta `/ (root)`, y guardar.
-5. GitHub ejecuta automáticamente el workflow `pages-build-deployment`, cuyo avance puede verse en la pestaña **Actions**. Al terminar, el sitio queda disponible en `https://vitahealth-upc.github.io/<repositorio>/`.
-6. Cada nueva integración en `main` vuelve a publicar el sitio automáticamente. Después de cada publicación se verifica en el navegador que carguen las secciones del Landing Page y que las meta tags de la sección 3.1.2.3 aparezcan en el código fuente de la página.
-
-#### Web Services: Docker en Render o Railway, y PostgreSQL administrado
-
-Según la sección 2.5.3.3, el API Gateway y los módulos de los nueve Bounded Contexts se ejecutan juntos en un único desplegable. Por ello el backend se publica como **un solo servicio web** a partir de una imagen Docker construida desde el repositorio, conectado a **una instancia de PostgreSQL administrada**. El repositorio deja preparadas dos plataformas que construyen la misma imagen: **Render** (Web Service con entorno Docker) y **Railway** (archivo `railway.toml`). La base de datos se aloja en un servicio PostgreSQL administrado (Neon o Railway PostgreSQL), y el backend acepta directamente la URL que entregan estos servicios.
-
-**Configuración incluida en el repositorio del backend:**
-
-a) Un `Dockerfile` en la raíz, de dos etapas, que compila el proyecto con Maven y Java 26 y ejecuta el `.jar` resultante con el perfil `prod`:
-
-```dockerfile
-FROM maven:3.9.16-eclipse-temurin-26 AS build
-WORKDIR /workspace
-COPY pom.xml .
-COPY src ./src
-RUN mvn --batch-mode -DskipTests package
-
-FROM eclipse-temurin:26-jre-noble
-WORKDIR /app
-ENV SPRING_PROFILES_ACTIVE=prod
-ENV JAVA_OPTS=""
-COPY --from=build /workspace/target/web-services-*.jar /app/app.jar
-EXPOSE 8080
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
-```
-
-b) Un archivo `application-prod.properties` que toma toda la configuración de variables de entorno, con valores por defecto seguros:
-
-```properties
-server.port=${PORT:8080}
-spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:tata}}
-spring.datasource.username=${SPRING_DATASOURCE_USERNAME:${DATABASE_USER:}}
-spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:${DATABASE_PASSWORD:}}
-spring.jpa.hibernate.ddl-auto=${DDL_AUTO:update}
-tata.cors.allowed-origins=${TATA_CORS_ALLOWED_ORIGINS:*}
-```
-
-c) La clase `DatabaseUrlEnvironmentPostProcessor`, que convierte automáticamente la variable `DATABASE_URL` con formato `postgresql://usuario:contraseña@host/base?sslmode=require` (el formato que entregan Neon, Railway y Render) al formato JDBC que necesita Spring Boot, conservando `sslmode`. Así no es necesario armar la URL JDBC a mano.
-
-d) Un endpoint de salud `GET /health` (`HealthController`), que la plataforma usa para verificar que el servicio inició, y la documentación Swagger/OpenAPI generada por `springdoc-openapi` en `/swagger-ui.html`.
-
-e) El archivo `railway.toml`, que indica a Railway construir con el `Dockerfile`, usar `/health` como health check y reiniciar el servicio ante fallos (hasta 5 reintentos).
-
-**Pasos de despliegue:**
-
-1. Crear la base de datos PostgreSQL en el servicio administrado (Neon o Railway) con el nombre `tata` y copiar su cadena de conexión (`postgresql://...`).
-2. En Render, iniciar sesión con GitHub, autorizar el acceso al repositorio `web-services` de la organización `vitaHealth-UPC` y crear el servicio desde **New → Web Service**, con entorno **Docker**. Render detecta el `Dockerfile` de la raíz. En Railway, el equivalente es **New Project → Deploy from GitHub repo**, que detecta el `railway.toml`.
-3. Registrar las variables de entorno del servicio:
-
-| Variable | Valor |
+| Producto | Configuración |
 | --- | --- |
-| `SPRING_PROFILES_ACTIVE` | `prod` (ya definida en el `Dockerfile`) |
-| `DATABASE_URL` | Cadena de conexión `postgresql://...` del paso 1; se convierte a JDBC automáticamente |
-| `DATABASE_HOST` / `DATABASE_PORT` / `DATABASE_NAME` / `DATABASE_USER` / `DATABASE_PASSWORD` | Alternativa a `DATABASE_URL`, con los datos de conexión por separado |
-| `PORT` | La define la plataforma; la aplicación la toma con `server.port=${PORT:8080}` |
-| `TATA_CORS_ALLOWED_ORIGINS` | Orígenes permitidos, separados por comas |
+| Landing | Workflow .github/workflows/pages.yml y publicación en GitHub Pages |
+| Backend | Dockerfile, perfil prod, PORT y variables de conexión a PostgreSQL |
+| Base de datos | Conexión administrada con credenciales en el entorno del servicio |
+| Android | Compilación de APK con Gradle y API_BASE_URL en BuildConfig |
 
-4. Configurar `/health` como **Health Check Path** (en Railway ya viene definido en `railway.toml`) y dejar el despliegue automático activado.
-5. Ejecutar el primer despliegue y revisar los logs hasta ver que Spring Boot inició correctamente.
-6. Verificar el despliegue abriendo `https://web-services-yzxl.onrender.com/health` y la documentación en `https://web-services-yzxl.onrender.com/swagger-ui/index.html`, y ejecutando desde ella una operación de prueba, por ejemplo la consulta del inventario de un medicamento (US-41).
-
-**Consideraciones de los planes gratuitos:**
-- El servicio web puede suspenderse tras un periodo sin tráfico, y la primera solicitud posterior puede tardar cerca de un minuto. Antes de cada sustentación y de las entrevistas de validación, el equipo abre `/health` para activarlo.
-- Las bases de datos gratuitas tienen límites de almacenamiento o de duración. El equipo revisa esos límites en el panel del proveedor y, si es necesario, exporta los datos con `pg_dump` y los restaura en una nueva instancia para llegar al TB2 con la información intacta.
-
-#### Aplicaciones móviles: Firebase App Distribution
-
-Las dos aplicaciones móviles se distribuyen como archivos APK firmados mediante **Firebase App Distribution**, que es el servicio que el enunciado exige para el TB2. Se usa un único proyecto de Firebase para Tata, que también provee Firebase Cloud Messaging para las notificaciones push. Dentro de ese proyecto se registran dos aplicaciones Android con identificadores distintos, para que ambas puedan instalarse en el mismo dispositivo.
-
-**Preparación común (una sola vez):**
-
-1. En la consola de Firebase, crear el proyecto de Tata con la cuenta del equipo.
-2. Registrar la aplicación Android nativa con el identificador `com.vitahealth.tata` y la aplicación Flutter con `com.vitahealth.tata.flutter`, y descargar el archivo `google-services.json` de cada una.
-3. En **App Distribution**, crear el grupo de testers `vitahealth-team` con los correos de los seis integrantes, y el grupo `validation-users` para los participantes de las entrevistas de validación (sección 4.3).
-4. Generar una llave de firma (*keystore*) por aplicación. El archivo `.jks` y sus contraseñas se guardan **fuera del repositorio** y se comparten solo dentro del equipo, porque cada versión nueva de una app debe firmarse con la misma llave para poder instalarse sobre la anterior.
-
-**Aplicación Android nativa (Kotlin):**
-
-1. Copiar `google-services.json` en la carpeta `app/`.
-2. Definir la URL del backend. En `app/build.gradle.kts` la URL se lee de la propiedad de Gradle `TATA_API_BASE_URL` y, si no se indica, apunta al backend público de Render (`https://web-services-yzxl.onrender.com/`). Para la versión distribuida se compila indicando la URL del backend desplegado, sin escribirla en el código:
-
-```kotlin
-defaultConfig {
-    val apiBaseUrl = providers.gradleProperty("TATA_API_BASE_URL")
-        .orElse("https://web-services-yzxl.onrender.com/").get()
-    buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl}\"")
-}
+```powershell
+.\gradlew.bat :app:assembleDebug -PTATA_API_BASE_URL=https://web-services-yzxl.onrender.com/
 ```
 
-3. Configurar `signingConfigs.release` para que lea la ruta y las contraseñas de la llave desde un archivo `keystore.properties`, incluido en `.gitignore`.
-4. Actualizar `versionName` con la versión semántica de la release (por ejemplo, `1.0.0`) e incrementar `versionCode` en cada distribución.
-5. Generar el APK firmado con `./gradlew assembleRelease -PTATA_API_BASE_URL=https://web-services-yzxl.onrender.com/`. El archivo se genera en `app/build/outputs/apk/release/app-release.apk`.
-6. En **Firebase → App Distribution**, seleccionar la aplicación `com.vitahealth.tata`, subir el APK, escribir las notas de versión con las User Stories incluidas y distribuirlo a los grupos correspondientes.
-7. Cada tester recibe un correo de invitación, acepta la distribución e instala el APK en su dispositivo físico, habilitando la instalación de aplicaciones de origen desconocido. Este es el dispositivo que se usa en la sustentación, como exige el enunciado.
+<p align="center">
+  <img src="assets/software-architecture-deployment-diagram.svg" alt="Diagrama de despliegue de Tata" width="960">
+</p>
 
-**Aplicación multiplataforma (Flutter):**
+*Figura. Diagrama de despliegue de Tata.*
 
-1. Copiar `google-services.json` en `android/app/`.
-2. Declarar la versión en `pubspec.yaml` con el formato `version: 1.0.0+1`, donde la parte anterior al `+` es la versión semántica y la posterior es el número de compilación, que se incrementa en cada distribución.
-3. Leer la URL del backend en tiempo de compilación, para no escribirla dentro del código:
+Enlace a landing:
 
-```dart
-const apiBaseUrl = String.fromEnvironment(
-  'API_BASE_URL',
-  defaultValue: 'http://10.0.2.2:8080/api/v1',
-);
-```
+https://vitahealth-upc.github.io/landing-page/
 
-4. Configurar la firma en `android/app/build.gradle.kts` a partir de un archivo `android/key.properties`, incluido en `.gitignore`, siguiendo la guía oficial de Flutter para compilaciones Android de release.
-5. Generar el APK firmado con `flutter build apk --release --dart-define=API_BASE_URL=https://<servicio>/api/v1`. El archivo se genera en `build/app/outputs/flutter-apk/app-release.apk`.
-6. Subir el APK en **Firebase → App Distribution** para la aplicación `com.vitahealth.tata.flutter` y distribuirlo igual que la aplicación nativa.
+Enlace a Swagger UI:
 
-En el alcance actual, ambas aplicaciones se distribuyen como APK para Android, que es la plataforma de los dispositivos físicos usados en la sustentación y en las entrevistas de validación. La distribución de una compilación para iOS requiere una cuenta de Apple Developer Program y no forma parte de esta configuración.
-
-#### Deployment Diagram
-
-El siguiente Deployment Diagram del C4 Model, presentado inicialmente en la sección 2.5.3.3, muestra la distribución de los productos de Tata en producción. Con la configuración descrita en esta sección, los nodos del diagrama corresponden a las siguientes plataformas:
-
-| Nodo del diagrama | Plataforma elegida |
-| --- | --- |
-| Hosting web estático / CDN | GitHub Pages |
-| Plataforma de aplicaciones en la nube (API Gateway y módulos de los Bounded Contexts) | Render Web Service o Railway, con la imagen Docker del backend |
-| Servicio administrado de PostgreSQL | Neon o Railway PostgreSQL |
-| Dispositivo Android / Dispositivo móvil multiplataforma | Dispositivos físicos de los testers, con las apps instaladas desde Firebase App Distribution |
-| Servicio de notificaciones | Firebase Cloud Messaging |
-| Servicio Speech-to-Text | Proveedor seleccionado en el Spike 1, consumido desde Intake Execution BC |
-| Servicio de correo | Proveedor de correo transaccional, consumido desde Identity & Subscription BC |
-
-![Diagrama de Despliegue de Tata](assets/software-architecture-deployment-diagram.svg)
-
-*Figura. Deployment Diagram de Tata en producción.*
-
-Las evidencias de la ejecución de estos pasos en cada Sprint (creación de cuentas, configuración de recursos y capturas de los despliegues) se presentan en la sección *Software Deployment Evidence for Sprint Review* del Sprint correspondiente.
+https://web-services-yzxl.onrender.com/swagger-ui/index.html
 
 ## 4.2. Landing Page & Mobile Application Implementation
+
 ### 4.2.1. Sprint 1
+
 #### 4.2.1.1. Sprint Planning 1
 
-El Sprint Planning 1 define el alcance del primer sprint de implementación de Tata. Al ser el primer sprint del proyecto, parte de lo ya documentado en los capítulos I y II (segmentos objetivo, user stories, Product Backlog y bounded contexts) y del diseño UI/UX elaborado en Figma, que sirve de insumo directo para la implementación. El alcance corresponde a las 25 historias que el Product Backlog asigna al Sprint 1: el Landing Page (EPIC-09), el registro y la vinculación de cuentas (EPIC-01), la creación de tratamientos y la consulta de la próxima toma (EPIC-02 y EPIC-03), las Technical Stories que habilitan esos flujos en los servicios web y dos Spike Stories de investigación.
+Sprint 1 reúne el acceso y la vinculación familiar, la configuración del tratamiento, la próxima toma y la landing. El alcance comprende 25 historias y 81 Story Points.
 
 | Campo | Detalle |
 | --- | --- |
@@ -5933,10 +5467,10 @@ El Sprint Planning 1 define el alcance del primer sprint de implementación de T
 | Prepared By | Diaz Yurivilca, Sofia |
 | Attendees (to the meeting) | Quispe Pérez, Eder Edu / Diaz Yurivilca, Sofia / Morales Venegas, David Joel / Cabrera Novoa, Leonardo Moises / Alfaro Mallma, Joaquín Alberto / Velasquez Laquihuanaco, Eduardo David |
 | **Sprint 0 Review Summary** | |
-| Review | No aplica. El Sprint 1 es el primer sprint de implementación del proyecto. Como antecedente, en la entrega AV1 se completaron los capítulos I y II y el diseño del Landing Page y de las pantallas principales quedó definido en Figma. |
-| Retrospective Summary | No aplica. La primera retrospectiva se documentará al cierre del Sprint 1. |
+| Review | El antecedente del Sprint 1 comprende la definición del producto, requisitos y diseño de la solución. |
+| Retrospective Summary | El equipo organiza el trabajo por historias y bounded contexts, con revisión de cambios mediante Pull Requests. |
 | **Sprint Goal & User Stories** | |
-| Sprint 1 Goal | **Nuestro foco** está en publicar el Landing Page de Tata y construir los primeros servicios web y vistas de la aplicación Android que permiten al familiar registrarse, vincularse con el adulto mayor, configurar su tratamiento y consultar la próxima toma.<br>**Creemos que esto entrega** a los familiares de adultos mayores un primer recorrido completo, desde conocer Tata hasta dejar configurado el tratamiento, y al equipo una base técnica (APIs, agenda de tomas y autenticación) sobre la que construir los siguientes sprints.<br>**Esto se confirmará cuando** un visitante pueda recorrer el Landing Page publicado en GitHub Pages y llegar al registro o contacto, y un familiar pueda, desde la aplicación Android conectada a los servicios web, crear su cuenta, vincular al adulto mayor, registrar un medicamento con su tratamiento y ver la próxima toma.<br>**Métrica de cumplimiento:** 25 de 25 historias del Sprint 1 (81 Story Points) implementadas e integradas en `develop`. |
+| Sprint 1 Goal | Nuestro foco es ofrecer al familiar un recorrido desde conocer Tata hasta configurar el cuidado del adulto mayor. Esto facilita el acceso al producto y la organización de su medicación. El cumplimiento se evalúa mediante registro, vínculo con consentimiento, tratamiento y consulta de la próxima toma. |
 | Sprint 1 Velocity | 81 Story Points (asignación inicial del Product Backlog; primer sprint, sin velocidad histórica previa) |
 | Sum of Story Points | 81 Story Points |
 
@@ -5972,508 +5506,546 @@ El Sprint Planning 1 define el alcance del primer sprint de implementación de T
 | **Total** | | | **81** |
 
 #### 4.2.1.2. Aspect Leaders and Collaborators
+
+La matriz distribuye el liderazgo y la colaboración en los aspectos del Sprint 1. L identifica al líder y C al colaborador.
+
+| Integrante | GitHub Username | Landing y UI | Backend | Pruebas | Reporte | Integración y release |
+| --- | --- | --- | --- | --- | --- | --- |
+| Morales Venegas, David Joel | David-std2 | L | C | C | C | C |
+| Velasquez Laquihuanaco, Eduardo David | lalo-dev8 | C | L | C | C | C |
+| Cabrera Novoa, Leonardo Moises | u202415820 | C | C | C | C | C |
+| Diaz Yurivilca, Sofía | u20241a195-cmd | C | C | L | C | C |
+| Alfaro Mallma, Alberto Joaquín | elprrr / elperro123xd | C | C | C | L | C |
+| Quispe Pérez, Eder Edu | DuDu-0912 | C | C | C | C | L |
+
 #### 4.2.1.3. Sprint Backlog 1
+
+El Sprint Backlog organiza las 25 historias de Sprint 1 en tareas de implementación y revisión. Las estimaciones expresan horas de trabajo para cada tarea.
+
+<p align="center">
+  <img src="assets/repository-evidence/sprint1-board.png" alt="Tablero de Trello con las historias de Sprint 1" width="960">
+</p>
+
+*Figura. Tablero de Trello con las historias de Sprint 1.*
+
+Enlace a tablero:
+
+https://trello.com/b/wuHmMypU/apps-moviles
+
+| Historia | Título | Task ID | Tarea | Estimación (horas) | Responsable | Estado |
+| --- | --- | --- | --- | --- | --- | --- |
+| US-05 | Recordatorio de toma de medicamento | S1-T01 | Implementar vista, validaciones y consumo de API | 6 | David Morales | To-review |
+| US-03 | Registro de un nuevo medicamento | S1-T02 | Implementar vista, validaciones y consumo de API | 10 | David Morales | To-review |
+| US-02 | Vinculación con la cuenta del adulto mayor | S1-T03 | Implementar vista, validaciones y consumo de API | 10 | David Morales | To-review |
+| US-14 | Creación de un tratamiento | S1-T04 | Implementar vista, validaciones y consumo de API | 6 | David Morales | To-review |
+| US-15 | Definición de dosis y frecuencia | S1-T05 | Implementar vista, validaciones y consumo de API | 6 | David Morales | To-review |
+| US-16 | Configuración de horarios e instrucciones | S1-T06 | Implementar vista, validaciones y consumo de API | 6 | David Morales | To-review |
+| US-17 | Configuración de recordatorios | S1-T07 | Implementar vista, validaciones y consumo de API | 6 | David Morales | To-review |
+| US-20 | Consulta de la próxima toma | S1-T08 | Implementar vista, validaciones y consumo de API | 4 | David Morales | To-review |
+| US-46 | Consulta de la propuesta de valor de Tata | S1-T09 | Implementar sección, adaptación responsive e idioma | 4 | David Morales | Done |
+| US-47 | Consulta de funcionalidades principales | S1-T10 | Implementar sección, adaptación responsive e idioma | 4 | David Morales | Done |
+| US-49 | Continuación hacia registro o contacto | S1-T11 | Implementar sección, adaptación responsive e idioma | 4 | David Morales | Done |
+| US-50 | Acceso adaptable al Landing Page | S1-T12 | Implementar sección, adaptación responsive e idioma | 6 | David Morales | Done |
+| US-48 | Comparación de planes disponibles | S1-T13 | Implementar sección, adaptación responsive e idioma | 4 | David Morales | Done |
+| US-10 | Registro de cuenta del familiar | S1-T14 | Implementar vista, validaciones y consumo de API | 6 | David Morales | To-review |
+| US-11 | Verificación del correo del familiar | S1-T15 | Implementar vista, validaciones y consumo de API | 4 | David Morales | To-review |
+| US-01 | Ingreso simplificado a la aplicación | S1-T16 | Implementar vista, validaciones y consumo de API | 6 | David Morales | To-review |
+| US-12 | Registro del perfil del adulto mayor | S1-T17 | Implementar vista, validaciones y consumo de API | 6 | David Morales | To-review |
+| US-13 | Consentimiento para establecer el vínculo | S1-T18 | Implementar vista, validaciones y consumo de API | 6 | David Morales | To-review |
+| TS-03 | API de medicamentos y tratamientos | S1-T19 | Implementar contrato y pruebas del servicio | 10 | Eduardo Velasquez | Done |
+| TS-08 | Servicio de generación de agenda de tomas | S1-T20 | Implementar contrato y pruebas del servicio | 10 | Eduardo Velasquez | Done |
+| TS-02 | API de vinculación de cuidado | S1-T21 | Implementar contrato y pruebas del servicio | 10 | Eduardo Velasquez | Done |
+| TS-07 | API de cuenta y sesión del familiar | S1-T22 | Implementar contrato y pruebas del servicio | 10 | Eduardo Velasquez | Done |
+| TS-01 | Servicio de autenticación mediante PIN | S1-T23 | Implementar contrato y pruebas del servicio | 6 | Eduardo Velasquez | Done |
+| SP-01 | Investigación de reconocimiento de voz | S1-T24 | Revisar APIs Android y documentar el enfoque | 6 | Leonardo Cabrera | To-review |
+| SP-03 | Investigación de ejecución en segundo plano | S1-T25 | Revisar APIs Android y documentar el enfoque | 6 | Leonardo Cabrera | To-review |
+
 #### 4.2.1.4. Development Evidence for Sprint Review
 
-Durante el Sprint 1 el equipo trabajó en tres productos, cada uno en su propio repositorio de la organización `vitaHealth-UPC`: el Landing Page, los Web Services y la aplicación Android nativa.
-
-El **Landing Page** se implementó como sitio estático con HTML5, CSS3 y JavaScript, siguiendo el diseño de Figma. Es responsivo, está disponible en español e inglés y se despliega en GitHub Pages mediante GitHub Actions desde `develop` y `main`.
-
-Los **Web Services** se construyeron como un monolito modular con Java y Spring Boot, organizado en los bounded contexts definidos en el capítulo II y respaldado por PostgreSQL. Cada Technical Story se desarrolló en su propia rama (por ejemplo, `feature/ts-08-intake-schedule-generation`) y se integró a `develop` mediante Pull Request. El repositorio cuenta con pruebas automatizadas y un workflow de GitHub Actions que ejecuta `mvn test` y el empaquetado en cada PR.
-
-La **aplicación Android** se implementó con Kotlin y Jetpack Compose en una arquitectura modular por bounded context. Dentro de ella, el bounded context de analítica de adherencia incorporó las vistas de historial de adherencia y de recomendaciones, conectadas a los endpoints `summary` e `insight` de los Web Services, con una barra de navegación inferior compartida. Estas historias (US-08, US-09, US-32, US-33, US-34 y TS-10) están asignadas al Sprint 3 en el Product Backlog y se adelantaron durante el Sprint 1.
-
-El trabajo siguió GitFlow, tal como se describe en la sección 4.1.2. La siguiente tabla lista los commits integrados a `develop` en cada repositorio, con la rama de feature de la que proceden.
+La landing, el backend y Android se desarrollan en sus repositorios y se integran mediante Pull Requests. Los commits muestran la implementación y los ajustes de las historias.
 
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 | --- | --- | --- | --- | --- | --- |
-| `vitaHealth-UPC/landing-page` | `develop` | `728b07f` | `chore: initialize landing page scaffold` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `e7eebc1` | `feat: add semantic landing page structure` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `a7bb651` | `style: add landing page design foundation` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `6857a2a` | `style: add responsive breakpoints` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `c42be5d` | `feat: add en_US and es_419 internationalization foundation` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `aacf8cf` | `feat: add landing page bootstrap script` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `1bcdaad` | `chore: add gitignore` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `3d1cecf` | `chore: add image assets directory` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `3049f16` | `chore: add icon assets directory` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `054545a` | `chore: add logo assets directory` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `01ef128` | `ci: add GitHub Pages preview from develop` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `53cd222` | `feat: add Figma assets for header and hero` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `e8c8d29` | `feat: implement Figma header and hero markup` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `78c2c11` | `style: match Figma header and hero` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `855e614` | `style: add responsive behavior for Figma header and hero` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `7dda14a` | `fix: preserve Figma hero title emphasis` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `ccfd959` | `feat: localize Figma header and hero` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `c51279d` | `feat: implement Figma header and hero` | * feat: add Figma assets for header and hero<br>* feat: implement Figma header and hero markup<br>* style: match Figma header and hero<br>* style: add responsive behavior for Figma header and hero<br>* fix: preserve Figma hero title emphasis<br>* feat: localize Figma header and hero | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/value-features` | `db84c10` | `feat: add Figma assets for value strip and features` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/value-features` | `3e1a18d` | `feat: implement value strip and features markup` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/value-features` | `4029b07` | `style: match Figma value strip and features` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/value-features` | `ca0e3da` | `style: add responsive behavior for value strip and features` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/value-features` | `7af93c7` | `feat: localize value strip and features` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `a15c213` | `feat: implement value strip and features` | * feat: add Figma assets for value strip and features<br>* feat: implement value strip and features markup<br>* style: match Figma value strip and features<br>* style: add responsive behavior for value strip and features<br>* feat: localize value strip and features | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/app-showcase-how-it-works` | `db06f08` | `feat: add Figma assets for app showcase and steps` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/app-showcase-how-it-works` | `af4e8a9` | `feat: implement app showcase and how-it-works markup` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/app-showcase-how-it-works` | `03bd895` | `style: match Figma app showcase and how-it-works` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/app-showcase-how-it-works` | `8fdc873` | `style: add responsive app showcase and steps` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/app-showcase-how-it-works` | `7c182e3` | `feat: localize app showcase and how-it-works` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `02a28fa` | `feat: implement app showcase and how it works` | * feat: add Figma assets for app showcase and steps<br>* feat: implement app showcase and how-it-works markup<br>* style: match Figma app showcase and how-it-works<br>* style: add responsive app showcase and steps<br>* feat: localize app showcase and how-it-works | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `d5c79fb` | `feat: add Figma assets for testimonial and about` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `190a47f` | `feat: implement testimonial and about markup` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `ece75a4` | `style: match Figma testimonial and about sections` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `af55589` | `style: add responsive testimonial and about sections` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `c06f101` | `style: load DM Serif Display for testimonial` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `7c91871` | `feat: localize testimonial and about sections` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `933539c` | `feat: implement testimonial and about` | * feat: add Figma assets for testimonial and about<br>* feat: implement testimonial and about markup<br>* style: match Figma testimonial and about sections<br>* style: add responsive testimonial and about sections<br>* style: load DM Serif Display for testimonial<br>* feat: localize testimonial and about sections | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `6d3b12c` | `feat: add Figma assets for pricing and support` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `d906991` | `feat: implement pricing and support markup` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `27d15a1` | `style: match Figma pricing and support` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `25067ec` | `style: add responsive pricing and support` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `f1c6d8e` | `feat: localize pricing and support` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `82d1449` | `feat: implement pricing and support` | * feat: add Figma assets for pricing and support<br>* feat: implement pricing and support markup<br>* style: match Figma pricing and support<br>* style: add responsive pricing and support<br>* feat: localize pricing and support | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `feature/cta-footer` | `f3fda48` | `feat: add Figma assets for CTA and footer` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `b43b5b3` | `feat: implement pricing and support` | * feat: add Figma assets for pricing and support<br>* feat: implement pricing and support markup<br>* style: match Figma pricing and support<br>* style: add responsive pricing and support<br>* feat: localize pricing and support | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `8121db2` | `feat: align English and mobile landing variants with Figma` | * feat: add English and mobile Figma assets<br>* feat: add locale-aware app mockups and mobile structure<br>* style: add CTA, footer and mobile fidelity helpers<br>* style: match 393px Figma mobile layouts<br>* feat: wire mobile-specific localized copy<br>* feat: refine mobile header and footer content<br>* feat: match English, Spanish and mobile-specific Figma copy<br>* feat: add mobile app showcase pointers<br>* feat: add mobile app showcase pointers and copy hook<br>* style: hide mobile-only assets outside mobile layout<br>* style: refine exact mobile header, app and footer geometry<br>* feat: add remaining mobile-specific copy hooks<br>* fix: align English copy with dedicated Figma artboard<br>* style: center mobile app copy and support navigation menu<br>* feat: make mobile navigation functional<br>* fix: preserve responsive translation line breaks<br>* fix: localize support email addresses<br>* fix: switch localized support email with locale | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `f67a5b1` | `fix: improve landing fidelity and responsive behavior (#9)` | Align the landing more closely with the desktop/mobile Figma variants and harden responsive/i18n behavior. | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `02d7b16` | `fix: refresh Figma decorative assets (#10)` | Use the Figma-rendered reminder strip and CTA plant assets for closer visual fidelity. | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `2a9d314` | `fix: keep hero overlays registered with the Figma crop (#11)` | Anchor wide-desktop hero overlays to the final exported Figma crop while preserving mobile-specific behavior. | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `ce1c84d` | `fix: polish final landing fidelity and mobile app preview` | Align final hero, app showcase, pricing, testimonial, support and CTA details with the Figma desktop/mobile variants. | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `d9c3acd` | `fix: enlarge app previews and sharpen mobile mockups` | Increase desktop/mobile app-preview scale, preserve the intentional mobile carousel, and replace mobile EN/ES phone renders with high-DPI Figma exports. | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `f8d0c33` | `fix: sharpen all key landing assets` | Regenerate app mockups from Figma at 3x and visible icons/branding at 4x, preserving the intentional carousel and existing layout. | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `e3c58c8` | `fix: polish hero branding and floating cards (#16)` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `4eb0299` | `fix: polish showcase and responsive transitions (#17)` | * fix: polish app showcase and responsive transitions<br>* fix: keep mobile translated hero card typography consistent | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `5bdfd38` | `fix: sharpen final Figma branding assets (#18)` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `a6b8a9e` | `fix: align final hero annotation and translated card type (#19)` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `4f40664` | `fix: consolidate landing fidelity and responsive polish` | Hero, app showcase, mobile support/CTA/footer and responsive breakpoint polish consolidated from the final fix pass. | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `25e6252` | `fix: final minor landing page refinements` | Balance the mobile hero family card, restore family member icons, document the project, and deploy Pages from develop and main. | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `ab0a9a9` | `fix: polish hero family status card` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `aa4936d` | `fix: use exact Figma person icons in hero family card` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `813de32` | `fix: rebalance hero family card spacing` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `40bc711` | `fix: stabilize responsive fidelity across landing` | Consolidate hero family-card fidelity and responsive layout fixes for intermediate desktop, tablet, CTA and footer behavior. | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `5e7e70d` | `fix: refine family card and fluid mobile hero` | Match Figma family-card rhythm, use local avatar assets, stabilize 431–767px hero behavior, and remove stylesheet comments. | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `main` | `da4f0ec` | `sync: use local Figma avatar assets` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `main` | `09212a4` | `sync: match final Figma spacing` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `main` | `159f481` | `sync: apply final responsive cleanup` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `d5bab1e` | `fix: match mobile family card bullets to Figma` | — | 02/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `0bb6015` | `fix: match mobile family card to Figma` | Remove mobile avatars, restore bullet rows, hide time lines, and match the 143x68 Figma family-card geometry. | 02/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `08c2dc4` | `Initial commit` | — | 30/09/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `049a752` | `feat(web-services): scaffold Spring Boot project with DDD bounded contexts add base project` | — | 30/09/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `2fee996` | `feat: update backend structure` | — | 03/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `a7684fe` | `chore: normalize backend scaffold and bounded context packages` | — | 04/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `14e4488` | `docs: define backend architecture and technical story tickets` | — | 04/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `66d6f0b` | `ci: add backend build and test workflow` | — | 04/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `a908311` | `chore(omission-escalation): remove placeholder package-info files` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `e6244e7` | `feat(intake-execution): add IntakeUnconfirmed and IntakeConfirmed events` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `6b9a44d` | `feat(omission-escalation): add domain model, escalation policy and ports` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `f49660d` | `feat(omission-escalation): add command handlers and event handlers` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `704a733` | `feat(omission-escalation): add persistence, scheduler, event listeners and push adapter` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `fd83c72` | `test: add domain tests for cases and escalation policy` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `7e3342a` | `feat: add domain model, exceptions and ports` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `7f88ab8` | `feat: add command, query and event handlers` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `84cb6c6` | `feat: add persistence, module adapters and omission event listener` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `f0cbd66` | `feat(family-monitoring): add REST controllers with OpenAPI documentation` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `59b6a21` | `feat: permit all requests in dev profile until authentication exists` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `c9b5051` | `test: add domain tests for alerts and notes` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `062fee7` | `test: add omission to family monitoring flow test on in-memory database` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `09ce4ec` | `feat(identity): caregiver account and session API (TS-07)` | Implements US-10/US-11 registration, verification and caregiver sessions with DDD/CQRS boundaries. | 05/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `9d28e0d` | `feat(identity): PIN authentication and lockout (TS-01)` | Implements US-01 PIN registration, credential hashing, attempt tracking, temporary lockout and older-adult session issuance. | 05/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `5b69ad7` | `feat(identity): support email verification resend` | Completes the US-11 expired-verification path with a resource-oriented resend endpoint, verification-code renewal in the Account aggregate, and domain coverage. | 05/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `ccd0edb` | `feat(care-link): implement care linking lifecycle` | — | 05/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `ef4c4d6` | `fix(treatment): enforce active care-link authorization` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `78c5522` | `fix(treatment): authorize caregiver operations consistently` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `556f804` | `fix(treatment): support multiple schedule times` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-08-intake-schedule-generation` | `0da050d` | `feat(intake): generate future doses for active treatments` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-08-intake-schedule-generation` | `7ebc040` | `fix(care-link): make service constructor injectable` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-08-intake-schedule-generation` | `23afe9a` | `fix(identity): make command services injectable` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-08-intake-read-api` | `3d58898` | `feat(intake): expose dose detail read model` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-04-intake-confirmation-api` | `fc7ff1d` | `feat(intake): implement idempotent intake confirmation` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `codex/intake-contract-coherence` | `5ceb58f` | `fix(intake): align cross-context UUID contracts and publish confirmation once` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `b195770` | `feat(inventory): add batch entity and stock level value object` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `1aded10` | `feat(inventory): add inventory aggregate with low stock detection` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `1ec8026` | `feat(inventory): add inventory commands, query and repository contract` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `a14f0ab` | `feat(inventory): add inventory command and query services` | - InventoryCommandService for initial inventory, replenishment and unit consumption<br>- InventoryQueryService for remaining stock<br>- One decrement per intake through consumption tracking<br>- InventoryEventPublisher outbound port for domain events<br>- InventoryApplicationException with stable error codes, including INVALID_QUANTITY | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `f124bbf` | `feat(inventory): add inventory JPA persistence` | - JPA entities for inventories, batches and per-intake consumptions<br>- Unique medication_id (logical reference, no cross-BC FK) and unique intake_id<br>- Optimistic locking with @Version to avoid lost stock updates<br>- InventoryRepositoryImpl adapter updating the managed entity | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `469f953` | `feat(inventory): add in-process domain event publisher` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `6bdc2cc` | `feat(inventory): expose inventory REST API` | - InventoryController under /api/v1/inventories documented with OpenAPI<br>- Register initial inventory (US-40), get remaining stock (US-41, US-42) and register replenishment (US-43)<br>- Request/response resources and InventoryResourceAssembler<br>- InventoryExceptionHandler with stable error codes and localized messages | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `98446c2` | `feat(inventory): add inventory error messages in English and es-419` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `1e6e503` | `test(inventory): cover inventory domain invariants and threshold crossing` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `9b2bf00` | `test(inventory): cover command and query services with in-memory fakes` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `7cd6ac3` | `test(inventory): verify JPA adapter, unique keys and optimistic locking on H2` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `04803ca` | `test(inventory): verify REST contract, error codes and es-419 messages` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-08-intake-schedule-generation` | `4bb19a7` | `feat(intake): TS-08 bounded chronological agenda query` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-09-family-summary-history-api` | `6f19a6d` | `feat(monitoring): expose real intake history and status endpoints` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-analytics-patterns` | `2ed1cbd` | `fix(intake): align persistence entity with unconfirmed intake query` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | `e335cbc` | `feat(omission): complete TS-05 automatic intake processing` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-14-plans-subscriptions-api` | `a75faae` | `feat(subscription): implement TS-14 plans and subscriptions API` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `123b3ba` | `feat(notification): complete TS-06 push notification integration` | * feat(notification): make reminder delivery policy testable<br>* feat(notification): isolate push provider behind ACL<br>* feat(notification): add push provider boundary<br>* feat(notification): add safe development provider<br>* test(notification): cover channel quiet hours and failure<br>* test(notification): cover provider mapping and failure | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `c4fbb3a` | `feat(voice): implement TS-11 speech-to-text confirmation flow` | Integrate configurable speech-to-text confirmation, validate recognized intent and confidence, preserve intake idempotency, and keep provider failures non-mutating. | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-analytics-patterns` | `116aea5` | `feat(analytics): add TS-10 outcome history, patterns and follow-up insights` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-analytics-patterns` | `faf381e` | `feat(analytics): expose outcome breakdown and configurable recurrence criteria` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-09-family-summary-history-api` | `98b4b51` | `feat(monitoring): complete TS-09 real summaries, contact and care-link access` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-analytics-patterns` | `965dc37` | `feat(analytics): persist idempotent TS-10 period evidence and patterns` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `f4253d4` | `chore: remove temporary dev security chain replaced by SecurityConfiguration` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `85ad8a1` | `feat: publish AccountEnabled when the email is verified` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `7c68ae9` | `feat: add accessibility preferences domain model and defaults factory` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `0a14156` | `feat: add accessibility preferences handlers and public contract` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `a25b9c3` | `feat: add accessibility preferences persistence` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `b171f31` | `feat: add accessibility and notification preferences endpoints` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `1427386` | `feat: read notification preferences from the accessibility contract in omission` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `415a69a` | `test: add accessibility preferences and account enabled tests` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `f178437` | `feat: add treatment and medication lookups by older adult and medication` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `b8bd23e` | `fix: pause active treatments and republish the schedule when a medication changes` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `e4b7f33` | `feat: list medications and treatments, expose medication lookup and document with OpenAPI` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `3595091` | `test: add treatment consistency and API tests` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `a20c0ba` | `feat: respect the voice confirmation preference when confirming by voice` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `8604122` | `feat: publish adherence patterns and consolidate weekly on a schedule` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `e8b4039` | `feat: show low stock and adherence insights in the older adult status` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-frontend-views` | `f362d4c` | `feat(analytics): add adherence summary and insights views for the family app` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-frontend-views` | `c084872` | `docs(adherence): group view endpoints under Adherence Analytics in Swagger and describe parameters` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-frontend-views` | `5c03757` | `refactor(adherence): rename the insights view to the singular insight resource` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `6e7083c` | `chore: initialize native android repository` | — | 03/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `1832fcc` | `chore: scaffold modular android architecture` | — | 03/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `d8f7d30` | `fix: use AGP built-in Kotlin` | — | 03/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `13a2752` | `fix: upgrade android ci workflow` | — | 03/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `2827662` | `fix: align Android SDK with API 36` | Use Android API 36 in CI and all modules, target API 36, and Navigation 2.9.6 to keep dependencies compatible with the stable SDK available on GitHub runners. | 03/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `1fea4f9` | `docs: add mobile user story implementation tickets` | — | 04/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `f6630f5` | `docs: add mobile implementation ticket template` | — | 04/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `1d6e573` | `feat(identity): implement caregiver registration` | Implements US-10 caregiver registration in Kotlin/Jetpack Compose, including the verification continuation state, Retrofit integration, shared UI primitives, and fixes validated by Android CI. | 05/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `9ec3714` | `feat(identity): complete e-mail verification lifecycle` | Completes US-11 verification expiration and resend flow in the Android client, aligned with the merged backend verification request contract and Figma states. | 05/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `eb053f5` | `feat(care-link): implement linking request flow` | — | 05/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `ae44557` | `fix(shared): support disabled form fields` | — | 05/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `829c446` | `feat(care-link): record older-adult consent` | — | 05/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `781ca6b` | `feat(treatment): implement US-03 medication registration` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `e72aca2` | `feat(treatment): implement US-14 treatment creation` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `0dfded4` | `fix(treatment): align US-14 with backend draft contract` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `830a10b` | `feat(treatment): rebase US-15 dose and frequency` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `bed60a4` | `feat(treatment): implement US-16 schedule and instructions` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `7798f38` | `feat(treatment): implement US-17 reminder policy` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `8a8a5d4` | `feat(treatment): implement US-18 activation and pause lifecycle` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `5c57f05` | `feat(treatment): implement US-19 treatment detail` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-20-next-dose` | `13860f9` | `feat(intake): implement US-20 next dose home` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-20-next-dose` | `f3c6ad7` | `fix(intake): use RowScope weight modifier` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `63a4a18` | `feat(intake): add dose detail repository contract` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `ae63251` | `feat(intake): implement US-21 dose detail` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `85060f3` | `feat(intake): implement US-21 dose detail` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `34f6420` | `feat(intake): implement US-21 dose detail` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `10c3f38` | `feat(intake): implement US-21 dose detail` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `bb2dbd7` | `feat(intake): implement US-21 dose detail` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `315490f` | `feat(intake): connect intake detail endpoint` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `83ed69e` | `feat(intake): add dose detail UI state` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `a5cc071` | `feat(intake): add dose detail view model` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `3a47435` | `feat(intake): add US-21 dose detail screen` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `e13c353` | `feat(intake): wire dose detail dependencies` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `59ac669` | `feat(intake): add dose detail destination` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `ac63c0d` | `feat(intake): connect US-21 navigation` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `2367f76` | `feat(intake): open dose detail from next dose` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `codex/us-06-intake-confirmation` | `0389cb3` | `feat(intake): implement touch confirmation with retry-safe server outcomes` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-24-daily-schedule` | `a6d0306` | `feat(intake): US-24 weekly agenda with real outcomes and local calendar bounds` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `develop` | `37611b1` | `feat(sync): implement TS-13 offline intake continuity` | Persist essential intake data locally, fall back to cache during temporary connectivity loss, queue pending confirmations without duplicates, and synchronize them with WorkManager when connectivity returns. | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-25-recent-care-status` | `cbd5d1d` | `feat(us-25): implement Figma family summary with remote monitoring` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-25-recent-care-status` | `19716fa` | `fix(us-25): preserve existing offline sync implementation` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-25-recent-care-status` | `683cc0f` | `docs: remove chat continuation from project repository` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `7c0254f` | `feat(analytics): add adherence history screen with sample data` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `916053f` | `feat(analytics): add period selector and empty states to adherence history` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `e80bdaa` | `feat(analytics): add adherence recommendations screen with sample data` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `84c8ee7` | `feat(analytics): show recent intakes classified as on time, late or omitted` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `73ea0e4` | `feat(analytics): show detected omission pattern card linked to recommendations` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `22b494f` | `feat(analytics): connect the adherence screens to the backend endpoints` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `27f6715` | `fix(analytics): call the singular adherence insight resource` | — | 06/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `b3a71dc` | `feat(app): open the adherence history from the family summary` | — | 07/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `ec5b326` | `feat(analytics): show the caregiver tab bar in the adherence screens` | — | 07/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `f1c6d8e` | `feat: localize pricing and support` | - | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `82d1449` | `feat: implement pricing and support` | * feat: add Figma assets for pricing and support | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/cta-footer` | `f3fda48` | `feat: add Figma assets for CTA and footer` | - | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `b43b5b3` | `feat: implement pricing and support` | * feat: add Figma assets for pricing and support | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `8121db2` | `feat: align English and mobile landing variants with Figma` | * feat: add English and mobile Figma assets | 02/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `e4b7f33` | `feat: list medications and treatments, expose medication lookup and document with OpenAPI` | - | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `a20c0ba` | `feat: respect the voice confirmation preference when confirming by voice` | - | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `8604122` | `feat: publish adherence patterns and consolidate weekly on a schedule` | - | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `e8b4039` | `feat: show low stock and adherence insights in the older adult status` | - | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-frontend-views` | `f362d4c` | `feat(analytics): add adherence summary and insights views for the family app` | - | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `84c8ee7` | `feat(analytics): show recent intakes classified as on time, late or omitted` | - | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `73ea0e4` | `feat(analytics): show detected omission pattern card linked to recommendations` | - | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `22b494f` | `feat(analytics): connect the adherence screens to the backend endpoints` | - | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `b3a71dc` | `feat(app): open the adherence history from the family summary` | - | 07/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `ec5b326` | `feat(analytics): show the caregiver tab bar in the adherence screens` | - | 07/10/2026 |
+
+<p align="center">
+  <img src="assets/repository-evidence/landing-commits.png" alt="Historial de commits de landing-page" width="960">
+</p>
+
+*Figura. Historial de commits de landing-page.*
+
+Enlace a commits:
+
+https://github.com/vitaHealth-UPC/landing-page/commits/develop/
+
+<p align="center">
+  <img src="assets/repository-evidence/backend-commits.png" alt="Historial de commits de web-services" width="960">
+</p>
+
+*Figura. Historial de commits de web-services.*
+
+Enlace a commits:
+
+https://github.com/vitaHealth-UPC/web-services/commits/develop/
+
+<p align="center">
+  <img src="assets/repository-evidence/android-commits.png" alt="Historial de commits de mobile-android" width="960">
+</p>
+
+*Figura. Historial de commits de mobile-android.*
+
+Enlace a commits:
+
+https://github.com/vitaHealth-UPC/mobile-android/commits/develop/
 
 #### 4.2.1.5. Testing Suite Evidence for Sprint Review
+
+El backend utiliza JUnit y pruebas de integración con Spring Boot y MockMvc. Android incorpora pruebas unitarias y pruebas instrumentadas de Compose; la ejecución visual en el emulador registra 21 pruebas, sin fallos ni errores.
+
+| Prueba | Historias | Comportamiento |
+| --- | --- | --- |
+| AccountTest y PinCredentialTest | US-01, US-10, US-11 | Cuenta, credenciales y PIN |
+| CareLinkTest | US-02, US-13 | Solicitud y consentimiento del vínculo |
+| TreatmentTest y TreatmentAuthorizationTest | US-14 a US-19 | Pauta, activación, pausa y autorización |
+| GenerateIntakesCommandHandlerTest | TS-08, US-20 | Generación de tomas programadas |
+| IntakeAgendaIntegrationTest | US-24 | Orden, rango temporal y aislamiento por adulto mayor |
+| IntakeConfirmationIntegrationTest | US-06 | Confirmación de tomas y resultados de la API |
+| InventoryControllerTest e IntakeInventoryIntegrationTest | US-40 a US-43 | Stock y reposición |
+| ExistingScreensVisualAuditTest | Vistas Android | Estados, idioma, navegación y capturas de componentes |
+
+Enlace a pruebas del backend:
+
+https://github.com/vitaHealth-UPC/web-services/tree/develop/src/test
+
+Enlace a pruebas Android:
+
+https://github.com/vitaHealth-UPC/mobile-android/tree/develop/app/src
+
+Enlace a pruebas instrumentadas:
+
+https://github.com/vitaHealth-UPC/mobile-android/blob/develop/app/src/androidTest/kotlin/com/vitahealth/tata/ExistingScreensVisualAuditTest.kt
+
+**Prueba de tratamiento**
+
+```java
+@Test
+void incompleteTreatmentCannotActivate() {
+    var treatment = Treatment.create("adult-1", "Control de presión",
+        Instant.parse("2026-10-05T12:00:00Z"));
+    assertEquals(TreatmentStatus.DRAFT, treatment.status());
+    assertThrows(IllegalStateException.class, treatment::activate);
+}
+```
+
+Enlace a TreatmentTest:
+
+https://github.com/vitaHealth-UPC/web-services/blob/develop/src/test/java/com/tata/treatmentmanagement/domain/model/aggregates/TreatmentTest.java
+
+| Repositorio | Commit | Avance en pruebas | Fecha |
+| --- | --- | --- | --- |
+| web-services | 7618f5e | Sesiones, consentimiento y autorización | 07/10/2026 |
+| mobile-android | 686eebb | Inicio de sesión e idioma en pruebas instrumentadas | 07/10/2026 |
+
+<p align="center">
+  <img src="assets/repository-evidence/backend-ci.png" alt="Backend CI con ejecución exitosa" width="960">
+</p>
+
+*Figura. Backend CI con ejecución exitosa.*
+
+Enlace a ejecución:
+
+https://github.com/vitaHealth-UPC/web-services/actions/runs/37647569632
+
+<p align="center">
+  <img src="assets/repository-evidence/android-ci.png" alt="Android CI con ejecución exitosa" width="960">
+</p>
+
+*Figura. Android CI con ejecución exitosa.*
+
+Enlace a ejecución:
+
+https://github.com/vitaHealth-UPC/mobile-android/actions/runs/37727256292
+
 #### 4.2.1.6. Execution Evidence for Sprint Review
 
-Durante el Sprint 1 el equipo implementó y publicó el Landing Page de Tata y construyó las vistas de la aplicación Android nativa para los flujos principales del familiar y del adulto mayor: acceso y registro, vinculación de cuidado, gestión de medicamentos y tratamientos, próxima toma y agenda, resumen familiar, analítica de adherencia, preferencias de accesibilidad e inventario de medicamentos. Las vistas consumen los endpoints del backend implementados en el mismo Sprint. Toda la interfaz está en inglés por defecto y traducida a español latinoamericano (es-419).
+La landing presenta la propuesta, funcionalidades, planes y contacto. Android reúne las vistas de acceso, tratamiento y seguimiento; las siguientes capturas muestran su ejecución en el emulador con datos de prueba.
 
-El Landing Page se encuentra desplegado en GitHub Pages y puede visitarse en: https://vitahealth-upc.github.io/landing-page/
+Enlace a landing:
 
-**Landing Page**
+https://vitahealth-upc.github.io/landing-page/
 
-| Sección | User Story | Captura |
-| --- | --- | --- |
-| Encabezado y hero ("Manage your medications without the hassle") | US-46 | Figura 1 |
-| Propuesta de valor y funcionalidades | US-47 | Figura 2 |
-| La app de Tata y "How it works" | US-47 | Figura 3 |
-| Testimonio e historia detrás de Tata | US-46 | Figura 4 |
-| Planes y sección de soporte | US-48 | Figura 5 |
-| Llamado a la acción y footer | US-49 | Figura 6 |
-| Vista responsive en dispositivo móvil | US-50 | Figura 7 |
+<p align="center">
+  <img src="assets/execution-evidence/landing-hero.png" alt="Encabezado y propuesta de valor" width="960">
+</p>
 
-![Landing Page - Hero](assets/execution-evidence/landing-hero.png)
+*Figura. Encabezado y propuesta de valor.*
 
-*Figura 1. Encabezado y sección principal del Landing Page.*
+<p align="center">
+  <img src="assets/execution-evidence/landing-value-features.png" alt="Funcionalidades de Tata" width="960">
+</p>
 
-![Landing Page - Funcionalidades](assets/execution-evidence/landing-value-features.png)
+*Figura. Funcionalidades de Tata.*
 
-*Figura 2. Propuesta de valor y funcionalidades.*
+<p align="center">
+  <img src="assets/execution-evidence/landing-app-how.png" alt="Presentación de la aplicación y pasos de uso" width="960">
+</p>
 
-![Landing Page - App y cómo funciona](assets/execution-evidence/landing-app-how.png)
+*Figura. Presentación de la aplicación y pasos de uso.*
 
-*Figura 3. Presentación de la app y sección "How it works".*
+<p align="center">
+  <img src="assets/execution-evidence/landing-testimonial-about.png" alt="Testimonio e historia del producto" width="960">
+</p>
 
-![Landing Page - Testimonio](assets/execution-evidence/landing-testimonial-about.png)
+*Figura. Testimonio e historia del producto.*
 
-*Figura 4. Testimonio e historia detrás de Tata.*
+<p align="center">
+  <img src="assets/execution-evidence/landing-plans-faq.png" alt="Planes y soporte" width="960">
+</p>
 
-![Landing Page - Planes y soporte](assets/execution-evidence/landing-plans-faq.png)
+*Figura. Planes y soporte.*
 
-*Figura 5. Planes de suscripción y sección de soporte.*
+<p align="center">
+  <img src="assets/execution-evidence/landing-cta-footer.png" alt="Contacto y pie de página" width="960">
+</p>
 
-![Landing Page - CTA y footer](assets/execution-evidence/landing-cta-footer.png)
+*Figura. Contacto y pie de página.*
 
-*Figura 6. Llamado a la acción y footer.*
+<p align="center">
+  <img src="assets/execution-evidence/landing-mobile.png" alt="Landing en formato móvil" width="480">
+</p>
 
-![Landing Page - Vista móvil](assets/execution-evidence/landing-mobile.png)
+*Figura. Landing en formato móvil.*
 
-*Figura 7. Vista del Landing Page en un dispositivo móvil.*
+<p align="center">
+  <img src="assets/execution-evidence/android-access.png" alt="Acceso, registro y vinculación en Android" width="960">
+</p>
 
-**Aplicación Android nativa**
+*Figura. Acceso, registro y vinculación en Android.*
 
-| Módulo (Bounded Context) | Vista | User Stories | Descripción |
-| --- | --- | --- | --- |
-| `:identity` | Registro del familiar | US-10, US-11 | El familiar crea su cuenta y verifica su correo electrónico |
-| `:identity` | Acceso con contraseña y PIN | US-01 | Inicio de sesión del familiar y acceso del adulto mayor con PIN, según su rol |
-| `:carelink` | Perfiles de adultos mayores | US-12 | El familiar registra el perfil del adulto mayor y genera un código de vinculación |
-| `:carelink` | Vinculación de cuidado | US-02, US-13 | Se solicita la vinculación y se registra el consentimiento del adulto mayor |
-| `:treatment` | Registro y gestión de medicamentos | US-03, US-04 | El familiar registra, edita y desactiva medicamentos |
-| `:treatment` | Creación y configuración del tratamiento | US-14, US-15, US-16, US-17 | Tratamiento, dosis, frecuencia, horarios, instrucciones y recordatorios |
-| `:treatment` | Activación, pausa y detalle del tratamiento | US-18, US-19 | El familiar activa o pausa el tratamiento y consulta su resumen |
-| `:intake` | Próxima toma y detalle de la toma | US-20, US-21, US-06 | El adulto mayor ve su próxima toma y la confirma |
-| `:intake` | Agenda del día | US-24 | Tomas programadas del día con su estado |
-| `:monitoring` | Resumen familiar | US-25 | Estado reciente del cuidado del adulto mayor |
-| `:analytics` | Historial y recomendaciones de adherencia | US-08, US-09, US-32, US-33, US-34 | Tomas a tiempo, tardías u omitidas, patrones de omisión y recomendaciones |
-| `:preferences` | Accesibilidad y notificaciones | US-35, US-36, US-37, US-38, US-39 | Tamaño de texto, alto contraste, movimiento reducido, asistencia de lectura y horario de silencio |
-| `:inventory` | Inventario del medicamento | US-40, US-41, US-42, US-43 | Stock inicial, stock restante, alerta de stock bajo y registro de reposiciones con lote |
+<p align="center">
+  <img src="assets/execution-evidence/android-treatment.png" alt="Medicamento, tratamiento e inventario en Android" width="960">
+</p>
 
-![App Android - Inventario](assets/execution-evidence/android-inventory.png)
+*Figura. Medicamento, tratamiento e inventario en Android.*
 
-*Figura 8. Vista de inventario (US-41, US-42) en sus estados de stock bajo y stock disponible.*
+<p align="center">
+  <img src="assets/execution-evidence/android-followup.png" alt="Resumen familiar, adherencia y notificaciones en Android" width="960">
+</p>
+
+*Figura. Resumen familiar, adherencia y notificaciones en Android.*
 
 **Video de ejecución**
 
-El siguiente video muestra la navegación del Landing Page y el recorrido por las vistas implementadas de la aplicación Android en el Sprint 1.
-
-- Enlace al video: 
-- Duración: 
+Enlace a video: Pendiente.
 
 #### 4.2.1.7. Services Documentation Evidence for Sprint Review
 
-En el Sprint 1 el backend quedó documentado con OpenAPI mediante Swagger UI, desplegado junto con los Web Services. Se documentan 64 operaciones de los Bounded Contexts Identity & Subscription, Care Link, Treatment Management, Intake Execution, Family Monitoring, Adherence Analytics, Inventory & Replenishment y Accessibility & Preferences, más dos de estado del servicio. Omission & Escalation no expone endpoints REST. Las llamadas requieren el encabezado `Authorization: Bearer <token>`, salvo las que la tabla indica como públicas; sin él responden `401 AUTHENTICATION_REQUIRED`.
+Swagger UI reúne los contratos REST del backend, sus parámetros y respuestas. Las operaciones protegidas utilizan un token Bearer.
 
-Repositorio de Web Services: https://github.com/vitaHealth-UPC/web-services
+Enlace a repositorio:
 
-Documentación desplegada: https://web-services-yzxl.onrender.com/swagger-ui/index.html
+https://github.com/vitaHealth-UPC/web-services
+
+Enlace a documentación:
+
+https://web-services-yzxl.onrender.com/swagger-ui/index.html
 
 **Treatment Management**
 
-| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `/api/v1/older-adults/{olderAdultId}/treatments` | Crear un tratamiento (US-14) | POST | `POST /api/v1/older-adults/{olderAdultId}/treatments` | Path: `olderAdultId`.<br>Body: `caregiverId`, `name`. | `201` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":null,"dose":null,"frequency":null,"scheduledTimes":null,"instructions":null,"reminderLeadMinutes":null}` | Crea el tratamiento en estado `DRAFT`, sin pauta. `400` si falta un dato; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Treatments |
-| `/api/v1/older-adults/{olderAdultId}/treatments` | Listar los tratamientos de un adulto mayor (US-19) | GET | `GET /api/v1/older-adults/{olderAdultId}/treatments?caregiverId={caregiverId}` | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":null,"dose":null,"frequency":null,"scheduledTimes":null,"instructions":null,"reminderLeadMinutes":null}]` | Devuelve la lista, del más antiguo al más reciente; vacía si no hay tratamientos. 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Treatments |
-| `/api/v1/treatments/{treatmentId}/regimen` | Configurar dosis, frecuencia, horarios, instrucciones y recordatorio (US-15, US-16, US-17) | PUT | `PUT /api/v1/treatments/{treatmentId}/regimen` | Path: `treatmentId`.<br>Body: `caregiverId`, `medicationId`, `dose`, `frequency`, `scheduledTimes` (al menos un horario), `instructions`, `reminderLeadMinutes` (0 a 1440). | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}` | Devuelve el tratamiento con su pauta. `400` si la pauta es inválida; `404` si no existe el tratamiento o el medicamento; `409` si el medicamento está inactivo; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Treatments |
-| `/api/v1/treatments/{treatmentId}/activation` | Activar un tratamiento (US-18) | POST | `POST /api/v1/treatments/{treatmentId}/activation?caregiverId={caregiverId}` | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}` | El tratamiento pasa a `ACTIVE`. `409` si la pauta está incompleta o el medicamento está inactivo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Treatments |
-| `/api/v1/treatments/{treatmentId}/pause` | Pausar un tratamiento (US-18) | POST | `POST /api/v1/treatments/{treatmentId}/pause?caregiverId={caregiverId}` | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"PAUSED","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}` | El tratamiento pasa a `PAUSED` y conserva la pauta y el historial. `409` si no estaba activo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Treatments |
-| `/api/v1/treatments/{treatmentId}/resume` | Reanudar un tratamiento pausado | POST | `POST /api/v1/treatments/{treatmentId}/resume?caregiverId={caregiverId}` | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}` | El tratamiento vuelve a `ACTIVE`. `409` si no estaba pausado o su medicamento está inactivo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Treatments |
-| `/api/v1/treatments/{treatmentId}` | Consultar el detalle de un tratamiento (US-19) | GET | `GET /api/v1/treatments/{treatmentId}?caregiverId={caregiverId}` | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}` | Devuelve el tratamiento con su pauta; los campos de la pauta son `null` mientras esté incompleto. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Treatments |
-| `/api/v1/older-adults/{olderAdultId}/medications` | Registrar un medicamento (US-03) | POST | `POST /api/v1/older-adults/{olderAdultId}/medications` | Path: `olderAdultId`.<br>Body: `caregiverId`, `name`, `presentation`. | `201` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}` | Crea el medicamento activo del adulto mayor. `400` si falta un dato obligatorio; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Medications |
-| `/api/v1/older-adults/{olderAdultId}/medications` | Listar los medicamentos de un adulto mayor (US-03) | GET | `GET /api/v1/older-adults/{olderAdultId}/medications?caregiverId={caregiverId}` | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}]` | Devuelve los medicamentos ordenados por nombre, incluidos los inactivos; vacía si no hay ninguno. 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Medications |
-| `/api/v1/medications/{medicationId}` | Editar un medicamento (US-04) | PUT | `PUT /api/v1/medications/{medicationId}` | Path: `medicationId`.<br>Body: `caregiverId`, `name`, `presentation`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"100 mg, tableta","active":true}` | Cambia el nombre y la presentación; los tratamientos que lo usan republican su agenda. `400` si falta un dato; `404` si no existe; `409` si está inactivo; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Medications |
-| `/api/v1/medications/{medicationId}/deactivation` | Desactivar un medicamento (US-04) | POST | `POST /api/v1/medications/{medicationId}/deactivation?caregiverId={caregiverId}` | Path: `medicationId`.<br>Query: `caregiverId`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":false}` | El medicamento queda inactivo y conserva su historial; un tratamiento activo que lo use se pausa. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Medications |
-| `/api/v1/medications/{medicationId}` | Consultar el detalle de un medicamento | GET | `GET /api/v1/medications/{medicationId}?caregiverId={caregiverId}` | Path: `medicationId`.<br>Query: `caregiverId`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}` | Devuelve el medicamento. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Medications |
+| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
+| --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}/treatments` | Crear un tratamiento (US-14) | POST | Path: `olderAdultId`.<br>Body: `caregiverId`, `name`. | `201` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":null,"dose":null,"frequency":null,"scheduledTimes":null,"instructions":null,"reminderLeadMinutes":null}`<br>Crea el tratamiento en estado `DRAFT`, sin pauta. `400` si falta un dato; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/older-adults/{olderAdultId}/treatments` | Listar los tratamientos de un adulto mayor (US-19) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":null,"dose":null,"frequency":null,"scheduledTimes":null,"instructions":null,"reminderLeadMinutes":null}]`<br>Devuelve la lista, del más antiguo al más reciente; vacía si no hay tratamientos. 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/treatments/{treatmentId}/regimen` | Configurar dosis, frecuencia, horarios, instrucciones y recordatorio (US-15, US-16, US-17) | PUT | Path: `treatmentId`.<br>Body: `caregiverId`, `medicationId`, `dose`, `frequency`, `scheduledTimes` (al menos un horario), `instructions`, `reminderLeadMinutes` (0 a 1440). | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}`<br>Devuelve el tratamiento con su pauta. `400` si la pauta es inválida; `404` si no existe el tratamiento o el medicamento; `409` si el medicamento está inactivo; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/treatments/{treatmentId}/activation` | Activar un tratamiento (US-18) | POST | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}`<br>El tratamiento pasa a `ACTIVE`. `409` si la pauta está incompleta o el medicamento está inactivo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/treatments/{treatmentId}/pause` | Pausar un tratamiento (US-18) | POST | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"PAUSED","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}`<br>El tratamiento pasa a `PAUSED` y conserva la pauta y el historial. `409` si no estaba activo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/treatments/{treatmentId}/resume` | Reanudar un tratamiento pausado | POST | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}`<br>El tratamiento vuelve a `ACTIVE`. `409` si no estaba pausado o su medicamento está inactivo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/treatments/{treatmentId}` | Consultar el detalle de un tratamiento (US-19) | GET | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}`<br>Devuelve el tratamiento con su pauta; los campos de la pauta son `null` mientras esté incompleto. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/older-adults/{olderAdultId}/medications` | Registrar un medicamento (US-03) | POST | Path: `olderAdultId`.<br>Body: `caregiverId`, `name`, `presentation`. | `201` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}`<br>Crea el medicamento activo del adulto mayor. `400` si falta un dato obligatorio; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/older-adults/{olderAdultId}/medications` | Listar los medicamentos de un adulto mayor (US-03) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}]`<br>Devuelve los medicamentos ordenados por nombre, incluidos los inactivos; vacía si no hay ninguno. 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/medications/{medicationId}` | Editar un medicamento (US-04) | PUT | Path: `medicationId`.<br>Body: `caregiverId`, `name`, `presentation`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"100 mg, tableta","active":true}`<br>Cambia el nombre y la presentación; los tratamientos que lo usan republican su agenda. `400` si falta un dato; `404` si no existe; `409` si está inactivo; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/medications/{medicationId}/deactivation` | Desactivar un medicamento (US-04) | POST | Path: `medicationId`.<br>Query: `caregiverId`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":false}`<br>El medicamento queda inactivo y conserva su historial; un tratamiento activo que lo use se pausa. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| `/api/v1/medications/{medicationId}` | Consultar el detalle de un medicamento | GET | Path: `medicationId`.<br>Query: `caregiverId`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}`<br>Devuelve el medicamento. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
 
 **Accessibility & Preferences**
 
-| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `/api/v1/users/{userId}/preferences` | Consultar las preferencias de un usuario (US-35, US-36) | GET | `GET /api/v1/users/{userId}/preferences` | Path: `userId`. | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias de accesibilidad y de notificación. Un usuario que nunca guardó nada recibe los valores por defecto, que se guardan en esa primera lectura. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Accessibility |
-| `/api/v1/users/{userId}/preferences/text-size` | Cambiar el tamaño de texto (US-35) | PUT | `PUT /api/v1/users/{userId}/preferences/text-size` | Path: `userId`.<br>Body: `textSize` (`SMALL`, `MEDIUM`, `LARGE` o `EXTRA_LARGE`). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. `400` si el tamaño no es válido. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Accessibility |
-| `/api/v1/users/{userId}/preferences/contrast` | Activar o desactivar el contraste reforzado (US-36) | PUT | `PUT /api/v1/users/{userId}/preferences/contrast` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":true,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Accessibility |
-| `/api/v1/users/{userId}/preferences/reduced-motion` | Activar o desactivar la reducción de movimiento (US-37) | PUT | `PUT /api/v1/users/{userId}/preferences/reduced-motion` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":true,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Accessibility |
-| `/api/v1/users/{userId}/preferences/reading-assistance` | Activar o desactivar la ayuda de lectura (US-38) | PUT | `PUT /api/v1/users/{userId}/preferences/reading-assistance` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":true,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Accessibility |
-| `/api/v1/users/{userId}/preferences/voice-confirmation` | Activar o desactivar la confirmación por voz (US-06) | PUT | `PUT /api/v1/users/{userId}/preferences/voice-confirmation` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":false,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias actualizadas. Solo guarda la preferencia; el reconocimiento de voz pertenece a Intake Execution. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Accessibility |
-| `/api/v1/users/{userId}/notification-preferences` | Configurar el horario de silencio y los canales de notificación (US-39) | PUT | `PUT /api/v1/users/{userId}/notification-preferences` | Path: `userId`.<br>Body: `quietHours` (`start` y `end`, o `null` para quitarlo), `channels` (lista de `type` y `enabled`; `PUSH`, `SMS` o `EMAIL`, sin repetir). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Reemplaza ambos ajustes a la vez y devuelve las preferencias. El horario puede cruzar la medianoche. `400` si inicio y fin son iguales o se repite un canal. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Notification Preferences |
+| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
+| --- | --- | --- | --- | --- |
+| `/api/v1/users/{userId}/preferences` | Consultar las preferencias de un usuario (US-35, US-36) | GET | Path: `userId`. | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias de accesibilidad y de notificación. Un usuario que nunca guardó nada recibe los valores por defecto, que se guardan en esa primera lectura. |
+| `/api/v1/users/{userId}/preferences/text-size` | Cambiar el tamaño de texto (US-35) | PUT | Path: `userId`.<br>Body: `textSize` (`SMALL`, `MEDIUM`, `LARGE` o `EXTRA_LARGE`). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. `400` si el tamaño no es válido. |
+| `/api/v1/users/{userId}/preferences/contrast` | Activar o desactivar el contraste reforzado (US-36) | PUT | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":true,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. |
+| `/api/v1/users/{userId}/preferences/reduced-motion` | Activar o desactivar la reducción de movimiento (US-37) | PUT | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":true,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. |
+| `/api/v1/users/{userId}/preferences/reading-assistance` | Activar o desactivar la ayuda de lectura (US-38) | PUT | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":true,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. |
+| `/api/v1/users/{userId}/preferences/voice-confirmation` | Activar o desactivar la confirmación por voz (US-06) | PUT | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":false,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias actualizadas. Solo guarda la preferencia; el reconocimiento de voz pertenece a Intake Execution. |
+| `/api/v1/users/{userId}/notification-preferences` | Configurar el horario de silencio y los canales de notificación (US-39) | PUT | Path: `userId`.<br>Body: `quietHours` (`start` y `end`, o `null` para quitarlo), `channels` (lista de `type` y `enabled`; `PUSH`, `SMS` o `EMAIL`, sin repetir). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Reemplaza ambos ajustes a la vez y devuelve las preferencias. El horario puede cruzar la medianoche. `400` si inicio y fin son iguales o se repite un canal. |
 
 **Identity & Subscription**
 
-| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `/api/v1/email-verification-requests` | Solicitar el código de verificación del correo | POST | `POST /api/v1/email-verification-requests` | Body: `email`. | `202` `{"id":"string","name":"string","email":"string","status":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}` | Solicita el envío del código de verificación; responde `202`. `400` si el correo falta o no es válido. No requiere token. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · email-verification-requests-controller |
-| `/api/v1/accounts` | Crear una cuenta | POST | `POST /api/v1/accounts` | Body: `name`, `email`, `password`. | `201` `{"id":"string","name":"string","email":"string","status":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}` | Crea la cuenta y devuelve sus datos y el token de acceso. `400` si faltan datos. No requiere token. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · accounts-controller |
-| `/api/v1/accounts/verification` | Verificar el correo con el código recibido | POST | `POST /api/v1/accounts/verification` | Body: `email`, `code`. | `200` `{"id":"string","name":"string","email":"string","status":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}` | Valida el código y devuelve los datos de la cuenta con el token de acceso. `400` si el código es inválido. No requiere token. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · accounts-controller |
-| `/api/v1/sessions` | Iniciar sesión de un cuidador o familiar | POST | `POST /api/v1/sessions` | Body: `email`, `password`. | `200` `{"accountId":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}` | Devuelve el `accessToken` y su vencimiento. `400` si faltan datos. No requiere token. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · sessions-controller |
-| `/api/v1/sessions/current` | Consultar la sesión actual | GET | `GET /api/v1/sessions/current` | Ninguno. | `200` `{"subjectId":"string","role":"CAREGIVER","expiresAt":"2026-10-06T08:00:00Z","careLinkId":"string","name":"string"}` | Devuelve el sujeto de la sesión, su rol (`CAREGIVER` u otro), el vínculo de cuidado y el vencimiento. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · session-lifecycle-controller |
-| `/api/v1/sessions` | Cerrar la sesión | DELETE | `DELETE /api/v1/sessions` | Header: `Authorization`. | `204` Sin cuerpo | Invalida el token enviado en `Authorization`; responde `204` sin cuerpo. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · session-lifecycle-controller |
-| `/api/v1/pin-credentials` | Registrar el PIN de un adulto mayor | POST | `POST /api/v1/pin-credentials` | Body: `olderAdultId`, `pin`. | `201` Sin cuerpo | Guarda el PIN con el que el adulto mayor iniciará sesión; responde `201` sin cuerpo. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · pin-credentials-controller |
-| `/api/v1/pin-sessions` | Iniciar sesión de un adulto mayor con PIN | POST | `POST /api/v1/pin-sessions` | Body: `olderAdultId`, `pin`. | `200` `{"olderAdultId":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}` | Devuelve el `accessToken` de la sesión del adulto mayor y su vencimiento. `400` si faltan datos. No requiere token. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · pin-sessions-controller |
-| `/api/v1/plans` | Listar los planes disponibles | GET | `GET /api/v1/plans` | Ninguno. | `200` `[{"code":"string","name":"string","monthlyPrice":1,"currency":"string","capabilities":["REMINDERS"]}]` | Devuelve los planes con su precio mensual, moneda y capacidades. No requiere token. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Plans and subscriptions |
-| `/api/v1/accounts/{accountId}/subscription` | Consultar la suscripción de una cuenta (US-44) | GET | `GET /api/v1/accounts/{accountId}/subscription` | Path: `accountId`. | `200` `{"accountId":"string","plan":{"code":"string","name":"string","monthlyPrice":1,"currency":"string","capabilities":["REMINDERS"]},"status":"ACTIVE","renewsAt":"2026-10-06T08:00:00Z"}` | Devuelve el plan vigente, el estado de la suscripción, la fecha de renovación y las capacidades habilitadas. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Plans and subscriptions |
-| `/api/v1/accounts/{accountId}/subscription` | Activar o cambiar el plan de una cuenta (US-45) | PUT | `PUT /api/v1/accounts/{accountId}/subscription` | Path: `accountId`.<br>Body: `planCode`. | `200` `{"accountId":"string","plan":{"code":"string","name":"string","monthlyPrice":1,"currency":"string","capabilities":["REMINDERS"]},"status":"ACTIVE","renewsAt":"2026-10-06T08:00:00Z"}` | Aplica el plan indicado por `planCode` y devuelve la suscripción resultante. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Plans and subscriptions |
+| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
+| --- | --- | --- | --- | --- |
+| `/api/v1/email-verification-requests` | Solicitar el código de verificación del correo | POST | Body: `email`. | `202` `{"id":"string","name":"string","email":"string","status":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Solicita el envío del código de verificación; responde `202`. `400` si el correo falta o no es válido. No requiere token. |
+| `/api/v1/accounts` | Crear una cuenta | POST | Body: `name`, `email`, `password`. | `201` `{"id":"string","name":"string","email":"string","status":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Crea la cuenta y devuelve sus datos y el token de acceso. `400` si faltan datos. No requiere token. |
+| `/api/v1/accounts/verification` | Verificar el correo con el código recibido | POST | Body: `email`, `code`. | `200` `{"id":"string","name":"string","email":"string","status":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Valida el código y devuelve los datos de la cuenta con el token de acceso. `400` si el código es inválido. No requiere token. |
+| `/api/v1/sessions` | Iniciar sesión de un cuidador o familiar | POST | Body: `email`, `password`. | `200` `{"accountId":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Devuelve el `accessToken` y su vencimiento. `400` si faltan datos. No requiere token. |
+| `/api/v1/sessions/current` | Consultar la sesión actual | GET | Ninguno. | `200` `{"subjectId":"string","role":"CAREGIVER","expiresAt":"2026-10-06T08:00:00Z","careLinkId":"string","name":"string"}`<br>Devuelve el sujeto de la sesión, su rol (`CAREGIVER` u otro), el vínculo de cuidado y el vencimiento. |
+| `/api/v1/sessions` | Cerrar la sesión | DELETE | Header: `Authorization`. | `204` Sin cuerpo<br>Invalida el token enviado en `Authorization`; responde `204` sin cuerpo. |
+| `/api/v1/pin-credentials` | Registrar el PIN de un adulto mayor | POST | Body: `olderAdultId`, `pin`. | `201` Sin cuerpo<br>Guarda el PIN con el que el adulto mayor iniciará sesión; responde `201` sin cuerpo. |
+| `/api/v1/pin-sessions` | Iniciar sesión de un adulto mayor con PIN | POST | Body: `olderAdultId`, `pin`. | `200` `{"olderAdultId":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Devuelve el `accessToken` de la sesión del adulto mayor y su vencimiento. `400` si faltan datos. No requiere token. |
+| `/api/v1/plans` | Listar los planes disponibles | GET | Ninguno. | `200` `[{"code":"string","name":"string","monthlyPrice":1,"currency":"string","capabilities":["REMINDERS"]}]`<br>Devuelve los planes con su precio mensual, moneda y capacidades. No requiere token. |
+| `/api/v1/accounts/{accountId}/subscription` | Consultar la suscripción de una cuenta (US-44) | GET | Path: `accountId`. | `200` `{"accountId":"string","plan":{"code":"string","name":"string","monthlyPrice":1,"currency":"string","capabilities":["REMINDERS"]},"status":"ACTIVE","renewsAt":"2026-10-06T08:00:00Z"}`<br>Devuelve el plan vigente, el estado de la suscripción, la fecha de renovación y las capacidades habilitadas. |
+| `/api/v1/accounts/{accountId}/subscription` | Activar o cambiar el plan de una cuenta (US-45) | PUT | Path: `accountId`.<br>Body: `planCode`. | `200` `{"accountId":"string","plan":{"code":"string","name":"string","monthlyPrice":1,"currency":"string","capabilities":["REMINDERS"]},"status":"ACTIVE","renewsAt":"2026-10-06T08:00:00Z"}`<br>Aplica el plan indicado por `planCode` y devuelve la suscripción resultante. |
 
 **Care Link**
 
-| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `/api/v1/older-adults` | Registrar un adulto mayor | POST | `POST /api/v1/older-adults` | Body: `caregiverId`, `fullName`, `birthDate`, `emergencyContactName`, `emergencyContactRelationship`, `emergencyContactPhone`. | `201` `{"id":"string","registeredByCaregiverId":"string","fullName":"string","birthDate":"2026-10-06","emergencyContactName":"string","emergencyContactRelationship":"string","emergencyContactPhone":"string","createdAt":"2026-10-06T08:00:00Z"}` | Crea el adulto mayor con su contacto de emergencia y devuelve sus datos; responde `201`. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · older-adults-controller |
-| `/api/v1/older-adults/{olderAdultId}` | Consultar los datos de un adulto mayor | GET | `GET /api/v1/older-adults/{olderAdultId}` | Path: `olderAdultId`. | `200` `{"id":"string","registeredByCaregiverId":"string","fullName":"string","birthDate":"2026-10-06","emergencyContactName":"string","emergencyContactRelationship":"string","emergencyContactPhone":"string","createdAt":"2026-10-06T08:00:00Z"}` | Devuelve los datos del adulto mayor y de su contacto de emergencia. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · older-adults-controller |
-| `/api/v1/care-links/linking-codes` | Generar un código de vinculación | POST | `POST /api/v1/care-links/linking-codes` | Body: `caregiverId`, `olderAdultId`. | `201` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}` | Crea un vínculo en estado `PENDING` con un código y su vencimiento; responde `201`. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · care-links-controller |
-| `/api/v1/care-links/acceptances` | Aceptar un código de vinculación | POST | `POST /api/v1/care-links/acceptances` | Body: `caregiverId`, `code`. | `200` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}` | Usa el código para asociar al cuidador con el vínculo y devuelve el vínculo actualizado. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · care-links-controller |
-| `/api/v1/care-links/{careLinkId}/consent` | Registrar el consentimiento del adulto mayor | POST | `POST /api/v1/care-links/{careLinkId}/consent` | Path: `careLinkId`.<br>Body: `accepted`. | `200` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}` | Guarda si el adulto mayor aceptó (`accepted`) y devuelve el vínculo con la fecha del consentimiento. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · care-links-controller |
-| `/api/v1/care-links` | Listar los vínculos confirmados de un cuidador | GET | `GET /api/v1/care-links?caregiverId={caregiverId}` | Query: `caregiverId`. | `200` `[{"id":"string","olderAdultId":"string","olderAdultName":"string","confirmedAt":"2026-10-06T08:00:00Z"}]` | Devuelve los vínculos activos con consentimiento, del más reciente al más antiguo; vacía si no hay ninguno. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · care-links-controller |
-| `/api/v1/care-links/{careLinkId}` | Consultar un vínculo de cuidado | GET | `GET /api/v1/care-links/{careLinkId}` | Path: `careLinkId`. | `200` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}` | Devuelve el vínculo con su estado, código y consentimiento. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · care-links-controller |
-| `/api/v1/care-links/authorization` | Verificar si un cuidador está autorizado sobre un adulto mayor | GET | `GET /api/v1/care-links/authorization?caregiverId={caregiverId}&olderAdultId={olderAdultId}` | Query: `caregiverId`, `olderAdultId`. | `200` `true` | Devuelve `true` si existe un vínculo activo entre ambos y `false` en caso contrario. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · care-links-controller |
+| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
+| --- | --- | --- | --- | --- |
+| `/api/v1/older-adults` | Registrar un adulto mayor | POST | Body: `caregiverId`, `fullName`, `birthDate`, `emergencyContactName`, `emergencyContactRelationship`, `emergencyContactPhone`. | `201` `{"id":"string","registeredByCaregiverId":"string","fullName":"string","birthDate":"2026-10-06","emergencyContactName":"string","emergencyContactRelationship":"string","emergencyContactPhone":"string","createdAt":"2026-10-06T08:00:00Z"}`<br>Crea el adulto mayor con su contacto de emergencia y devuelve sus datos; responde `201`. |
+| `/api/v1/older-adults/{olderAdultId}` | Consultar los datos de un adulto mayor | GET | Path: `olderAdultId`. | `200` `{"id":"string","registeredByCaregiverId":"string","fullName":"string","birthDate":"2026-10-06","emergencyContactName":"string","emergencyContactRelationship":"string","emergencyContactPhone":"string","createdAt":"2026-10-06T08:00:00Z"}`<br>Devuelve los datos del adulto mayor y de su contacto de emergencia. |
+| `/api/v1/care-links/linking-codes` | Generar un código de vinculación | POST | Body: `caregiverId`, `olderAdultId`. | `201` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Crea un vínculo en estado `PENDING` con un código y su vencimiento; responde `201`. |
+| `/api/v1/care-links/acceptances` | Aceptar un código de vinculación | POST | Body: `caregiverId`, `code`. | `200` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Usa el código para asociar al cuidador con el vínculo y devuelve el vínculo actualizado. |
+| `/api/v1/care-links/{careLinkId}/consent` | Registrar el consentimiento del adulto mayor | POST | Path: `careLinkId`.<br>Body: `accepted`. | `200` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Guarda si el adulto mayor aceptó (`accepted`) y devuelve el vínculo con la fecha del consentimiento. |
+| `/api/v1/care-links` | Listar los vínculos confirmados de un cuidador | GET | Query: `caregiverId`. | `200` `[{"id":"string","olderAdultId":"string","olderAdultName":"string","confirmedAt":"2026-10-06T08:00:00Z"}]`<br>Devuelve los vínculos activos con consentimiento, del más reciente al más antiguo; vacía si no hay ninguno. |
+| `/api/v1/care-links/{careLinkId}` | Consultar un vínculo de cuidado | GET | Path: `careLinkId`. | `200` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Devuelve el vínculo con su estado, código y consentimiento. |
+| `/api/v1/care-links/authorization` | Verificar si un cuidador está autorizado sobre un adulto mayor | GET | Query: `caregiverId`, `olderAdultId`. | `200` `true`<br>Devuelve `true` si existe un vínculo activo entre ambos y `false` en caso contrario. |
 
 **Intake Execution**
 
-| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `/api/v1/older-adults/{olderAdultId}/intakes/next` | Consultar la próxima toma | GET | `GET /api/v1/older-adults/{olderAdultId}/intakes/next` | Path: `olderAdultId`. | `200` `{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}` | Devuelve la próxima toma programada del adulto mayor. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · intakes-controller |
-| `/api/v1/older-adults/{olderAdultId}/intakes/agenda` | Consultar la agenda de tomas de un período | GET | `GET /api/v1/older-adults/{olderAdultId}/intakes/agenda?from={from}&to={to}` | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `[{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}]` | Devuelve las tomas programadas entre `from` y `to`. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · intakes-controller |
-| `/api/v1/intakes/{intakeId}` | Consultar una toma | GET | `GET /api/v1/intakes/{intakeId}` | Path: `intakeId`. | `200` `{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}` | Devuelve el medicamento, la dosis, las instrucciones, el horario y el estado de la toma. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · intakes-controller |
-| `/api/v1/intakes/{intakeId}/confirmation` | Confirmar una toma (US-05) | POST | `POST /api/v1/intakes/{intakeId}/confirmation` | Path: `intakeId`.<br>Body: `channel`. | `200` `{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}` | Registra la confirmación por el canal indicado (`TOUCH`) y devuelve la toma actualizada. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · intakes-controller |
-| `/api/v1/intakes/{intakeId}/voice-confirmation` | Confirmar una toma por voz (US-06) | POST | `POST /api/v1/intakes/{intakeId}/voice-confirmation?language={language}` | Path: `intakeId`.<br>Query: `language` (opcional).<br>Body: `audio`. | `200` `{"status":"CONFIRMED","transcript":"string","confidence":1,"intake":{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}}` | Procesa el audio con el servicio de reconocimiento de voz; solo una confirmación reconocida y validada cambia el estado de la toma. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · intakes-controller |
+| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
+| --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}/intakes/next` | Consultar la próxima toma | GET | Path: `olderAdultId`. | `200` `{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}`<br>Devuelve la próxima toma programada del adulto mayor. |
+| `/api/v1/older-adults/{olderAdultId}/intakes/agenda` | Consultar la agenda de tomas de un período | GET | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `[{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}]`<br>Devuelve las tomas programadas entre `from` y `to`. |
+| `/api/v1/intakes/{intakeId}` | Consultar una toma | GET | Path: `intakeId`. | `200` `{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}`<br>Devuelve el medicamento, la dosis, las instrucciones, el horario y el estado de la toma. |
+| `/api/v1/intakes/{intakeId}/confirmation` | Confirmar una toma (US-05) | POST | Path: `intakeId`.<br>Body: `channel`. | `200` `{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}`<br>Registra la confirmación por el canal indicado (`TOUCH`) y devuelve la toma actualizada. |
+| `/api/v1/intakes/{intakeId}/voice-confirmation` | Confirmar una toma por voz (US-06) | POST | Path: `intakeId`.<br>Query: `language` (opcional).<br>Body: `audio`. | `200` `{"status":"CONFIRMED","transcript":"string","confidence":1,"intake":{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}}`<br>Procesa el audio con el servicio de reconocimiento de voz; solo una confirmación reconocida y validada cambia el estado de la toma. |
 
 **Family Monitoring**
 
-| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `/api/v1/older-adults/{olderAdultId}/status` | Consultar el estado reciente de un adulto mayor (US-25) | GET | `GET /api/v1/older-adults/{olderAdultId}/status?caregiverId={caregiverId}` | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `{"nextIntakeAt":"2026-10-05T21:00:00Z","lastIntakeStatus":"CONFIRMED","hasOpenAlert":true,"openAlerts":[{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}],"weeklyAdherence":{"confirmedIntakes":1,"totalIntakes":1},"lowStock":[{"medicationId":"7a1b2c3d-1111-4222-8333-444455556666","medicationName":"Losartán","remainingStock":4,"replenishmentThreshold":5,"detectedAt":"2026-10-06T12:00:00Z"}],"adherenceInsights":[{"medicationId":"7a1b2c3d-1111-4222-8333-444455556666","medicationName":"Losartán","omissionDays":3,"firstDay":"2026-10-01","lastDay":"2026-10-03","detectedAt":"2026-10-06T08:00:00Z"}]}` | Devuelve la próxima toma, el resultado de la última y las alertas pendientes. `404` si el adulto mayor no tiene seguimiento activo. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Family Monitoring |
-| `/api/v1/older-adults/{olderAdultId}/intakes` | Consultar el historial reciente de tomas (US-26) | GET | `GET /api/v1/older-adults/{olderAdultId}/intakes?caregiverId={caregiverId}&days={days}` | Path: `olderAdultId`.<br>Query: `caregiverId`, `days` (opcional). | `200` `[{"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","status":"CONFIRMED"}]` | Devuelve las tomas de los últimos días, de la más reciente a la más antigua; vacía si no hay registros. `400` si `days` es inválido; `404` si no hay seguimiento activo. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Family Monitoring |
-| `/api/v1/older-adults/{olderAdultId}/contact-channel` | Consultar el canal de contacto de un adulto mayor (US-29) | GET | `GET /api/v1/older-adults/{olderAdultId}/contact-channel?caregiverId={caregiverId}` | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `{"type":"PHONE","value":"+51 999 888 777"}` | Devuelve el canal con el que el cuidador puede comunicarse tras una alerta. `404` si no hay seguimiento o canal. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Family Monitoring |
-| `/api/v1/older-adults/{olderAdultId}/alerts/{alertId}` | Consultar el detalle de una alerta (US-27) | GET | `GET /api/v1/older-adults/{olderAdultId}/alerts/{alertId}?caregiverId={caregiverId}` | Path: `olderAdultId`, `alertId`.<br>Query: `caregiverId`. | `200` `{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}` | Devuelve el medicamento, el horario, el estado y el motivo de la alerta. `404` si no existe. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Alerts |
-| `/api/v1/older-adults/{olderAdultId}/alerts/{alertId}/status` | Actualizar el estado de seguimiento de una alerta (US-31) | PUT | `PUT /api/v1/older-adults/{olderAdultId}/alerts/{alertId}/status?caregiverId={caregiverId}` | Path: `olderAdultId`, `alertId`.<br>Query: `caregiverId`.<br>Body: `status`. | `200` `{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}` | `ATTENDED` registra que el cuidador actuó; `CLOSED` la quita de las pendientes y la conserva en el historial. `400` si el estado no es válido; `404` si no existe; `409` si no puede pasar a ese estado. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Alerts |
-| `/api/v1/older-adults/{olderAdultId}/notes` | Listar las notas de seguimiento (US-30) | GET | `GET /api/v1/older-adults/{olderAdultId}/notes?caregiverId={caregiverId}` | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":1,"text":"I called her and she had already taken the pill.","recordedAt":"2026-10-05T14:10:00Z","familiarId":"1"}]` | Devuelve las notas registradas, de la más reciente a la más antigua; vacía si no hay. `404` si no hay seguimiento activo. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Caregiver Notes |
-| `/api/v1/older-adults/{olderAdultId}/notes` | Registrar una nota de seguimiento (US-30) | POST | `POST /api/v1/older-adults/{olderAdultId}/notes` | Path: `olderAdultId`.<br>Body: `familiarId`, `text`. | `201` `{"id":1,"text":"I called her and she had already taken the pill.","recordedAt":"2026-10-05T14:10:00Z","familiarId":"1"}` | Guarda la nota con su fecha y su autor; responde `201`. `400` si la nota es inválida; `404` si no hay seguimiento activo. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Caregiver Notes |
+| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
+| --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}/status` | Consultar el estado reciente de un adulto mayor (US-25) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `{"nextIntakeAt":"2026-10-05T21:00:00Z","lastIntakeStatus":"CONFIRMED","hasOpenAlert":true,"openAlerts":[{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}],"weeklyAdherence":{"confirmedIntakes":1,"totalIntakes":1},"lowStock":[{"medicationId":"7a1b2c3d-1111-4222-8333-444455556666","medicationName":"Losartán","remainingStock":4,"replenishmentThreshold":5,"detectedAt":"2026-10-06T12:00:00Z"}],"adherenceInsights":[{"medicationId":"7a1b2c3d-1111-4222-8333-444455556666","medicationName":"Losartán","omissionDays":3,"firstDay":"2026-10-01","lastDay":"2026-10-03","detectedAt":"2026-10-06T08:00:00Z"}]}`<br>Devuelve la próxima toma, el resultado de la última y las alertas pendientes. `404` si el adulto mayor no tiene seguimiento activo. |
+| `/api/v1/older-adults/{olderAdultId}/intakes` | Consultar el historial reciente de tomas (US-26) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`, `days` (opcional). | `200` `[{"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","status":"CONFIRMED"}]`<br>Devuelve las tomas de los últimos días, de la más reciente a la más antigua; vacía si no hay registros. `400` si `days` es inválido; `404` si no hay seguimiento activo. |
+| `/api/v1/older-adults/{olderAdultId}/contact-channel` | Consultar el canal de contacto de un adulto mayor (US-29) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `{"type":"PHONE","value":"+51 999 888 777"}`<br>Devuelve el canal con el que el cuidador puede comunicarse tras una alerta. `404` si no hay seguimiento o canal. |
+| `/api/v1/older-adults/{olderAdultId}/alerts/{alertId}` | Consultar el detalle de una alerta (US-27) | GET | Path: `olderAdultId`, `alertId`.<br>Query: `caregiverId`. | `200` `{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}`<br>Devuelve el medicamento, el horario, el estado y el motivo de la alerta. `404` si no existe. |
+| `/api/v1/older-adults/{olderAdultId}/alerts/{alertId}/status` | Actualizar el estado de seguimiento de una alerta (US-31) | PUT | Path: `olderAdultId`, `alertId`.<br>Query: `caregiverId`.<br>Body: `status`. | `200` `{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}`<br>`ATTENDED` registra que el cuidador actuó; `CLOSED` la quita de las pendientes y la conserva en el historial. `400` si el estado no es válido; `404` si no existe; `409` si no puede pasar a ese estado. |
+| `/api/v1/older-adults/{olderAdultId}/notes` | Listar las notas de seguimiento (US-30) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":1,"text":"I called her and she had already taken the pill.","recordedAt":"2026-10-05T14:10:00Z","familiarId":"1"}]`<br>Devuelve las notas registradas, de la más reciente a la más antigua; vacía si no hay. `404` si no hay seguimiento activo. |
+| `/api/v1/older-adults/{olderAdultId}/notes` | Registrar una nota de seguimiento (US-30) | POST | Path: `olderAdultId`.<br>Body: `familiarId`, `text`. | `201` `{"id":1,"text":"I called her and she had already taken the pill.","recordedAt":"2026-10-05T14:10:00Z","familiarId":"1"}`<br>Guarda la nota con su fecha y su autor; responde `201`. `400` si la nota es inválida; `404` si no hay seguimiento activo. |
 
 **Adherence Analytics**
 
-| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `/api/v1/older-adults/{olderAdultId}/adherence/weekly` | Consultar la adherencia semanal | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/weekly?from={from}&to={to}` | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `{"olderAdultId":"string","from":"2026-10-06T08:00:00Z","to":"2026-10-06T08:00:00Z","confirmedIntakes":1,"totalIntakes":1,"percentage":1,"onTimeIntakes":1,"lateIntakes":1,"omittedIntakes":1}` | Devuelve las tomas confirmadas, a tiempo, tardías y omitidas del período, con el porcentaje de adherencia. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · adherence-controller |
-| `/api/v1/older-adults/{olderAdultId}/adherence/summary` | Consultar el resumen de adherencia | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/summary?days={days}&zone={zone}` | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `200` `{"periodDays":1,"scheduledCount":1,"adherencePercent":1,"adherenceChangePercent":1,"onTimePercent":1,"onTimeChangePercent":1,"lateCount":1,"omittedCount":1,"trend":[{"date":"2026-10-06","adherencePercent":1}],"recentIntakes":[{"scheduledAt":"2026-10-06T08:00:00Z","medicationName":"string","status":"string","minutesLate":1}],"pattern":{"timeBand":"string","omittedCount":1,"lateCount":1}}` | Devuelve los porcentajes de adherencia y puntualidad con el cambio frente al período anterior, la tendencia y las tomas recientes. `204` si no hay tomas definitivas; `400` si el período o la zona son inválidos. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Adherence Analytics |
-| `/api/v1/older-adults/{olderAdultId}/adherence/recommendations` | Consultar las recomendaciones de adherencia | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/recommendations?from={from}&to={to}&zone={zone}` | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `[{"medicationId":"string","code":"string","evidenceDays":1}]` | Devuelve recomendaciones por medicamento con los días de evidencia. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · adherence-controller |
-| `/api/v1/older-adults/{olderAdultId}/adherence/patterns` | Consultar los patrones de omisión | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/patterns?from={from}&to={to}&zone={zone}` | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `[{"medicationId":"string","omissionDays":1,"firstDay":"2026-10-06","lastDay":"2026-10-06"}]` | Devuelve, por medicamento, los días de omisión y el primer y último día. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · adherence-controller |
-| `/api/v1/older-adults/{olderAdultId}/adherence/insights` | Consultar las recomendaciones de seguimiento según patrones | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/insights?days={days}&zone={zone}` | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `200` `{"periodDays":1,"pattern":{"type":"string","timeBand":"string","omittedCount":1,"lateCount":1,"fromHour":1,"toHour":1},"concentration":[[1]],"recommendations":["string"]}` | Devuelve el patrón detectado, la concentración por franja y las recomendaciones; solo tratan recordatorios, horarios y seguimiento, nunca la dosis. `204` si no hay evidencia suficiente; `400` si el período o la zona son inválidos. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Adherence Analytics |
-| `/api/v1/older-adults/{olderAdultId}/adherence/insight` | Consultar las recomendaciones de seguimiento según patrones (ruta alterna) | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/insight?days={days}&zone={zone}` | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `200` `{"periodDays":1,"pattern":{"type":"string","timeBand":"string","omittedCount":1,"lateCount":1,"fromHour":1,"toHour":1},"concentration":[[1]],"recommendations":["string"]}` | Misma respuesta que `/adherence/insights`. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Adherence Analytics |
-| `/api/v1/older-adults/{olderAdultId}/adherence/history` | Consultar el historial de tomas del período | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/history?from={from}&to={to}` | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `[{"medicationId":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING"}]` | Devuelve cada toma con su medicamento, horario y estado entre `from` y `to`. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · adherence-controller |
-| `/api/v1/older-adults/{olderAdultId}/adherence/consolidations` | Consolidar la adherencia de un período | POST | `POST /api/v1/older-adults/{olderAdultId}/adherence/consolidations?from={from}&to={to}&zone={zone}` | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `{"id":"string","olderAdultId":"string","from":"2026-10-06T08:00:00Z","to":"2026-10-06T08:00:00Z","zone":"string","consolidatedAt":"2026-10-06T08:00:00Z","confirmedIntakes":1,"totalIntakes":1,"percentage":1,"onTimeIntakes":1,"lateIntakes":1,"omittedIntakes":1,"patterns":[{"medicationId":"string","omissionDays":1,"firstDay":"2026-10-06","lastDay":"2026-10-06"}],"minimumOmissionDays":1}` | Calcula y guarda una captura de la adherencia entre `from` y `to` y la devuelve. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · adherence-controller |
-| `/api/v1/older-adults/{olderAdultId}/adherence/consolidations/{snapshotId}` | Consultar una consolidación de adherencia | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/consolidations/{snapshotId}` | Path: `olderAdultId`, `snapshotId`. | `200` `{"id":"string","olderAdultId":"string","from":"2026-10-06T08:00:00Z","to":"2026-10-06T08:00:00Z","zone":"string","consolidatedAt":"2026-10-06T08:00:00Z","confirmedIntakes":1,"totalIntakes":1,"percentage":1,"onTimeIntakes":1,"lateIntakes":1,"omittedIntakes":1,"patterns":[{"medicationId":"string","omissionDays":1,"firstDay":"2026-10-06","lastDay":"2026-10-06"}],"minimumOmissionDays":1}` | Devuelve la captura guardada con sus totales y porcentajes. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · adherence-controller |
+| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
+| --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}/adherence/weekly` | Consultar la adherencia semanal | GET | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `{"olderAdultId":"string","from":"2026-10-06T08:00:00Z","to":"2026-10-06T08:00:00Z","confirmedIntakes":1,"totalIntakes":1,"percentage":1,"onTimeIntakes":1,"lateIntakes":1,"omittedIntakes":1}`<br>Devuelve las tomas confirmadas, a tiempo, tardías y omitidas del período, con el porcentaje de adherencia. |
+| `/api/v1/older-adults/{olderAdultId}/adherence/summary` | Consultar el resumen de adherencia | GET | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `200` `{"periodDays":1,"scheduledCount":1,"adherencePercent":1,"adherenceChangePercent":1,"onTimePercent":1,"onTimeChangePercent":1,"lateCount":1,"omittedCount":1,"trend":[{"date":"2026-10-06","adherencePercent":1}],"recentIntakes":[{"scheduledAt":"2026-10-06T08:00:00Z","medicationName":"string","status":"string","minutesLate":1}],"pattern":{"timeBand":"string","omittedCount":1,"lateCount":1}}`<br>Devuelve los porcentajes de adherencia y puntualidad con el cambio frente al período anterior, la tendencia y las tomas recientes. `204` si no hay tomas definitivas; `400` si el período o la zona son inválidos. |
+| `/api/v1/older-adults/{olderAdultId}/adherence/recommendations` | Consultar las recomendaciones de adherencia | GET | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `[{"medicationId":"string","code":"string","evidenceDays":1}]`<br>Devuelve recomendaciones por medicamento con los días de evidencia. |
+| `/api/v1/older-adults/{olderAdultId}/adherence/patterns` | Consultar los patrones de omisión | GET | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `[{"medicationId":"string","omissionDays":1,"firstDay":"2026-10-06","lastDay":"2026-10-06"}]`<br>Devuelve, por medicamento, los días de omisión y el primer y último día. |
+| `/api/v1/older-adults/{olderAdultId}/adherence/insights` | Consultar las recomendaciones de seguimiento según patrones | GET | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `200` `{"periodDays":1,"pattern":{"type":"string","timeBand":"string","omittedCount":1,"lateCount":1,"fromHour":1,"toHour":1},"concentration":[[1]],"recommendations":["string"]}`<br>Devuelve el patrón detectado, la concentración por franja y las recomendaciones; solo tratan recordatorios, horarios y seguimiento, nunca la dosis. `204` si no hay evidencia suficiente; `400` si el período o la zona son inválidos. |
+| `/api/v1/older-adults/{olderAdultId}/adherence/insight` | Consultar las recomendaciones de seguimiento según patrones (ruta alterna) | GET | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `200` `{"periodDays":1,"pattern":{"type":"string","timeBand":"string","omittedCount":1,"lateCount":1,"fromHour":1,"toHour":1},"concentration":[[1]],"recommendations":["string"]}`<br>Misma respuesta que `/adherence/insights`. |
+| `/api/v1/older-adults/{olderAdultId}/adherence/history` | Consultar el historial de tomas del período | GET | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `[{"medicationId":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING"}]`<br>Devuelve cada toma con su medicamento, horario y estado entre `from` y `to`. |
+| `/api/v1/older-adults/{olderAdultId}/adherence/consolidations` | Consolidar la adherencia de un período | POST | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `{"id":"string","olderAdultId":"string","from":"2026-10-06T08:00:00Z","to":"2026-10-06T08:00:00Z","zone":"string","consolidatedAt":"2026-10-06T08:00:00Z","confirmedIntakes":1,"totalIntakes":1,"percentage":1,"onTimeIntakes":1,"lateIntakes":1,"omittedIntakes":1,"patterns":[{"medicationId":"string","omissionDays":1,"firstDay":"2026-10-06","lastDay":"2026-10-06"}],"minimumOmissionDays":1}`<br>Calcula y guarda una captura de la adherencia entre `from` y `to` y la devuelve. |
+| `/api/v1/older-adults/{olderAdultId}/adherence/consolidations/{snapshotId}` | Consultar una consolidación de adherencia | GET | Path: `olderAdultId`, `snapshotId`. | `200` `{"id":"string","olderAdultId":"string","from":"2026-10-06T08:00:00Z","to":"2026-10-06T08:00:00Z","zone":"string","consolidatedAt":"2026-10-06T08:00:00Z","confirmedIntakes":1,"totalIntakes":1,"percentage":1,"onTimeIntakes":1,"lateIntakes":1,"omittedIntakes":1,"patterns":[{"medicationId":"string","omissionDays":1,"firstDay":"2026-10-06","lastDay":"2026-10-06"}],"minimumOmissionDays":1}`<br>Devuelve la captura guardada con sus totales y porcentajes. |
 
 **Inventory & Replenishment**
 
-| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `/api/v1/inventories` | Registrar el inventario inicial de un medicamento (US-40) | POST | `POST /api/v1/inventories` | Body: `medicationId`, `initialQuantity`, `replenishmentThreshold`. | `201` `{"id":"string","medicationId":"string","remainingStock":12,"replenishmentThreshold":5,"lowStock":true,"batches":[{"id":"string","quantity":1,"registeredAt":"2026-10-06T08:00:00Z","lot":"string"}],"createdAt":"2026-10-06T08:00:00Z","updatedAt":"2026-10-06T08:00:00Z","daysRemaining":1,"dailyConsumptionUnits":1}` | Crea el stock con su primer lote y el umbral de reposición; solo existe un inventario por medicamento. `400` si faltan datos o la cantidad es inválida; `404` si el medicamento no existe; `409` si está inactivo o ya tiene inventario. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Inventory |
-| `/api/v1/inventories/{medicationId}/replenishments` | Registrar una reposición (US-43) | POST | `POST /api/v1/inventories/{medicationId}/replenishments` | Path: `medicationId`.<br>Body: `quantity`, `lot`. | `201` `{"id":"string","medicationId":"string","remainingStock":12,"replenishmentThreshold":5,"lowStock":true,"batches":[{"id":"string","quantity":1,"registeredAt":"2026-10-06T08:00:00Z","lot":"string"}],"createdAt":"2026-10-06T08:00:00Z","updatedAt":"2026-10-06T08:00:00Z","daysRemaining":1,"dailyConsumptionUnits":1}` | Agrega un lote y aumenta el stock; devuelve el inventario actualizado. `400` si faltan datos; `404` si no hay inventario; `409` si hubo una modificación concurrente. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Inventory |
-| `/api/v1/inventories/{medicationId}` | Consultar el stock de un medicamento (US-41, US-42) | GET | `GET /api/v1/inventories/{medicationId}` | Path: `medicationId`. | `200` `{"id":"string","medicationId":"string","remainingStock":12,"replenishmentThreshold":5,"lowStock":true,"batches":[{"id":"string","quantity":1,"registeredAt":"2026-10-06T08:00:00Z","lot":"string"}],"createdAt":"2026-10-06T08:00:00Z","updatedAt":"2026-10-06T08:00:00Z","daysRemaining":1,"dailyConsumptionUnits":1}` | Devuelve las unidades restantes, el umbral, el indicador de stock bajo y los lotes. `404` si no hay inventario. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · Inventory |
+| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
+| --- | --- | --- | --- | --- |
+| `/api/v1/inventories` | Registrar el inventario inicial de un medicamento (US-40) | POST | Body: `medicationId`, `initialQuantity`, `replenishmentThreshold`. | `201` `{"id":"string","medicationId":"string","remainingStock":12,"replenishmentThreshold":5,"lowStock":true,"batches":[{"id":"string","quantity":1,"registeredAt":"2026-10-06T08:00:00Z","lot":"string"}],"createdAt":"2026-10-06T08:00:00Z","updatedAt":"2026-10-06T08:00:00Z","daysRemaining":1,"dailyConsumptionUnits":1}`<br>Crea el stock con su primer lote y el umbral de reposición; solo existe un inventario por medicamento. `400` si faltan datos o la cantidad es inválida; `404` si el medicamento no existe; `409` si está inactivo o ya tiene inventario. |
+| `/api/v1/inventories/{medicationId}/replenishments` | Registrar una reposición (US-43) | POST | Path: `medicationId`.<br>Body: `quantity`, `lot`. | `201` `{"id":"string","medicationId":"string","remainingStock":12,"replenishmentThreshold":5,"lowStock":true,"batches":[{"id":"string","quantity":1,"registeredAt":"2026-10-06T08:00:00Z","lot":"string"}],"createdAt":"2026-10-06T08:00:00Z","updatedAt":"2026-10-06T08:00:00Z","daysRemaining":1,"dailyConsumptionUnits":1}`<br>Agrega un lote y aumenta el stock; devuelve el inventario actualizado. `400` si faltan datos; `404` si no hay inventario; `409` si hubo una modificación concurrente. |
+| `/api/v1/inventories/{medicationId}` | Consultar el stock de un medicamento (US-41, US-42) | GET | Path: `medicationId`. | `200` `{"id":"string","medicationId":"string","remainingStock":12,"replenishmentThreshold":5,"lowStock":true,"batches":[{"id":"string","quantity":1,"registeredAt":"2026-10-06T08:00:00Z","lot":"string"}],"createdAt":"2026-10-06T08:00:00Z","updatedAt":"2026-10-06T08:00:00Z","daysRemaining":1,"dailyConsumptionUnits":1}`<br>Devuelve las unidades restantes, el umbral, el indicador de stock bajo y los lotes. `404` si no hay inventario. |
 
 **Estado del servicio**
 
-| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `/health` | Verificar que el servicio está activo | GET | `GET /health` | Ninguno. | `200` `null` | Devuelve el estado del servicio (`UP`). No requiere token. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · health-controller |
-| `/actuator/health` | Verificar el estado del servicio (Actuator) | GET | `GET /actuator/health` | Ninguno. | `200` `null` | Devuelve el estado del servicio (`UP`). No requiere token. | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) · health-controller |
+| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
+| --- | --- | --- | --- | --- |
+| `/health` | Verificar que el servicio está activo | GET | Ninguno. | `200` `null`<br>Devuelve el estado del servicio (`UP`). No requiere token. |
+| `/actuator/health` | Verificar el estado del servicio (Actuator) | GET | Ninguno. | `200` `null`<br>Devuelve el estado del servicio (`UP`). No requiere token. |
 
 **Capturas de la documentación**
 
 Las capturas se tomaron ejecutando el backend en un entorno local con una base de datos en memoria y datos de muestra, desde Swagger UI con la opción *Try it out*.
 
-![Swagger UI: operaciones del grupo Treatments.](assets/services-documentation/00-swagger-treatments.png)
+<p align="center">
+  <img src="assets/services-documentation/00-swagger-treatments.png" alt="Operaciones de tratamientos en Swagger UI" width="960">
+</p>
 
-*Figura 1. Swagger UI: operaciones del grupo Treatments.*
+*Figura. Operaciones de tratamientos en Swagger UI.*
 
-![Swagger UI: operaciones del grupo Medications.](assets/services-documentation/00-swagger-medications.png)
 
-*Figura 2. Swagger UI: operaciones del grupo Medications.*
+<p align="center">
+  <img src="assets/services-documentation/00-swagger-medications.png" alt="Operaciones de medicamentos en Swagger UI" width="960">
+</p>
 
-![Swagger UI: operaciones del grupo Accessibility.](assets/services-documentation/00-swagger-accessibility.png)
+*Figura. Operaciones de medicamentos en Swagger UI.*
 
-*Figura 3. Swagger UI: operaciones del grupo Accessibility.*
 
-![Swagger UI: operación del grupo Notification Preferences.](assets/services-documentation/00-swagger-notification-preferences.png)
+<p align="center">
+  <img src="assets/services-documentation/00-swagger-accessibility.png" alt="Operaciones de accesibilidad en Swagger UI" width="960">
+</p>
 
-*Figura 4. Swagger UI: operación del grupo Notification Preferences.*
+*Figura. Operaciones de accesibilidad en Swagger UI.*
 
-![POST /api/v1/older-adults/{olderAdultId}/medications: registra Losartán 50 mg y responde 201 con el medicamento creado.](assets/services-documentation/01-registrar-medicamento.png)
 
-*Figura 5. `POST /api/v1/older-adults/{olderAdultId}/medications`: registra Losartán 50 mg y responde `201` con el medicamento creado.*
+<p align="center">
+  <img src="assets/services-documentation/00-swagger-notification-preferences.png" alt="Preferencias de notificación en Swagger UI" width="960">
+</p>
 
-![GET /api/v1/older-adults/{olderAdultId}/medications: responde 200 con la lista de medicamentos.](assets/services-documentation/02-listar-medicamentos.png)
+*Figura. Preferencias de notificación en Swagger UI.*
 
-*Figura 6. `GET /api/v1/older-adults/{olderAdultId}/medications`: responde `200` con la lista de medicamentos.*
 
-![PUT /api/v1/medications/{medicationId}: cambia la presentación a 100 mg y responde 200.](assets/services-documentation/03-editar-medicamento.png)
+<p align="center">
+  <img src="assets/services-documentation/01-registrar-medicamento.png" alt="Registro de medicamento" width="960">
+</p>
 
-*Figura 7. `PUT /api/v1/medications/{medicationId}`: cambia la presentación a 100 mg y responde `200`.*
+*Figura. Registro de medicamento.*
 
-![POST /api/v1/older-adults/{olderAdultId}/treatments: crea el tratamiento en estado DRAFT y responde 201.](assets/services-documentation/04-crear-tratamiento.png)
 
-*Figura 8. `POST /api/v1/older-adults/{olderAdultId}/treatments`: crea el tratamiento en estado `DRAFT` y responde `201`.*
+<p align="center">
+  <img src="assets/services-documentation/02-listar-medicamentos.png" alt="Consulta de medicamentos" width="960">
+</p>
 
-![PUT /api/v1/treatments/{treatmentId}/regimen: asigna medicamento, dosis, frecuencia, horarios, instrucciones y recordatorio; responde 200.](assets/services-documentation/05-configurar-pauta.png)
+*Figura. Consulta de medicamentos.*
 
-*Figura 9. `PUT /api/v1/treatments/{treatmentId}/regimen`: asigna medicamento, dosis, frecuencia, horarios, instrucciones y recordatorio; responde `200`.*
 
-![POST /api/v1/treatments/{treatmentId}/activation: el tratamiento pasa a ACTIVE.](assets/services-documentation/06-activar-tratamiento.png)
+<p align="center">
+  <img src="assets/services-documentation/03-editar-medicamento.png" alt="Edición de medicamento" width="960">
+</p>
 
-*Figura 10. `POST /api/v1/treatments/{treatmentId}/activation`: el tratamiento pasa a `ACTIVE`.*
+*Figura. Edición de medicamento.*
 
-![GET /api/v1/treatments/{treatmentId}: devuelve el tratamiento con su pauta.](assets/services-documentation/07-detalle-tratamiento.png)
 
-*Figura 11. `GET /api/v1/treatments/{treatmentId}`: devuelve el tratamiento con su pauta.*
+<p align="center">
+  <img src="assets/services-documentation/04-crear-tratamiento.png" alt="Creación de tratamiento" width="960">
+</p>
 
-![POST /api/v1/treatments/{treatmentId}/pause: el tratamiento pasa a PAUSED.](assets/services-documentation/08-pausar-tratamiento.png)
+*Figura. Creación de tratamiento.*
 
-*Figura 12. `POST /api/v1/treatments/{treatmentId}/pause`: el tratamiento pasa a `PAUSED`.*
 
-![POST /api/v1/medications/{medicationId}/deactivation: el medicamento queda inactivo.](assets/services-documentation/09-desactivar-medicamento.png)
+<p align="center">
+  <img src="assets/services-documentation/05-configurar-pauta.png" alt="Configuración de la pauta" width="960">
+</p>
 
-*Figura 13. `POST /api/v1/medications/{medicationId}/deactivation`: el medicamento queda inactivo.*
+*Figura. Configuración de la pauta.*
 
-![GET /api/v1/older-adults/{olderAdultId}/medications con un cuidador sin vínculo activo: responde 403 CARE_LINK_NOT_AUTHORIZED.](assets/services-documentation/10-error-403-sin-vinculo.png)
 
-*Figura 14. `GET /api/v1/older-adults/{olderAdultId}/medications` con un cuidador sin vínculo activo: responde `403 CARE_LINK_NOT_AUTHORIZED`.*
+<p align="center">
+  <img src="assets/services-documentation/06-activar-tratamiento.png" alt="Activación del tratamiento" width="960">
+</p>
 
-![GET /api/v1/users/{userId}/preferences: devuelve las preferencias del usuario.](assets/services-documentation/11-consultar-preferencias.png)
+*Figura. Activación del tratamiento.*
 
-*Figura 15. `GET /api/v1/users/{userId}/preferences`: devuelve las preferencias del usuario.*
 
-![PUT /api/v1/users/{userId}/preferences/text-size: cambia el tamaño de texto a LARGE.](assets/services-documentation/12-cambiar-tamano-texto.png)
+<p align="center">
+  <img src="assets/services-documentation/07-detalle-tratamiento.png" alt="Consulta del tratamiento" width="960">
+</p>
 
-*Figura 16. `PUT /api/v1/users/{userId}/preferences/text-size`: cambia el tamaño de texto a `LARGE`.*
+*Figura. Consulta del tratamiento.*
 
-![PUT /api/v1/users/{userId}/preferences/contrast: activa el contraste reforzado.](assets/services-documentation/13-activar-contraste.png)
 
-*Figura 17. `PUT /api/v1/users/{userId}/preferences/contrast`: activa el contraste reforzado.*
+<p align="center">
+  <img src="assets/services-documentation/08-pausar-tratamiento.png" alt="Pausa del tratamiento" width="960">
+</p>
 
-![PUT /api/v1/users/{userId}/notification-preferences: configura el horario de silencio (22:00 a 07:00) y los canales de notificación.](assets/services-documentation/14-horario-silencio-y-canales.png)
+*Figura. Pausa del tratamiento.*
 
-*Figura 18. `PUT /api/v1/users/{userId}/notification-preferences`: configura el horario de silencio (22:00 a 07:00) y los canales de notificación.*
+
+<p align="center">
+  <img src="assets/services-documentation/09-desactivar-medicamento.png" alt="Desactivación del medicamento" width="960">
+</p>
+
+*Figura. Desactivación del medicamento.*
+
+
+<p align="center">
+  <img src="assets/services-documentation/10-error-403-sin-vinculo.png" alt="Respuesta de acceso sin vínculo autorizado" width="960">
+</p>
+
+*Figura. Respuesta de acceso sin vínculo autorizado.*
+
+
+<p align="center">
+  <img src="assets/services-documentation/11-consultar-preferencias.png" alt="Consulta de preferencias" width="960">
+</p>
+
+*Figura. Consulta de preferencias.*
+
+
+<p align="center">
+  <img src="assets/services-documentation/12-cambiar-tamano-texto.png" alt="Ajuste del tamaño de texto" width="960">
+</p>
+
+*Figura. Ajuste del tamaño de texto.*
+
+
+<p align="center">
+  <img src="assets/services-documentation/13-activar-contraste.png" alt="Activación del contraste" width="960">
+</p>
+
+*Figura. Activación del contraste.*
+
+
+<p align="center">
+  <img src="assets/services-documentation/14-horario-silencio-y-canales.png" alt="Configuración del horario de silencio y canales" width="960">
+</p>
+
+*Figura. Configuración del horario de silencio y canales.*
+
 
 Las siguientes capturas muestran los grupos de endpoints de los demás Bounded Contexts en el Swagger UI desplegado.
 
-![Swagger UI desplegado](assets/services-documentation/swagger-identity-subscription.png)
+<p align="center">
+  <img src="assets/services-documentation/swagger-identity-subscription.png" alt="Cuenta y suscripción en Swagger UI" width="960">
+</p>
 
-*Figura 19. Swagger UI desplegado: operaciones de Identity & Subscription.*
+*Figura. Cuenta y suscripción en Swagger UI.*
 
-![Swagger UI desplegado](assets/services-documentation/swagger-care-link.png)
 
-*Figura 20. Swagger UI desplegado: operaciones de Care Link.*
+<p align="center">
+  <img src="assets/services-documentation/swagger-care-link.png" alt="Vinculación de cuidado en Swagger UI" width="960">
+</p>
 
-![Swagger UI desplegado](assets/services-documentation/swagger-intake-execution.png)
+*Figura. Vinculación de cuidado en Swagger UI.*
 
-*Figura 21. Swagger UI desplegado: operaciones de Intake Execution.*
 
-![Swagger UI desplegado](assets/services-documentation/swagger-family-monitoring.png)
+<p align="center">
+  <img src="assets/services-documentation/swagger-intake-execution.png" alt="Tomas en Swagger UI" width="960">
+</p>
 
-*Figura 22. Swagger UI desplegado: operaciones de Family Monitoring (estado, alertas y notas).*
+*Figura. Tomas en Swagger UI.*
 
-![Swagger UI desplegado](assets/services-documentation/swagger-adherence-analytics.png)
 
-*Figura 23. Swagger UI desplegado: operaciones de Adherence Analytics.*
+<p align="center">
+  <img src="assets/services-documentation/swagger-family-monitoring.png" alt="Seguimiento familiar en Swagger UI" width="960">
+</p>
 
-![Swagger UI desplegado](assets/services-documentation/swagger-inventory.png)
+*Figura. Seguimiento familiar en Swagger UI.*
 
-*Figura 24. Swagger UI desplegado: operaciones de Inventory & Replenishment.*
+
+<p align="center">
+  <img src="assets/services-documentation/swagger-adherence-analytics.png" alt="Adherencia en Swagger UI" width="960">
+</p>
+
+*Figura. Adherencia en Swagger UI.*
+
+
+<p align="center">
+  <img src="assets/services-documentation/swagger-inventory.png" alt="Inventario en Swagger UI" width="960">
+</p>
+
+*Figura. Inventario en Swagger UI.*
+
 
 (FALTA: capturas de ejecución con datos de muestra de los endpoints de los demás Bounded Contexts)
 
@@ -6483,114 +6055,143 @@ Commits que agregan o modifican la documentación OpenAPI de los endpoints, inte
 
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
 | --- | --- | --- | --- | --- | --- |
-| `vitaHealth-UPC/web-services` | `develop` | `f0cbd66` | `feat(family-monitoring): add REST controllers with OpenAPI documentation` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `f0cbd66` | `feat(family-monitoring): add REST controllers with OpenAPI documentation` | - | 06/10/2026 |
 | `vitaHealth-UPC/web-services` | `develop` | `6bdc2cc` | `feat(inventory): expose inventory REST API` | - InventoryController under /api/v1/inventories documented with OpenAPI<br>- Register initial inventory (US-40), get remaining stock (US-41, US-42) and register replenishment (US-43)<br>- Request/response resources and InventoryResourceAssembler<br>- InventoryExceptionHandler with stable error codes and localized messages | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `6f19a6d` | `feat(monitoring): expose real intake history and status endpoints` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `a75faae` | `feat(subscription): implement TS-14 plans and subscriptions API` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `6f19a6d` | `feat(monitoring): expose real intake history and status endpoints` | - | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `a75faae` | `feat(subscription): implement TS-14 plans and subscriptions API` | - | 06/10/2026 |
 | `vitaHealth-UPC/web-services` | `develop` | `c4fbb3a` | `feat(voice): implement TS-11 speech-to-text confirmation flow` | Integrate configurable speech-to-text confirmation, validate recognized intent and confidence, preserve intake idempotency, and keep provider failures non-mutating. | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `b171f31` | `feat: add accessibility and notification preferences endpoints` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `e4b7f33` | `feat: list medications and treatments, expose medication lookup and document with OpenAPI` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `f362d4c` | `feat(analytics): add adherence summary and insights views for the family app` | — | 06/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `c084872` | `docs(adherence): group view endpoints under Adherence Analytics in Swagger and describe parameters` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `b171f31` | `feat: add accessibility and notification preferences endpoints` | - | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `e4b7f33` | `feat: list medications and treatments, expose medication lookup and document with OpenAPI` | - | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `f362d4c` | `feat(analytics): add adherence summary and insights views for the family app` | - | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `c084872` | `docs(adherence): group view endpoints under Adherence Analytics in Swagger and describe parameters` | - | 06/10/2026 |
 
 #### 4.2.1.8. Software Deployment Evidence for Sprint Review
 
-En el Sprint 1 se desplegaron el Landing Page, en GitHub Pages, y los Web Services, en Render, con la base de datos PostgreSQL en Neon. Las aplicaciones móviles no forman parte del despliegue de este Sprint. Los pasos de configuración están descritos en la sección 4.1.4.
+La landing se publica en GitHub Pages y el backend en Render, con PostgreSQL en Neon. Las capturas muestran la publicación, la configuración del servicio y la documentación disponible.
 
-| Producto | Plataforma | Estado en el Sprint 1 | URL |
-| --- | --- | --- | --- |
-| Landing Page | GitHub Pages (GitHub Actions) | Desplegado | https://vitahealth-upc.github.io/landing-page/ |
-| Web Services | Render (Web Service con Docker, plan Free; rama `develop`) | Desplegado | https://web-services-yzxl.onrender.com |
-| Base de datos | Neon (PostgreSQL 16, proyecto TATA, branch `production`, base `tata`) | Desplegada | (conexión privada) |
+| Producto | Plataforma | Versión / acceso |
+| --- | --- | --- |
+| Landing | GitHub Pages | Release v1.0.0 |
+| Backend | Render | Release v1.0.0 y Swagger UI |
+| Base de datos | Neon | PostgreSQL, conexión privada |
+| Android | Emulador Android API 36 | APK y ejecución de vistas |
 
-**Landing Page: GitHub Pages**
+<p align="center">
+  <img src="assets/repository-evidence/landing-deployment.png" alt="Publicación de la landing mediante GitHub Actions" width="960">
+</p>
 
-El repositorio `landing-page` incluye el workflow `.github/workflows/pages.yml` (*Deploy landing page to GitHub Pages*). Se ejecuta con cada push a `develop` o `main` y manualmente. Hace el checkout del repositorio, configura Pages, sube el sitio estático y lo publica con `actions/deploy-pages`. En *Settings → Pages* la fuente de compilación es *GitHub Actions* y la opción *Enforce HTTPS* está activa.
+*Figura. Publicación de la landing mediante GitHub Actions.*
 
-![GitHub Pages del repositorio landing-page: sitio publicado con GitHub Actions como fuente y HTTPS forzado.](assets/githubPageEvidence.png)
+Enlace a despliegue de landing:
 
-*Figura 1. GitHub Pages del repositorio `landing-page`: sitio publicado con GitHub Actions como fuente y HTTPS forzado.*
+https://github.com/vitaHealth-UPC/landing-page/actions/runs/37709905361
 
-![Landing Page publicada en https://vitahealth-upc.github.io/landing-page/.](assets/landingPageEvidence.png)
+<p align="center">
+  <img src="assets/githubPageEvidence.png" alt="Configuración de GitHub Pages" width="960">
+</p>
 
-*Figura 2. Landing Page publicada en https://vitahealth-upc.github.io/landing-page/.*
+*Figura. Configuración de GitHub Pages.*
 
-**Base de datos: Neon**
+<p align="center">
+  <img src="assets/landingPageEvidence.png" alt="Landing publicada" width="960">
+</p>
 
-Se creó el proyecto TATA en Neon con el plan Free, en la región AWS US East 2 (Ohio), con el branch `production` y la base `tata`. La cadena de conexión se obtuvo desde *Connect*, con *connection pooling* activo y el rol `tata_owner`. La contraseña no se publica.
+*Figura. Landing publicada.*
 
-![Neon: resumen del proyecto TATA, branch production.](assets/deployment-evidence/neon-proyecto.png)
+<p align="center">
+  <img src="assets/deployment-evidence/neon-proyecto.png" alt="Proyecto PostgreSQL en Neon" width="960">
+</p>
 
-*Figura 3. Neon: resumen del proyecto TATA, branch `production`.*
+*Figura. Proyecto PostgreSQL en Neon.*
 
-![Neon: cadena de conexión con la contraseña oculta.](assets/deployment-evidence/neon-connect.png)
+<p align="center">
+  <img src="assets/deployment-evidence/neon-connect.png" alt="Configuración de conexión a PostgreSQL" width="960">
+</p>
 
-*Figura 4. Neon: cadena de conexión con la contraseña oculta.*
+*Figura. Configuración de conexión a PostgreSQL.*
 
-**Web Services: Render**
+<p align="center">
+  <img src="assets/deployment-evidence/render-env.png" alt="Variables de entorno del servicio" width="960">
+</p>
 
-Se creó un Web Service enlazado al repositorio `vitaHealth-UPC/web-services`, rama `develop`, con entorno Docker (el `Dockerfile` está en la raíz) y plan Free. La conexión a la base de datos se configura con las variables de entorno `SPRING_DATASOURCE_URL` (`jdbc:postgresql://<host>.neon.tech:5432/tata?sslmode=require`), `SPRING_DATASOURCE_USERNAME` y `SPRING_DATASOURCE_PASSWORD`, de modo que ningún secreto se versiona. En producción las tablas se crean al arrancar con `spring.jpa.hibernate.ddl-auto=update`.
+*Figura. Variables de entorno del servicio.*
 
-![Render: variables de entorno del servicio con los valores ocultos.](assets/deployment-evidence/render-env.png)
+<p align="center">
+  <img src="assets/deployment-evidence/render-deploy.png" alt="Servicio publicado en Render" width="960">
+</p>
 
-*Figura 5. Render: variables de entorno del servicio con los valores ocultos.*
+*Figura. Servicio publicado en Render.*
 
-El despliegue manual terminó con *Deploy succeeded* y el servicio quedó en estado *Live*.
+<p align="center">
+  <img src="assets/deployment-evidence/health.png" alt="Respuesta del endpoint de salud" width="960">
+</p>
 
-![Render: despliegue exitoso y servicio en estado Live.](assets/deployment-evidence/render-deploy.png)
+*Figura. Respuesta del endpoint de salud.*
 
-*Figura 6. Render: despliegue exitoso y servicio en estado Live.*
+<p align="center">
+  <img src="assets/deployment-evidence/swagger-desplegado.png" alt="Swagger UI del backend publicado" width="960">
+</p>
 
-**Verificación**
+*Figura. Swagger UI del backend publicado.*
 
-`GET /health` responde `{"status":"UP"}` y Swagger UI queda disponible en la URL pública. El plan Free de Render suspende la instancia por inactividad, por lo que la primera petición puede tardar en responder.
+Enlace a landing:
 
-![Verificación de GET /health en la URL pública.](assets/deployment-evidence/health.png)
+https://vitahealth-upc.github.io/landing-page/
 
-*Figura 7. Verificación de `GET /health` en la URL pública.*
+Enlace a backend:
 
-![Swagger UI en la URL pública del backend.](assets/deployment-evidence/swagger-desplegado.png)
+https://web-services-yzxl.onrender.com/
 
-*Figura 8. Swagger UI en la URL pública del backend.*
+Enlace a health:
 
-**Commits de despliegue del Sprint**
+https://web-services-yzxl.onrender.com/health
 
-| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
-| --- | --- | --- | --- | --- | --- |
-| `vitaHealth-UPC/web-services` | `develop` | `67511a1` | `chore(deploy): add Docker packaging, health and DATABASE_URL mapping Prepare the Spring Boot API so Railway can build and run it.` | — | 07/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `7582274` | `fix(deploy): use published Temurin 26 Docker base images` | — | 07/10/2026 |
-| `vitaHealth-UPC/web-services` | `develop` | `aebd362` | `fix(deploy): map DATABASE_URL into Spring datasource for Neon/Render` | — | 07/10/2026 |
-| `vitaHealth-UPC/landing-page` | `develop` | `01ef128` | `ci: add GitHub Pages preview from develop` | — | 02/10/2026 |
+Enlace a Swagger UI:
 
+https://web-services-yzxl.onrender.com/swagger-ui/index.html
+
+Enlace a release Android:
+
+https://github.com/vitaHealth-UPC/mobile-android/releases/tag/v1.0.0
 
 #### 4.2.1.9. Team Collaboration Insights during Sprint
 
-Durante el Sprint 1 el equipo trabajó en cuatro repositorios de la organización `vitaHealth-UPC` (Landing Page, Web Services, aplicación Android e informe), aplicando el flujo GitFlow descrito en la sección 4.1.2. Cada User Story o Technical Story se desarrolló en su propia rama de feature, nombrada con el identificador de la historia (por ejemplo, `feature/ts-12-inventory-replenishment-api`, `feature/us-40-initial-inventory` y `feature/us-46-header-hero`), y se integró a `develop` mediante Pull Request. Los mensajes de commit siguen Conventional Commits, con el Bounded Context o la historia como scope (por ejemplo, `feat(inventory): add quantity and reorder threshold value objects` o `feat(us-19): reopen existing treatments`), lo que permite trazar cada cambio hacia la historia que lo originó.
+<p align="center">
+  <img src="assets/repository-evidence/android-collaboration.png" alt="Contribuciones de Android en GitHub" width="960">
+</p>
 
-Las cifras corresponden a la rama `develop` de cada repositorio al cierre del Sprint 1 (7 de octubre de 2026).
+*Figura. Contribuciones en main del repositorio Android, sin commits de merge.*
 
-| Repositorio | Producto | Ramas de feature | Pull Requests integrados a `develop` | Commits en `develop` (sin merges) |
-| --- | --- | --- | --- | --- |
-| [landing-page](https://github.com/vitaHealth-UPC/landing-page) | Landing Page | 7 | 2 | 40 |
-| [web-services](https://github.com/vitaHealth-UPC/web-services) | Web Services | 14 (+3 de corrección) | 19 | 83 |
-| [mobile-android](https://github.com/vitaHealth-UPC/mobile-android) | Aplicación Android | 48 (33 con trabajo, +2 de corrección) | 14 | 93 |
+<p align="center">
+  <img src="assets/repository-evidence/backend-collaboration.png" alt="Contribuciones del backend en GitHub" width="960">
+</p>
 
-**Commits por integrante (rama `develop`, sin contar merges)**
+*Figura. Contribuciones en main del backend, sin commits de merge.*
 
-| Integrante | landing-page | web-services | mobile-android | Total |
-| --- | --- | --- | --- | --- |
-| Morales Venegas, David Joel | 40 | 32 | 61 | 133 |
-| Velasquez Laquihuanaco, Eduardo David | 0 | 30 | 6 | 36 |
-| Cabrera Novoa, Leonardo Moises | 0 | 12 | 17 | 29 |
-| Diaz Yurivilca, Sofía | 0 | 3 | 9 | 12 |
-| Alfaro Mallma, Alberto Joaquín | 0 | 1 | 0 | 1 |
-| Joseph Salazar | 0 | 5 | 0 | 5 |
+El equipo distribuye el trabajo por historias y bounded contexts. Los Pull Requests reúnen implementación, revisión e integración; los historiales muestran la participación de los integrantes en los productos.
 
-**Interpretación de los analíticos**
+| Producto | Colaboración |
+| --- | --- |
+| Landing | Propuesta de valor, funcionalidades, planes y adaptación responsive |
+| Backend | Cuenta, vínculo, tratamiento, tomas, seguimiento y servicios de apoyo |
+| Android | Vistas, contratos de API, navegación y validación visual |
+| Reporte | Diseño, evidencias del Sprint y documentación del producto |
 
-- **Landing Page.** El Landing Page se construyó en una sola jornada (2 de octubre), en siete ramas de feature, una por bloque de User Stories (US-46 a US-50), integradas y publicadas en GitHub Pages ese mismo día.
-- **Web Services.** El backend concentra el mayor número de Pull Requests (19). David Morales lideró la arquitectura y la integración de los Bounded Contexts; Eduardo Velásquez implementó Accessibility & Preferences y las consultas de medicamentos y tratamientos; Leonardo Cabrera implementó Inventory & Replenishment (TS-12); Sofía Díaz las vistas de Adherence Analytics; y Joseph Salazar la configuración de despliegue (Docker, health check y conexión a PostgreSQL).
-- **Aplicación Android.** Se crearon 48 ramas, una por User Story del backlog. 33 tienen trabajo y 15 quedaron preparadas para historias de Sprints siguientes. Las historias de inventario (US-40 a US-43) se trabajaron en una sola rama porque comparten la misma vista y el mismo módulo `:inventory`.
+Enlace a colaboración de landing-page:
+
+https://github.com/vitaHealth-UPC/landing-page/graphs/contributors
+
+Enlace a colaboración de web-services:
+
+https://github.com/vitaHealth-UPC/web-services/graphs/contributors
+
+Enlace a colaboración de mobile-android:
+
+https://github.com/vitaHealth-UPC/mobile-android/graphs/contributors
+
+Enlace a colaboración de project-report:
+
+https://github.com/vitaHealth-UPC/project-report/graphs/contributors
 
 # Conclusiones
 
