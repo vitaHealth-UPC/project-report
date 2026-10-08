@@ -6401,7 +6401,7 @@ W3Schools. (s. f.). *HTML style guide and coding conventions*. https://www.w3sch
 - Wireframes y mock-ups del Landing Page (desktop y mobile): [assets/landing-page](assets/landing-page).
 - Wireflow diagrams WF01 a WF16 (alta resolución): [assets/wireflows](assets/wireflows).
 - Exportaciones individuales de la versión previa de las pantallas de la aplicación móvil (66 wireframes y 68 mock-ups, anteriores a la incorporación de Login, Notes y Internationalization): [assets/wireframes](assets/wireframes) y [assets/mockups](assets/mockups).
-- Archivo de diseño en Figma (wireframes, mock-ups, prototipo y variantes `EN`): *enlace por completar*.
+- Archivo de diseño en Figma (wireframes, mock-ups, prototipo y variantes `EN`): https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/MOVILES?node-id=0-1&t=TCzqaV0gRG22CEN3-1
 
 ## Capítulo IV
 
