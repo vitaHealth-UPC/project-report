@@ -50,6 +50,7 @@
 | Versión | Fecha | Autor | Descripción de modificación |
 |---------|-------|-------|-----------------------------|
 | AV1 | 16/09/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | Para esta primera entrega desarrollamos de manera colaborativa los dos primeros capítulos del informe, definiendo los segmentos objetivo, user stories, bounded contexts y más. |
+| AV2 | 07/10/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | Para esta segunda entrega se incorporaron el Capítulo III (Solution UI/UX Design) y el Capítulo IV (Product Implementation & Validation, Sprint 1), junto con las conclusiones, la bibliografía y los anexos actualizados. |
 
 <br>
 <br>
@@ -212,10 +213,10 @@ de las actividades por cada entrega.
     - [4.1.3. Source Code Style Guide & Conventions](#413-source-code-style-guide--conventions)
     - [4.1.4. Software Deployment Configuration](#414-software-deployment-configuration)
   - [4.2. Landing Page & Mobile Application Implementation](#42-landing-page--mobile-application-implementation)
-    - [4.2.1. Sprint n](#421-sprint-n)
-      - [4.2.1.1. Sprint Planning n](#4211-sprint-planning-n)
+    - [4.2.1. Sprint 1](#421-sprint-1)
+      - [4.2.1.1. Sprint Planning 1](#4211-sprint-planning-1)
       - [4.2.1.2. Aspect Leaders and Collaborators](#4212-aspect-leaders-and-collaborators)
-      - [4.2.1.3. Sprint Backlog n](#4213-sprint-backlog-n)
+      - [4.2.1.3. Sprint Backlog 1](#4213-sprint-backlog-1)
       - [4.2.1.4. Development Evidence for Sprint Review](#4214-development-evidence-for-sprint-review)
       - [4.2.1.5. Testing Suite Evidence for Sprint Review](#4215-testing-suite-evidence-for-sprint-review)
       - [4.2.1.6. Execution Evidence for Sprint Review](#4216-execution-evidence-for-sprint-review)
@@ -228,12 +229,20 @@ de las actividades por cada entrega.
     - [4.3.3. Evaluaciones según heurísticas](#433-evaluaciones-según-heurísticas)
 - [Conclusiones](#conclusiones)
   - [Conclusiones y recomendaciones](#conclusiones-y-recomendaciones)
+    - [Capítulos I y II (AV1)](#capítulos-i-y-ii-av1)
+    - [Capítulo III: Solution UI/UX Design](#capítulo-iii-solution-uiux-design-1)
+    - [Capítulo IV: Product Implementation & Validation](#capítulo-iv-product-implementation--validation-1)
+    - [Recomendaciones](#recomendaciones)
 - [Video App Validation](#video-app-validation)
 - [Video About the product](#video-about-the-product)
 - [Video About the team](#video-about-the-team)
 - [Glosario](#glosario)
 - [Bibliografía](#bibliografía)
-- [Anexos](#anexos) 
+- [Anexos](#anexos)
+  - [Capítulo I](#capítulo-i)
+  - [Capítulo II](#capítulo-ii)
+  - [Capítulo III](#capítulo-iii)
+  - [Capítulo IV](#capítulo-iv)
 
 # Student Outcome
 
@@ -2867,11 +2876,18 @@ La distribución propuesta mantiene una infraestructura acorde con el alcance de
 
 ## 2.6. Tactical-Level Domain-Driven Design
 
+
+#### Alineación con implementación — 6 de octubre de 2026
+
+Los IDs de Account, OlderAdult, CareLink, Medication, Treatment e Intake son UUID representados por String. Toda referencia entre BC conserva el tipo del propietario. Los IDs internos numéricos de Omission y Family Monitoring pueden mantenerse como BIGINT. Inventory TS-12 ya usa IDs String en su rama; no debe convertirse a Long para coincidir con diagramas anteriores.
+
+Esta revisión alinea Intake y Treatment y sus dos diagramas físicos. Los diagramas restantes y las vistas C4/clases aún requieren revisión; representan el diseño objetivo y no acreditan funcionalidades terminadas. Voice, productores automáticos de omisión, autorización transversal, proyecciones reales de Monitoring y el consumidor Inventory siguen pendientes. El registro de consumos de TS-12 debe probar concurrencia además de retries secuenciales antes de integrarse.
+
 ### 2.6.1. Bounded Context: Ejecución de tomas
  
 El Bounded Context **Ejecución de tomas** (**Intake Execution BC**) es responsable de generar las tomas programadas a partir de los tratamientos activos, emitir los recordatorios correspondientes, y registrar la confirmación del adulto mayor mediante interacción táctil o por voz. Se implementa como un módulo del backend único de Tata y constituye el punto de origen del ciclo de vida de una toma: desde su programación hasta su confirmación o, en caso de no ser confirmada dentro del periodo de tolerancia, el traspaso de dicha situación hacia Omisión y escalamiento.
  
-El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicamentos, generando las tomas futuras correspondientes a la pauta vigente del tratamiento. Cuando la pauta de un tratamiento se modifica, el contexto regenera únicamente las tomas futuras que todavía no poseen un resultado definitivo. Cuando una toma programada alcanza su horario, el contexto emite el recordatorio inicial y, si no existe confirmación dentro del intervalo configurado, emite un recordatorio reforzado. Cuando el adulto mayor confirma una toma, ya sea por interacción táctil o mediante una confirmación de voz validada, el contexto registra el resultado y publica `IntakeHistoryUpdated`, evento que Adherence Analytics consume para clasificar la toma como confirmada a tiempo o tardía. Cuando una toma pendiente supera su periodo de tolerancia sin haber sido confirmada, el contexto publica `IntakeToleranceExpired`, cediendo a Omisión y escalamiento la responsabilidad de registrar la omisión y gestionar la alerta correspondiente al familiar.
+El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicamentos, generando las tomas futuras correspondientes a la pauta vigente del tratamiento. Cuando la pauta de un tratamiento se modifica, el contexto regenera únicamente las tomas futuras que todavía no poseen un resultado definitivo. Cuando una toma programada alcanza su horario, el contexto emite el recordatorio inicial y, si no existe confirmación dentro del intervalo configurado, emite un recordatorio reforzado. Cuando el adulto mayor confirma una toma, ya sea por interacción táctil o mediante una confirmación de voz validada, el contexto registra el resultado y publica `IntakeConfirmed`, evento que Adherence Analytics consume para clasificar la toma como confirmada a tiempo o tardía. Cuando una toma pendiente supera su periodo de tolerancia sin haber sido confirmada, el contexto publica `IntakeUnconfirmed`, cediendo a Omisión y escalamiento la responsabilidad de registrar la omisión y gestionar la alerta correspondiente al familiar.
  
 #### 2.6.1.1. Domain Layer
  
@@ -2879,7 +2895,7 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
  
 | Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
 | --- | --- | --- | --- | --- |
-| Aggregate Root | Intake | Representar una toma programada, controlar la emisión de recordatorios y registrar su confirmación dentro del periodo de tolerancia | `id`, `treatmentId`, `olderAdultId`, `medicationSnapshot: MedicationSnapshot`, `scheduledAt`, `tolerance: ToleranceWindow`, `status: IntakeStatus`, `remindersIssued`, `confirmedAt`, `confirmationChannel: ConfirmationChannel` - `issueReminder()`, `reinforceReminder()`, `confirm(channel, confirmedAt)`, `expireTolerance()` | Creado por IntakeSchedulingService a partir de un tratamiento activo; publica ReminderIssued, ReminderReinforced, IntakeHistoryUpdated e IntakeToleranceExpired en sus distintas transiciones |
+| Aggregate Root | Intake | Representar una toma programada, controlar la emisión de recordatorios y registrar su confirmación dentro del periodo de tolerancia | `id`, `treatmentId`, `olderAdultId`, `medicationSnapshot: MedicationSnapshot`, `scheduledAt`, `tolerance: ToleranceWindow`, `status: IntakeStatus`, `remindersIssued`, `confirmedAt`, `confirmationChannel: ConfirmationChannel` - `issueReminder()`, `reinforceReminder()`, `confirm(channel, confirmedAt)`, `expireTolerance()` | Creado por IntakeSchedulingService a partir de un tratamiento activo; publica ReminderIssued, ReminderReinforced, IntakeConfirmed e IntakeUnconfirmed en sus distintas transiciones |
  
 **Sub-capa Model - Value Objects:**
  
@@ -2887,8 +2903,8 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
 | --- | --- | --- | --- | --- |
 | Value Object | MedicationSnapshot | Conservar el nombre, dosis e instrucciones del medicamento vigentes al momento de programar la toma, independientemente de cambios posteriores en el tratamiento | `medicationName`, `dose`, `instructions` | Embebido en Intake; se genera a partir de la pauta consultada en Gestión de Medicamentos al momento de la programación |
 | Value Object | ToleranceWindow | Delimitar el intervalo de tiempo dentro del cual una confirmación tardía todavía es válida | `duration` - `hasExpired(now)` | Consultado por Intake al evaluar `expireTolerance()` |
-| Enumeration | ConfirmationChannel | Representar el medio utilizado para confirmar una toma | `TAP`, `VOICE` | Usado por Intake al registrar `confirm()` |
-| Enumeration | IntakeStatus | Representar el estado vigente de una toma dentro de este contexto | `PENDING`, `CONFIRMED`, `ESCALATED` | Usado por Intake; `ESCALATED` marca el traspaso hacia Omisión y escalamiento |
+| Enumeration | ConfirmationChannel | Representar el medio utilizado para confirmar una toma | `TOUCH`, `VOICE` | Usado por Intake al registrar `confirm()` |
+| Enumeration | IntakeStatus | Representar el estado vigente de una toma dentro de este contexto | `PENDING`, `CONFIRMED`, `LATE`, `OMITTED` | Intake conserva el resultado; el escalamiento pertenece a OmissionCase |
  
 **Sub-capa Services y Repositories:**
  
@@ -2939,9 +2955,9 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
 | CommandHandler | GenerateIntakeScheduleCommandHandler | Ejecutar IntakeSchedulingService sobre un tratamiento activo, persistir las tomas generadas y publicar el evento correspondiente por cada una ("Generar agenda", TS-08) |
 | CommandHandler | IssueReminderCommandHandler | Emitir el recordatorio inicial de una toma pendiente cuando se alcanza su horario programado, publicando `ReminderIssued` ("Emitir recordatorio", US-05) |
 | CommandHandler | ReinforceReminderCommandHandler | Emitir un recordatorio reforzado cuando una toma continúa pendiente tras el intervalo configurado, publicando `ReminderReinforced` ("Reforzar recordatorio", US-22) |
-| CommandHandler | ConfirmIntakeCommandHandler | Registrar la confirmación de una toma pendiente mediante interacción táctil, invocando `Intake.confirm()` y publicando `IntakeHistoryUpdated` ("Confirmar toma", US-06, US-23, TS-04) |
+| CommandHandler | ConfirmIntakeCommandHandler | Registrar la confirmación de una toma pendiente mediante interacción táctil, invocando `Intake.confirm()` y publicando `IntakeConfirmed` ("Confirmar toma", US-06, US-23, TS-04) |
 | CommandHandler | ConfirmIntakeByVoiceCommandHandler | Invocar el reconocimiento de voz mediante IVoiceRecognitionPort, validar la transcripción con VoiceConfirmationValidationService y, si es válida, registrar la confirmación mediante `Intake.confirm()` ("Confirmar por voz", US-06, TS-11) |
-| CommandHandler | ExpireIntakeToleranceCommandHandler | Marcar como escalada una toma pendiente cuyo periodo de tolerancia venció sin confirmación, invocando `Intake.expireTolerance()` y publicando `IntakeToleranceExpired` ("Expirar tolerancia") |
+| CommandHandler | ExpireIntakeToleranceCommandHandler | Marcar como escalada una toma pendiente cuyo periodo de tolerancia venció sin confirmación, invocando `Intake.expireTolerance()` y publicando `IntakeUnconfirmed` ("Expirar tolerancia") |
  
 **Sub-capa Internal - QueryServices:**
  
@@ -2963,7 +2979,7 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
 | Tipo | Nombre | Propósito |
 | --- | --- | --- |
 | Service | IVoiceRecognitionPort | Puerto para invocar el servicio de reconocimiento de voz seleccionado en el Spike 1, devolviendo la transcripción obtenida a partir de un audio |
-| Service | IDomainEventPublisher | Puerto para publicar dentro del mismo proceso los eventos `ReminderIssued`, `ReminderReinforced`, `IntakeHistoryUpdated` e `IntakeToleranceExpired`; consumidos por Adherence Analytics y por Omisión y escalamiento |
+| Service | IDomainEventPublisher | Puerto para publicar dentro del mismo proceso los eventos `ReminderIssued`, `ReminderReinforced`, `IntakeConfirmed` e `IntakeUnconfirmed`; consumidos por Adherence Analytics y por Omisión y escalamiento |
  
 #### 2.6.1.4. Infrastructure Layer
  
@@ -2993,11 +3009,11 @@ El contexto reacciona a `TreatmentActivated`, publicado por Gestión de Medicame
 | --- | --- | --- |
 | Listener | TreatmentActivatedEventListener | Registra TreatmentActivatedEventConsumer como manejador del evento en memoria publicado por Gestión de Medicamentos |
 | Listener | TreatmentUpdatedEventListener | Registra TreatmentUpdatedEventConsumer como manejador del evento en memoria publicado por Gestión de Medicamentos |
-| Publisher | IntakeDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `ReminderIssued`, `ReminderReinforced`, `IntakeHistoryUpdated` e `IntakeToleranceExpired` para Adherence Analytics y Omisión y escalamiento |
+| Publisher | IntakeDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `ReminderIssued`, `ReminderReinforced`, `IntakeConfirmed` e `IntakeUnconfirmed` para Adherence Analytics y Omisión y escalamiento |
 
 #### 2.6.1.5. Bounded Context Software Architecture Component Level Diagrams
 
-El diagrama representa la descomposición interna del módulo Intake Execution BC dentro del container Backend, mostrando cómo `IntakeQueriesController` e `IntakeConfirmationController` reciben las peticiones enrutadas por el API Gateway, invocan a los Command/Query Handlers de la capa Application (`GenerateIntakeScheduleCommandHandler`, `ConfirmIntakeCommandHandler`, `ConfirmIntakeByVoiceCommandHandler`, `GetNextIntakeQueryHandler`, `GetIntakeDetailQueryHandler`, `GetDailyIntakeAgendaQueryHandler`, entre otros), estos operan sobre el agregado `Intake` (capa Domain) a través de `IntakeRepository`, y cómo `VoiceRecognitionAdapter` invoca externamente al servicio de reconocimiento de voz seleccionado en el Spike 1 para resolver las confirmaciones registradas por voz. Se incluyen además los tres schedulers de la capa Infrastructure (`ReminderScheduler`, `ReminderReinforcementScheduler`, `ToleranceExpirationScheduler`), que disparan periódicamente los Command Handlers correspondientes sin pasar por el API Gateway, así como los listeners que consumen en memoria el evento `TreatmentActivated` publicado por Treatment Management. Se incluye también la publicación en memoria de los eventos `IntakeHistoryUpdated`, consumido por Adherence Analytics, e `IntakeToleranceExpired`, consumido por Omisión y escalamiento.
+El diagrama representa la descomposición interna del módulo Intake Execution BC dentro del container Backend, mostrando cómo `IntakeQueriesController` e `IntakeConfirmationController` reciben las peticiones enrutadas por el API Gateway, invocan a los Command/Query Handlers de la capa Application (`GenerateIntakeScheduleCommandHandler`, `ConfirmIntakeCommandHandler`, `ConfirmIntakeByVoiceCommandHandler`, `GetNextIntakeQueryHandler`, `GetIntakeDetailQueryHandler`, `GetDailyIntakeAgendaQueryHandler`, entre otros), estos operan sobre el agregado `Intake` (capa Domain) a través de `IntakeRepository`, y cómo `VoiceRecognitionAdapter` invoca externamente al servicio de reconocimiento de voz seleccionado en el Spike 1 para resolver las confirmaciones registradas por voz. Se incluyen además los tres schedulers de la capa Infrastructure (`ReminderScheduler`, `ReminderReinforcementScheduler`, `ToleranceExpirationScheduler`), que disparan periódicamente los Command Handlers correspondientes sin pasar por el API Gateway, así como los listeners que consumen en memoria el evento `TreatmentActivated` publicado por Treatment Management. Se incluye también la publicación en memoria de los eventos `IntakeConfirmed`, consumido por Adherence Analytics, e `IntakeUnconfirmed`, consumido por Omisión y escalamiento.
 
 ![IntakeExecutionComponents.png](assets/IntakeExecutionComponents.png)
  
@@ -3021,25 +3037,21 @@ Las tablas de este Bounded Context se encuentran dentro de la misma instancia Po
  
 *Figura. Database Design Diagram del Bounded Context Ejecución de tomas.*
  
-**INTAKES**
- 
+**intake_intakes (modelo físico de la implementación)**
+
 | Columna | Descripción |
 | --- | --- |
-| id (PK) | Identificador único de la toma |
-| treatment_id | Referencia lógica al tratamiento en Gestión de Medicamentos (sin FK física) |
-| older_adult_id | Referencia lógica al adulto mayor (sin FK física) |
-| medication_name | Nombre del medicamento, capturado desde MedicationSnapshot al momento de programar la toma |
-| dose | Dosis indicada, capturada desde MedicationSnapshot |
-| instructions | Instrucciones complementarias, capturadas desde MedicationSnapshot; nullable |
-| scheduled_at | Horario programado de la toma |
-| tolerance_duration | Duración del margen de tolerancia permitido antes de considerarse vencida |
-| status | Estado vigente de la toma: PENDING, CONFIRMED u ESCALATED |
-| reminders_issued | Número de recordatorios emitidos para esta toma |
-| confirmed_at | Fecha y hora de confirmación; nullable mientras la toma permanece pendiente |
-| confirmation_channel | Medio utilizado para confirmar: TAP o VOICE; nullable hasta la confirmación |
-| created_at / updated_at | Fechas de auditoría |
- 
-No existen relaciones adicionales dentro de este Bounded Context, dado que `Intake` es el único aggregate root y no compone entidades hijas propias; su trazabilidad hacia otros Bounded Contexts se resuelve mediante los identificadores lógicos `treatment_id` y `older_adult_id`, y hacia Adherence Analytics y Omisión y escalamiento mediante los eventos `IntakeHistoryUpdated` e `IntakeToleranceExpired` en lugar de foreign keys.
+| id (PK) | UUID String, varchar(36) |
+| treatment_id / medication_id / older_adult_id | Referencias lógicas UUID, varchar(36), sin FK física entre BC |
+| medication_name / dose / instructions | Snapshot de nombre, dosis e instrucciones; instructions admite null |
+| scheduled_at | Instant almacenado como timestamptz |
+| status | PENDING, CONFIRMED, LATE u OMITTED |
+| confirmed_at / confirmation_channel | Hora UTC y canal TOUCH/VOICE de la primera confirmación; nullable antes de confirmar |
+| created_at | Fecha de creación, timestamptz |
+
+El contrato de integración es `IntakeConfirmed(String intakeId, String medicationId, String olderAdultId, Instant confirmedAt)` y `IntakeUnconfirmed(String intakeId, String olderAdultId, String medicationName, Instant scheduledAt)`. La confirmación se serializa mediante bloqueo de la fila y no repite eventos ni modifica hora/canal al reintentar. Omission resuelve el caso usando la hora del evento.
+
+El diseño objetivo incluye tolerancia y recordatorios; `tolerance_duration`, `reminders_issued` y `updated_at` todavía no son columnas de Intake JPA. La clasificación tardía y el productor automático de IntakeUnconfirmed siguen pendientes. No se considera que los listeners, por sí solos, implementen TS-05.
 
 ### 2.6.2. Bounded Context: Analítica de adherencia
 
@@ -3047,7 +3059,7 @@ El Bounded Context **Analítica de adherencia** (**Adherence Analytics BC**) tra
 
 El contexto sigue un flujo de cuatro decisiones de negocio encadenadas. Cuando una semana se cierra, se calcula la adherencia del periodo y se publica `AdherenceRateCalculated`. Cuando se detectan omisiones recurrentes dentro del historial, se identifica un patrón y se publica `AdherencePatternDetected`. Cuando ese patrón resulta relevante, se estima su riesgo y se publica `OmissionRiskEstimated`. Finalmente, cuando el riesgo estimado resulta relevante, se genera un insight orientativo y se publica `AdherenceInsightPublished`. Estos cuatro eventos permiten que Seguimiento familiar presente los resultados al familiar o cuidador sin reproducir internamente la lógica analítica.
 
-Para alimentar este flujo, el contexto recibe el evento `IntakeHistoryUpdated` publicado por Ejecución de tomas, con el que actualiza el historial y clasifica cada toma como confirmada a tiempo o tardía según la política de tolerancia definida, y `IntakeOmitted` publicado por Omisión y escalamiento, con el que registra las tomas que finalizaron sin confirmación. Seguimiento familiar también puede consultar directamente, dentro del mismo proceso, el resumen vigente de adherencia mediante la interfaz pública expuesta por este contexto, y el familiar o cuidador puede consultar los resultados analíticos directamente a través del API Gateway.
+Para alimentar este flujo, el contexto recibe el evento `IntakeConfirmed` publicado por Ejecución de tomas, con el que actualiza el historial y clasifica cada toma como confirmada a tiempo o tardía según la política de tolerancia definida, y `IntakeOmitted` publicado por Omisión y escalamiento, con el que registra las tomas que finalizaron sin confirmación. Seguimiento familiar también puede consultar directamente, dentro del mismo proceso, el resumen vigente de adherencia mediante la interfaz pública expuesta por este contexto, y el familiar o cuidador puede consultar los resultados analíticos directamente a través del API Gateway.
 
 #### 2.6.2.1. Domain Layer
 
@@ -3110,7 +3122,7 @@ Para alimentar este flujo, el contexto recibe el evento `IntakeHistoryUpdated` p
 
 | Tipo | Nombre | Propósito |
 | --- | --- | --- |
-| Consumer | IntakeHistoryUpdatedEventConsumer | Escuchar el evento `IntakeHistoryUpdated` publicado por Ejecución de tomas para actualizar el historial dentro del AdherenceLedger correspondiente |
+| Consumer | IntakeConfirmedEventConsumer | Escuchar el evento `IntakeConfirmed` publicado por Ejecución de tomas para actualizar el historial dentro del AdherenceLedger correspondiente |
 | Consumer | IntakeOmittedEventConsumer | Escuchar el evento `IntakeOmitted` publicado por Omisión y escalamiento para registrar la omisión dentro del historial |
 
 Este Bounded Context expone además una interfaz pública de consulta invocada directamente, dentro del mismo proceso, por Seguimiento familiar mediante `IAdherenceSummaryPort`, sin pasar por el API Gateway.
@@ -3137,7 +3149,7 @@ Este Bounded Context expone además una interfaz pública de consulta invocada d
 
 | Tipo | Nombre | Propósito |
 | --- | --- | --- |
-| EventHandler | IntakeHistoryUpdatedEventHandler | Traducir `IntakeHistoryUpdated` en la actualización del AdherenceLedger correspondiente mediante `absorbHistoryUpdate()` |
+| EventHandler | IntakeConfirmedEventHandler | Traducir `IntakeConfirmed` en la actualización del AdherenceLedger correspondiente mediante `absorbHistoryUpdate()` |
 | EventHandler | IntakeOmittedEventHandler | Traducir `IntakeOmitted` en el registro de la omisión mediante `registerOmitted()` |
 
 **Sub-capa Internal - OutboundServices:**
@@ -3166,13 +3178,13 @@ Este Bounded Context expone además una interfaz pública de consulta invocada d
 
 | Tipo | Nombre | Propósito |
 | --- | --- | --- |
-| Listener | IntakeHistoryUpdatedEventListener | Registra IntakeHistoryUpdatedEventConsumer como manejador del evento en memoria publicado por Ejecución de tomas |
+| Listener | IntakeConfirmedEventListener | Registra IntakeConfirmedEventConsumer como manejador del evento en memoria publicado por Ejecución de tomas |
 | Listener | IntakeOmittedEventListener | Registra IntakeOmittedEventConsumer como manejador del evento en memoria publicado por Omisión y escalamiento |
 | Publisher | AdherenceDomainEventPublisher | Implementación de IDomainEventPublisher mediante eventos de aplicación en memoria; publica `AdherenceRateCalculated`, `AdherencePatternDetected`, `OmissionRiskEstimated` y `AdherenceInsightPublished` para Seguimiento familiar |
 
 #### 2.6.2.5. Bounded Context Software Architecture Component Level Diagrams
 
-El diagrama representa la descomposición interna del módulo **Adherence Analytics BC** dentro del container Backend. `IntakeHistoryUpdatedEventListener` e `IntakeOmittedEventListener` reciben los eventos publicados por Ejecución de tomas y por Omisión y escalamiento, respectivamente, y activan sus Consumers y EventHandlers correspondientes para actualizar el agregado `AdherenceLedger` mediante `AdherenceLedgerRepository`. `WeeklyConsolidationScheduler` ejecuta semanalmente el cierre de periodo y el cálculo de adherencia, publicando `AdherenceRateCalculated`. `AdherencePatternDetectionScheduler`, junto con la activación reactiva tras cada omisión, ejecuta `AdherencePatternDetectionService`, que crea o refuerza un `AdherencePattern` mediante `AdherencePatternRepository` y publica `AdherencePatternDetected`; cuando el patrón es relevante, `OmissionRiskEstimationService` estima su riesgo (`OmissionRiskEstimated`) y, si el riesgo resulta relevante, `AdherenceInsightGenerationService` genera el insight y la recomendación (`AdherenceInsightPublished`). `AdherenceSummariesController` y `AdherenceInsightsController` exponen las consultas hacia el familiar, mientras que `AdherenceDomainEventPublisher` publica en memoria los cuatro eventos para Seguimiento familiar.
+El diagrama representa la descomposición interna del módulo **Adherence Analytics BC** dentro del container Backend. `IntakeConfirmedEventListener` e `IntakeOmittedEventListener` reciben los eventos publicados por Ejecución de tomas y por Omisión y escalamiento, respectivamente, y activan sus Consumers y EventHandlers correspondientes para actualizar el agregado `AdherenceLedger` mediante `AdherenceLedgerRepository`. `WeeklyConsolidationScheduler` ejecuta semanalmente el cierre de periodo y el cálculo de adherencia, publicando `AdherenceRateCalculated`. `AdherencePatternDetectionScheduler`, junto con la activación reactiva tras cada omisión, ejecuta `AdherencePatternDetectionService`, que crea o refuerza un `AdherencePattern` mediante `AdherencePatternRepository` y publica `AdherencePatternDetected`; cuando el patrón es relevante, `OmissionRiskEstimationService` estima su riesgo (`OmissionRiskEstimated`) y, si el riesgo resulta relevante, `AdherenceInsightGenerationService` genera el insight y la recomendación (`AdherenceInsightPublished`). `AdherenceSummariesController` y `AdherenceInsightsController` exponen las consultas hacia el familiar, mientras que `AdherenceDomainEventPublisher` publica en memoria los cuatro eventos para Seguimiento familiar.
 
 ![AdherenceAnalyticsComponents.png](assets/AdherenceAnalyticsComponents.png)
 
@@ -3665,8 +3677,8 @@ Siguiendo el modelo de arquitectura **Clean Architecture** combinado con **Domai
 
 | Tipo | Nombre | Propósito | Atributos / Métodos principales | Relación con otros elementos |
 | --- | --- | --- | --- | --- |
-| Aggregate Root | Treatment | Representar la pauta completa de un adulto mayor y garantizar que solo se active cuando su configuración esté completa | `id`, `olderAdultId`, `status` (Draft / Active / Paused), `medications: List<Medication>` - `addMedication()`, `activate()`, `pause()`, `isComplete()` | Contiene entidades Medication; referencia al adulto mayor por identificador (Vínculo de cuidado) |
-| Entity | Medication | Representar un medicamento y su pauta de administración dentro de un tratamiento | `id`, `name`, `dose: Dose`, `frequency: Frequency`, `intakeTimes: List<IntakeTime>`, `instructions: Instructions`, `reminderConfig: ReminderConfig`, `active` - `updateDose()`, `updateSchedule()`, `deactivate()` | Entidad hija de Treatment; sus datos alimentan a Ejecución de tomas cuando el tratamiento se activa |
+| Aggregate Root | Treatment | Representar la pauta completa de un adulto mayor y garantizar que solo se active cuando su configuración esté completa | `id`, `olderAdultId`, `status` (Draft / Active / Paused), `medicationId`, `dose`, `frequency`, `scheduledTimes`, `instructions`, `reminderLeadMinutes` - `activate()`, `pause()`, `resume()` | Referencia al agregado independiente Medication; referencia al adulto mayor por identificador (Vínculo de cuidado) |
+| Aggregate Root | Medication | Registrar el medicamento antes de configurar un tratamiento | `id`, `olderAdultId`, `name`, `presentation`, `active` - `deactivate()` | Treatment referencia medicationId; el snapshot de la pauta alimenta Intake |
 
 **Sub-capa Model - Value Objects:**
 
@@ -3748,7 +3760,7 @@ Este Bounded Context no requiere Consumers de eventos en esta versión, ya que n
 
 | Tipo | Nombre | Propósito |
 | --- | --- | --- |
-| Repository | TreatmentRepository | Implementación de ITreatmentRepository (Spring Data JPA); persiste el agregado Treatment junto con sus entidades Medication en la base de datos PostgreSQL central, en las tablas propias de este Bounded Context |
+| Repository | TreatmentRepository | Implementación de ITreatmentRepository (Spring Data JPA); persiste Treatment; Medication tiene repositorio y agregado independientes en la base de datos PostgreSQL central, en las tablas propias de este Bounded Context |
 
 **Sub-capa Module Adapters:**
 
@@ -3774,7 +3786,7 @@ El diagrama representa la descomposición interna del módulo **Treatment Manage
 
 ##### 2.6.5.6.1. Bounded Context Domain Layer Class Diagrams
 
-El diagrama de clases del Domain Layer muestra a `Treatment` como aggregate root en una relación de composición (1 a 0..*) con la entidad `Medication`, la cual a su vez compone los Value Objects `Dose`, `Frequency`, `IntakeTime` (0..*), `Instructions` y `ReminderConfig`. Se incluyen además la enumeración `TreatmentStatus`, la interfaz `ITreatmentRepository` (que gestiona la persistencia del agregado) y la interfaz `ICareLinkVerificationPort`, junto con `TreatmentFactory` como responsable de la creación de nuevos tratamientos.
+El modelo implementado contiene dos agregados independientes: `Medication`, registrado primero, y `Treatment`, que referencia `medicationId` y posee la pauta con múltiples `scheduledTimes`. El diagrama de clases siguiente pertenece al diseño previo y está pendiente de regeneración; no representa composición vigente de Medication dentro de Treatment. Se incluyen además la enumeración `TreatmentStatus`, la interfaz `ITreatmentRepository` (que gestiona la persistencia del agregado) y la interfaz `ICareLinkVerificationPort`, junto con `TreatmentFactory` como responsable de la creación de nuevos tratamientos.
 
 ![Class Diagram del Domain Layer de Gestión del tratamiento](assets/treatmentPlantUML.png)
 
@@ -3788,39 +3800,34 @@ Aunque toda la persistencia comparte la misma instancia de PostgreSQL (sección 
 
 *Figura. Database Design Diagram del Bounded Context Gestión del tratamiento.*
 
-**TREATMENTS**
+**treatment_medications**
 
 | Columna | Descripción |
 | --- | --- |
-| id (PK) | Identificador único del tratamiento |
-| older_adult_id | Identificador del adulto mayor propietario del tratamiento (referencia lógica al Bounded Context Vínculo de cuidado, sin FK física) |
-| status | Estado del tratamiento: DRAFT, ACTIVE o PAUSED |
-| created_at / updated_at | Fechas de auditoría |
+| id (PK) | UUID String (JPA actual usa varchar(255) por defecto) |
+| older_adult_id | Referencia lógica UUID, varchar(36), sin FK hacia Care Link |
+| name / presentation / active | Identidad descriptiva del medicamento y estado |
+| created_at | timestamptz |
 
-**MEDICATIONS**
-
-| Columna | Descripción |
-| --- | --- |
-| id (PK) | Identificador único del medicamento |
-| treatment_id (FK → TREATMENTS.id) | Tratamiento al que pertenece el medicamento |
-| name | Nombre del medicamento |
-| dose_amount / dose_unit | Cantidad y unidad de la dosis |
-| frequency_times_per_day | Número de tomas al día |
-| instructions | Indicaciones de administración |
-| reminder_enabled / reminder_lead_minutes | Configuración del recordatorio |
-| active | Indica si el medicamento está activo |
-| created_at / updated_at | Fechas de auditoría |
-
-**INTAKE_SCHEDULES**
+**treatment_treatments**
 
 | Columna | Descripción |
 | --- | --- |
-| id (PK) | Identificador único del horario |
-| medication_id (FK → MEDICATIONS.id) | Medicamento al que pertenece el horario |
-| intake_hour | Hora programada de la toma |
+| id (PK) | UUID String (JPA actual usa varchar(255) por defecto) |
+| older_adult_id / medication_id | Referencias lógicas UUID, varchar(36) |
+| name / status | Nombre y DRAFT / ACTIVE / PAUSED |
+| dose / frequency / instructions / reminder_lead_minutes | Pauta del tratamiento; admite valores incompletos mientras sea DRAFT |
+| created_at | timestamptz |
 
-Relaciones: TREATMENTS (1) - (N) MEDICATIONS; MEDICATIONS (1) - (N) INTAKE_SCHEDULES.
+**treatment_schedule_times**
 
+| Columna | Descripción |
+| --- | --- |
+| treatment_id (FK) | Referencia al tratamiento dentro del mismo BC |
+| schedule_order | Índice de la lista persistida |
+| scheduled_time | Hora local, tipo time |
+
+Treatment conserva una lista ordenada de horarios; Medication no es una entidad hija. La única FK física descrita aquí une los horarios con Treatment dentro del mismo BC. medicationId es una referencia lógica. El ancho de las PK UUID de Treatment todavía requiere normalización a varchar(36); no debe confundirse su ancho físico actual con su semántica UUID.
 
 ### 2.6.6. Bounded Context: Inventario y reposición
 
@@ -4470,43 +4477,1933 @@ Las referencias `intake_id` y `older_adult_id` se conservan como identificadores
 
 Relaciones: OMISSION_CASES (1) - (N) CARE_ALERTS; OMISSION_CASES (1) - (N) ESCALATION_RECORDS.
 
+# Capítulo III: Solution UI/UX Design
+
+## 3.1. Product design
+
+### 3.1.1. Style Guidelines
+
+El equipo definió un único set de fundamentos de diseño para Tata "Tata Design Foundations" paleta de colores, tipografía y tokens de espaciado/interacción, además del logotipo oficial. Estos fundamentos se aplican de manera consistente en el Landing Page, en la aplicación Android nativa y en la aplicación multiplataforma, y son la referencia para los Wireframes, Mock-ups y Prototypes de este capítulo.
+
+#### 3.1.1.1. General Style Guidelines
+
+##### Branding
+
+<p align="center">
+  <img src="./assets/Tata.png" alt="Logotipo de Tata" width="320">
+</p>
+
+- **Naming:** "Tata" es el término afectivo que en el Perú se usa para referirse a un abuelo o adulto mayor querido, lo que refuerza el vínculo familiar del producto frente a nombres más funcionales o clínicos, como los de la competencia (Medisafe, MyTherapy).
+- **Isotipo:** una mariposa en dos tonos de morado, en vez de la iconografía médica (cruces, pastillas) que usan los competidores. Transmite cuidado y ligereza sin verse clínica.
+- **Wordmark:** el logotipo usa Dancing Script (cursiva), reservada solo para la marca. No se usa en contenido funcional de la interfaz porque su legibilidad no alcanza para el adulto mayor.
+
+##### Typography
+
+| Tipografía | Uso | Pesos disponibles |
+| --- | --- | --- |
+| DM Serif Display | Display / headings | Regular |
+| Inter | UI / body | Regular, Medium, Semi Bold, Bold |
+| Dancing Script | Brand only (wordmark "Tata") | Bold |
+
+**Escala tipográfica:**
+
+| Nivel | Tamaño | Fuente | Uso |
+| --- | --- | --- | --- |
+| Display / H1 | 34 sp | DM Serif Display | Títulos de pantalla y hitos importantes (p. ej. resumen semanal de adherencia) |
+| Display / H2 | 29 sp | DM Serif Display | Subtítulos de sección |
+| Page title | 24 sp | DM Serif Display | Título de pantalla |
+| UI title | 20 sp | Inter Semi Bold | Acciones, navegación |
+| Body | 16 sp | Inter Regular | Formularios y contenido, incluyendo dosis, medicamento y horario |
+| Label | 13 sp | Inter Medium | Etiquetas de campos y estados |
+| Caption | 11 sp | Inter Regular | Metadata secundaria o navegación |
+
+Los tamaños entre 8.5 y 10 sp solo se usan en metadata secundaria o navegación nunca en dosis, medicamento u horario de toma. Se usa sp y no dp para que el tamaño de letra respete el ajuste de accesibilidad del sistema operativo.
+
+![Tata Design Foundations: paleta de colores y tipografía](./assets/tata-design-foundations-colors-typography.png)
+
+*Figura. Paleta de colores y sistema tipográfico de Tata Design Foundations.*
+
+##### Colors
+
+| Token | Valor | Uso |
+| --- | --- | --- |
+| Primary | `#173B70` | Navegación, elementos activos y acentos de identidad. |
+| Ink | `#0E1729` | Texto principal sobre fondos claros. |
+| Secondary | `#7B879B` | Texto secundario e iconografía inactiva. |
+| Lavender | `#F1ECFF` | Superficie para contenido de seguimiento y vínculo familiar. |
+| Sage | `#E8F5EB` | Estados positivos o de confirmación (toma registrada). |
+| Cream | `#FFF3E2` | Estados pendientes o de atención moderada (toma por confirmar). |
+| Canvas | `#F8F8FE` | Fondo general de las pantallas. |
+
+Todo texto sobre fondo cumple un contraste mínimo de 4.5:1 (3:1 en texto grande), y ningún estado depende solo del color: siempre se refuerza con texto e ícono.
+
+##### Spacing
+
+| Token | Valor | Descripción |
+| --- | --- | --- |
+| Grid base | 8 dp | Espaciado principal en múltiplos de 8, 4 dp solo para microajustes. |
+| Touch target | 44 × 44 dp | Área táctil mínima para botones, íconos y controles. |
+| Card radius | 16-24 dp | 16 dp en controles, 20-24 dp en cards, 28+ dp en superficies hero. |
+| Page padding | 16-24 dp | 16 dp como mínimo, 20-24 dp recomendado para contenido principal. |
+| Primary CTA | 56-64 dp de altura | Confirmaciones y acciones principales, como confirmar una toma. |
+| Focus | 1 acción primaria | Una única acción dominante por pantalla. |
+
+El CTA principal (56-64 dp) es más alto que el touch target mínimo para reducir errores de precisión en el adulto mayor. La regla de una sola acción primaria por pantalla responde a la sobrecarga de decisiones identificada en las entrevistas y el Empathy Mapping del segmento.
+
+![Tata Design Foundations: escala tipográfica y reglas de layout e interacción](./assets/tata-design-foundations-layout-interaction.png)
+
+*Figura. Escala tipográfica y reglas de Layout & Interaction de Tata Design Foundations.*
+
+##### Tono de comunicación
+
+| Dimensión | Posición de Tata | Sustento |
+| --- | --- | --- |
+| Divertido / Serio | Serio, con calidez | Tata acompaña decisiones de salud, el humor le restaría seriedad a un recordatorio o a una alerta de omisión. |
+| Formal / Casual | Casual, sin jerga | El adulto mayor necesita frases simples y directas, el familiar recibe el mismo registro para mantener consistencia. |
+| Respetuoso / Irreverente | Respetuoso | Nunca condescendiente con el adulto mayor con el familiar, los mensajes son objetivos, sin dramatizar. |
+| Entusiasta / Sereno | Sereno | Incluso en alertas por tomas no confirmadas, el mensaje informa con calma y propone una acción, sin generar pánico. |
+
+### 3.1.2. Information Architecture
+
+El equipo definió la arquitectura de información de Tata separando dos audiencias con necesidades opuestas: el adulto mayor, que requiere la mínima cantidad de decisiones y pasos posibles, y el familiar o cuidador, que necesita profundidad suficiente para configurar tratamientos y revisar resultados. El Landing Page se organiza además como una tercera experiencia, orientada a que el visitante entienda la propuesta de valor y continúe hacia el registro. Las decisiones de esta sección se apoyan en los hallazgos de las entrevistas y en los principios ya definidos en Tata Design Foundations, particularmente "Reconocimiento > memoria" y "Prioridad temporal".
+
+#### 3.1.2.1. Organization Systems
+
+##### Organización visual del contenido
+
+| Sistema de organización | Grupo de contenido | Justificación |
+| --- | --- | --- |
+| Jerárquica (visual hierarchy) | Inicio del adulto mayor (US-20) | La próxima toma domina la pantalla; el historial y los ajustes quedan subordinados, siguiendo el principio "Prioridad temporal" ya definido en Tata Design Foundations. |
+| Jerárquica (visual hierarchy) | Inicio del familiar (US-25) | El estado reciente del adulto mayor y las alertas abiertas se muestran primero; el resumen de adherencia y el acceso a tratamientos quedan en un segundo nivel. |
+| Jerárquica (visual hierarchy) | Landing Page (US-46, US-47) | La propuesta de valor ocupa el hero; funcionalidades y planes se despliegan en orden descendente de importancia hacia el CTA final. |
+| Secuencial (step-by-step) | Registro y vinculación de cuentas (US-10, US-11, US-02, US-13, US-12, US-01) | El familiar no puede vincular al adulto mayor sin verificar su correo, ni el adulto mayor puede ingresar sin que la cuenta esté habilitada; el flujo se presenta como pasos obligatorios en orden. |
+| Secuencial (step-by-step) | Creación de un tratamiento (US-14, US-15, US-16, US-17) | Definir el medicamento, la dosis, el horario y el recordatorio son decisiones dependientes entre sí; se guía al familiar paso a paso en un wizard. |
+| Secuencial (step-by-step) | Activación o cambio de suscripción (US-45) | Selección de plan, confirmación y activación se presentan en una secuencia corta y lineal. |
+| Matricial | Agenda diaria de tomas (US-24) | Cruza los horarios del día con los medicamentos correspondientes a cada horario. |
+| Matricial | Historial e insights de adherencia (US-32, US-09) | Cruza periodos de tiempo con el estado de cada toma (confirmada, tardía, omitida), permitiendo identificar patrones por franja horaria. |
+
+##### Esquemas de categorización
+
+| Esquema | Aplicación | Justificación |
+| --- | --- | --- |
+| Por audiencia (grupos de usuarios) | Separación completa entre la experiencia del adulto mayor, la del familiar/cuidador y el Landing Page del visitante | Es el esquema principal de Tata: cada audiencia tiene una profundidad de información y un nivel de autonomía distintos, sustentado en las entrevistas (baja alfabetización digital del adulto mayor frente a la necesidad de control remoto del familiar). |
+| Cronológico | Historial reciente de tomas (US-26), historial de adherencia (US-32), notas de seguimiento (US-30) y alertas | Se listan del más reciente al más antiguo, priorizando lo que necesita atención inmediata. |
+| Por tópicos | Navegación principal de la app del familiar (Medicación, Adherencia, Alertas, Cuenta) | Cada Epic (EPIC-02, EPIC-05, EPIC-04, EPIC-08) corresponde a una sección propia, evitando mezclar responsabilidades distintas en una misma pantalla. |
+| Alfabético | No se utiliza en ningún listado de Tata (ni en medicamentos, ni en planes) | El orden relevante para ambas audiencias es temporal (próxima toma) o de valor (comparación de planes, US-48), no alfabético; usar orden alfabético obligaría al adulto mayor a recordar el nombre exacto en vez de reconocerlo por contexto, contradiciendo el principio "Reconocimiento > memoria". |
+
+#### 3.1.2.2. Labelling Systems
+
+Todas las etiquetas de Tata siguen la convención **verbo + objeto** ya definida en Tata Design Foundations (p. ej. "Confirmar toma", no "Confirmación"), evitando etiquetas vagas y manteniendo el mismo texto para la misma acción entre la app del adulto mayor y la del familiar cuando la funcionalidad es compartida.
+
+##### Etiquetas de acción
+
+| Etiqueta | Historia relacionada | Aplica en |
+| --- | --- | --- |
+| Confirmar toma | US-06 | Adulto mayor |
+| Ver medicación | US-19, US-21 | Adulto mayor y Familiar |
+| Registrar medicamento | US-03 | Familiar |
+| Editar horario | US-16 | Familiar |
+| Pausar tratamiento | US-18 | Familiar |
+| Registrar nota | US-30 | Familiar |
+| Contactar al adulto mayor | US-29 | Familiar |
+| Cambiar plan | US-45 | Familiar |
+| Comenzar registro | US-49 | Visitante (Landing Page) |
+
+##### Etiquetas de estado
+
+| Etiqueta | Token de color | Refuerzo adicional | Significado |
+| --- | --- | --- | --- |
+| Confirmado | Sage | Ícono de check | La toma fue registrada dentro del horario esperado. |
+| Pendiente | Cream | Ícono de reloj | La toma aún no se confirma, dentro de la ventana permitida. |
+| Tardía | Cream | Ícono de reloj con alerta | La toma se confirmó después del horario, dentro del periodo de tolerancia (US-23). |
+| Sin confirmar / Alerta | Cream | Ícono de alerta | La toma no fue confirmada y requiere atención del familiar (US-07, US-27); se evita un color rojo de alarma para mantener el tono "sereno" ya definido en 3.1.1. |
+
+##### Etiquetas de navegación y formularios
+
+| Elemento | Convención | Ejemplo |
+| --- | --- | --- |
+| Íconos de navegación | Texto siempre visible junto al ícono, nunca solo | "Inicio", "Medicación", "Adherencia", "Alertas", "Cuenta" |
+| Campos de formulario | Label persistente, no placeholder como único indicador | "Nombre del medicamento" visible aunque el campo tenga contenido de ejemplo |
+| Unidades clínicas | Formato claro, sin abreviaturas ambiguas | "500 mg", "8:00 a.m.", nunca "500mg" pegado ni "8am" sin espacio |
+
+#### 3.1.2.3. SEO Tags and Meta Tags
+
+**Landing Page**
+
+| Meta tag | Contenido |
+| --- | --- |
+| Title | Tata - Adherencia a la medicación para adultos mayores |
+| Description | App que ayuda a adultos mayores a confirmar su medicación y a sus familiares a monitorear el tratamiento en tiempo real. |
+| Keywords | adherencia al tratamiento, medicación adultos mayores, cuidado remoto, recordatorio de medicamentos, salud digital Perú |
+| Author | VitaHealth |
+
+**Aplicaciones móviles (ASO)**
+
+| Elemento ASO | Contenido |
+| --- | --- |
+| App Title | Tata: Medicación y Cuidado |
+| App subtitle | Confirma tus medicinas, cuida a tu familia |
+| App keywords | medicación, adulto mayor, recordatorio, adherencia, cuidado familiar, salud |
+| App description | Tata ayuda a adultos mayores a confirmar sus medicamentos con un solo toque o por voz, y permite a sus familiares monitorear el tratamiento desde cualquier lugar. Recibe alertas si una toma no se confirma y accede a reportes de adherencia para actuar a tiempo. |
+
+#### 3.1.2.4. Searching Systems
+
+#### 3.1.2.5. Navigation Systems
+
+##### App del adulto mayor
+
+Navegación reducida a lo esencial, con un máximo de 3 accesos principales para minimizar la carga cognitiva identificada en las entrevistas:
+
+| Sección | Contenido | Historias relacionadas |
+| --- | --- | --- |
+| Inicio | Próxima toma y confirmación por toque o voz | US-20, US-06, TS-11 |
+| Mi medicación | Agenda diaria y detalle de cada tratamiento (solo lectura) | US-24, US-19, US-21 |
+| Ajustes | Accesibilidad: tamaño de texto, contraste, lectura asistida | US-35, US-36, US-38 |
+
+La confirmación por voz (TS-11) funciona como una vía de navegación alternativa a la táctil para la acción principal, sin reemplazar el flujo por toque.
+
+##### App del familiar o cuidador
+
+Barra de navegación inferior con 5 secciones, el máximo definido en Tata Design Foundations:
+
+| Tab | Contenido | Epic |
+| --- | --- | --- |
+| Inicio | Estado reciente del adulto mayor y alertas abiertas | EPIC-04 |
+| Medicación | Tratamientos, medicamentos e inventario | EPIC-02, EPIC-07 |
+| Adherencia | Resumen semanal, historial y patrones detectados | EPIC-05 |
+| Alertas | Detalle, contacto y seguimiento de alertas | EPIC-04 |
+| Cuenta | Vínculo, plan/suscripción y accesibilidad | EPIC-01, EPIC-08, EPIC-06 |
+
+El acceso a cada tab mantiene la misma posición y el mismo ícono en toda la app (principio de Consistencia ya definido), y ninguna pantalla obliga a más de dos niveles de profundidad desde el tab principal (tab → lista → detalle).
+
+##### Landing Page
+
+Navegación de una sola página con anclas, sin cambiar de URL entre secciones, para que el visitante recorra la propuesta de valor sin fricción:
+
+| Sección (ancla) | Contenido | Historia relacionada |
+| --- | --- | --- |
+| Inicio | Propuesta de valor de Tata | US-46 |
+| Funcionalidades | Principales funcionalidades del producto | US-47 |
+| Planes | Comparación de planes disponibles | US-48 |
+| Comenzar | CTA hacia registro o contacto | US-49 |
+
+La barra de navegación superior permanece fija (sticky) durante el scroll, y el layout se adapta entre mobile y desktop sin perder el orden de las secciones (US-50, acceso adaptable al Landing Page).
+
+### 3.1.3. Landing Page UI Design
+
+
+![Fundamentos visuales de la landing](assets/landing-foundations.png)
+
+*Figura. Fundamentos de diseño de la landing page. Nota. Elaboración propia; exportación del [tablero de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=557-2).*
+
+La landing page de Tata fue diseñada como el principal punto de entrada público al producto. Su propósito es comunicar de forma clara la propuesta de valor, explicar las funciones principales, mostrar el proceso de uso, presentar los planes disponibles y proporcionar medios de contacto antes del registro o ingreso a la aplicación.
+
+El diseño se desarrolló considerando dos formatos: desktop y mobile. Ambas versiones mantienen la misma arquitectura de información, contenido y jerarquía general, pero reorganizan los elementos según el espacio disponible. La versión desktop aprovecha una composición horizontal y bloques de mayor amplitud, mientras que la versión mobile transforma las secciones en recorridos verticales, ajusta el tamaño de los controles y reorganiza las tarjetas para conservar legibilidad y facilidad de interacción.
+
+La estructura de la landing page mantiene relación visual con la aplicación móvil mediante el uso de la identidad de Tata, la misma familia cromática, componentes redondeados, jerarquías tipográficas y elementos visuales asociados con recordatorios, acompañamiento familiar y adherencia.
+
+#### 3.1.3.1. Landing Page Wireframe
+
+[Wireframes originales: desktop y mobile](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=546-2).
+
+El wireframe de la landing page se elaboró en baja fidelidad con el objetivo de validar la arquitectura de información, el orden de lectura y la distribución de las secciones antes de incorporar el tratamiento visual definitivo.
+
+La estructura comienza con una barra de navegación superior y una sección hero destinada a comunicar la propuesta principal de Tata. A continuación, se presentan los beneficios centrales del producto, las funciones relacionadas con recordatorios, seguimiento familiar e insights, una explicación resumida del proceso de uso, testimonios, comparación de planes, opciones de soporte y una llamada a la acción final.
+
+En la versión desktop, los bloques aprovechan el ancho disponible mediante composiciones horizontales, tarjetas distribuidas en columnas y una presentación paralela entre contenido textual y recursos visuales. En la adaptación mobile, los mismos elementos se reorganizan verticalmente, reduciendo el número de columnas y priorizando una secuencia de lectura continua.
+
+![Wireframe de la landing page en versión desktop](assets/landing-page-wireframe-desktop.png)
+
+*Figura. Wireframe desktop de la landing page de Tata.*
+
+*Nota. Elaboración propia.*
+
+![Wireframe de la landing page en versión mobile](assets/landing-page-wireframe-mobile.png)
+
+*Figura. Wireframe mobile de la landing page de Tata.*
+
+*Nota. Elaboración propia.*
+
+La correspondencia entre ambas versiones permite validar el comportamiento responsive de la landing page desde la etapa de baja fidelidad. No se eliminan funciones esenciales en la versión mobile; únicamente se modifica la disposición de los componentes para adecuarlos al ancho reducido de pantalla.
+
+#### 3.1.3.2. Landing Page Mock-up
+
+[Mock-ups originales: desktop y mobile](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=400-2).
+
+El mock-up aplica el sistema visual definitivo sobre la estructura previamente validada en los wireframes. La propuesta utiliza la identidad gráfica de Tata, una paleta basada principalmente en azul oscuro, violeta, tonos neutros y colores de apoyo, además de tarjetas de bordes suaves, iconografía funcional y recursos fotográficos relacionados con el adulto mayor y su familia.
+
+La sección hero combina la propuesta de valor con una fotografía contextual y elementos de interfaz que representan recordatorios, confirmaciones y seguimiento familiar. De esta manera, la funcionalidad del producto se comunica visualmente sin depender únicamente del texto.
+
+Las siguientes secciones desarrollan los beneficios principales, las funcionalidades de recordatorios, seguimiento e insights, el proceso resumido en tres pasos, testimonios, planes, soporte y la llamada a la acción final. Se mantiene suficiente separación vertical entre bloques para facilitar la lectura y evitar que la landing page se perciba excesivamente comprimida.
+
+![Mock-up de la landing page en versión desktop](assets/landing-page-mockup-desktop.png)
+
+*Figura. Mock-up desktop de la landing page de Tata.*
+
+*Nota. Elaboración propia.*
+
+La versión mobile conserva el contenido esencial de la versión desktop, pero utiliza una disposición de una sola columna. Las tarjetas, botones, encabezados, imágenes y bloques informativos se adaptan al ancho disponible y aumentan el recorrido vertical. Esta adaptación evita reducir excesivamente los contenidos y conserva una jerarquía visual equivalente a la versión desktop.
+
+![Mock-up de la landing page en versión mobile](assets/landing-page-mockup-mobile.png)
+
+*Figura. Mock-up mobile responsive de la landing page de Tata.*
+
+*Nota. Elaboración propia.*
+
+En conjunto, el wireframe y el mock-up permiten comprobar que la landing page conserva su estructura y propósito en ambos formatos. La versión de alta fidelidad añade identidad visual y contenido gráfico sin modificar la arquitectura de información establecida previamente.
+
+
+### 3.1.4. Mobile Applications UX/UI Design
+
+El diseño UX/UI de la aplicación móvil de Tata se organizó mediante tres artefactos complementarios: wireframes, wireflow diagrams y mock-ups. Los wireframes permitieron definir la estructura, la jerarquía de información y la distribución de controles sin incorporar todavía el tratamiento visual definitivo. Los wireflows relacionaron estas pantallas mediante recorridos asociados con los User Goals, incluyendo rutas principales, validaciones, estados alternos y situaciones de error. Finalmente, los mock-ups trasladaron la estructura validada a una propuesta visual de alta fidelidad mediante la tipografía, la paleta, los componentes, la iconografía y los estados de interacción definidos para Tata.
+
+La propuesta considera dos perfiles principales dentro de la aplicación: el adulto mayor y el familiar o cuidador. Además, se contempla al usuario visitante en los puntos de entrada públicos relacionados con la presentación del producto, la consulta de planes, el registro y el inicio de sesión. Esta separación se refleja en la navegación, la información disponible y las acciones permitidas para cada perfil.
+
+El adulto mayor utiliza una navegación orientada a la rutina diaria, medicamentos, agenda, notas y confirmación de tomas. El familiar o cuidador dispone de funciones de seguimiento, alertas, notas de seguimiento, gestión de la persona vinculada, tratamientos, inventario, preferencias y suscripción.
+
+El diseño contempla estados de validación, bloqueo, ausencia de datos, falta de consentimiento, recordatorios reforzados, accesibilidad, gestión de tratamientos, inventario, alertas, suscripción e internacionalización. De esta forma, los artefactos no representan únicamente escenarios exitosos, sino también los estados necesarios para cubrir los criterios de aceptación de las User Stories.
+
+La versión final comprende **70 pantallas funcionales**, estructuradas de forma equivalente entre wireframes, mock-ups y prototipado. Dentro de esta organización se incorporan la pantalla **07 Login**, utilizada para el ingreso de usuarios con una cuenta existente; la pantalla **21 Notes - Adult**, correspondiente a las notas del adulto mayor; la pantalla **27 Notes - Caregiver**, correspondiente a las notas del familiar o cuidador; y la pantalla **70 Internationalization**, que permite representar el cambio de idioma de la aplicación.
+
+Las variantes identificadas con el sufijo `EN` en Figma corresponden a traducciones al inglés de las mismas 70 pantallas y, por tanto, no se contabilizan como pantallas funcionales adicionales.
+
+Para facilitar la lectura del informe, los wireframes y los mock-ups se presentan por grupos correspondientes a las filas organizadas en Figma. Cada grupo reúne siete pantallas relacionadas funcionalmente y evita repetir una explicación individual para cada vista. Los wireflows, en cambio, se presentan uno por uno porque cada diagrama corresponde a un User Goal específico y contiene sus propias condiciones y bifurcaciones.
+
+#### 3.1.4.1. Mobile Applications Wireframes
+
+Los artefactos se presentan por filas del tablero original: **70 variantes en español**, organizadas en **10 filas de 7 vistas**. Cada fila conserva la numeración visible en Figma y puede ampliarse desde la imagen. Las variantes representan vistas principales y resultados alternos; no equivalen a 70 funcionalidades independientes. [Fuente: tablero de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=260-2).
+
+Los wireframes fueron elaborados en baja fidelidad para revisar la estructura de las pantallas antes de aplicar el sistema visual definitivo. Se utilizaron bloques, campos, botones, etiquetas, controles simples y placeholders para imágenes, gráficos e ilustraciones. Este nivel de fidelidad permitió concentrar la evaluación en la arquitectura de información, la jerarquía de contenidos, la ubicación de las acciones, la navegación inferior, la accesibilidad y los estados alternos requeridos por las User Stories.
+
+##### 01. Entry, Onboarding & Access
+
+Este grupo reúne los puntos de entrada a Tata y las pantallas necesarias para iniciar el uso del producto. Incluye la presentación de valor, la consulta de planes, el onboarding, el registro del familiar o cuidador, la vinculación con el adulto mayor, el acceso mediante PIN y el inicio de sesión para usuarios que ya poseen una cuenta.
+
+**Pantallas incluidas:** 01 Landing - Value & Features; 02 Landing - Plans & Contact; 03 Onboarding; 04 Caregiver Registration; 05 Link & Consent; 06 PIN Access; 07 Login.
+
+![Wireframes de entrada, onboarding y acceso](assets/mobile-app-wireframes-entry-onboarding-access.png)
+
+*Figura. Wireframes de entrada, onboarding y acceso a Tata.*
+
+*Nota. Elaboración propia.*
+
+##### 02. Older Adult Daily Experience
+
+Este grupo corresponde a la experiencia principal del adulto mayor. Se muestran la pantalla de inicio, la consulta de medicamentos, el detalle de una pauta, la agenda semanal, la confirmación por voz, la confirmación de una toma y la configuración general de accesibilidad.
+
+**Pantallas incluidas:** 08 Home; 09 My Medications; 10 Medication Detail; 11 Weekly Schedule; 12 Voice Confirmation; 13 Dose Confirmed; 14 Accessibility.
+
+![Wireframes de la experiencia diaria del adulto mayor](assets/mobile-app-wireframes-older-adult-daily-experience.png)
+
+*Figura. Wireframes de la experiencia diaria del adulto mayor.*
+
+*Nota. Elaboración propia.*
+
+##### 03. Monitoring, Insights & Adult Notes
+
+Este grupo concentra las principales funciones de seguimiento y consulta. Incluye el resumen familiar, la persona vinculada, la lista de alertas, el detalle de una alerta, el historial con indicadores de adherencia y las recomendaciones derivadas del comportamiento reciente. La fila incorpora además la pantalla de notas del adulto mayor, que funciona como destino de la opción “Notas” dentro de su navegación inferior.
+
+**Pantallas incluidas:** 15 Family Summary; 16 Linked Person; 17 Alerts; 18 Alert Detail; 19 History & Insights; 20 Adherence Recommendations; 21 Notes - Adult.
+
+![Wireframes de seguimiento, insights y notas del adulto mayor](assets/mobile-app-wireframes-monitoring-insights-adult-notes.png)
+
+*Figura. Wireframes de seguimiento familiar, alertas, insights y notas del adulto mayor.*
+
+*Nota. Elaboración propia.*
+
+##### 04. Caregiver Treatment Management & Notes
+
+Este conjunto reúne las funciones de configuración y administración realizadas principalmente por el familiar o cuidador. Incluye el registro de medicamentos, la creación y gestión de tratamientos, el control de inventario, las preferencias de notificación, las notas del cuidador y la administración del plan contratado.
+
+**Pantallas incluidas:** 22 Add Medication - Caregiver; 23 Create Treatment; 24 Treatment Management; 25 Inventory & Restock; 26 Notification Preferences; 27 Notes - Caregiver; 28 Plan & Subscription.
+
+![Wireframes de gestión del tratamiento y notas del cuidador](assets/mobile-app-wireframes-caregiver-treatment-management-notes.png)
+
+*Figura. Wireframes de gestión del tratamiento, inventario, notificaciones, notas y suscripción.*
+
+*Nota. Elaboración propia.*
+
+##### 05. Access, Registration & Consent States
+
+Este grupo incorpora estados alternos relacionados con el acceso, el registro y la vinculación. Se representan la creación del PIN, un PIN incorrecto, el bloqueo temporal por intentos fallidos, un correo ya registrado, una verificación vencida, un código de vinculación inválido y el seguimiento restringido cuando no existe consentimiento.
+
+**Pantallas incluidas:** 29 PIN Setup; 30 PIN Incorrect; 31 PIN Temporarily Blocked; 32 Duplicate Email; 33 Verification Expired; 34 Invalid Link Code; 35 Consent Required.
+
+![Wireframes de validaciones de acceso, registro y consentimiento](assets/mobile-app-wireframes-access-registration-consent-states.png)
+
+*Figura. Wireframes de validaciones de acceso, registro y consentimiento.*
+
+*Nota. Elaboración propia.*
+
+##### 06. Medication, Reminder & Adherence States
+
+Las pantallas de este grupo muestran validaciones y estados derivados de la gestión de medicamentos y de la confirmación de tomas. Se incluyen campos obligatorios incompletos, actualización y desactivación de medicamentos, recordatorio de toma, voz no reconocida, toma previamente confirmada y ausencia de datos para calcular adherencia.
+
+**Pantallas incluidas:** 36 Medication Required Fields Error; 37 Medication Updated; 38 Medication Deactivated; 39 Medication Reminder Due; 40 Voice Not Recognized; 41 Dose Already Confirmed; 42 No Adherence Data.
+
+![Wireframes de estados de medicamentos, recordatorios y adherencia](assets/mobile-app-wireframes-medication-reminder-adherence-states.png)
+
+*Figura. Wireframes de validaciones de medicamentos, recordatorios y adherencia.*
+
+*Nota. Elaboración propia.*
+
+##### 07. Treatment & Dose States
+
+Este grupo representa variaciones del tratamiento y de una toma individual. Se consideran un tratamiento incompleto, un tratamiento pausado, un acceso restringido, la ausencia de una próxima toma y los estados pendiente, confirmado y tardío del detalle de una toma.
+
+**Pantallas incluidas:** 43 Treatment Incomplete; 44 Treatment Paused; 45 Treatment Access Denied; 46 No Next Dose; 47 Dose Detail - Pending; 48 Dose Detail - Confirmed; 49 Dose Detail - Late.
+
+![Wireframes de estados de tratamiento y toma](assets/mobile-app-wireframes-treatment-dose-states.png)
+
+*Figura. Wireframes de estados de tratamiento y de una toma.*
+
+*Nota. Elaboración propia.*
+
+##### 08. Omission, Reinforcement & Follow-up States
+
+Este grupo amplía los escenarios de adherencia y seguimiento. Se representa una toma omitida, el recordatorio reforzado, la confirmación tardía, la preservación de una omisión después del vencimiento, una agenda con estados, un historial sin resultados y la imposibilidad de contactar al adulto mayor.
+
+**Pantallas incluidas:** 50 Dose Detail - Omitted; 51 Reinforced Reminder; 52 Late Dose Confirmed; 53 Omission Preserved; 54 Agenda With Statuses; 55 Empty Intake History; 56 Contact Unavailable.
+
+![Wireframes de omisiones, recordatorios reforzados y seguimiento](assets/mobile-app-wireframes-omission-reinforcement-follow-up.png)
+
+*Figura. Wireframes de omisiones, recordatorios reforzados y seguimiento.*
+
+*Nota. Elaboración propia.*
+
+##### 09. Follow-up & Accessibility States
+
+Este grupo reúne resultados posteriores a acciones del cuidador y configuraciones de accesibilidad. Incluye una nota de seguimiento guardada, una alerta atendida, un cambio del periodo de análisis, la falta de evidencia suficiente para generar recomendaciones y tres estados de accesibilidad activados.
+
+**Pantallas incluidas:** 57 Follow-up Note Saved; 58 Alert Attended; 59 Adherence Period Changed; 60 Insufficient Evidence; 61 Large Text Enabled; 62 High Contrast Enabled; 63 Reduced Motion Enabled.
+
+![Wireframes de seguimiento y accesibilidad](assets/mobile-app-wireframes-follow-up-accessibility-states.png)
+
+*Figura. Wireframes de seguimiento, evidencia y configuraciones de accesibilidad.*
+
+*Nota. Elaboración propia.*
+
+##### 10. Preferences, Inventory, Subscription & Internationalization
+
+El último grupo reúne configuraciones guardadas y estados asociados con accesibilidad, inventario, suscripción, navegación externa e internacionalización. Se muestra la ayuda de lectura habilitada, las preferencias de notificación guardadas, una cantidad inválida de inventario, el stock repuesto, la suscripción actualizada, un destino externo no disponible y la configuración de idioma de la aplicación.
+
+La pantalla de internacionalización mantiene la estructura de accesibilidad y añade la opción “Idioma de la aplicación”, desde la cual puede seleccionarse otra versión lingüística de la interfaz. Las vistas identificadas con `EN` en Figma representan dicha traducción y no constituyen pantallas adicionales dentro del conteo funcional.
+
+**Pantallas incluidas:** 64 Reading Assistance Enabled; 65 Notification Preferences Saved; 66 Invalid Inventory Quantity; 67 Stock Replenished; 68 Subscription Updated; 69 External Destination Unavailable; 70 Internationalization.
+
+![Wireframes de preferencias, inventario, suscripción e internacionalización](assets/mobile-app-wireframes-preferences-inventory-subscription-states.png)
+
+*Figura. Wireframes de preferencias guardadas, inventario, suscripción, destino externo e internacionalización.*
+
+*Nota. Elaboración propia.*
+
+En conjunto, los **70 wireframes** permiten comprobar la cobertura estructural de la aplicación antes de incorporar el tratamiento visual de alta fidelidad. Los estados alternos se mantienen como pantallas independientes porque representan respuestas distintas del sistema frente a acciones, restricciones o condiciones específicas de las User Stories. Las versiones traducidas al inglés conservan la misma estructura y no modifican este conteo.
+
+#### 3.1.4.2. Mobile Applications Wireflow Diagrams
+
+Los wireflow diagrams relacionan los wireframes mediante recorridos de navegación asociados con User Goals concretos. Cada diagrama muestra la ruta principal y, cuando corresponde, las rutas alternativas que aparecen como consecuencia de validaciones, errores, restricciones o cambios de estado. Las flechas representan transiciones entre pantallas y sus etiquetas indican la acción o condición que produce cada cambio.
+
+Cada wireflow mantiene correspondencia con un User Persona y utiliza como nodos los mismos estados representados en los wireframes. De este modo, cuando una interacción modifica el contenido o el estado de una pantalla, el flujo incorpora una vista específica que evidencia ese resultado.
+
+##### WF01. Acceso con PIN y consulta de próxima toma
+
+**User Persona:** Doña Carmen Rodríguez.
+
+**User Goal:** Ingresar con un PIN simple y consultar la próxima toma.
+
+**User Stories relacionadas:** US-01 y US-20.
+
+Este wireflow representa el acceso del adulto mayor a Tata mediante un PIN de cuatro dígitos. Después de crear el PIN y realizar un acceso válido, el usuario llega al inicio y puede consultar la próxima toma. También se representan un PIN incorrecto, el bloqueo temporal por intentos fallidos y el estado en el que no existe una toma próxima.
+
+![WF01 acceso con PIN y próxima toma](assets/mobile-app-wireflow-pin-access-next-dose.png)
+
+*Figura. WF01, acceso con PIN y consulta de la próxima toma.*
+
+*Nota. Elaboración propia.*
+
+##### WF02. Confirmación de una toma por toque o por voz
+
+**User Persona:** Doña Carmen Rodríguez.
+
+**User Goal:** Confirmar una toma por toque o por voz y verificar el registro.
+
+**User Stories relacionadas:** US-05, US-06 y US-23.
+
+El recorrido muestra las dos formas principales de confirmar una toma. El usuario puede confirmar directamente desde el inicio o utilizar la confirmación por voz. El diagrama también contempla una toma previamente confirmada, una voz no reconocida, una confirmación tardía dentro del periodo de tolerancia y una omisión preservada cuando el periodo permitido ya finalizó.
+
+![WF02 confirmación de toma](assets/mobile-app-wireflow-dose-confirmation.png)
+
+*Figura. WF02, confirmación de una toma por toque o por voz y estados posteriores.*
+
+*Nota. Elaboración propia.*
+
+##### WF03. Consulta de medicamentos y estados de una pauta
+
+**User Persona:** Doña Carmen Rodríguez.
+
+**User Goal:** Consultar mis medicamentos y revisar una pauta y sus estados.
+
+**User Stories relacionadas:** US-21 y US-23.
+
+El recorrido parte del inicio, continúa hacia la lista de medicamentos y permite abrir el detalle de una pauta. Desde el detalle se representan los estados pendiente, confirmado, tardío y omitido para que el adulto mayor pueda reconocer el estado de la toma dentro de la misma estructura de navegación.
+
+![WF03 medicamentos y estados de toma](assets/mobile-app-wireflow-medications-dose-states.png)
+
+*Figura. WF03, consulta de medicamentos y estados de una pauta.*
+
+*Nota. Elaboración propia.*
+
+##### WF04. Consulta de agenda y visualización de estados
+
+**User Persona:** Doña Carmen Rodríguez.
+
+**User Goal:** Consultar la agenda y distinguir el estado de cada toma.
+
+**User Stories relacionadas:** US-24.
+
+Este wireflow muestra el acceso desde el inicio hacia la agenda semanal. La primera vista permite consultar las tomas programadas y, desde ella, se accede al estado de las tomas para distinguir visualmente cuáles se encuentran confirmadas, pendientes, tardías u omitidas dentro del periodo mostrado.
+
+![WF04 agenda y estados](assets/mobile-app-wireflow-schedule-dose-statuses.png)
+
+*Figura. WF04, consulta de agenda semanal y visualización de estados.*
+
+*Nota. Elaboración propia.*
+
+##### WF05. Configuración de accesibilidad
+
+**User Persona:** Doña Carmen Rodríguez.
+
+**User Goal:** Adaptar la interfaz y conservar cada preferencia de accesibilidad.
+
+**User Stories relacionadas:** US-35, US-36, US-37 y US-38.
+
+El recorrido parte del inicio y accede a la sección de accesibilidad. Desde esa pantalla se representan los estados generados al aumentar el tamaño del texto, activar el contraste reforzado, reducir el movimiento y habilitar la ayuda de lectura. Cada resultado conserva la estructura de configuración y evidencia que la preferencia seleccionada ha sido guardada.
+
+![WF05 accesibilidad](assets/mobile-app-wireflow-accessibility-preferences.png)
+
+*Figura. WF05, configuración y persistencia de preferencias de accesibilidad.*
+
+*Nota. Elaboración propia.*
+
+##### WF06. Registro y vinculación del familiar o cuidador
+
+**User Persona:** Diego Dani Mendoza.
+
+**User Goal:** Crear mi cuenta y vincular a Rosa con consentimiento.
+
+**User Stories relacionadas:** US-10, US-11, US-02, US-12 y US-13.
+
+Este wireflow reúne el ingreso desde la bienvenida, el registro del cuidador, la verificación del correo, la vinculación con el adulto mayor y el acceso al resumen familiar cuando el vínculo es aceptado. Como rutas alternativas se incluyen un correo ya registrado, una verificación vencida, un código de vinculación inválido y el seguimiento restringido cuando no existe consentimiento.
+
+![WF06 registro y vinculación](assets/mobile-app-wireflow-registration-link-consent.png)
+
+*Figura. WF06, registro, verificación y vinculación con consentimiento.*
+
+*Nota. Elaboración propia.*
+
+##### WF07. Registro de medicamento y gestión del tratamiento
+
+**User Persona:** Diego Dani Mendoza.
+
+**User Goal:** Registrar un medicamento y activar o gestionar un tratamiento.
+
+**User Stories relacionadas:** US-03, US-14, US-15, US-16, US-17, US-18 y US-19.
+
+El recorrido comienza en la persona vinculada, continúa con el registro de un medicamento y la creación de un tratamiento, y finaliza en la gestión del tratamiento. También se representan la falta de datos obligatorios, una pauta incompleta, un tratamiento pausado y el acceso restringido cuando el tratamiento no corresponde a la persona vinculada.
+
+![WF07 medicamento y tratamiento](assets/mobile-app-wireflow-medication-treatment-management.png)
+
+*Figura. WF07, registro de medicamento y gestión del tratamiento.*
+
+*Nota. Elaboración propia.*
+
+##### WF08. Seguimiento familiar, historial y alertas
+
+**User Persona:** Diego Dani Mendoza.
+
+**User Goal:** Consultar el estado reciente y profundizar en historial o alertas.
+
+**User Stories relacionadas:** US-25, US-26, US-08, US-32 y US-33.
+
+Este wireflow relaciona el resumen familiar con el historial y la lista de alertas. También contempla un historial sin datos suficientes para calcular adherencia, un periodo sin resultados y la actualización del periodo consultado. Estas rutas permiten representar situaciones en las que el seguimiento no dispone siempre de información completa.
+
+![WF08 seguimiento historial y alertas](assets/mobile-app-wireflow-family-history-alerts.png)
+
+*Figura. WF08, seguimiento familiar, historial y alertas.*
+
+*Nota. Elaboración propia.*
+
+##### WF09. Atención de alertas e intervención del cuidador
+
+**User Persona:** Diego Dani Mendoza.
+
+**User Goal:** Atender una alerta y dejar registrada la intervención.
+
+**User Stories relacionadas:** US-27, US-29, US-30 y US-31.
+
+El recorrido parte de la lista de alertas, abre el detalle de una alerta y permite registrar una intervención antes de marcarla como atendida. También se representa el caso en el que no existe un canal de contacto válido para la persona vinculada, por lo que la acción de contacto no puede completarse.
+
+![WF09 atención de alertas](assets/mobile-app-wireflow-alert-intervention.png)
+
+*Figura. WF09, atención de alertas y registro de intervención.*
+
+*Nota. Elaboración propia.*
+
+##### WF10. Recomendaciones basadas en evidencia
+
+**User Persona:** Diego Dani Mendoza.
+
+**User Goal:** Revisar patrones y aplicar un ajuste solo con evidencia suficiente.
+
+**User Stories relacionadas:** US-09, US-32, US-33 y US-34.
+
+El recorrido parte del historial de adherencia y conduce a la pantalla de recomendaciones cuando existen datos suficientes para detectar un patrón. Desde allí puede aplicarse un ajuste al tratamiento. Como rutas alternativas se incluyen el cambio del periodo de análisis y el estado de evidencia insuficiente, en el que no se presenta una recomendación concluyente.
+
+![WF10 recomendaciones y evidencia](assets/mobile-app-wireflow-evidence-recommendations.png)
+
+*Figura. WF10, análisis de adherencia y recomendaciones basadas en evidencia.*
+
+*Nota. Elaboración propia.*
+
+##### WF11. Inventario y reposición
+
+**User Persona:** Diego Dani Mendoza.
+
+**User Goal:** Controlar el stock y registrar una reposición.
+
+**User Stories relacionadas:** US-40, US-41, US-42 y US-43.
+
+Este wireflow muestra el acceso desde la gestión del tratamiento hacia el inventario, el registro de una reposición y el estado resultante con el stock actualizado. Como ruta alternativa se representa la validación de una cantidad inválida antes de guardar la reposición.
+
+![WF11 inventario y reposición](assets/mobile-app-wireflow-inventory-restock.png)
+
+*Figura. WF11, control de inventario y registro de reposición.*
+
+*Nota. Elaboración propia.*
+
+##### WF12. Preferencias de notificación
+
+**User Persona:** Diego Dani Mendoza.
+
+**User Goal:** Configurar qué notificaciones recibir y en qué horario.
+
+**User Stories relacionadas:** US-28 y US-39.
+
+El recorrido parte del resumen familiar, accede a las preferencias de notificación y finaliza con la configuración guardada. La pantalla permite organizar categorías de avisos, canales de comunicación y horario de silencio dentro de una misma configuración.
+
+![WF12 preferencias de notificación](assets/mobile-app-wireflow-notification-preferences.png)
+
+*Figura. WF12, configuración y guardado de preferencias de notificación.*
+
+*Nota. Elaboración propia.*
+
+##### WF13. Plan y suscripción
+
+**User Persona:** Diego Dani Mendoza.
+
+**User Goal:** Consultar el plan actual y cambiar de suscripción.
+
+**User Stories relacionadas:** US-44 y US-45.
+
+Este wireflow muestra el acceso desde el resumen familiar hacia la gestión del plan. El usuario consulta su plan actual, revisa las alternativas disponibles y confirma el cambio de suscripción. El estado final evidencia que el nuevo plan se encuentra activo sin alterar el historial ni los vínculos existentes.
+
+![WF13 plan y suscripción](assets/mobile-app-wireflow-plan-subscription.png)
+
+*Figura. WF13, consulta y actualización del plan de suscripción.*
+
+*Nota. Elaboración propia.*
+
+##### WF14. Edición o desactivación de un medicamento
+
+**User Persona:** Diego Dani Mendoza.
+
+**User Goal:** Editar una pauta o desactivar un medicamento sin perder el historial.
+
+**User Stories relacionadas:** US-04.
+
+El recorrido representa la administración de un medicamento dentro de un tratamiento. El cuidador puede guardar cambios en la pauta o desactivar el medicamento. En ambos casos se conserva el historial previo y el sistema diferencia el estado actualizado del estado desactivado.
+
+![WF14 editar y desactivar medicamento](assets/mobile-app-wireflow-edit-disable-medication.png)
+
+*Figura. WF14, edición y desactivación de un medicamento.*
+
+*Nota. Elaboración propia.*
+
+##### WF15. Recordatorio reforzado, confirmación tardía y omisión
+
+**User Persona:** Doña Carmen Rodríguez.
+
+**User Goal:** Recibir recordatorios reforzados y resolver una toma tardía u omitida.
+
+**User Stories relacionadas:** US-05, US-22 y US-23.
+
+Este flujo representa el comportamiento posterior a una toma que no fue confirmada en el momento esperado. El sistema emite un segundo recordatorio y permite una confirmación tardía mientras la toma permanece dentro del periodo de tolerancia. Cuando ese periodo vence, la toma se mantiene registrada como omitida y una confirmación posterior no reemplaza automáticamente dicho estado.
+
+![WF15 recordatorio reforzado confirmación tardía y omisión](assets/mobile-app-wireflow-reinforced-reminder-late-omission.png)
+
+*Figura. WF15, recordatorio reforzado, confirmación tardía y omisión.*
+
+*Nota. Elaboración propia.*
+
+##### WF16. Landing, comparación de planes y destino externo no disponible
+
+**User Persona:** Usuario visitante.
+
+**User Goal:** Conocer Tata, comparar planes y gestionar un destino externo no disponible.
+
+**User Stories relacionadas:** US-49.
+
+Este wireflow representa la navegación del usuario visitante. El recorrido parte de la presentación de Tata, continúa hacia la comparación de planes y contempla el caso en el que un destino externo asociado con la opción de contacto no se encuentra disponible. Este estado permite mantener una respuesta visible dentro del producto en lugar de dejar la interacción sin retroalimentación.
+
+![WF16 landing planes y destino externo](assets/mobile-app-wireflow-landing-plans-external-destination.png)
+
+*Figura. WF16, navegación del visitante, comparación de planes y destino externo no disponible.*
+
+*Nota. Elaboración propia.*
+
+Los dieciséis wireflows muestran que las pantallas no fueron diseñadas como vistas aisladas. Cada vista forma parte de un recorrido asociado con un objetivo de usuario y sus estados alternos responden a condiciones concretas de interacción. Esta relación permitió comprobar la continuidad entre la arquitectura de información, los criterios de aceptación y los cambios de estado antes de consolidar el diseño visual de alta fidelidad.
+
+La incorporación posterior de las pantallas Login, Notes - Adult, Notes - Caregiver e Internationalization amplía los destinos disponibles en el prototipo sin modificar la lógica principal representada por estos dieciséis User Goals.
+
+#### 3.1.4.3. Mobile Applications Mock-ups
+
+Las diez imágenes siguientes corresponden a las diez filas del [tablero de mock-ups](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=31-2), con siete variantes por fila y la misma numeración que los wireframes.
+
+Los mock-ups representan la versión de alta fidelidad de las pantallas definidas previamente en los wireframes. La estructura funcional se mantiene, pero se incorpora el sistema visual de Tata mediante tipografías, jerarquías, colores, tarjetas, botones, iconografía, estados de navegación y elementos de apoyo visual.
+
+La propuesta mantiene consistencia entre las pantallas del adulto mayor y las del familiar o cuidador, pero adapta la navegación y la prioridad de la información a las tareas de cada perfil. Los estados de éxito, advertencia, error, información y confirmación utilizan tratamientos visuales diferenciados para facilitar su reconocimiento. Asimismo, se aplican criterios de diseño inclusivo mediante tamaño legible de controles y textos, contraste suficiente, reducción de movimiento, confirmación por voz y ayuda de lectura.
+
+Los mock-ups conservan correspondencia directa con los wireframes. La versión funcional final está compuesta por **70 pantallas** y mantiene la misma numeración utilizada en los wireframes y en el prototipo. Las variantes `EN` corresponden únicamente a traducciones de estas vistas y no se contabilizan como pantallas adicionales.
+
+##### 01. Entry, Onboarding & Access
+
+El primer grupo presenta la identidad visual de Tata desde los puntos de entrada y continúa con el onboarding, el registro, la vinculación, el acceso mediante PIN y el inicio de sesión de usuarios existentes. La composición prioriza las acciones principales, la información contextual y los estados de acceso sin perder continuidad entre pantallas.
+
+**Pantallas incluidas:** 01 Landing - Value & Features; 02 Landing - Plans & Contact; 03 Onboarding; 04 Caregiver Registration; 05 Link & Consent; 06 PIN Access; 07 Login.
+
+![Mock-ups de entrada, onboarding y acceso](assets/mobile-app-mockups-entry-onboarding-access.png)
+
+*Figura. Mock-ups de entrada, onboarding y acceso a Tata.*
+
+*Nota. Elaboración propia.*
+
+##### 02. Older Adult Daily Experience
+
+Este grupo representa la experiencia cotidiana del adulto mayor. El diseño prioriza la próxima toma, el progreso diario, la consulta de medicamentos, la agenda, la confirmación de toma y los ajustes de accesibilidad mediante una jerarquía visual simple y acciones de fácil reconocimiento.
+
+**Pantallas incluidas:** 08 Home; 09 My Medications; 10 Medication Detail; 11 Weekly Schedule; 12 Voice Confirmation; 13 Dose Confirmed; 14 Accessibility.
+
+![Mock-ups de la experiencia diaria del adulto mayor](assets/mobile-app-mockups-older-adult-daily-experience.png)
+
+*Figura. Mock-ups de la experiencia diaria del adulto mayor.*
+
+*Nota. Elaboración propia.*
+
+##### 03. Monitoring, Insights & Adult Notes
+
+Las pantallas de este grupo corresponden principalmente al seguimiento realizado por el familiar o cuidador mediante el resumen familiar, la persona vinculada, las alertas, el historial y las recomendaciones. La fila incorpora además la pantalla de notas del adulto mayor, utilizada como destino de la pestaña “Notas” dentro de su navegación principal.
+
+**Pantallas incluidas:** 15 Family Summary; 16 Linked Person; 17 Alerts; 18 Alert Detail; 19 History & Insights; 20 Adherence Recommendations; 21 Notes - Adult.
+
+![Mock-ups de seguimiento, insights y notas del adulto mayor](assets/mobile-app-mockups-monitoring-insights-adult-notes.png)
+
+*Figura. Mock-ups de seguimiento familiar, alertas, insights y notas del adulto mayor.*
+
+*Nota. Elaboración propia.*
+
+##### 04. Caregiver Treatment Management & Notes
+
+Este conjunto incorpora la gestión del tratamiento. La interfaz utiliza formularios, tarjetas de estado y acciones principales para registrar medicamentos, crear y administrar tratamientos, controlar inventario, configurar notificaciones, consultar las notas del cuidador y gestionar la suscripción.
+
+**Pantallas incluidas:** 22 Add Medication - Caregiver; 23 Create Treatment; 24 Treatment Management; 25 Inventory & Restock; 26 Notification Preferences; 27 Notes - Caregiver; 28 Plan & Subscription.
+
+![Mock-ups de gestión del tratamiento y notas del cuidador](assets/mobile-app-mockups-caregiver-treatment-management-notes.png)
+
+*Figura. Mock-ups de gestión del tratamiento, inventario, notificaciones, notas y suscripción.*
+
+*Nota. Elaboración propia.*
+
+##### 05. Access, Registration & Consent States
+
+Los estados de validación conservan la estructura principal de las pantallas base, pero incorporan mensajes y tratamientos visuales específicos para comunicar un PIN incorrecto, bloqueo temporal, correo duplicado, verificación vencida, código inválido o falta de consentimiento.
+
+**Pantallas incluidas:** 29 PIN Setup; 30 PIN Incorrect; 31 PIN Temporarily Blocked; 32 Duplicate Email; 33 Verification Expired; 34 Invalid Link Code; 35 Consent Required.
+
+![Mock-ups de validaciones de acceso registro y consentimiento](assets/mobile-app-mockups-access-registration-consent-states.png)
+
+*Figura. Mock-ups de validaciones de acceso, registro y consentimiento.*
+
+*Nota. Elaboración propia.*
+
+##### 06. Medication, Reminder & Adherence States
+
+Este grupo presenta estados alternos de medicamentos, confirmación de tomas e historial. Los mensajes visuales permiten diferenciar datos obligatorios faltantes, cambios guardados, desactivación, recordatorios, voz no reconocida, confirmación duplicada y ausencia de información suficiente para calcular adherencia.
+
+**Pantallas incluidas:** 36 Medication Required Fields Error; 37 Medication Updated; 38 Medication Deactivated; 39 Medication Reminder Due; 40 Voice Not Recognized; 41 Dose Already Confirmed; 42 No Adherence Data.
+
+![Mock-ups de medicamentos recordatorios y adherencia](assets/mobile-app-mockups-medication-reminder-adherence-states.png)
+
+*Figura. Mock-ups de validaciones de medicamentos, recordatorios y adherencia.*
+
+*Nota. Elaboración propia.*
+
+##### 07. Treatment & Dose States
+
+Las pantallas de este grupo presentan estados de configuración y de una toma individual. Se conserva la estructura de las pantallas principales y se emplean mensajes, etiquetas y tarjetas diferenciadas para tratamiento incompleto, pausado, restringido, ausencia de próxima toma y estados pendiente, confirmado y tardío.
+
+**Pantallas incluidas:** 43 Treatment Incomplete; 44 Treatment Paused; 45 Treatment Access Denied; 46 No Next Dose; 47 Dose Detail - Pending; 48 Dose Detail - Confirmed; 49 Dose Detail - Late.
+
+![Mock-ups de estados de tratamiento y toma](assets/mobile-app-mockups-treatment-dose-states.png)
+
+*Figura. Mock-ups de estados de tratamiento y de una toma.*
+
+*Nota. Elaboración propia.*
+
+##### 08. Omission, Reinforcement & Follow-up States
+
+Este grupo muestra los estados asociados con una omisión y el seguimiento posterior. La interfaz diferencia una toma omitida, un recordatorio reforzado, una confirmación tardía, la preservación de la omisión, la agenda con estados, la ausencia de resultados y la falta de un canal de contacto válido.
+
+**Pantallas incluidas:** 50 Dose Detail - Omitted; 51 Reinforced Reminder; 52 Late Dose Confirmed; 53 Omission Preserved; 54 Agenda With Statuses; 55 Empty Intake History; 56 Contact Unavailable.
+
+![Mock-ups de omisiones y seguimiento](assets/mobile-app-mockups-omission-reinforcement-follow-up.png)
+
+*Figura. Mock-ups de omisiones, recordatorios reforzados y seguimiento.*
+
+*Nota. Elaboración propia.*
+
+##### 09. Follow-up & Accessibility States
+
+Este grupo muestra resultados posteriores a acciones del cuidador y variaciones de accesibilidad. Se utilizan mensajes de confirmación para el registro de notas, la atención de alertas y el cambio de periodo, además de estados de interfaz que evidencian el aumento de texto, el contraste reforzado y la reducción de movimiento.
+
+**Pantallas incluidas:** 57 Follow-up Note Saved; 58 Alert Attended; 59 Adherence Period Changed; 60 Insufficient Evidence; 61 Large Text Enabled; 62 High Contrast Enabled; 63 Reduced Motion Enabled.
+
+![Mock-ups de seguimiento y accesibilidad](assets/mobile-app-mockups-follow-up-accessibility-states.png)
+
+*Figura. Mock-ups de seguimiento, evidencia y configuraciones de accesibilidad.*
+
+*Nota. Elaboración propia.*
+
+##### 10. Preferences, Inventory, Subscription & Internationalization
+
+El último grupo reúne la ayuda de lectura activada, la confirmación de preferencias de notificación, los estados de inventario y reposición, la actualización de la suscripción, la indisponibilidad de un destino externo y la selección del idioma de la aplicación.
+
+La pantalla de internacionalización se integra dentro de la sección de accesibilidad y mantiene el mismo sistema visual de controles y configuraciones. La opción de idioma permite representar el cambio hacia la interfaz en inglés, cuyas vistas `EN` reproducen la misma arquitectura y funcionalidad de las pantallas principales.
+
+**Pantallas incluidas:** 64 Reading Assistance Enabled; 65 Notification Preferences Saved; 66 Invalid Inventory Quantity; 67 Stock Replenished; 68 Subscription Updated; 69 External Destination Unavailable; 70 Internationalization.
+
+![Mock-ups de preferencias inventario suscripción e internacionalización](assets/mobile-app-mockups-preferences-inventory-subscription-states.png)
+
+*Figura. Mock-ups de preferencias guardadas, inventario, suscripción, destino externo e internacionalización.*
+
+*Nota. Elaboración propia.*
+
+Los **70 mock-ups** mantienen correspondencia con los wireframes y con los recorridos definidos en los wireflows. Las variaciones visuales no modifican el objetivo funcional de cada pantalla, sino que comunican con mayor claridad la jerarquía, los estados, las acciones y la retroalimentación del sistema.
+
+Las versiones en inglés mantienen esta misma estructura y constituyen variantes de localización, por lo que no incrementan el número de pantallas funcionales considerado en el diseño.
+
+
+#### 3.1.4.4. Mobile Applications User Flow Diagrams
+
+Los recorridos se organizan por objetivo del usuario y rol. Los diagramas de la sección 3.1.4.2 muestran las transiciones entre vistas y sus estados; esta sección identifica el punto de entrada, las decisiones y el resultado de cada recorrido. Se mantiene la numeración del [tablero de wireflows](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=283-2) para relacionar cada objetivo con su diagrama visual.
+
+| Perfil | Objetivo | Recorrido y decisiones | Diagrama |
+| --- | --- | --- | --- |
+| Adulto mayor | Acceder y consultar la próxima toma | Ingresar PIN → validar acceso → Inicio → próxima toma; el PIN incorrecto y el bloqueo ofrecen estados alternos. | WF01 |
+| Adulto mayor | Confirmar una toma | Próxima toma → confirmar por toque o voz → resultado; la voz no reconocida permite reintentar y una toma confirmada conserva su registro. | WF02 |
+| Adulto mayor | Consultar medicación y agenda | Medicamentos → detalle; Agenda → toma → estado pendiente, confirmado, tardío u omitido. | WF03–WF04 |
+| Adulto mayor | Ajustar accesibilidad | Más → Accesibilidad → elegir preferencia → interfaz con ajuste aplicado. | WF05 |
+| Familiar/cuidador | Crear cuenta y vincular al adulto | Registro → verificación → código de vínculo → solicitud → consentimiento; los datos inválidos permiten corregir el paso. | WF06 |
+| Familiar/cuidador | Configurar y administrar un tratamiento | Registrar medicamento → definir pauta → gestionar tratamiento; editar, pausar o desactivar según la acción elegida. | WF07, WF14 |
+| Familiar/cuidador | Revisar adherencia y actuar ante una alerta | Resumen → persona vinculada → historial o alertas → detalle → contacto o nota → alerta atendida. | WF08–WF10 |
+| Familiar/cuidador | Mantener la continuidad del cuidado | Inventario → reposición → cantidad actualizada; preferencias → guardar; plan → elegir → suscripción actualizada. | WF11–WF13 |
+| Adulto mayor y familiar | Gestionar una toma fuera de horario | Recordatorio reforzado → confirmación tardía u omisión conservada → agenda e historial. | WF15 |
+| Visitante | Conocer Tata y elegir un plan | Propuesta de valor → funciones → comparación de planes → registro o contacto; el destino externo dispone de un estado de indisponibilidad. | WF16 |
+
+Cada fila de wireframes y mock-ups incluye los resultados alternos de estos recorridos, evitando tratar las validaciones, errores y confirmaciones como destinos aislados.
+
+#### 3.1.4.5. Mobile Applications Prototyping
+
+[Abrir prototipo interactivo en español](https://www.figma.com/proto/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-5). [Consultar conexiones en el archivo de diseño](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2).
+
+El prototipo interactivo de la aplicación móvil de Tata fue construido a partir de los mock-ups de alta fidelidad y conserva la correspondencia de las **70 pantallas funcionales** definidas previamente. Su objetivo es validar la navegación real entre vistas, comprobar que las acciones principales conducen al estado esperado y representar de forma interactiva los recorridos previamente analizados mediante los wireflow diagrams.
+
+Cada pantalla utilizada en el prototipo mantiene la misma numeración y estructura que su wireframe y mock-up correspondiente. Esto permite relacionar directamente los artefactos del informe con las vistas implementadas en Figma y facilita la trazabilidad entre wireframe, mock-up, flujo y prototipo.
+
+Las versiones `EN` disponibles en Figma constituyen traducciones de las mismas pantallas y no se consideran prototipos funcionales adicionales dentro del conteo de 70 vistas.
+
+![Vista general del prototipo móvil](assets/mobile-app-prototyping-overview.png)
+
+*Figura. Vista general de las 70 pantallas utilizadas en el prototipo interactivo de Tata.*
+
+*Nota. Elaboración propia.*
+
+El prototipo contempla interacciones correspondientes al onboarding, registro del cuidador, inicio de sesión, vinculación, acceso mediante PIN, consulta de próximas tomas, medicamentos, agenda, confirmación por voz, seguimiento familiar, alertas, tratamientos, inventario, accesibilidad, preferencias, suscripción e internacionalización. Asimismo, los estados alternos de validación y error se conectan con las pantallas que representan sus respectivos resultados.
+
+La navegación inferior también fue incorporada al prototipo. Para el perfil del adulto mayor se utilizan las opciones **Inicio, Medicamentos, Agenda, Notas y Más**. La opción **Notas** conduce a la pantalla **21 Notes - Adult**. Para el perfil del familiar o cuidador se utilizan **Inicio, Alertas, Notas, Persona y Más**, donde la opción **Notas** conduce a la pantalla **27 Notes - Caregiver**.
+
+![Prototipo de navegación inferior del adulto mayor](assets/mobile-app-prototyping-older-adult-bottom-navigation.png)
+
+*Figura. Navegación inferior interactiva correspondiente al perfil del adulto mayor.*
+
+*Nota. Elaboración propia.*
+
+![Prototipo de navegación inferior del familiar o cuidador](assets/mobile-app-prototyping-caregiver-bottom-navigation.png)
+
+*Figura. Navegación inferior interactiva correspondiente al perfil del familiar o cuidador.*
+
+*Nota. Elaboración propia.*
+
+En las pantallas que incorporan una barra de navegación inferior, cada opción funciona como un destino independiente y no como un único elemento interactivo. De esta manera, el usuario puede desplazarse directamente entre las secciones principales desde las distintas vistas del prototipo, manteniendo el comportamiento esperado de una aplicación móvil.
+
+Las acciones contextuales también fueron conectadas con sus respectivos estados. Por ejemplo, la selección de un medicamento permite abrir su detalle, la agenda permite acceder a las tomas correspondientes, la confirmación por voz conduce al resultado de la toma, una alerta puede abrir su detalle y posteriormente actualizarse como atendida, y las configuraciones de accesibilidad conducen a vistas donde se evidencia la preferencia aplicada.
+
+La pantalla de inicio de sesión incorpora el acceso mediante correo electrónico y contraseña, además de las alternativas de continuación representadas en la interfaz. Por su parte, la pantalla de internacionalización extiende las configuraciones de accesibilidad mediante la selección del idioma de la aplicación y permite enlazar conceptualmente con las variantes traducidas de la interfaz.
+
+Las conexiones interactivas se consultan en el [prototipo original de Figma](https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2), donde se pueden inspeccionar los destinos de cada acción.
+
+La incorporación de las pantallas **21 Notes - Adult** y **27 Notes - Caregiver** completa la navegación de la opción Notas para ambos perfiles. Estas vistas permiten evitar destinos inexistentes dentro de la barra inferior y mantienen la diferenciación de contenido entre la información personal del adulto mayor y las notas de seguimiento registradas por el familiar o cuidador.
+
+Asimismo, la incorporación de **07 Login** proporciona un punto de acceso explícito para usuarios previamente registrados, mientras que **70 Internationalization** completa la configuración de idioma de la aplicación. Las traducciones `EN` derivadas de esta configuración mantienen la misma estructura funcional y no se contabilizan como pantallas independientes.
+
+En conjunto, el prototipo permite comprobar que los componentes visuales de los mock-ups no funcionan como elementos aislados, sino como parte de recorridos navegables. La relación entre wireframes, wireflows, mock-ups y prototipado proporciona continuidad entre la estructura inicial, los escenarios funcionales, la representación visual definitiva y la interacción esperada de la aplicación móvil de Tata.
+
+# Capítulo IV: Product Implementation & Validation
+
+## 4. Product Implementation & Validation
+
+## 4.1. Software Configuration Management
+
+### 4.1.1. Software Development Environment Configuration
+
+| Actividad | Producto | Propósito | Ruta de referencia / descarga |
+| --- | --- | --- | --- |
+| Project Management / Requirements Management | Trello | Gestión del Product Backlog, los Sprints y las User Stories, Technical Stories y Spike Stories | https://trello.com/b/wuHmMypU/apps-moviles |
+| Product UX/UI Design | Figma | Elaboración de Wireframes, Mock-ups y Prototypes del Landing Page y las aplicaciones móviles | https://www.figma.com/ |
+| Product UX/UI Design | UXPressia | Elaboración de User Personas, Empathy Maps, User Journey Maps e Impact Mapping | https://uxpressia.com |
+| Software Development | Android Studio | IDE para el desarrollo de la aplicación Android nativa (Kotlin) y la aplicación multiplataforma (Flutter) | https://developer.android.com/studio |
+| Software Development | Spring Boot Framework (Java) | Framework para el desarrollo del backend RESTful | https://spring.io/projects/spring-boot |
+| Software Development | Miro | Big Picture EventStorming, EventStorming, Candidate Context Discovery, Domain Message Flows y Bounded Context Canvases | https://miro.com/app/board/uXjVHq5Jc9w=/ |
+| Software Development | Structurizr | Elaboración de los diagramas C4 (Context, Container, Deployment) de la arquitectura de software | https://structurizr.com |
+| Software Development | PlantUML | Elaboración de los Class Diagrams del Domain Layer por Bounded Context | https://plantuml.com |
+| Software Development | Vertabelo | Diseño de los diagramas de base de datos por Bounded Context | https://vertabelo.com |
+| Software Testing | JUnit 5 + Mockito | Unit testing de las clases del backend | https://junit.org/junit5/ |
+| Software Testing | Cucumber-JVM | Integration/Acceptance testing en Gherkin de los endpoints del backend | https://cucumber.io/docs/installation/java/ |
+| Software Testing | Espresso | Testing de UI de la aplicación Android nativa | https://developer.android.com/training/testing/espresso |
+| Software Testing | flutter_test | Unit e integration testing de la aplicación multiplataforma | https://docs.flutter.dev/testing |
+| Software Deployment | Render / Railway (Docker) | Despliegue del backend como contenedor Docker | https://render.com / https://railway.com |
+| Software Deployment | Neon / Railway PostgreSQL | Base de datos PostgreSQL administrada | https://neon.tech |
+| Software Deployment | GitHub Pages | Despliegue del Landing Page | https://pages.github.com |
+| Software Documentation | Swagger / OpenAPI | Documentación de los endpoints del backend | https://swagger.io |
+
+### 4.1.2. Source Code Management
+
+Para el control de versiones de todos los productos de VitaHealth (Tata) se utiliza Git gestionado desde GitHub, aplicando GitFlow como workflow, Semantic Versioning para los releases y Conventional Commits para los mensajes de commit.
+ 
+#### Repositorios
+ 
+| Producto | Repositorio | Contenido |
+|---|---|---|
+| Landing Page | https://github.com/vitaHealth-UPC/landing-page | Sitio estático (HTML5, CSS3, JavaScript), publicado en GitHub Pages |
+| Web Services | https://github.com/vitaHealth-UPC/web-services | Proyecto del backend (RESTful API), pruebas unitarias y pruebas de integración/aceptación (archivos `.feature`) |
+| Mobile Application | https://github.com/vitaHealth-UPC/mobile-android | App Tata en Kotlin (Android) |
+| Frontend Web Application | `https://github.com/<org>/<web-app>` | Aplicación web (si aplica a su alcance) |
+ 
+#### GitFlow Workflow
+ 
+Se trabaja con dos ramas de vida larga y tres tipos de ramas de apoyo.
+ 
+##### Ramas permanentes
+ 
+- **`main`**: contiene únicamente código estable y listo para producción. Cada merge a `main` corresponde a un release y se etiqueta con su versión.
+- **`develop`**: rama de integración. Recibe todas las features terminadas y es la base de los release branches.
+##### Ramas de apoyo
+ 
+###### Feature branches
+ 
+- Se crean desde `develop` y se fusionan de vuelta a `develop` mediante Pull Request.
+- Convención: `feature/<descripcion-corta-en-kebab-case>`
+- Ejemplos: `feature/medication-reminders`, `feature/user-login`, `feature/caregiver-linking`
+- Se eliminan después del merge.
+###### Release branches
+ 
+- Se crean desde `develop` cuando el conjunto de features del sprint está completo. Solo admiten correcciones menores, ajustes de versión y documentación.
+- Convención: `release/<MAJOR.MINOR.PATCH>`, por ejemplo `release/1.0.0`
+- Se fusionan a `main` (con tag `vX.Y.Z`) y de vuelta a `develop`.
+###### Hotfix branches
+ 
+- Se crean desde `main` para corregir errores críticos detectados en producción.
+- Convención: `hotfix/<MAJOR.MINOR.PATCH>` con el siguiente PATCH, por ejemplo `hotfix/1.0.1`
+- Se fusionan a `main` (con nuevo tag) y a `develop`.
+##### Reglas de colaboración
+ 
+- No se hace push directo a `main` ni a `develop`; todo cambio entra por Pull Request con al menos una revisión de otro integrante.
+- Las ramas de feature se actualizan desde `develop` antes de abrir el PR para minimizar conflictos.
+#### Semantic Versioning 2.0.0
+ 
+Los releases siguen el formato `MAJOR.MINOR.PATCH`:
+ 
+- **MAJOR**: cambios incompatibles con versiones anteriores (por ejemplo, cambios que rompen la API).
+- **MINOR**: nueva funcionalidad compatible hacia atrás.
+- **PATCH**: corrección de errores compatible hacia atrás.
+Los tags se nombran `v1.0.0`, `v1.1.0`, `v1.1.1`. Las versiones previas a producción pueden usar sufijos como `v0.1.0` o `v1.0.0-beta.1`.
+ 
+#### Conventional Commits
+ 
+Los mensajes siguen la estructura:
+ 
+```
+<type>(<scope opcional>): <descripción en inglés, en imperativo>
+ 
+<cuerpo opcional>
+ 
+<footer opcional>
+```
+ 
+| Type | Uso |
+|---|---|
+| `feat` | Nueva funcionalidad |
+| `fix` | Corrección de un error |
+| `docs` | Cambios en documentación |
+| `style` | Formato, sin cambio de lógica |
+| `refactor` | Reestructuración de código sin cambiar comportamiento |
+| `test` | Creación o modificación de pruebas |
+| `chore` | Tareas de mantenimiento, configuración, dependencias |
+| `ci` | Cambios en integración/despliegue continuo |
+ 
+Ejemplos:
+ 
+- `feat(medication): add daily reminder scheduling`
+- `fix(auth): correct token expiration handling`
+- `test(medication): add acceptance scenarios for dose confirmation`
+- `feat(api)!: rename patient endpoint` (el `!` indica breaking change)
+#### Evidencia de commits
+ 
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
+|---|---|---|---|---|---|
+| user/repositoryname | feature/... | `abc1234` | `feat: ...` | ... | dd/mm/aaaa |
+
+### 4.1.3. Source Code Style Guide & Conventions
+
+En esta sección el equipo establece las guías de estilo y convenciones de código que se aplican en todos los productos de Tata. El objetivo es que el código escrito por los seis integrantes se lea como si lo hubiera escrito una sola persona, y que los nombres usados en el código correspondan a los conceptos definidos en el Ubiquitous Language (sección 2.3.6) y en el Tactical-Level Domain-Driven Design (sección 2.6).
+
+La solución utiliza los siguientes lenguajes, y para cada uno se adopta una guía de referencia:
+
+| Lenguaje | Producto de Tata | Guía de referencia adoptada |
+| --- | --- | --- |
+| HTML5 | Landing Page | HTML Style Guide and Coding Conventions (W3Schools) y Google HTML/CSS Style Guide |
+| CSS3 | Landing Page | Google HTML/CSS Style Guide |
+| JavaScript | Landing Page | Google JavaScript Style Guide |
+| Java (Spring Boot) | Web Services (backend y API Gateway) | Google Java Style Guide y Spring Boot Features |
+| Kotlin | Aplicación Android nativa | Kotlin Coding Conventions y Android Kotlin Style Guide |
+| Dart (Flutter) | Aplicación móvil multiplataforma | Effective Dart |
+| Gherkin | Archivos `.feature` de pruebas de aceptación (Cucumber-JVM) | Gherkin Conventions for Readable Specifications |
+| SQL | Base de datos PostgreSQL | Convenciones propias del equipo, alineadas con los Database Design Diagrams de la sección 2.6 |
+
+#### Convenciones generales
+
+Las siguientes reglas aplican a todos los repositorios, independientemente del lenguaje:
+
+- **Nomenclatura en inglés.** Clases, métodos, variables, archivos, carpetas, endpoints, tablas y columnas se nombran en inglés. Los conceptos del dominio se toman de la versión en inglés del Ubiquitous Language para no inventar sinónimos: `Intake` (toma), `Treatment` (tratamiento), `Medication` (medicamento), `CareLink` (vínculo de cuidado), `OlderAdult` (adulto mayor), `Caregiver` (cuidador), `OmissionCase` (caso de omisión), `Alert` (alerta), `QuietHours` (horario de silencio). Por ejemplo, se escribe `confirmIntake()` y no `confirmarToma()` ni `confirmDose()`.
+- **Textos visibles fuera del código, en dos idiomas.** Todo texto que ve el adulto mayor o el familiar se escribe en inglés como idioma por defecto y se traduce a español latinoamericano (es-419). Los textos se ubican en archivos de recursos y nunca como literales dentro de la lógica: `res/values/strings.xml` y `res/values-b+es+419/strings.xml` en Android, `i18n/messages.properties` y `messages_es_419.properties` en el backend, y el diccionario de `js/i18n.js` con atributos `data-i18n` en el Landing Page. Esto permite revisar el tono de comunicación definido en la sección 3.1.1.1 sin modificar el código.
+- **Comentarios en inglés** y solo cuando explican el *porqué* de una decisión (por ejemplo, por qué una toma confirmada dos veces no genera un segundo registro). No se deja código comentado en los commits.
+- **Formato de archivo.** Codificación UTF-8, fin de línea LF y un salto de línea al final de cada archivo. La indentación es de 2 espacios para HTML, CSS, JavaScript, Java, Gherkin y YAML, y de 4 espacios para Kotlin. El repositorio `mobile-android` incluye un archivo `.editorconfig` en la raíz; `landing-page` y `web-services` lo incorporarán en el Sprint 2.
+- **Tokens de diseño compartidos.** Los colores y espaciados de *Tata Design Foundations* (sección 3.1.1.1) se definen una sola vez por producto y los componentes los referencian por nombre, para que un cambio de marca se haga en un solo lugar: en el Landing Page como variables CSS en `:root` de `css/styles.css`, y en Android en los objetos del módulo `:shared` (`TataColors.kt` y `TataSpacing.kt`).
+
+| Token | Landing Page (CSS) | Android (Kotlin, módulo `:shared`) |
+| --- | --- | --- |
+| Azul marino principal | `--tata-navy`, `--color-primary` | `TataNavy` |
+| Morado de acento | `--tata-purple` | `TataPurple` |
+| Texto principal | `--color-text` | `TataText` |
+| Texto secundario | `--color-muted` | `TataMuted` |
+| Bordes | `--color-border` | `TataBorder` |
+| Fondo crema (tarjetas de estado) | — | `TataCream` |
+| Espaciado base 8 | — | `TataSpacing.sm = 8.dp` |
+
+#### HTML5 (Landing Page)
+
+Se sigue *HTML Style Guide and Coding Conventions* y *Google HTML/CSS Style Guide*:
+
+- Se declara `<!DOCTYPE html>` y `<html lang="en">`, porque el idioma por defecto del Landing Page es el inglés. Cuando el visitante cambia a español, `js/i18n.js` reemplaza los textos marcados con `data-i18n` y actualiza el atributo a `lang="es-419"`, para que los lectores de pantalla pronuncien el contenido correctamente. Se incluyen `<meta charset="UTF-8">`, la etiqueta `viewport` y las meta tags definidas en la sección 3.1.2.3 (title, description, keywords y author).
+- Nombres de elementos y atributos en minúsculas, valores de atributos entre comillas dobles y todos los elementos cerrados correctamente.
+- Se usan elementos semánticos (`header`, `nav`, `main`, `section`, `footer`) en lugar de `div` genéricos, y un único `h1` por página.
+- Toda imagen informativa tiene un atributo `alt` descriptivo (por ejemplo, `alt="Tata"` en el logotipo), y las imágenes decorativas usan `alt=""` para que los lectores de pantalla las omitan. Las secciones sin encabezado visible se describen con `aria-label` (por ejemplo, `aria-label="Tata benefits"`).
+- No se usan estilos ni scripts en línea (`style=""`, `onclick=""`); se enlazan desde archivos externos.
+- Los `id` y las clases se escriben en inglés y en *kebab-case*, y se nombran por su función, no por su apariencia: `plans-section`, `plan-card`, `contact-form`, en lugar de `purple-box` o `seccion2`.
+- Estructura del repositorio: `index.html` en la raíz, los estilos en `css/` (`styles.css` y `responsive.css`), los scripts en `js/` (`main.js` e `i18n.js`) y los recursos gráficos en `assets/` (`icons/`, `images/` y `logo/`). Los nombres de archivo van en minúsculas y en *kebab-case*.
+
+#### CSS3 (Landing Page)
+
+Se sigue *Google HTML/CSS Style Guide*:
+
+- Una declaración por línea, un espacio después de los dos puntos, punto y coma al final de cada declaración y una línea en blanco entre reglas.
+- Los colores hexadecimales se escriben en minúsculas dentro del código (`#173b70`), aunque en la documentación de diseño aparezcan en mayúsculas.
+- Los tokens de diseño se declaran como variables CSS en `:root` y el resto de las reglas solo las referencia:
+
+```css
+:root {
+  --color-primary: #173b70;
+  --color-ink: #0e1729;
+  --color-secondary: #7b879b;
+  --color-lavender: #f1ecff;
+  --color-canvas: #f8f8fe;
+  --font-display: "DM Serif Display", serif;
+  --font-body: "Inter", sans-serif;
+  --space-unit: 8px;
+}
+
+.plan-card {
+  padding: calc(var(--space-unit) * 3);
+  border-radius: 20px;
+  background-color: var(--color-lavender);
+}
+```
+
+- Los tamaños de fuente se expresan en `rem` para respetar la configuración de tamaño de texto del navegador, en coherencia con el uso de `sp` en las aplicaciones móviles.
+
+#### JavaScript (Landing Page)
+
+Se sigue *Google JavaScript Style Guide*:
+
+- Se usa `const` por defecto, `let` solo cuando la variable se reasigna, y nunca `var`.
+- Variables y funciones en *lowerCamelCase* (`validateContactForm`); constantes de módulo en *UPPER_SNAKE_CASE* (`CONTACT_FORM_ID`).
+- Comparaciones con `===` y `!==`, punto y coma al final de cada sentencia y comillas simples para cadenas.
+- Los eventos se registran con `addEventListener` desde `assets/js/main.js`, no con atributos en el HTML.
+
+```javascript
+const CONTACT_FORM_ID = 'contact-form';
+
+function validateContactForm(form) {
+  const email = form.elements.email.value.trim();
+  return email !== '' && email.includes('@');
+}
+
+document.getElementById(CONTACT_FORM_ID).addEventListener('submit', (event) => {
+  if (!validateContactForm(event.target)) {
+    event.preventDefault();
+  }
+});
+```
+
+#### Java y Spring Boot (Web Services)
+
+Se toma como referencia *Google Java Style Guide*: una clase de nivel superior por archivo, llaves obligatorias incluso en bloques de una línea y nombres descriptivos en inglés. El formato se aplica con el formateador de IntelliJ IDEA. En el Sprint 1 una parte de los archivos quedó con indentación de 4 espacios (valor por defecto del IDE) y otra con los 2 espacios de la guía; el equipo normalizará el formato a 2 espacios en el Sprint 2 con el archivo `.editorconfig` mencionado en las convenciones generales.
+
+**Nomenclatura:**
+
+| Elemento | Convención | Ejemplo en Tata |
+| --- | --- | --- |
+| Paquete | minúsculas, sin guiones bajos, nombre completo del Bounded Context | `com.tata.intakeexecution.domain.model.aggregates` |
+| Clase / Record / Enum | *UpperCamelCase*, sustantivo | `Intake`, `MedicationSnapshot`, `IntakeStatus` |
+| Método | *lowerCamelCase*, verbo | `confirm()`, `registerReplenishment()`, `consumeUnit()` |
+| Variable / atributo | *lowerCamelCase* | `scheduledAt`, `remainingStock` |
+| Constante | *UPPER_SNAKE_CASE* | `MAX_PERIOD_DAYS`, `MINIMUM_ISSUES_FOR_PATTERN` |
+| Valor de enum | *UPPER_SNAKE_CASE* | `PENDING`, `CONFIRMED`, `LATE`, `OMITTED`, `TOUCH`, `VOICE` |
+
+**Organización de paquetes por Bounded Context.** El backend es un único desplegable (sección 2.5.3), pero cada Bounded Context tiene su propio paquete raíz bajo `com.tata` y, dentro de él, las cuatro capas definidas en la sección 2.6:
+
+| Bounded Context | Paquete raíz |
+| --- | --- |
+| Identity & Subscription | `com.tata.identitysubscription` |
+| Care Link | `com.tata.carelink` |
+| Treatment Management | `com.tata.treatmentmanagement` |
+| Intake Execution | `com.tata.intakeexecution` |
+| Omission & Escalation | `com.tata.omissionescalation` |
+| Adherence Analytics | `com.tata.adherenceanalytics` |
+| Family Monitoring | `com.tata.familymonitoring` |
+| Accessibility & Preferences | `com.tata.accessibilitypreferences` |
+| Inventory & Replenishment | `com.tata.inventoryreplenishment` |
+| Elementos compartidos | `com.tata.shared` |
+
+Por ejemplo, el Bounded Context Intake Execution se organiza así en el repositorio:
+
+```text
+com.tata.intakeexecution
+├── domain
+│   ├── model
+│   │   ├── aggregates        -> Intake
+│   │   ├── valueobjects      -> MedicationSnapshot, IntakeStatus, ConfirmationChannel
+│   │   ├── commands          -> ConfirmIntakeCommand, ConfirmIntakeByVoiceCommand, GenerateIntakesCommand
+│   │   └── events            -> IntakeConfirmed, IntakeUnconfirmed
+│   ├── services              -> VoiceConfirmationValidationService
+│   └── repositories          -> IntakeRepository
+├── application
+│   ├── commandservices       -> ConfirmIntakeCommandService, ...          (contratos)
+│   ├── queryservices         -> GetNextIntakeQueryService, ...            (contratos)
+│   ├── models                -> IntakeResult, VoiceConfirmationResult
+│   ├── acl                   -> IntakeContextFacadeImpl
+│   └── internal
+│       ├── commandservices   -> ConfirmIntakeCommandHandler, ...          (implementaciones)
+│       ├── queryservices     -> GetNextIntakeQueryHandler, ...            (implementaciones)
+│       └── outboundservices  -> IVoiceRecognitionPort, IVoicePreferencePort
+├── interfaces
+│   ├── rest                  -> IntakesController, IntakeExceptionHandler
+│   │   ├── resources         -> IntakeResource, ConfirmIntakeResource, ...
+│   │   └── transform         -> IntakeResourceAssembler
+│   ├── acl                   -> IntakeContextFacade
+│   └── events                -> TreatmentScheduleChangedEventListener, ...
+└── infrastructure
+    ├── persistence/jpa
+    │   ├── entities          -> IntakePersistenceEntity
+    │   ├── repositories      -> IntakeJpaRepository
+    │   └── adapters          -> IntakeRepositoryImpl
+    ├── scheduling            -> IntakeUnconfirmedScheduler
+    └── external              -> VoiceRecognitionAdapter, HttpSpeechToTextProviderClient
+```
+
+**Sufijos por tipo de elemento.** Se mantienen los nombres definidos en el Tactical-Level Domain-Driven Design:
+
+| Tipo | Regla | Ejemplo |
+| --- | --- | --- |
+| Aggregate / Entity | Sustantivo del dominio, sin sufijo | `Intake`, `Treatment`, `Inventory`, `Batch` |
+| Value Object | Sustantivo, sin sufijo; se implementa como `record` cuando es inmutable | `MedicationSnapshot`, `StockLevel` |
+| Domain Event | Verbo en pasado, sin sufijo `Event` | `IntakeConfirmed`, `LowStockDetected`, `ReplenishmentRegistered` |
+| Command / Query | Verbo en imperativo + sufijo | `ConfirmIntakeCommand`, `GetRemainingStockQuery` |
+| Contrato de servicio de aplicación | Nombre + `CommandService` o `QueryService` | `ConfirmIntakeCommandService`, `InventoryQueryService` |
+| Implementación del servicio | Nombre + `CommandHandler`/`QueryHandler`, o contrato + `Impl` | `ConfirmIntakeCommandHandler`, `InventoryCommandServiceImpl` |
+| Repositorio (contrato de dominio) | Agregado + `Repository`, sin prefijo | `IntakeRepository`, `InventoryRepository` |
+| Repositorio (implementación) | Contrato + `Impl`, en `infrastructure/persistence/jpa/adapters` | `IntakeRepositoryImpl`, `InventoryRepositoryImpl` |
+| Repositorio de Spring Data / entidad JPA | Agregado + `JpaRepository` / `PersistenceEntity` | `IntakeJpaRepository`, `BatchPersistenceEntity` |
+| Puerto de salida (otro BC o servicio externo) | Prefijo `I` + nombre + `Port` | `IVoiceRecognitionPort`, `IMedicationLookupPort` |
+| Fachada ACL | Contexto + `ContextFacade` / `ContextFacadeImpl` | `TreatmentContextFacade`, `IntakeContextFacadeImpl` |
+| Resource (DTO REST) / Assembler | Sustantivo + `Resource` / `ResourceAssembler` | `InventoryResource`, `InventoryResourceAssembler` |
+| Controller | Recurso en plural + `Controller` | `IntakesController`, `TreatmentsController`, `InventoryController` |
+| Listener / Consumer / Scheduler | Responsabilidad + sufijo | `IntakeConfirmedEventListener`, `IntakeUnconfirmedScheduler` |
+
+El prefijo `I` se reserva para los **puertos de salida** de la capa Application, que representan dependencias hacia otro Bounded Context o hacia un servicio externo. Los repositorios de dominio no lo llevan: el contrato se llama como el agregado (`InventoryRepository`) y su implementación en Infrastructure añade el sufijo `Impl`. Algunos repositorios creados al inicio del Sprint 1 (`IOmissionCaseRepository`, `IFamilyMonitorRepository`, `IUserPreferencesRepository`) todavía conservan el prefijo y se renombrarán en el Sprint 2.
+
+**Convenciones de Spring Boot** (según *Spring Boot Features*):
+
+- Inyección de dependencias por constructor, con atributos `private final`; no se usa `@Autowired` sobre atributos.
+- Configuración externa en `application.properties` con perfiles `dev` y `prod` (`application-dev.properties` y `application-prod.properties`). El perfil activo se elige con `SPRING_PROFILES_ACTIVE`, que por defecto es `dev`. Las claves propias de Tata usan el prefijo `tata.` en *kebab-case*, por ejemplo `tata.cors.allowed-origins`.
+- Credenciales y cadenas de conexión se leen de variables de entorno y nunca se versionan en el repositorio.
+- Los mensajes de error visibles se resuelven con `MessageSource` desde `src/main/resources/i18n/messages.properties` (inglés) y `messages_es_419.properties` (español latinoamericano).
+
+**Convenciones de la API REST:**
+
+- Todas las rutas comienzan con `/api/v1`.
+- Los recursos se nombran con sustantivos en plural y en *kebab-case*: `/api/v1/treatments`, `/api/v1/medications`, `/api/v1/care-links`, `/api/v1/inventories`.
+- Las acciones que no son CRUD se modelan como subrecursos: la reposición de un inventario (US-43, TS-12) es `POST /api/v1/inventories/{medicationId}/replenishments`.
+- Las propiedades JSON se escriben en *lowerCamelCase* (`remainingStock`, `replenishmentThreshold`), que es el comportamiento por defecto de Jackson.
+- Los errores se devuelven con un cuerpo uniforme `{ "code": "...", "message": "..." }`. El `code` es estable y en *UPPER_SNAKE_CASE* (`INVENTORY_NOT_FOUND`, `INVENTORY_ALREADY_EXISTS`, `CONCURRENT_UPDATE`) para que las aplicaciones móviles lo traduzcan sin depender del texto.
+- Los códigos HTTP se usan según su significado: `200` y `201` para éxito, `400` para validación, `401` y `403` para autenticación o permisos, `404` para recursos inexistentes y `409` para conflictos de estado.
+
+**Pruebas.** Las clases de prueba se nombran como la clase probada más `Test` (`StockCoveragePolicyTest`, `InventoryRepositoryImplTest`). Las pruebas del backend usan una base H2 en memoria, de modo que se ejecutan sin PostgreSQL con `mvn test`.
+
+#### Kotlin (Aplicación Android nativa)
+
+Se siguen *Kotlin Coding Conventions* y *Android Kotlin Style Guide*, usando el esquema de formato *Kotlin style guide* de Android Studio: indentación de 4 espacios. La interfaz se construye con Jetpack Compose.
+
+- **Un módulo Gradle por Bounded Context**: `:identity`, `:carelink`, `:treatment`, `:intake`, `:omission`, `:monitoring`, `:analytics`, `:inventory` y `:preferences`. El módulo `:shared` contiene el tema, los componentes de diseño y la sesión, y el módulo `:app` contiene la navegación y la inyección de dependencias (`AppContainer`, `TataNavHost`).
+- Paquete base `com.vitahealth.tata.<contexto>` y, dentro de cada módulo, las capas `domain`, `application` (`commands`, `queries`, `handlers`, `readmodels`), `infrastructure` (`remote`, `local`) y `presentation`. Por ejemplo, `com.vitahealth.tata.inventory.presentation.inventory`.
+- Clases en *UpperCamelCase*; funciones y propiedades en *lowerCamelCase*; constantes (`const val`) en *UPPER_SNAKE_CASE*. El estado interno mutable de un ViewModel usa el prefijo `_` y se expone como inmutable: `private val _uiState` y `val uiState: StateFlow<...>`.
+- Sufijos por responsabilidad: `InventoryViewModel`, `InventoryUiState` (interfaz *sealed* con un estado por variante, por ejemplo `Loading`, `NotInitialized`, `Ready` y `Error`), `InventoryScreen` (composable sin estado) e `InventoryRoute` (composable que conecta el ViewModel), `RegisterReplenishmentCommand`, `RegisterReplenishmentCommandHandler`, `InventoryStockReadModel`, `InventoryApiService` (Retrofit) y `RemoteInventoryRepository`.
+- Un *frame* de Figma no equivale a una pantalla: los estados de una misma vista (stock bajo, stock disponible, cantidad inválida) se representan como variantes de su `UiState`, y cada una tiene su `@Preview`.
+- Los errores del backend se traducen por su `code` estable a recursos de texto; el texto nunca se toma directamente del `message` del backend.
+- Recursos en *snake_case* con el prefijo del módulo o de la pantalla: `inventory_status_low`, `treatment_open_inventory`, `agenda_bell.png`.
+- Los textos visibles están en `res/values/strings.xml` (inglés, por defecto) y `res/values-b+es+419/strings.xml` (español latinoamericano). Las vistas previas en español se declaran con `@Preview(locale = "b+es+419")`.
+- Los tamaños de texto se definen en `sp` y las dimensiones en `dp`, respetando la escala de la sección 3.1.1.1.
+
+#### Dart y Flutter (Aplicación móvil multiplataforma)
+
+Se sigue *Effective Dart* y se aplica el formateador oficial (`dart format`, 2 espacios y 80 caracteres por línea). El análisis estático se hace con `flutter analyze` usando las reglas de `flutter_lints` declaradas en `analysis_options.yaml`.
+
+- Archivos y carpetas en *lowercase_with_underscores*: `next_intake_screen.dart`, `intake_repository.dart`.
+- Clases, enums y typedefs en *UpperCamelCase* (`NextIntakeScreen`, `IntakeStatus`). Variables, funciones, parámetros y constantes en *lowerCamelCase*, incluidas las constantes (`const primaryColor`), tal como indica *Effective Dart*.
+- Los miembros privados de una librería llevan el prefijo `_` (`_confirmIntake()`).
+- Las importaciones se ordenan en tres bloques: `dart:`, luego `package:` y al final las importaciones relativas.
+- Estructura por Bounded Context: `lib/features/intake/{data,domain,presentation}` y los elementos comunes (tema, tokens, cliente HTTP) en `lib/core/`.
+- Los widgets reutilizables se nombran por su función: `IntakeCard`, `PrimaryConfirmButton`, `VoiceConfirmationButton`.
+
+#### Gherkin (archivos `.feature`)
+
+Se sigue *Gherkin Conventions for Readable Specifications*:
+
+- Las palabras clave (`Feature`, `Scenario`, `Given`, `When`, `Then`) y los textos se escriben en inglés, en coherencia con la regla de nomenclatura del enunciado.
+- Un archivo `.feature` por User Story o Technical Story, ubicado en `src/test/resources/features/<bounded-context>/` y nombrado en *snake_case* con el identificador de la historia: `ts04_intake_confirmation_api.feature`.
+- Cada `Feature` lleva etiquetas con el identificador de la historia y su Bounded Context (`@TS-04 @intake`), para trazarla con el Product Backlog.
+- `Given` describe el contexto, `When` una sola acción y `Then` un resultado observable. Los escenarios se redactan en tercera persona y en tiempo presente, sin detalles de interfaz. Se usa `Background` para el contexto compartido y `Scenario Outline` con `Examples` cuando solo cambian los datos.
+- Las clases de step definitions se nombran con el sufijo `StepDefinitions`: `IntakeConfirmationStepDefinitions`.
+
+Ejemplo basado en los criterios de aceptación de TS-04:
+
+```gherkin
+@TS-04 @intake
+Feature: Intake confirmation API
+  As a developer
+  I want to register the confirmation of an intake
+  So that its status is updated idempotently
+
+  Background:
+    Given a pending intake with id 101 exists for an older adult
+
+  Scenario: Confirm a pending intake by tap
+    When a POST request is sent to "/api/v1/intakes/101/confirmations" with channel "TAP"
+    Then the response status is 200
+    And the intake 101 has status "CONFIRMED"
+
+  Scenario: A repeated confirmation does not create a duplicate record
+    Given the intake 101 has already been confirmed
+    When a POST request is sent to "/api/v1/intakes/101/confirmations" with channel "TAP"
+    Then intake 101 has exactly one confirmation registered
+```
+
+#### SQL (PostgreSQL)
+
+Las convenciones siguen lo ya definido en los Database Design Diagrams de la sección 2.6:
+
+- Tablas en plural y en *snake_case*: `intakes`, `treatments`, `care_links`, `omission_cases`.
+- Columnas en *snake_case*. La clave primaria se llama `id` y las referencias lógicas a otros Bounded Contexts siguen el formato `<entidad>_id` (`treatment_id`, `older_adult_id`).
+- Las fechas y horas terminan en `_at` (`scheduled_at`, `confirmed_at`) y todas las tablas incluyen las columnas de auditoría `created_at` y `updated_at`.
+- Los enums se almacenan como texto en mayúsculas (`PENDING`, `TOUCH`), con los mismos valores que en Java.
+- Las referencias a entidades de otro Bounded Context se guardan como identificadores UUID en texto (`varchar(36)`), sin clave foránea, porque cada contexto es dueño de sus tablas. Por ejemplo, `inventories.medication_id` referencia a un medicamento de Treatment Management.
+- En las entidades JPA los atributos se escriben en *lowerCamelCase* (`scheduledAt`). La estrategia de nombres del proyecto (`SnakeCaseWithPluralizedTablePhysicalNamingStrategy`, en `com.tata.shared`) los convierte automáticamente a *snake_case* y pluraliza el nombre de la tabla, por lo que no es necesario repetir `@Column(name = ...)` ni `@Table(name = ...)` salvo excepciones.
+
+
+### 4.1.4. Software Deployment Configuration
+
+En esta sección el equipo especifica la configuración y los pasos para desplegar o publicar cada producto digital de Tata a partir de su repositorio de código fuente. La solución comprende cuatro productos desplegables y una base de datos:
+
+| Producto | Repositorio | Plataforma de despliegue | Rama que se despliega | URL / forma de acceso |
+| --- | --- | --- | --- | --- |
+| Landing Page | [landing-page](https://github.com/vitaHealth-UPC/landing-page) | GitHub Pages | `main` | https://vitahealth-upc.github.io/landing-page/ |
+| Web Services (API Gateway y módulos de los 9 Bounded Contexts) | [web-services](https://github.com/vitaHealth-UPC/web-services) | Render o Railway, como servicio con Docker | `main` | `https://<servicio>/swagger-ui.html` |
+| Base de datos central | — | PostgreSQL administrado (Neon o Railway) | — | Solo accesible desde el backend, mediante `DATABASE_URL` |
+| Aplicación Android nativa (Kotlin) | [mobile-android](https://github.com/vitaHealth-UPC/mobile-android) | Firebase App Distribution | `main` | Invitación por correo a los testers |
+| Aplicación multiplataforma (Flutter) |  | Firebase App Distribution | `main` | Invitación por correo a los testers |
+
+**Relación con el flujo de trabajo.** De acuerdo con el modelo GitFlow descrito en la sección 4.1.2, solo la rama `main` se despliega en producción. El trabajo diario se integra en `develop` y se prueba en local. Cuando una versión está lista, se crea la rama `release/x.y.z`, se integra en `main` y se etiqueta como `vx.y.z` siguiendo Semantic Versioning. Esa integración en `main` es la que dispara o habilita cada despliegue descrito a continuación.
+
+**Manejo de credenciales.** Ningún repositorio contiene contraseñas, API keys ni keystores de firma. Estos valores se configuran como variables de entorno en la plataforma de despliegue o se guardan fuera del repositorio (archivos incluidos en `.gitignore`) y se comparten solo entre los integrantes del equipo.
+
+#### Landing Page: GitHub Pages
+
+El Landing Page es un sitio estático (HTML5, CSS3 y JavaScript), por lo que se publica directamente desde su repositorio sin un proceso de compilación.
+
+1. Verificar que el repositorio del Landing Page sea **público** dentro de la organización `vitaHealth-UPC`, ya que GitHub Pages para organizaciones con plan gratuito solo publica repositorios públicos.
+2. Verificar que `index.html` se encuentre en la raíz de la rama `main`.
+3. Verificar que las rutas a estilos, scripts e imágenes sean **relativas** (`assets/css/styles.css` y no `/assets/css/styles.css`). GitHub Pages sirve el sitio bajo la subruta `/<repositorio>/`, y las rutas absolutas dejarían el sitio sin estilos.
+4. En el repositorio, ir a **Settings → Pages → Build and deployment**, seleccionar **Source: Deploy from a branch**, elegir la rama `main` y la carpeta `/ (root)`, y guardar.
+5. GitHub ejecuta automáticamente el workflow `pages-build-deployment`, cuyo avance puede verse en la pestaña **Actions**. Al terminar, el sitio queda disponible en `https://vitahealth-upc.github.io/<repositorio>/`.
+6. Cada nueva integración en `main` vuelve a publicar el sitio automáticamente. Después de cada publicación se verifica en el navegador que carguen las secciones del Landing Page y que las meta tags de la sección 3.1.2.3 aparezcan en el código fuente de la página.
+
+#### Web Services: Docker en Render o Railway, y PostgreSQL administrado
+
+Según la sección 2.5.3.3, el API Gateway y los módulos de los nueve Bounded Contexts se ejecutan juntos en un único desplegable. Por ello el backend se publica como **un solo servicio web** a partir de una imagen Docker construida desde el repositorio, conectado a **una instancia de PostgreSQL administrada**. El repositorio deja preparadas dos plataformas que construyen la misma imagen: **Render** (Web Service con entorno Docker) y **Railway** (archivo `railway.toml`). La base de datos se aloja en un servicio PostgreSQL administrado (Neon o Railway PostgreSQL), y el backend acepta directamente la URL que entregan estos servicios.
+
+**Configuración incluida en el repositorio del backend:**
+
+a) Un `Dockerfile` en la raíz, de dos etapas, que compila el proyecto con Maven y Java 26 y ejecuta el `.jar` resultante con el perfil `prod`:
+
+```dockerfile
+FROM maven:3.9.16-eclipse-temurin-26 AS build
+WORKDIR /workspace
+COPY pom.xml .
+COPY src ./src
+RUN mvn --batch-mode -DskipTests package
+
+FROM eclipse-temurin:26-jre-noble
+WORKDIR /app
+ENV SPRING_PROFILES_ACTIVE=prod
+ENV JAVA_OPTS=""
+COPY --from=build /workspace/target/web-services-*.jar /app/app.jar
+EXPOSE 8080
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
+```
+
+b) Un archivo `application-prod.properties` que toma toda la configuración de variables de entorno, con valores por defecto seguros:
+
+```properties
+server.port=${PORT:8080}
+spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:tata}}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME:${DATABASE_USER:}}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:${DATABASE_PASSWORD:}}
+spring.jpa.hibernate.ddl-auto=${DDL_AUTO:update}
+tata.cors.allowed-origins=${TATA_CORS_ALLOWED_ORIGINS:*}
+```
+
+c) La clase `DatabaseUrlEnvironmentPostProcessor`, que convierte automáticamente la variable `DATABASE_URL` con formato `postgresql://usuario:contraseña@host/base?sslmode=require` (el formato que entregan Neon, Railway y Render) al formato JDBC que necesita Spring Boot, conservando `sslmode`. Así no es necesario armar la URL JDBC a mano.
+
+d) Un endpoint de salud `GET /health` (`HealthController`), que la plataforma usa para verificar que el servicio inició, y la documentación Swagger/OpenAPI generada por `springdoc-openapi` en `/swagger-ui.html`.
+
+e) El archivo `railway.toml`, que indica a Railway construir con el `Dockerfile`, usar `/health` como health check y reiniciar el servicio ante fallos (hasta 5 reintentos).
+
+**Pasos de despliegue:**
+
+1. Crear la base de datos PostgreSQL en el servicio administrado (Neon o Railway) con el nombre `tata` y copiar su cadena de conexión (`postgresql://...`).
+2. En Render, iniciar sesión con GitHub, autorizar el acceso al repositorio `web-services` de la organización `vitaHealth-UPC` y crear el servicio desde **New → Web Service**, con entorno **Docker**. Render detecta el `Dockerfile` de la raíz. En Railway, el equivalente es **New Project → Deploy from GitHub repo**, que detecta el `railway.toml`.
+3. Registrar las variables de entorno del servicio:
+
+| Variable | Valor |
+| --- | --- |
+| `SPRING_PROFILES_ACTIVE` | `prod` (ya definida en el `Dockerfile`) |
+| `DATABASE_URL` | Cadena de conexión `postgresql://...` del paso 1; se convierte a JDBC automáticamente |
+| `DATABASE_HOST` / `DATABASE_PORT` / `DATABASE_NAME` / `DATABASE_USER` / `DATABASE_PASSWORD` | Alternativa a `DATABASE_URL`, con los datos de conexión por separado |
+| `PORT` | La define la plataforma; la aplicación la toma con `server.port=${PORT:8080}` |
+| `TATA_CORS_ALLOWED_ORIGINS` | Orígenes permitidos, separados por comas |
+
+4. Configurar `/health` como **Health Check Path** (en Railway ya viene definido en `railway.toml`) y dejar el despliegue automático activado.
+5. Ejecutar el primer despliegue y revisar los logs hasta ver que Spring Boot inició correctamente.
+6. Verificar el despliegue abriendo `https://<servicio>/health` y la documentación en `https://<servicio>/swagger-ui.html`, y ejecutando desde ella una operación de prueba, por ejemplo la consulta del inventario de un medicamento (US-41).
+
+**Consideraciones de los planes gratuitos:**
+- El servicio web puede suspenderse tras un periodo sin tráfico, y la primera solicitud posterior puede tardar cerca de un minuto. Antes de cada sustentación y de las entrevistas de validación, el equipo abre `/health` para activarlo.
+- Las bases de datos gratuitas tienen límites de almacenamiento o de duración. El equipo revisa esos límites en el panel del proveedor y, si es necesario, exporta los datos con `pg_dump` y los restaura en una nueva instancia para llegar al TB2 con la información intacta.
+
+#### Aplicaciones móviles: Firebase App Distribution
+
+Las dos aplicaciones móviles se distribuyen como archivos APK firmados mediante **Firebase App Distribution**, que es el servicio que el enunciado exige para el TB2. Se usa un único proyecto de Firebase para Tata, que también provee Firebase Cloud Messaging para las notificaciones push. Dentro de ese proyecto se registran dos aplicaciones Android con identificadores distintos, para que ambas puedan instalarse en el mismo dispositivo.
+
+**Preparación común (una sola vez):**
+
+1. En la consola de Firebase, crear el proyecto de Tata con la cuenta del equipo.
+2. Registrar la aplicación Android nativa con el identificador `com.vitahealth.tata` y la aplicación Flutter con `com.vitahealth.tata.flutter`, y descargar el archivo `google-services.json` de cada una.
+3. En **App Distribution**, crear el grupo de testers `vitahealth-team` con los correos de los seis integrantes, y el grupo `validation-users` para los participantes de las entrevistas de validación (sección 4.3).
+4. Generar una llave de firma (*keystore*) por aplicación. El archivo `.jks` y sus contraseñas se guardan **fuera del repositorio** y se comparten solo dentro del equipo, porque cada versión nueva de una app debe firmarse con la misma llave para poder instalarse sobre la anterior.
+
+**Aplicación Android nativa (Kotlin):**
+
+1. Copiar `google-services.json` en la carpeta `app/`.
+2. Definir la URL del backend. En `app/build.gradle.kts` la URL se lee de la propiedad de Gradle `TATA_API_BASE_URL` y, si no se indica, apunta al backend local desde el emulador (`http://10.0.2.2:8080/`). Para la versión distribuida se compila indicando la URL del backend desplegado, sin escribirla en el código:
+
+```kotlin
+defaultConfig {
+    val apiBaseUrl = providers.gradleProperty("TATA_API_BASE_URL")
+        .orElse("http://10.0.2.2:8080/").get()
+    buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl}\"")
+}
+```
+
+3. Configurar `signingConfigs.release` para que lea la ruta y las contraseñas de la llave desde un archivo `keystore.properties`, incluido en `.gitignore`.
+4. Actualizar `versionName` con la versión semántica de la release (por ejemplo, `1.0.0`) e incrementar `versionCode` en cada distribución.
+5. Generar el APK firmado con `./gradlew assembleRelease -PTATA_API_BASE_URL=https://<servicio>/`. El archivo se genera en `app/build/outputs/apk/release/app-release.apk`.
+6. En **Firebase → App Distribution**, seleccionar la aplicación `com.vitahealth.tata`, subir el APK, escribir las notas de versión con las User Stories incluidas y distribuirlo a los grupos correspondientes.
+7. Cada tester recibe un correo de invitación, acepta la distribución e instala el APK en su dispositivo físico, habilitando la instalación de aplicaciones de origen desconocido. Este es el dispositivo que se usa en la sustentación, como exige el enunciado.
+
+**Aplicación multiplataforma (Flutter):**
+
+1. Copiar `google-services.json` en `android/app/`.
+2. Declarar la versión en `pubspec.yaml` con el formato `version: 1.0.0+1`, donde la parte anterior al `+` es la versión semántica y la posterior es el número de compilación, que se incrementa en cada distribución.
+3. Leer la URL del backend en tiempo de compilación, para no escribirla dentro del código:
+
+```dart
+const apiBaseUrl = String.fromEnvironment(
+  'API_BASE_URL',
+  defaultValue: 'http://10.0.2.2:8080/api/v1',
+);
+```
+
+4. Configurar la firma en `android/app/build.gradle.kts` a partir de un archivo `android/key.properties`, incluido en `.gitignore`, siguiendo la guía oficial de Flutter para compilaciones Android de release.
+5. Generar el APK firmado con `flutter build apk --release --dart-define=API_BASE_URL=https://<servicio>/api/v1`. El archivo se genera en `build/app/outputs/flutter-apk/app-release.apk`.
+6. Subir el APK en **Firebase → App Distribution** para la aplicación `com.vitahealth.tata.flutter` y distribuirlo igual que la aplicación nativa.
+
+En el alcance actual, ambas aplicaciones se distribuyen como APK para Android, que es la plataforma de los dispositivos físicos usados en la sustentación y en las entrevistas de validación. La distribución de una compilación para iOS requiere una cuenta de Apple Developer Program y no forma parte de esta configuración.
+
+#### Deployment Diagram
+
+El siguiente Deployment Diagram del C4 Model, presentado inicialmente en la sección 2.5.3.3, muestra la distribución de los productos de Tata en producción. Con la configuración descrita en esta sección, los nodos del diagrama corresponden a las siguientes plataformas:
+
+| Nodo del diagrama | Plataforma elegida |
+| --- | --- |
+| Hosting web estático / CDN | GitHub Pages |
+| Plataforma de aplicaciones en la nube (API Gateway y módulos de los Bounded Contexts) | Render Web Service o Railway, con la imagen Docker del backend |
+| Servicio administrado de PostgreSQL | Neon o Railway PostgreSQL |
+| Dispositivo Android / Dispositivo móvil multiplataforma | Dispositivos físicos de los testers, con las apps instaladas desde Firebase App Distribution |
+| Servicio de notificaciones | Firebase Cloud Messaging |
+| Servicio Speech-to-Text | Proveedor seleccionado en el Spike 1, consumido desde Intake Execution BC |
+| Servicio de correo | Proveedor de correo transaccional, consumido desde Identity & Subscription BC |
+
+![Diagrama de Despliegue de Tata](assets/software-architecture-deployment-diagram.svg)
+
+*Figura. Deployment Diagram de Tata en producción.*
+
+Las evidencias de la ejecución de estos pasos en cada Sprint (creación de cuentas, configuración de recursos y capturas de los despliegues) se presentan en la sección *Software Deployment Evidence for Sprint Review* del Sprint correspondiente.
+
+## 4.2. Landing Page & Mobile Application Implementation
+### 4.2.1. Sprint 1
+#### 4.2.1.1. Sprint Planning 1
+
+El Sprint Planning 1 define el alcance del primer sprint de implementación de Tata. Al ser el primer sprint del proyecto, parte de lo ya documentado en los capítulos I y II (segmentos objetivo, user stories, Product Backlog y bounded contexts) y del diseño UI/UX elaborado en Figma, que sirve de insumo directo para la implementación. El alcance corresponde a las 25 historias que el Product Backlog asigna al Sprint 1: el Landing Page (EPIC-09), el registro y la vinculación de cuentas (EPIC-01), la creación de tratamientos y la consulta de la próxima toma (EPIC-02 y EPIC-03), las Technical Stories que habilitan esos flujos en los servicios web y dos Spike Stories de investigación.
+
+| Campo | Detalle |
+| --- | --- |
+| **Sprint #** | Sprint 1 |
+| **Sprint Planning Background** | |
+| Date | [YYYY-MM-DD] |
+| Time | [HH:MM AM/PM] |
+| Location | [Reunión virtual / presencial] |
+| Prepared By | Diaz Yurivilca, Sofia |
+| Attendees (to the meeting) | Quispe Pérez, Eder Edu / Diaz Yurivilca, Sofia / Morales Venegas, David Joel / Cabrera Novoa, Leonardo Moises / Alfaro Mallma, Joaquín Alberto / Velasquez Laquihuanaco, Eduardo David |
+| **Sprint 0 Review Summary** | |
+| Review | No aplica. El Sprint 1 es el primer sprint de implementación del proyecto. Como antecedente, en la entrega AV1 se completaron los capítulos I y II y el diseño del Landing Page y de las pantallas principales quedó definido en Figma. |
+| Retrospective Summary | No aplica. La primera retrospectiva se documentará al cierre del Sprint 1. |
+| **Sprint Goal & User Stories** | |
+| Sprint 1 Goal | **Nuestro foco** está en publicar el Landing Page de Tata y construir los primeros servicios web y vistas de la aplicación Android que permiten al familiar registrarse, vincularse con el adulto mayor, configurar su tratamiento y consultar la próxima toma.<br>**Creemos que esto entrega** a los familiares de adultos mayores un primer recorrido completo, desde conocer Tata hasta dejar configurado el tratamiento, y al equipo una base técnica (APIs, agenda de tomas y autenticación) sobre la que construir los siguientes sprints.<br>**Esto se confirmará cuando** un visitante pueda recorrer el Landing Page publicado en GitHub Pages y llegar al registro o contacto, y un familiar pueda, desde la aplicación Android conectada a los servicios web, crear su cuenta, vincular al adulto mayor, registrar un medicamento con su tratamiento y ver la próxima toma.<br>**Métrica de cumplimiento:** 25 de 25 historias del Sprint 1 (81 Story Points) implementadas e integradas en `develop`. |
+| Sprint 1 Velocity | 81 Story Points (asignación inicial del Product Backlog; primer sprint, sin velocidad histórica previa) |
+| Sum of Story Points | 81 Story Points |
+
+**User Stories incluidas en el Sprint 1**
+
+| Story ID | Título | Epic | Story Points |
+| --- | --- | --- | --- |
+| US-05 | Recordatorio de toma de medicamento | EPIC-03 | 3 |
+| US-03 | Registro de un nuevo medicamento | EPIC-02 | 5 |
+| US-02 | Vinculación con la cuenta del adulto mayor | EPIC-01 | 5 |
+| US-14 | Creación de un tratamiento | EPIC-02 | 3 |
+| US-15 | Definición de dosis y frecuencia | EPIC-02 | 3 |
+| US-16 | Configuración de horarios e instrucciones | EPIC-02 | 3 |
+| US-17 | Configuración de recordatorios | EPIC-02 | 3 |
+| US-20 | Consulta de la próxima toma | EPIC-03 | 2 |
+| US-46 | Consulta de la propuesta de valor de Tata | EPIC-09 | 2 |
+| US-47 | Consulta de funcionalidades principales | EPIC-09 | 2 |
+| US-49 | Continuación hacia registro o contacto | EPIC-09 | 2 |
+| US-50 | Acceso adaptable al Landing Page | EPIC-09 | 3 |
+| US-48 | Comparación de planes disponibles | EPIC-09 | 2 |
+| US-10 | Registro de cuenta del familiar | EPIC-01 | 3 |
+| US-11 | Verificación del correo del familiar | EPIC-01 | 2 |
+| US-01 | Ingreso simplificado a la aplicación | EPIC-01 | 3 |
+| US-12 | Registro del perfil del adulto mayor | EPIC-01 | 3 |
+| US-13 | Consentimiento para establecer el vínculo | EPIC-01 | 3 |
+| TS-03 | API de medicamentos y tratamientos | EPIC-02 | 5 |
+| TS-08 | Servicio de generación de agenda de tomas | EPIC-03 | 5 |
+| TS-02 | API de vinculación de cuidado | EPIC-01 | 5 |
+| TS-07 | API de cuenta y sesión del familiar | EPIC-01 | 5 |
+| TS-01 | Servicio de autenticación mediante PIN | EPIC-01 | 3 |
+| SP-01 | Investigación de reconocimiento de voz | EPIC-03 | 3 |
+| SP-03 | Investigación de ejecución en segundo plano | EPIC-03 | 3 |
+| **Total** | | | **81** |
+
+#### 4.2.1.2. Aspect Leaders and Collaborators
+#### 4.2.1.3. Sprint Backlog 1
+#### 4.2.1.4. Development Evidence for Sprint Review
+
+Durante el Sprint 1 el equipo trabajó en tres productos, cada uno en su propio repositorio de la organización `vitaHealth-UPC`: el Landing Page, los Web Services y la aplicación Android nativa.
+
+El **Landing Page** se implementó como sitio estático con HTML5, CSS3 y JavaScript, siguiendo el diseño de Figma. Es responsivo, está disponible en español e inglés y se despliega en GitHub Pages mediante GitHub Actions desde `develop` y `main`.
+
+Los **Web Services** se construyeron como un monolito modular con Java y Spring Boot, organizado en los bounded contexts definidos en el capítulo II y respaldado por PostgreSQL. Cada Technical Story se desarrolló en su propia rama (por ejemplo, `feature/ts-08-intake-schedule-generation`) y se integró a `develop` mediante Pull Request. El repositorio cuenta con pruebas automatizadas y un workflow de GitHub Actions que ejecuta `mvn test` y el empaquetado en cada PR.
+
+La **aplicación Android** se implementó con Kotlin y Jetpack Compose en una arquitectura modular por bounded context. Dentro de ella, el bounded context de analítica de adherencia incorporó las vistas de historial de adherencia y de recomendaciones, conectadas a los endpoints `summary` e `insight` de los Web Services, con una barra de navegación inferior compartida. Estas historias (US-08, US-09, US-32, US-33, US-34 y TS-10) están asignadas al Sprint 3 en el Product Backlog y se adelantaron durante el Sprint 1.
+
+El trabajo siguió GitFlow, tal como se describe en la sección 4.1.2. La siguiente tabla lista los commits integrados a `develop` en cada repositorio, con la rama de feature de la que proceden.
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
+| --- | --- | --- | --- | --- | --- |
+| `vitaHealth-UPC/landing-page` | `develop` | `728b07f` | `chore: initialize landing page scaffold` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `e7eebc1` | `feat: add semantic landing page structure` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `a7bb651` | `style: add landing page design foundation` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `6857a2a` | `style: add responsive breakpoints` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `c42be5d` | `feat: add en_US and es_419 internationalization foundation` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `aacf8cf` | `feat: add landing page bootstrap script` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `1bcdaad` | `chore: add gitignore` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `3d1cecf` | `chore: add image assets directory` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `3049f16` | `chore: add icon assets directory` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `054545a` | `chore: add logo assets directory` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `01ef128` | `ci: add GitHub Pages preview from develop` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `53cd222` | `feat: add Figma assets for header and hero` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `e8c8d29` | `feat: implement Figma header and hero markup` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `78c2c11` | `style: match Figma header and hero` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `855e614` | `style: add responsive behavior for Figma header and hero` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `7dda14a` | `fix: preserve Figma hero title emphasis` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/header-hero` | `ccfd959` | `feat: localize Figma header and hero` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `c51279d` | `feat: implement Figma header and hero` | * feat: add Figma assets for header and hero<br>* feat: implement Figma header and hero markup<br>* style: match Figma header and hero<br>* style: add responsive behavior for Figma header and hero<br>* fix: preserve Figma hero title emphasis<br>* feat: localize Figma header and hero | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/value-features` | `db84c10` | `feat: add Figma assets for value strip and features` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/value-features` | `3e1a18d` | `feat: implement value strip and features markup` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/value-features` | `4029b07` | `style: match Figma value strip and features` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/value-features` | `ca0e3da` | `style: add responsive behavior for value strip and features` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/value-features` | `7af93c7` | `feat: localize value strip and features` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `a15c213` | `feat: implement value strip and features` | * feat: add Figma assets for value strip and features<br>* feat: implement value strip and features markup<br>* style: match Figma value strip and features<br>* style: add responsive behavior for value strip and features<br>* feat: localize value strip and features | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/app-showcase-how-it-works` | `db06f08` | `feat: add Figma assets for app showcase and steps` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/app-showcase-how-it-works` | `af4e8a9` | `feat: implement app showcase and how-it-works markup` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/app-showcase-how-it-works` | `03bd895` | `style: match Figma app showcase and how-it-works` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/app-showcase-how-it-works` | `8fdc873` | `style: add responsive app showcase and steps` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/app-showcase-how-it-works` | `7c182e3` | `feat: localize app showcase and how-it-works` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `02a28fa` | `feat: implement app showcase and how it works` | * feat: add Figma assets for app showcase and steps<br>* feat: implement app showcase and how-it-works markup<br>* style: match Figma app showcase and how-it-works<br>* style: add responsive app showcase and steps<br>* feat: localize app showcase and how-it-works | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `d5c79fb` | `feat: add Figma assets for testimonial and about` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `190a47f` | `feat: implement testimonial and about markup` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `ece75a4` | `style: match Figma testimonial and about sections` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `af55589` | `style: add responsive testimonial and about sections` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `c06f101` | `style: load DM Serif Display for testimonial` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/testimonial-about` | `7c91871` | `feat: localize testimonial and about sections` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `933539c` | `feat: implement testimonial and about` | * feat: add Figma assets for testimonial and about<br>* feat: implement testimonial and about markup<br>* style: match Figma testimonial and about sections<br>* style: add responsive testimonial and about sections<br>* style: load DM Serif Display for testimonial<br>* feat: localize testimonial and about sections | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `6d3b12c` | `feat: add Figma assets for pricing and support` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `d906991` | `feat: implement pricing and support markup` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `27d15a1` | `style: match Figma pricing and support` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `25067ec` | `style: add responsive pricing and support` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/pricing-support` | `f1c6d8e` | `feat: localize pricing and support` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `82d1449` | `feat: implement pricing and support` | * feat: add Figma assets for pricing and support<br>* feat: implement pricing and support markup<br>* style: match Figma pricing and support<br>* style: add responsive pricing and support<br>* feat: localize pricing and support | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `feature/cta-footer` | `f3fda48` | `feat: add Figma assets for CTA and footer` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `b43b5b3` | `feat: implement pricing and support` | * feat: add Figma assets for pricing and support<br>* feat: implement pricing and support markup<br>* style: match Figma pricing and support<br>* style: add responsive pricing and support<br>* feat: localize pricing and support | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `8121db2` | `feat: align English and mobile landing variants with Figma` | * feat: add English and mobile Figma assets<br>* feat: add locale-aware app mockups and mobile structure<br>* style: add CTA, footer and mobile fidelity helpers<br>* style: match 393px Figma mobile layouts<br>* feat: wire mobile-specific localized copy<br>* feat: refine mobile header and footer content<br>* feat: match English, Spanish and mobile-specific Figma copy<br>* feat: add mobile app showcase pointers<br>* feat: add mobile app showcase pointers and copy hook<br>* style: hide mobile-only assets outside mobile layout<br>* style: refine exact mobile header, app and footer geometry<br>* feat: add remaining mobile-specific copy hooks<br>* fix: align English copy with dedicated Figma artboard<br>* style: center mobile app copy and support navigation menu<br>* feat: make mobile navigation functional<br>* fix: preserve responsive translation line breaks<br>* fix: localize support email addresses<br>* fix: switch localized support email with locale | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `f67a5b1` | `fix: improve landing fidelity and responsive behavior (#9)` | Align the landing more closely with the desktop/mobile Figma variants and harden responsive/i18n behavior. | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `02d7b16` | `fix: refresh Figma decorative assets (#10)` | Use the Figma-rendered reminder strip and CTA plant assets for closer visual fidelity. | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `2a9d314` | `fix: keep hero overlays registered with the Figma crop (#11)` | Anchor wide-desktop hero overlays to the final exported Figma crop while preserving mobile-specific behavior. | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `ce1c84d` | `fix: polish final landing fidelity and mobile app preview` | Align final hero, app showcase, pricing, testimonial, support and CTA details with the Figma desktop/mobile variants. | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `d9c3acd` | `fix: enlarge app previews and sharpen mobile mockups` | Increase desktop/mobile app-preview scale, preserve the intentional mobile carousel, and replace mobile EN/ES phone renders with high-DPI Figma exports. | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `f8d0c33` | `fix: sharpen all key landing assets` | Regenerate app mockups from Figma at 3x and visible icons/branding at 4x, preserving the intentional carousel and existing layout. | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `e3c58c8` | `fix: polish hero branding and floating cards (#16)` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `4eb0299` | `fix: polish showcase and responsive transitions (#17)` | * fix: polish app showcase and responsive transitions<br>* fix: keep mobile translated hero card typography consistent | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `5bdfd38` | `fix: sharpen final Figma branding assets (#18)` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `a6b8a9e` | `fix: align final hero annotation and translated card type (#19)` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `4f40664` | `fix: consolidate landing fidelity and responsive polish` | Hero, app showcase, mobile support/CTA/footer and responsive breakpoint polish consolidated from the final fix pass. | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `25e6252` | `fix: final minor landing page refinements` | Balance the mobile hero family card, restore family member icons, document the project, and deploy Pages from develop and main. | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `ab0a9a9` | `fix: polish hero family status card` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `aa4936d` | `fix: use exact Figma person icons in hero family card` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `813de32` | `fix: rebalance hero family card spacing` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `40bc711` | `fix: stabilize responsive fidelity across landing` | Consolidate hero family-card fidelity and responsive layout fixes for intermediate desktop, tablet, CTA and footer behavior. | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `5e7e70d` | `fix: refine family card and fluid mobile hero` | Match Figma family-card rhythm, use local avatar assets, stabilize 431–767px hero behavior, and remove stylesheet comments. | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `main` | `da4f0ec` | `sync: use local Figma avatar assets` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `main` | `09212a4` | `sync: match final Figma spacing` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `main` | `159f481` | `sync: apply final responsive cleanup` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `fix/minor-fixes` | `d5bab1e` | `fix: match mobile family card bullets to Figma` | — | 02/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `0bb6015` | `fix: match mobile family card to Figma` | Remove mobile avatars, restore bullet rows, hide time lines, and match the 143x68 Figma family-card geometry. | 02/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `08c2dc4` | `Initial commit` | — | 30/09/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `049a752` | `feat(web-services): scaffold Spring Boot project with DDD bounded contexts add base project` | — | 30/09/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `2fee996` | `feat: update backend structure` | — | 03/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `a7684fe` | `chore: normalize backend scaffold and bounded context packages` | — | 04/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `14e4488` | `docs: define backend architecture and technical story tickets` | — | 04/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `66d6f0b` | `ci: add backend build and test workflow` | — | 04/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `a908311` | `chore(omission-escalation): remove placeholder package-info files` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `e6244e7` | `feat(intake-execution): add IntakeUnconfirmed and IntakeConfirmed events` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `6b9a44d` | `feat(omission-escalation): add domain model, escalation policy and ports` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `f49660d` | `feat(omission-escalation): add command handlers and event handlers` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `704a733` | `feat(omission-escalation): add persistence, scheduler, event listeners and push adapter` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `fd83c72` | `test: add domain tests for cases and escalation policy` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `7e3342a` | `feat: add domain model, exceptions and ports` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `7f88ab8` | `feat: add command, query and event handlers` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `84cb6c6` | `feat: add persistence, module adapters and omission event listener` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `f0cbd66` | `feat(family-monitoring): add REST controllers with OpenAPI documentation` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `59b6a21` | `feat: permit all requests in dev profile until authentication exists` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `c9b5051` | `test: add domain tests for alerts and notes` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `062fee7` | `test: add omission to family monitoring flow test on in-memory database` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `09ce4ec` | `feat(identity): caregiver account and session API (TS-07)` | Implements US-10/US-11 registration, verification and caregiver sessions with DDD/CQRS boundaries. | 05/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `9d28e0d` | `feat(identity): PIN authentication and lockout (TS-01)` | Implements US-01 PIN registration, credential hashing, attempt tracking, temporary lockout and older-adult session issuance. | 05/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `5b69ad7` | `feat(identity): support email verification resend` | Completes the US-11 expired-verification path with a resource-oriented resend endpoint, verification-code renewal in the Account aggregate, and domain coverage. | 05/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `ccd0edb` | `feat(care-link): implement care linking lifecycle` | — | 05/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `ef4c4d6` | `fix(treatment): enforce active care-link authorization` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `78c5522` | `fix(treatment): authorize caregiver operations consistently` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `556f804` | `fix(treatment): support multiple schedule times` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-08-intake-schedule-generation` | `0da050d` | `feat(intake): generate future doses for active treatments` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-08-intake-schedule-generation` | `7ebc040` | `fix(care-link): make service constructor injectable` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-08-intake-schedule-generation` | `23afe9a` | `fix(identity): make command services injectable` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-08-intake-read-api` | `3d58898` | `feat(intake): expose dose detail read model` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-04-intake-confirmation-api` | `fc7ff1d` | `feat(intake): implement idempotent intake confirmation` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `codex/intake-contract-coherence` | `5ceb58f` | `fix(intake): align cross-context UUID contracts and publish confirmation once` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `b195770` | `feat(inventory): add batch entity and stock level value object` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `1aded10` | `feat(inventory): add inventory aggregate with low stock detection` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `1ec8026` | `feat(inventory): add inventory commands, query and repository contract` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `a14f0ab` | `feat(inventory): add inventory command and query services` | - InventoryCommandService for initial inventory, replenishment and unit consumption<br>- InventoryQueryService for remaining stock<br>- One decrement per intake through consumption tracking<br>- InventoryEventPublisher outbound port for domain events<br>- InventoryApplicationException with stable error codes, including INVALID_QUANTITY | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `f124bbf` | `feat(inventory): add inventory JPA persistence` | - JPA entities for inventories, batches and per-intake consumptions<br>- Unique medication_id (logical reference, no cross-BC FK) and unique intake_id<br>- Optimistic locking with @Version to avoid lost stock updates<br>- InventoryRepositoryImpl adapter updating the managed entity | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `469f953` | `feat(inventory): add in-process domain event publisher` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `6bdc2cc` | `feat(inventory): expose inventory REST API` | - InventoryController under /api/v1/inventories documented with OpenAPI<br>- Register initial inventory (US-40), get remaining stock (US-41, US-42) and register replenishment (US-43)<br>- Request/response resources and InventoryResourceAssembler<br>- InventoryExceptionHandler with stable error codes and localized messages | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `98446c2` | `feat(inventory): add inventory error messages in English and es-419` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `1e6e503` | `test(inventory): cover inventory domain invariants and threshold crossing` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `9b2bf00` | `test(inventory): cover command and query services with in-memory fakes` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `7cd6ac3` | `test(inventory): verify JPA adapter, unique keys and optimistic locking on H2` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-12-inventory-replenishment-api` | `04803ca` | `test(inventory): verify REST contract, error codes and es-419 messages` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-08-intake-schedule-generation` | `4bb19a7` | `feat(intake): TS-08 bounded chronological agenda query` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-09-family-summary-history-api` | `6f19a6d` | `feat(monitoring): expose real intake history and status endpoints` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-analytics-patterns` | `2ed1cbd` | `fix(intake): align persistence entity with unconfirmed intake query` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | `e335cbc` | `feat(omission): complete TS-05 automatic intake processing` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-14-plans-subscriptions-api` | `a75faae` | `feat(subscription): implement TS-14 plans and subscriptions API` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `123b3ba` | `feat(notification): complete TS-06 push notification integration` | * feat(notification): make reminder delivery policy testable<br>* feat(notification): isolate push provider behind ACL<br>* feat(notification): add push provider boundary<br>* feat(notification): add safe development provider<br>* test(notification): cover channel quiet hours and failure<br>* test(notification): cover provider mapping and failure | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `c4fbb3a` | `feat(voice): implement TS-11 speech-to-text confirmation flow` | Integrate configurable speech-to-text confirmation, validate recognized intent and confidence, preserve intake idempotency, and keep provider failures non-mutating. | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-analytics-patterns` | `116aea5` | `feat(analytics): add TS-10 outcome history, patterns and follow-up insights` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-analytics-patterns` | `faf381e` | `feat(analytics): expose outcome breakdown and configurable recurrence criteria` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-09-family-summary-history-api` | `98b4b51` | `feat(monitoring): complete TS-09 real summaries, contact and care-link access` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-analytics-patterns` | `965dc37` | `feat(analytics): persist idempotent TS-10 period evidence and patterns` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `f4253d4` | `chore: remove temporary dev security chain replaced by SecurityConfiguration` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `85ad8a1` | `feat: publish AccountEnabled when the email is verified` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `7c68ae9` | `feat: add accessibility preferences domain model and defaults factory` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `0a14156` | `feat: add accessibility preferences handlers and public contract` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `a25b9c3` | `feat: add accessibility preferences persistence` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `b171f31` | `feat: add accessibility and notification preferences endpoints` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `1427386` | `feat: read notification preferences from the accessibility contract in omission` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `415a69a` | `test: add accessibility preferences and account enabled tests` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `f178437` | `feat: add treatment and medication lookups by older adult and medication` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `b8bd23e` | `fix: pause active treatments and republish the schedule when a medication changes` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `e4b7f33` | `feat: list medications and treatments, expose medication lookup and document with OpenAPI` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `3595091` | `test: add treatment consistency and API tests` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `a20c0ba` | `feat: respect the voice confirmation preference when confirming by voice` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `8604122` | `feat: publish adherence patterns and consolidate weekly on a schedule` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `e8b4039` | `feat: show low stock and adherence insights in the older adult status` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-frontend-views` | `f362d4c` | `feat(analytics): add adherence summary and insights views for the family app` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-frontend-views` | `c084872` | `docs(adherence): group view endpoints under Adherence Analytics in Swagger and describe parameters` | — | 06/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-10-adherence-frontend-views` | `5c03757` | `refactor(adherence): rename the insights view to the singular insight resource` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `6e7083c` | `chore: initialize native android repository` | — | 03/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `1832fcc` | `chore: scaffold modular android architecture` | — | 03/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `d8f7d30` | `fix: use AGP built-in Kotlin` | — | 03/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `13a2752` | `fix: upgrade android ci workflow` | — | 03/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `2827662` | `fix: align Android SDK with API 36` | Use Android API 36 in CI and all modules, target API 36, and Navigation 2.9.6 to keep dependencies compatible with the stable SDK available on GitHub runners. | 03/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `1fea4f9` | `docs: add mobile user story implementation tickets` | — | 04/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `f6630f5` | `docs: add mobile implementation ticket template` | — | 04/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `1d6e573` | `feat(identity): implement caregiver registration` | Implements US-10 caregiver registration in Kotlin/Jetpack Compose, including the verification continuation state, Retrofit integration, shared UI primitives, and fixes validated by Android CI. | 05/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `9ec3714` | `feat(identity): complete e-mail verification lifecycle` | Completes US-11 verification expiration and resend flow in the Android client, aligned with the merged backend verification request contract and Figma states. | 05/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `eb053f5` | `feat(care-link): implement linking request flow` | — | 05/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `ae44557` | `fix(shared): support disabled form fields` | — | 05/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `829c446` | `feat(care-link): record older-adult consent` | — | 05/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `781ca6b` | `feat(treatment): implement US-03 medication registration` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `e72aca2` | `feat(treatment): implement US-14 treatment creation` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `0dfded4` | `fix(treatment): align US-14 with backend draft contract` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `830a10b` | `feat(treatment): rebase US-15 dose and frequency` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `bed60a4` | `feat(treatment): implement US-16 schedule and instructions` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `7798f38` | `feat(treatment): implement US-17 reminder policy` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `8a8a5d4` | `feat(treatment): implement US-18 activation and pause lifecycle` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `5c57f05` | `feat(treatment): implement US-19 treatment detail` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-20-next-dose` | `13860f9` | `feat(intake): implement US-20 next dose home` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-20-next-dose` | `f3c6ad7` | `fix(intake): use RowScope weight modifier` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `63a4a18` | `feat(intake): add dose detail repository contract` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `ae63251` | `feat(intake): implement US-21 dose detail` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `85060f3` | `feat(intake): implement US-21 dose detail` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `34f6420` | `feat(intake): implement US-21 dose detail` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `10c3f38` | `feat(intake): implement US-21 dose detail` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `bb2dbd7` | `feat(intake): implement US-21 dose detail` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `315490f` | `feat(intake): connect intake detail endpoint` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `83ed69e` | `feat(intake): add dose detail UI state` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `a5cc071` | `feat(intake): add dose detail view model` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `3a47435` | `feat(intake): add US-21 dose detail screen` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `e13c353` | `feat(intake): wire dose detail dependencies` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `59ac669` | `feat(intake): add dose detail destination` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `ac63c0d` | `feat(intake): connect US-21 navigation` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-21-dose-detail` | `2367f76` | `feat(intake): open dose detail from next dose` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `codex/us-06-intake-confirmation` | `0389cb3` | `feat(intake): implement touch confirmation with retry-safe server outcomes` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-24-daily-schedule` | `a6d0306` | `feat(intake): US-24 weekly agenda with real outcomes and local calendar bounds` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `develop` | `37611b1` | `feat(sync): implement TS-13 offline intake continuity` | Persist essential intake data locally, fall back to cache during temporary connectivity loss, queue pending confirmations without duplicates, and synchronize them with WorkManager when connectivity returns. | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-25-recent-care-status` | `cbd5d1d` | `feat(us-25): implement Figma family summary with remote monitoring` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-25-recent-care-status` | `19716fa` | `fix(us-25): preserve existing offline sync implementation` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-25-recent-care-status` | `683cc0f` | `docs: remove chat continuation from project repository` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `7c0254f` | `feat(analytics): add adherence history screen with sample data` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `916053f` | `feat(analytics): add period selector and empty states to adherence history` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `e80bdaa` | `feat(analytics): add adherence recommendations screen with sample data` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `84c8ee7` | `feat(analytics): show recent intakes classified as on time, late or omitted` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `73ea0e4` | `feat(analytics): show detected omission pattern card linked to recommendations` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `22b494f` | `feat(analytics): connect the adherence screens to the backend endpoints` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `27f6715` | `fix(analytics): call the singular adherence insight resource` | — | 06/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `b3a71dc` | `feat(app): open the adherence history from the family summary` | — | 07/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/ts-10-adherence-entry-point` | `ec5b326` | `feat(analytics): show the caregiver tab bar in the adherence screens` | — | 07/10/2026 |
+
+#### 4.2.1.5. Testing Suite Evidence for Sprint Review
+#### 4.2.1.6. Execution Evidence for Sprint Review
+
+Durante el Sprint 1 el equipo implementó y publicó el Landing Page de Tata y construyó las vistas de la aplicación Android nativa para los flujos principales del familiar y del adulto mayor: acceso y registro, vinculación de cuidado, gestión de medicamentos y tratamientos, próxima toma y agenda, resumen familiar, analítica de adherencia, preferencias de accesibilidad e inventario de medicamentos. Las vistas consumen los endpoints del backend implementados en el mismo Sprint. Toda la interfaz está en inglés por defecto y traducida a español latinoamericano (es-419).
+
+El Landing Page se encuentra desplegado en GitHub Pages y puede visitarse en: https://vitahealth-upc.github.io/landing-page/
+
+**Landing Page**
+
+| Sección | User Story | Captura |
+| --- | --- | --- |
+| Encabezado y hero ("Manage your medications without the hassle") | US-46 | Figura 1 |
+| Propuesta de valor y funcionalidades | US-47 | Figura 2 |
+| La app de Tata y "How it works" | US-47 | Figura 3 |
+| Testimonio e historia detrás de Tata | US-46 | Figura 4 |
+| Planes y sección de soporte | US-48 | Figura 5 |
+| Llamado a la acción y footer | US-49 | Figura 6 |
+| Vista responsive en dispositivo móvil | US-50 | Figura 7 |
+
+![Landing Page - Hero](assets/execution-evidence/landing-hero.png)
+
+*Figura 1. Encabezado y sección principal del Landing Page.*
+
+![Landing Page - Funcionalidades](assets/execution-evidence/landing-value-features.png)
+
+*Figura 2. Propuesta de valor y funcionalidades.*
+
+![Landing Page - App y cómo funciona](assets/execution-evidence/landing-app-how.png)
+
+*Figura 3. Presentación de la app y sección "How it works".*
+
+![Landing Page - Testimonio](assets/execution-evidence/landing-testimonial-about.png)
+
+*Figura 4. Testimonio e historia detrás de Tata.*
+
+![Landing Page - Planes y soporte](assets/execution-evidence/landing-plans-faq.png)
+
+*Figura 5. Planes de suscripción y sección de soporte.*
+
+![Landing Page - CTA y footer](assets/execution-evidence/landing-cta-footer.png)
+
+*Figura 6. Llamado a la acción y footer.*
+
+![Landing Page - Vista móvil](assets/execution-evidence/landing-mobile.png)
+
+*Figura 7. Vista del Landing Page en un dispositivo móvil.*
+
+**Aplicación Android nativa**
+
+| Módulo (Bounded Context) | Vista | User Stories | Descripción |
+| --- | --- | --- | --- |
+| `:identity` | Registro del familiar | US-10, US-11 | El familiar crea su cuenta y verifica su correo electrónico |
+| `:identity` | Acceso con contraseña y PIN | US-01 | Inicio de sesión del familiar y acceso del adulto mayor con PIN, según su rol |
+| `:carelink` | Perfiles de adultos mayores | US-12 | El familiar registra el perfil del adulto mayor y genera un código de vinculación |
+| `:carelink` | Vinculación de cuidado | US-02, US-13 | Se solicita la vinculación y se registra el consentimiento del adulto mayor |
+| `:treatment` | Registro y gestión de medicamentos | US-03, US-04 | El familiar registra, edita y desactiva medicamentos |
+| `:treatment` | Creación y configuración del tratamiento | US-14, US-15, US-16, US-17 | Tratamiento, dosis, frecuencia, horarios, instrucciones y recordatorios |
+| `:treatment` | Activación, pausa y detalle del tratamiento | US-18, US-19 | El familiar activa o pausa el tratamiento y consulta su resumen |
+| `:intake` | Próxima toma y detalle de la toma | US-20, US-21, US-06 | El adulto mayor ve su próxima toma y la confirma |
+| `:intake` | Agenda del día | US-24 | Tomas programadas del día con su estado |
+| `:monitoring` | Resumen familiar | US-25 | Estado reciente del cuidado del adulto mayor |
+| `:analytics` | Historial y recomendaciones de adherencia | US-08, US-09, US-32, US-33, US-34 | Tomas a tiempo, tardías u omitidas, patrones de omisión y recomendaciones |
+| `:preferences` | Accesibilidad y notificaciones | US-35, US-36, US-37, US-38, US-39 | Tamaño de texto, alto contraste, movimiento reducido, asistencia de lectura y horario de silencio |
+| `:inventory` | Inventario del medicamento | US-40, US-41, US-42, US-43 | Stock inicial, stock restante, alerta de stock bajo y registro de reposiciones con lote |
+
+![App Android - Inventario](assets/execution-evidence/android-inventory.png)
+
+*Figura 8. Vista de inventario (US-41, US-42) en sus estados de stock bajo y stock disponible.*
+
+**Video de ejecución**
+
+El siguiente video muestra la navegación del Landing Page y el recorrido por las vistas implementadas de la aplicación Android en el Sprint 1.
+
+- Enlace al video: 
+- Duración: 
+
+#### 4.2.1.7. Services Documentation Evidence for Sprint Review
+#### 4.2.1.8. Software Deployment Evidence for Sprint Review
+#### 4.2.1.9. Team Collaboration Insights during Sprint
+
+Durante el Sprint 1 el equipo trabajó en cuatro repositorios de la organización `vitaHealth-UPC` (Landing Page, Web Services, aplicación Android e informe), aplicando el flujo GitFlow descrito en la sección 4.1.2. Cada User Story o Technical Story se desarrolló en su propia rama de feature, nombrada con el identificador de la historia (por ejemplo, `feature/ts-12-inventory-replenishment-api`, `feature/us-40-initial-inventory` y `feature/us-46-header-hero`), y se integró a `develop` mediante Pull Request. Los mensajes de commit siguen Conventional Commits, con el Bounded Context o la historia como scope (por ejemplo, `feat(inventory): add quantity and reorder threshold value objects` o `feat(us-19): reopen existing treatments`), lo que permite trazar cada cambio hacia la historia que lo originó.
+
+Las cifras corresponden a la rama `develop` de cada repositorio al cierre del Sprint 1 (7 de octubre de 2026).
+
+| Repositorio | Producto | Ramas de feature | Pull Requests integrados a `develop` | Commits en `develop` (sin merges) |
+| --- | --- | --- | --- | --- |
+| [landing-page](https://github.com/vitaHealth-UPC/landing-page) | Landing Page | 7 | 2 | 40 |
+| [web-services](https://github.com/vitaHealth-UPC/web-services) | Web Services | 14 (+3 de corrección) | 19 | 83 |
+| [mobile-android](https://github.com/vitaHealth-UPC/mobile-android) | Aplicación Android | 48 (33 con trabajo, +2 de corrección) | 14 | 93 |
+
+**Commits por integrante (rama `develop`, sin contar merges)**
+
+| Integrante | landing-page | web-services | mobile-android | Total |
+| --- | --- | --- | --- | --- |
+| Morales Venegas, David Joel | 40 | 32 | 61 | 133 |
+| Velasquez Laquihuanaco, Eduardo David | 0 | 30 | 6 | 36 |
+| Cabrera Novoa, Leonardo Moises | 0 | 12 | 17 | 29 |
+| Diaz Yurivilca, Sofía | 0 | 3 | 9 | 12 |
+| Alfaro Mallma, Alberto Joaquín | 0 | 1 | 0 | 1 |
+| Joseph Salazar | 0 | 5 | 0 | 5 |
+
+**Interpretación de los analíticos**
+
+- **Landing Page.** El Landing Page se construyó en una sola jornada (2 de octubre), en siete ramas de feature, una por bloque de User Stories (US-46 a US-50), integradas y publicadas en GitHub Pages ese mismo día.
+- **Web Services.** El backend concentra el mayor número de Pull Requests (19). David Morales lideró la arquitectura y la integración de los Bounded Contexts; Eduardo Velásquez implementó Accessibility & Preferences y las consultas de medicamentos y tratamientos; Leonardo Cabrera implementó Inventory & Replenishment (TS-12); Sofía Díaz las vistas de Adherence Analytics; y Joseph Salazar la configuración de despliegue (Docker, health check y conexión a PostgreSQL).
+- **Aplicación Android.** Se crearon 48 ramas, una por User Story del backlog. 33 tienen trabajo y 15 quedaron preparadas para historias de Sprints siguientes. Las historias de inventario (US-40 a US-43) se trabajaron en una sola rama porque comparten la misma vista y el mismo módulo `:inventory`.
 
 # Conclusiones
 
-# Conclusiones y recomendaciones.
+## Conclusiones y recomendaciones
 
-A partir del trabajo realizado hasta esta entrega (AV1), correspondiente a la Presentación de la startup VitaHealth y su producto Tata (Capítulo I), y al Requirements Development and Software Solution Design (Capítulo II), el equipo llega a las siguientes conclusiones preliminares:
+### Capítulos I y II (AV1)
+
+A partir del trabajo realizado en la primera entrega (AV1), correspondiente a la Presentación de la startup VitaHealth y su producto Tata (Capítulo I), y al Requirements Development and Software Solution Design (Capítulo II), el equipo llegó a las siguientes conclusiones:
 
 - El **Lean UX Problem Statement** planteado —la dificultad de las familias limeñas para verificar la adherencia al tratamiento médico de sus adultos mayores a distancia— fue confirmado mediante las entrevistas realizadas a ambos segmentos objetivo (adultos mayores y familiares/cuidadores), que evidenciaron de forma consistente la ausencia de un mecanismo confiable de confirmación de tomas y la dependencia actual de la comunicación verbal.
-- Los **Business, User y Feature Assumptions** definidos en el Lean UX Canvas se mantienen como hipótesis razonables luego del análisis competitivo y de las entrevistas, en particular la necesidad de una interfaz de baja carga cognitiva (voz o un toque) para el adulto mayor y de un panel de monitoreo remoto en tiempo real para el familiar; sin embargo, estos assumptions aún deben contrastarse con datos cuantitativos de uso una vez la aplicación esté disponible, lo cual se abordará en las Validation Interviews de entregas posteriores.
+- Los **Business, User y Feature Assumptions** definidos en el Lean UX Canvas se mantienen como hipótesis razonables luego del análisis competitivo y de las entrevistas, en particular la necesidad de una interfaz de baja carga cognitiva (voz o un toque) para el adulto mayor y de un panel de monitoreo remoto en tiempo real para el familiar; sin embargo, estos assumptions aún deben contrastarse con datos cuantitativos de uso una vez la aplicación esté disponible, lo cual se abordará en las Validation Interviews.
 - Los **Hypothesis Statements** planteados encuentran sustento inicial en los hallazgos de las entrevistas (100% de los adultos mayores entrevistados olvidó alguna toma; 100% de los familiares entrevistados reportó incertidumbre sobre el cumplimiento del tratamiento), lo que refuerza la pertinencia de las funcionalidades priorizadas en el Product Backlog para el Sprint 1 (recordatorios, confirmación accesible y alertas al cuidador).
 - El **análisis competitivo** confirmó que ningún competidor directo combina simultáneamente accesibilidad extrema para el adulto mayor con anticipación de olvidos mediante detección de patrones, validando el enfoque diferenciador de Tata.
-- El **diseño estratégico de Domain-Driven Design** (EventStorming, Bounded Context Canvases, Context Mapping) permitió establecer nueve Bounded Contexts con responsabilidades claras y patrones de relación explícitos (Customer/Supplier, Conformist, Shared Kernel, Anti-Corruption Layer), sentando una base sólida para el diseño táctico y la arquitectura de software que se detalla en el Capítulo II.
-- Como siguientes pasos, el equipo recomienda completar la Entrevista N.° 3 pendiente del Segmento 1 (adultos mayores), iniciar la implementación de las User Stories priorizadas para el Sprint 1 y preparar las primeras Validation Interviews con el prototipo del flujo de confirmación de tomas, a fin de contrastar los criterios de éxito establecidos en el proceso de Lean UX con datos reales de uso.
+- El **diseño estratégico de Domain-Driven Design** (EventStorming, Bounded Context Canvases, Context Mapping) permitió establecer nueve Bounded Contexts con responsabilidades claras y patrones de relación explícitos (Customer/Supplier, Conformist, Shared Kernel, Anti-Corruption Layer), sentando una base sólida para el diseño táctico y la arquitectura de software detallados en el Capítulo II.
+
+### Capítulo III: Solution UI/UX Design
+
+- Las **Style Guidelines** se consolidaron en un único sistema, *Tata Design Foundations* (paleta, tipografías DM Serif Display e Inter, escala tipográfica en `sp`, grid de 8 dp, área táctil mínima de 44 × 44 dp y CTA principal de 56-64 dp). Al aplicarse por igual al Landing Page y a las aplicaciones móviles, el equipo mantiene una identidad coherente y decisiones de accesibilidad (contraste mínimo de 4.5:1 y estados que nunca dependen solo del color) que responden directamente a las limitaciones del adulto mayor identificadas en las entrevistas y en el Empathy Mapping.
+- La **Information Architecture** separa tres experiencias —adulto mayor, familiar o cuidador y visitante del Landing Page— con sistemas de organización, etiquetado y navegación distintos. Esta separación por audiencia, apoyada en los principios "Reconocimiento > memoria" y "Prioridad temporal", reduce las decisiones que debe tomar el adulto mayor sin limitar la profundidad que necesita el familiar para configurar tratamientos y revisar resultados.
+- El **Landing Page** se diseñó en versiones desktop y mobile con la misma arquitectura de información, de modo que el diseño responsive se validó desde el wireframe y no se eliminan funciones esenciales en pantallas pequeñas.
+- El diseño de la **aplicación móvil** quedó documentado en 70 pantallas funcionales mediante wireframes, mock-ups y prototipo con numeración equivalente, y en 16 wireflow diagrams asociados a User Goals concretos. La inclusión de estados de validación, bloqueo, ausencia de datos, falta de consentimiento, recordatorios reforzados, accesibilidad e internacionalización permite cubrir los criterios de aceptación de las User Stories y no solo los escenarios exitosos. Las variantes en inglés se tratan como localización y no como pantallas adicionales.
+- La trazabilidad entre User Stories, wireframes, wireflows, mock-ups y prototipo permite verificar que cada pantalla responde a un requisito del Product Backlog y que la barra de navegación inferior no deja destinos inexistentes para ninguno de los dos perfiles.
+
+### Capítulo IV: Product Implementation & Validation
+
+- La **Software Configuration Management** quedó definida de forma uniforme para los productos de Tata: GitFlow como workflow, Semantic Versioning para los releases y Conventional Commits para los mensajes. La convención de ramas por User Story o Technical Story y el uso del identificador de la historia como *scope* permiten trazar cada cambio hacia el requisito que lo originó.
+- Las **guías de estilo y convenciones de código** por lenguaje (HTML5, CSS3, JavaScript, Java/Spring Boot, Kotlin, Dart/Flutter, Gherkin y SQL) alinean el código con el Ubiquitous Language y con el Tactical-Level Domain-Driven Design, con un paquete raíz por Bounded Context y tokens de diseño compartidos con Tata Design Foundations. El propio documento reconoce desviaciones del Sprint 1 (indentación mixta en Java y prefijo `I` en algunos repositorios) que el equipo corregirá en el Sprint 2.
+- La **configuración de despliegue** cubre los cuatro productos desplegables: el Landing Page en GitHub Pages, los Web Services como una sola imagen Docker en Render o Railway con PostgreSQL administrado, y las dos aplicaciones móviles mediante Firebase App Distribution. Las credenciales se gestionan con variables de entorno y nunca se versionan.
+- En el **Sprint 1** se planificaron 25 historias (81 Story Points) de los épicos de Landing Page, registro y vinculación, creación de tratamientos y próxima toma, junto con Technical Stories y dos Spike Stories. Como evidencia, el Landing Page quedó publicado en GitHub Pages en español e inglés y de forma responsive, el backend se organizó como monolito modular por Bounded Context con pruebas automatizadas y CI, y la aplicación Android se construyó de forma modular con vistas conectadas a los endpoints del backend. Además, las vistas de analítica de adherencia, previstas para el Sprint 3, se adelantaron durante este sprint.
+- Los analíticos de colaboración registran 216 commits en `develop` entre los tres repositorios (Landing Page 40, Web Services 83 y aplicación Android 93), trabajados en ramas de feature e integrados mediante Pull Request, lo que evidencia que el flujo de trabajo definido se aplicó en la práctica.
+
+### Recomendaciones
+
+- Completar las secciones que quedan pendientes del Capítulo IV: Testing Suite Evidence, Services Documentation Evidence, Software Deployment Evidence, Aspect Leaders and Collaborators y Sprint Backlog del Sprint 1, así como las Validation Interviews (sección 4.3) con el prototipo y la aplicación distribuida a los grupos de testers.
+- Contrastar el diseño con usuarios reales mediante las Validation Interviews y las evaluaciones heurísticas, en particular la navegación inferior del adulto mayor y las pantallas de accesibilidad, antes de consolidar el diseño de los siguientes sprints.
+- Normalizar en el Sprint 2 el formato del código (archivo `.editorconfig` en los tres repositorios) y renombrar los repositorios que aún conservan el prefijo `I`, tal como se documentó en la guía de estilo.
+- Equilibrar la distribución de tareas de implementación entre los integrantes en los siguientes sprints, de modo que el conocimiento de cada repositorio no quede concentrado en pocas personas.
+- Ejecutar la entrevista N.° 3 pendiente del Segmento 1 (adultos mayores) y mantener actualizada la evidencia de commits y de ejecución al cierre de cada sprint.
 
 ---
 
 # Bibliografía
 
+Brandolini, A. (2021). *Introducing EventStorming: An act of deliberate collective learning*. Leanpub. https://leanpub.com/introducing_eventstorming
+
+Brown, S. (2023). *The C4 model for visualising software architecture*. https://c4model.com
+
+Chacon, S., & Straub, B. (2014). *Pro Git* (2.ª ed.). Apress. https://git-scm.com/book/en/v2
+
+Conventional Commits. (s. f.). *Conventional Commits 1.0.0*. https://www.conventionalcommits.org/en/v1.0.0/
+
+Cucumber. (s. f.). *Gherkin reference*. https://cucumber.io/docs/gherkin/reference/
+
+Cucumber. (s. f.). *Writing better Gherkin*. https://cucumber.io/docs/bdd/better-gherkin/
+
+Dart Team. (s. f.). *Effective Dart*. https://dart.dev/effective-dart
+
+Docker Inc. (s. f.). *Docker Docs*. https://docs.docker.com/
+
+Driessen, V. (2010). *A successful Git branching model*. https://nvie.com/posts/a-successful-git-branching-model/
+
+Evans, E. (2003). *Domain-Driven Design: Tackling complexity in the heart of software*. Addison-Wesley.
+
 Gellad, W. F., Grenard, J. L., & Marcum, Z. A. (2011). A systematic review of barriers to medication adherence in the elderly: Looking beyond cost and regimen complexity. *American Journal of Geriatric Pharmacotherapy, 9*(1), 11–23. https://doi.org/10.1016/j.amjopharm.2011.02.004
- 
+
+GitHub. (s. f.). *GitHub Pages documentation*. https://docs.github.com/en/pages
+
+Google. (s. f.). *Android Kotlin style guide*. Android Developers. https://developer.android.com/kotlin/style-guide
+
+Google. (s. f.). *Firebase App Distribution*. https://firebase.google.com/docs/app-distribution
+
+Google. (s. f.). *Google HTML/CSS style guide*. https://google.github.io/styleguide/htmlcssguide.html
+
+Google. (s. f.). *Google Java style guide*. https://google.github.io/styleguide/javaguide.html
+
+Google. (s. f.). *Google JavaScript style guide*. https://google.github.io/styleguide/jsguide.html
+
+Gothelf, J., & Seiden, J. (2021). *Lean UX: Creating great products with agile teams* (3.ª ed.). O'Reilly Media.
+
+Instituto Nacional de Estadística e Informática. (2024). *Situación de la población adulta mayor: Trimestre enero-febrero-marzo 2024* (Informe Técnico N.° 02). INEI. https://cdn.www.gob.pe/uploads/document/file/6548711/5706764-situacion-de-la-poblacion-adulta-mayor-enero-febrero-marzo-2024.pdf
+
+JetBrains. (s. f.). *Kotlin coding conventions*. https://kotlinlang.org/docs/coding-conventions.html
+
+Nielsen, J. (1994). *10 usability heuristics for user interface design*. Nielsen Norman Group. https://www.nngroup.com/articles/ten-usability-heuristics/
+
 Organización Mundial de la Salud. (2004). *Adherencia a los tratamientos a largo plazo: Pruebas para la acción*. OMS. https://www3.paho.org/hq/dmdocuments/2012/WHO-Adherence-Long-Term-Therapies-Spa-2003.pdf
 
-Instituto Nacional de Estadística e Informática. (2024). Situación de la población adulta mayor: Trimestre enero-febrero-marzo 2024 (Informe Técnico N.° 02). INEI. https://cdn.www.gob.pe/uploads/document/file/6548711/5706764-situacion-de-la-poblacion-adulta-mayor-enero-febrero-marzo-2024.pdf
+Preston-Werner, T. (s. f.). *Semantic Versioning 2.0.0*. https://semver.org/
 
-Gothelf, J., & Seiden, J. (2021). Lean UX: Creating great products with agile teams (3.ª ed.). O'Reilly Media.
+Render. (s. f.). *Render documentation*. https://render.com/docs
 
-Evans, E. (2003). Domain-Driven Design: Tackling complexity in the heart of software. Addison-Wesley.
+Rosenfeld, L., Morville, P., & Arango, J. (2015). *Information architecture: For the web and beyond* (4.ª ed.). O'Reilly Media.
 
-Vernon, V. (2013). Implementing Domain-Driven Design. Addison-Wesley.
+Schwaber, K., & Sutherland, J. (2020). *The Scrum Guide*. https://scrumguides.org/scrum-guide.html
 
-Brandolini, A. (2021). Introducing EventStorming: An act of deliberate collective learning. Leanpub. https://leanpub.com/introducing_eventstorming
+SmartBear Software. (s. f.). *OpenAPI Specification*. Swagger. https://swagger.io/specification/
 
-Brown, S. (2023). The C4 model for visualising software architecture. https://c4model.com
+VMware. (s. f.). *Spring Boot*. Spring. https://spring.io/projects/spring-boot
+
+Vernon, V. (2013). *Implementing Domain-Driven Design*. Addison-Wesley.
+
+W3C. (2018). *Web Content Accessibility Guidelines (WCAG) 2.1*. https://www.w3.org/TR/WCAG21/
+
+W3Schools. (s. f.). *HTML style guide and coding conventions*. https://www.w3schools.com/html/html5_syntax.asp
 
 ---
 
 # Anexos
+
+## Capítulo I
+
+- Anexo A. Student Outcome (sustento individual de cada integrante): [ver sección Student Outcome](#student-outcome).
+- Fuente de las cifras de población adulta mayor citadas en 1.2.1 y 1.3 (proyecciones del INEI al 2024): Instituto Nacional de Estadística e Informática (2024), *Situación de la población adulta mayor: Trimestre enero-febrero-marzo 2024*: <https://cdn.www.gob.pe/uploads/document/file/6548711/5706764-situacion-de-la-poblacion-adulta-mayor-enero-febrero-marzo-2024.pdf>
+- Organización de GitHub del equipo: <https://github.com/orgs/vitaHealth-UPC/repositories>
+- Evidencia de colaboración en el informe: [report_collaboration.png](assets/report_collaboration.png)
+
+## Capítulo II
 
 - Entrevista N.° 1 (Manuel Alberto Torres Huamaní): <https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCWQkzyIJcIRY1bHwUpqqfJAUrFoa-oQ_5i2FY5wuGr_VQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=Aa1By5>
 
@@ -4525,3 +6422,22 @@ Brown, S. (2023). The C4 model for visualising software architecture. https://c4
 - Big Picture EventStorming, EventStorming detallado, Candidate Context Discovery, Domain Message Flows y Bounded Context Canvases: https://miro.com/app/board/uXjVHq5Jc9w=/
 
 - Tablero público del Product Backlog de Tata (Trello): https://trello.com/b/wuHmMypU/apps-moviles
+
+## Capítulo III
+
+- Tata Design Foundations (paleta, tipografía y reglas de layout e interacción): [colors-typography](assets/tata-design-foundations-colors-typography.png) y [layout-interaction](assets/tata-design-foundations-layout-interaction.png).
+- Wireframes y mock-ups del Landing Page (desktop y mobile): [assets/landing-page](assets/landing-page).
+- Wireflow diagrams WF01 a WF16 (alta resolución): [assets/wireflows](assets/wireflows).
+- Exportaciones individuales de la versión previa de las pantallas de la aplicación móvil (66 wireframes y 68 mock-ups, anteriores a la incorporación de Login, Notes y Internationalization): [assets/wireframes](assets/wireframes) y [assets/mockups](assets/mockups).
+- Archivo de diseño en Figma (wireframes, mock-ups, prototipo y variantes `EN`): https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/MOVILES?node-id=0-1&t=TCzqaV0gRG22CEN3-1
+
+## Capítulo IV
+
+- Repositorio del Landing Page: https://github.com/vitaHealth-UPC/landing-page
+- Repositorio de los Web Services: https://github.com/vitaHealth-UPC/web-services
+- Repositorio de la aplicación Android: https://github.com/vitaHealth-UPC/mobile-android
+- Repositorio del informe: https://github.com/vitaHealth-UPC/project-report
+- Landing Page desplegado en GitHub Pages: https://vitahealth-upc.github.io/landing-page/
+- Capturas de la evidencia de ejecución del Sprint 1: [assets/execution-evidence](assets/execution-evidence).
+- Deployment Diagram de Tata: [software-architecture-deployment-diagram.svg](assets/software-architecture-deployment-diagram.svg).
+- Video de ejecución del Sprint 1: *enlace por completar*.
