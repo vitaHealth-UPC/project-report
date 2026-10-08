@@ -929,7 +929,81 @@ Documentación desplegada: https://web-services-yzxl.onrender.com/swagger-ui/ind
 
 **Capturas de la documentación**
 
-(FALTA: capturas de Swagger UI con datos de muestra y su explicación)
+Las capturas se tomaron ejecutando el backend en un entorno local con una base de datos en memoria y datos de muestra, desde Swagger UI con la opción *Try it out*.
+
+![Swagger UI: operaciones del grupo Treatments.](assets/services-documentation/00-swagger-treatments.png)
+
+*Figura 1. Swagger UI: operaciones del grupo Treatments.*
+
+![Swagger UI: operaciones del grupo Medications.](assets/services-documentation/00-swagger-medications.png)
+
+*Figura 2. Swagger UI: operaciones del grupo Medications.*
+
+![Swagger UI: operaciones del grupo Accessibility.](assets/services-documentation/00-swagger-accessibility.png)
+
+*Figura 3. Swagger UI: operaciones del grupo Accessibility.*
+
+![Swagger UI: operación del grupo Notification Preferences.](assets/services-documentation/00-swagger-notification-preferences.png)
+
+*Figura 4. Swagger UI: operación del grupo Notification Preferences.*
+
+![POST /api/v1/older-adults/{olderAdultId}/medications: registra Losartán 50 mg y responde 201 con el medicamento creado.](assets/services-documentation/01-registrar-medicamento.png)
+
+*Figura 5. `POST /api/v1/older-adults/{olderAdultId}/medications`: registra Losartán 50 mg y responde `201` con el medicamento creado.*
+
+![GET /api/v1/older-adults/{olderAdultId}/medications: responde 200 con la lista de medicamentos.](assets/services-documentation/02-listar-medicamentos.png)
+
+*Figura 6. `GET /api/v1/older-adults/{olderAdultId}/medications`: responde `200` con la lista de medicamentos.*
+
+![PUT /api/v1/medications/{medicationId}: cambia la presentación a 100 mg y responde 200.](assets/services-documentation/03-editar-medicamento.png)
+
+*Figura 7. `PUT /api/v1/medications/{medicationId}`: cambia la presentación a 100 mg y responde `200`.*
+
+![POST /api/v1/older-adults/{olderAdultId}/treatments: crea el tratamiento en estado DRAFT y responde 201.](assets/services-documentation/04-crear-tratamiento.png)
+
+*Figura 8. `POST /api/v1/older-adults/{olderAdultId}/treatments`: crea el tratamiento en estado `DRAFT` y responde `201`.*
+
+![PUT /api/v1/treatments/{treatmentId}/regimen: asigna medicamento, dosis, frecuencia, horarios, instrucciones y recordatorio; responde 200.](assets/services-documentation/05-configurar-pauta.png)
+
+*Figura 9. `PUT /api/v1/treatments/{treatmentId}/regimen`: asigna medicamento, dosis, frecuencia, horarios, instrucciones y recordatorio; responde `200`.*
+
+![POST /api/v1/treatments/{treatmentId}/activation: el tratamiento pasa a ACTIVE.](assets/services-documentation/06-activar-tratamiento.png)
+
+*Figura 10. `POST /api/v1/treatments/{treatmentId}/activation`: el tratamiento pasa a `ACTIVE`.*
+
+![GET /api/v1/treatments/{treatmentId}: devuelve el tratamiento con su pauta.](assets/services-documentation/07-detalle-tratamiento.png)
+
+*Figura 11. `GET /api/v1/treatments/{treatmentId}`: devuelve el tratamiento con su pauta.*
+
+![POST /api/v1/treatments/{treatmentId}/pause: el tratamiento pasa a PAUSED.](assets/services-documentation/08-pausar-tratamiento.png)
+
+*Figura 12. `POST /api/v1/treatments/{treatmentId}/pause`: el tratamiento pasa a `PAUSED`.*
+
+![POST /api/v1/medications/{medicationId}/deactivation: el medicamento queda inactivo.](assets/services-documentation/09-desactivar-medicamento.png)
+
+*Figura 13. `POST /api/v1/medications/{medicationId}/deactivation`: el medicamento queda inactivo.*
+
+![GET /api/v1/older-adults/{olderAdultId}/medications con un cuidador sin vínculo activo: responde 403 CARE_LINK_NOT_AUTHORIZED.](assets/services-documentation/10-error-403-sin-vinculo.png)
+
+*Figura 14. `GET /api/v1/older-adults/{olderAdultId}/medications` con un cuidador sin vínculo activo: responde `403 CARE_LINK_NOT_AUTHORIZED`.*
+
+![GET /api/v1/users/{userId}/preferences: devuelve las preferencias del usuario.](assets/services-documentation/11-consultar-preferencias.png)
+
+*Figura 15. `GET /api/v1/users/{userId}/preferences`: devuelve las preferencias del usuario.*
+
+![PUT /api/v1/users/{userId}/preferences/text-size: cambia el tamaño de texto a LARGE.](assets/services-documentation/12-cambiar-tamano-texto.png)
+
+*Figura 16. `PUT /api/v1/users/{userId}/preferences/text-size`: cambia el tamaño de texto a `LARGE`.*
+
+![PUT /api/v1/users/{userId}/preferences/contrast: activa el contraste reforzado.](assets/services-documentation/13-activar-contraste.png)
+
+*Figura 17. `PUT /api/v1/users/{userId}/preferences/contrast`: activa el contraste reforzado.*
+
+![PUT /api/v1/users/{userId}/notification-preferences: configura el horario de silencio (22:00 a 07:00) y los canales de notificación.](assets/services-documentation/14-horario-silencio-y-canales.png)
+
+*Figura 18. `PUT /api/v1/users/{userId}/notification-preferences`: configura el horario de silencio (22:00 a 07:00) y los canales de notificación.*
+
+(FALTA: capturas de los endpoints de los demás Bounded Contexts)
 
 **Commits de documentación del Sprint**
 
@@ -942,21 +1016,55 @@ Documentación desplegada: https://web-services-yzxl.onrender.com/swagger-ui/ind
 
 #### 4.2.1.8. Software Deployment Evidence for Sprint Review
 
-En el Sprint 1 se desplegaron el Landing Page, en GitHub Pages, y los Web Services, en Render. La base de datos PostgreSQL (FALTA: confirmar proveedor y fecha de creación). Las aplicaciones móviles no forman parte del despliegue de este Sprint. Los pasos de configuración de cada plataforma están descritos en la sección 4.1.4.
+En el Sprint 1 se desplegaron el Landing Page, en GitHub Pages, y los Web Services, en Render, con la base de datos PostgreSQL en Neon. Las aplicaciones móviles no forman parte del despliegue de este Sprint. Los pasos de configuración están descritos en la sección 4.1.4.
 
 | Producto | Plataforma | Estado en el Sprint 1 | URL |
 | --- | --- | --- | --- |
 | Landing Page | GitHub Pages | Desplegado | https://vitahealth-upc.github.io/landing-page/ |
-| Web Services | Render | Desplegado | https://web-services-yzxl.onrender.com |
-| Base de datos | (FALTA: confirmar proveedor; en la sección 4.1.4 se planificó Render PostgreSQL) | (FALTA) | — |
+| Web Services | Render (Web Service con Docker, plan Free; rama `develop`) | Desplegado | https://web-services-yzxl.onrender.com |
+| Base de datos | Neon (PostgreSQL 16, proyecto TATA, branch `production`, base `tata`) | Desplegada | (conexión privada) |
 
 **Landing Page: GitHub Pages**
 
 (FALTA: capturas y explicación de los pasos realizados)
 
-**Web Services y base de datos: Render**
+**Base de datos: Neon**
 
-(FALTA: capturas y explicación de los pasos realizados)
+Se creó el proyecto TATA en Neon con el plan Free, en la región AWS US East 2 (Ohio), con el branch `production` y la base `tata`. La cadena de conexión se obtuvo desde *Connect*, con *connection pooling* activo y el rol `tata_owner`. La contraseña no se publica.
+
+![Neon: resumen del proyecto TATA, branch production.](assets/deployment-evidence/neon-proyecto.png)
+
+*Figura 1. Neon: resumen del proyecto TATA, branch `production`.*
+
+![Neon: cadena de conexión con la contraseña oculta.](assets/deployment-evidence/neon-connect.png)
+
+*Figura 2. Neon: cadena de conexión con la contraseña oculta.*
+
+**Web Services: Render**
+
+Se creó un Web Service enlazado al repositorio `vitaHealth-UPC/web-services`, rama `develop`, con entorno Docker (el `Dockerfile` está en la raíz) y plan Free. La conexión a la base de datos se configura con las variables de entorno `SPRING_DATASOURCE_URL` (`jdbc:postgresql://<host>.neon.tech:5432/tata?sslmode=require`), `SPRING_DATASOURCE_USERNAME` y `SPRING_DATASOURCE_PASSWORD`, de modo que ningún secreto se versiona. En producción las tablas se crean al arrancar con `spring.jpa.hibernate.ddl-auto=update`.
+
+![Render: variables de entorno del servicio con los valores ocultos.](assets/deployment-evidence/render-env.png)
+
+*Figura 3. Render: variables de entorno del servicio con los valores ocultos.*
+
+El despliegue manual terminó con *Deploy succeeded* y el servicio quedó en estado *Live*.
+
+![Render: despliegue exitoso y servicio en estado Live.](assets/deployment-evidence/render-deploy.png)
+
+*Figura 4. Render: despliegue exitoso y servicio en estado Live.*
+
+**Verificación**
+
+`GET /health` responde `{"status":"UP"}` y Swagger UI queda disponible en la URL pública. El plan Free de Render suspende la instancia por inactividad, por lo que la primera petición puede tardar en responder.
+
+![Verificación de GET /health en la URL pública.](assets/deployment-evidence/health.png)
+
+*Figura 5. Verificación de `GET /health` en la URL pública.*
+
+![Swagger UI en la URL pública del backend.](assets/deployment-evidence/swagger-desplegado.png)
+
+*Figura 6. Swagger UI en la URL pública del backend.*
 
 #### 4.2.1.9. Team Collaboration Insights during Sprint
 
