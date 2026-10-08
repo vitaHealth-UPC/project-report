@@ -5453,17 +5453,6 @@ https://web-services-yzxl.onrender.com/swagger-ui/index.html
 
 ### 4.2.1. Sprint 1
 
-#### Participación individual de David Joel Morales Venegas
-
-La participación de David Joel Morales Venegas se concentró en las actividades de las opciones 1 y 3 del Sprint 1.
-
-| Sección | Actividad realizada |
-| --- | --- |
-| 4.2.1.1. Sprint Planning 1 | Contribuyó a delimitar el objetivo del sprint, priorizar las historias de acceso, vinculación, tratamiento y próxima toma, y relacionarlas con los bounded contexts involucrados. |
-| 4.2.1.2. Aspect Leaders and Collaborators | Lideró las actividades de Landing y UI, y colaboró en backend, pruebas, reporte e integración de las entregas. |
-| 4.2.1.3. Sprint Backlog 1 | Organizó tareas de implementación para Intake Execution, Adherence Analytics, Identity & Subscription, Treatment Management y Accessibility & Preferences, con sus historias, estimaciones y criterios de revisión. |
-| 4.2.1.4. Development Evidence for Sprint Review | Implementó y documentó pantallas Android, endpoints y evidencias de ejecución, manteniendo la trazabilidad mediante ramas GitFlow y Pull Requests. |
-
 #### 4.2.1.1. Sprint Planning 1
 
 Sprint 1 reúne el acceso y la vinculación familiar, la configuración del tratamiento, la próxima toma y la landing. El alcance comprende 25 historias y 81 Story Points.
