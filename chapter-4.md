@@ -1,6 +1,5 @@
 # Capítulo IV: Product Implementation & Validation
 
-# 4. Product Implementation & Validation
 
 ## 4.1. Software Configuration Management
 
@@ -30,7 +29,7 @@
 
 Para el control de versiones de todos los productos de VitaHealth (Tata) se utiliza Git gestionado desde GitHub, aplicando GitFlow como workflow, Semantic Versioning para los releases y Conventional Commits para los mensajes de commit.
  
-## Repositorios
+#### Repositorios
  
 | Producto | Repositorio | Contenido |
 |---|---|---|
@@ -39,37 +38,37 @@ Para el control de versiones de todos los productos de VitaHealth (Tata) se util
 | Mobile Application | https://github.com/vitaHealth-UPC/mobile-android | App Tata en Kotlin (Android) |
 | Frontend Web Application | `https://github.com/<org>/<web-app>` | Aplicación web (si aplica a su alcance) |
  
-## GitFlow Workflow
+#### GitFlow Workflow
  
 Se trabaja con dos ramas de vida larga y tres tipos de ramas de apoyo.
  
-### Ramas permanentes
+##### Ramas permanentes
  
 - **`main`**: contiene únicamente código estable y listo para producción. Cada merge a `main` corresponde a un release y se etiqueta con su versión.
 - **`develop`**: rama de integración. Recibe todas las features terminadas y es la base de los release branches.
-### Ramas de apoyo
+##### Ramas de apoyo
  
-#### Feature branches
+###### Feature branches
  
 - Se crean desde `develop` y se fusionan de vuelta a `develop` mediante Pull Request.
 - Convención: `feature/<descripcion-corta-en-kebab-case>`
 - Ejemplos: `feature/medication-reminders`, `feature/user-login`, `feature/caregiver-linking`
 - Se eliminan después del merge.
-#### Release branches
+###### Release branches
  
 - Se crean desde `develop` cuando el conjunto de features del sprint está completo. Solo admiten correcciones menores, ajustes de versión y documentación.
 - Convención: `release/<MAJOR.MINOR.PATCH>`, por ejemplo `release/1.0.0`
 - Se fusionan a `main` (con tag `vX.Y.Z`) y de vuelta a `develop`.
-#### Hotfix branches
+###### Hotfix branches
  
 - Se crean desde `main` para corregir errores críticos detectados en producción.
 - Convención: `hotfix/<MAJOR.MINOR.PATCH>` con el siguiente PATCH, por ejemplo `hotfix/1.0.1`
 - Se fusionan a `main` (con nuevo tag) y a `develop`.
-### Reglas de colaboración
+##### Reglas de colaboración
  
 - No se hace push directo a `main` ni a `develop`; todo cambio entra por Pull Request con al menos una revisión de otro integrante.
 - Las ramas de feature se actualizan desde `develop` antes de abrir el PR para minimizar conflictos.
-## Semantic Versioning 2.0.0
+#### Semantic Versioning 2.0.0
  
 Los releases siguen el formato `MAJOR.MINOR.PATCH`:
  
@@ -78,7 +77,7 @@ Los releases siguen el formato `MAJOR.MINOR.PATCH`:
 - **PATCH**: corrección de errores compatible hacia atrás.
 Los tags se nombran `v1.0.0`, `v1.1.0`, `v1.1.1`. Las versiones previas a producción pueden usar sufijos como `v0.1.0` o `v1.0.0-beta.1`.
  
-## Conventional Commits
+#### Conventional Commits
  
 Los mensajes siguen la estructura:
  
@@ -107,7 +106,7 @@ Ejemplos:
 - `fix(auth): correct token expiration handling`
 - `test(medication): add acceptance scenarios for dose confirmation`
 - `feat(api)!: rename patient endpoint` (el `!` indica breaking change)
-## Evidencia de commits
+#### Evidencia de commits
  
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 |---|---|---|---|---|---|
@@ -135,7 +134,7 @@ La solución utiliza los siguientes lenguajes, y para cada uno se adopta una gu�
 Las siguientes reglas aplican a todos los repositorios, independientemente del lenguaje:
 
 - **Nomenclatura en inglés.** Clases, métodos, variables, archivos, carpetas, endpoints, tablas y columnas se nombran en inglés. Los conceptos del dominio se toman de la versión en inglés del Ubiquitous Language para no inventar sinónimos: `Intake` (toma), `Treatment` (tratamiento), `Medication` (medicamento), `CareLink` (vínculo de cuidado), `OlderAdult` (adulto mayor), `Caregiver` (cuidador), `OmissionCase` (caso de omisión), `Alert` (alerta), `QuietHours` (horario de silencio). Por ejemplo, se escribe `confirmIntake()` y no `confirmarToma()` ni `confirmDose()`.
-- **Textos visibles fuera del código, en dos idiomas.** Todo texto que ve el adulto mayor o el familiar se escribe en inglés como idioma por defecto y se traduce a español latinoamericano (es-419). Los textos se ubican en archivos de recursos y nunca como literales dentro de la lógica: `res/values/strings.xml` y `res/values-b+es+419/strings.xml` en Android, `i18n/messages.properties` y `messages_es_419.properties` en el backend, y el diccionario de `js/i18n.js` con atributos `data-i18n` en el Landing Page. Esto permite revisar el tono de comunicación definido en la sección 3.1.1.1 sin modificar el código.
+- **Textos visibles fuera del código, en dos idiomas.** Todo texto que ve el adulto mayor o el familiar se escribe en español latinoamericano (es-419) como idioma inicial; la variante en inglés corresponde al prototipo EN y a la selección explícita de idioma. Los textos se ubican en archivos de recursos y nunca como literales dentro de la lógica: `res/values/strings.xml` para el español base, `res/values-b+es+419/strings.xml` para la variante regional y `res/values-en/strings.xml` para inglés en los módulos Android, `i18n/messages.properties` y `messages_es_419.properties` en el backend, y el diccionario de `js/i18n.js` con atributos `data-i18n` en el Landing Page. Esto permite revisar el tono de comunicación definido en la sección 3.1.1.1 sin modificar el código.
 - **Comentarios en inglés** y solo cuando explican el *porqué* de una decisión (por ejemplo, por qué una toma confirmada dos veces no genera un segundo registro). No se deja código comentado en los commits.
 - **Formato de archivo.** Codificación UTF-8, fin de línea LF y un salto de línea al final de cada archivo. La indentación es de 2 espacios para HTML, CSS, JavaScript, Java, Gherkin y YAML, y de 4 espacios para Kotlin. El repositorio `mobile-android` incluye un archivo `.editorconfig` en la raíz; `landing-page` y `web-services` lo incorporarán en el Sprint 2.
 - **Tokens de diseño compartidos.** Los colores y espaciados de *Tata Design Foundations* (sección 3.1.1.1) se definen una sola vez por producto y los componentes los referencian por nombre, para que un cambio de marca se haga en un solo lugar: en el Landing Page como variables CSS en `:root` de `css/styles.css`, y en Android en los objetos del módulo `:shared` (`TataColors.kt` y `TataSpacing.kt`).
@@ -397,12 +396,12 @@ En esta sección el equipo especifica la configuración y los pasos para despleg
 | Producto | Repositorio | Plataforma de despliegue | Rama que se despliega | URL / forma de acceso |
 | --- | --- | --- | --- | --- |
 | Landing Page | [landing-page](https://github.com/vitaHealth-UPC/landing-page) | GitHub Pages | `main` | https://vitahealth-upc.github.io/landing-page/ |
-| Web Services (API Gateway y módulos de los 9 Bounded Contexts) | [web-services](https://github.com/vitaHealth-UPC/web-services) | Render o Railway, como servicio con Docker | `main` | `https://<servicio>/swagger-ui.html` |
+| Web Services (módulos de los 9 Bounded Contexts) | [web-services](https://github.com/vitaHealth-UPC/web-services) | Render, servicio con Docker | `develop` (despliegue del Sprint 1) | [Swagger UI](https://web-services-yzxl.onrender.com/swagger-ui/index.html) |
 | Base de datos central | — | PostgreSQL administrado (Neon o Railway) | — | Solo accesible desde el backend, mediante `DATABASE_URL` |
 | Aplicación Android nativa (Kotlin) | [mobile-android](https://github.com/vitaHealth-UPC/mobile-android) | Firebase App Distribution | `main` | Invitación por correo a los testers |
 | Aplicación multiplataforma (Flutter) |  | Firebase App Distribution | `main` | Invitación por correo a los testers |
 
-**Relación con el flujo de trabajo.** De acuerdo con el modelo GitFlow descrito en la sección 4.1.2, solo la rama `main` se despliega en producción. El trabajo diario se integra en `develop` y se prueba en local. Cuando una versión está lista, se crea la rama `release/x.y.z`, se integra en `main` y se etiqueta como `vx.y.z` siguiendo Semantic Versioning. Esa integración en `main` es la que dispara o habilita cada despliegue descrito a continuación.
+**Relación con el flujo de trabajo.** El desarrollo se realiza en ramas `feature/` y se integra en `develop` mediante Pull Request. El backend público del Sprint 1 se describe en 4.2.1.8 como un despliegue de `develop` en Render. Las versiones estables se preparan en `release/x.y.z`, se integran en `main` y se etiquetan como `vx.y.z`, siguiendo GitFlow y Semantic Versioning.
 
 **Manejo de credenciales.** Ningún repositorio contiene contraseñas, API keys ni keystores de firma. Estos valores se configuran como variables de entorno en la plataforma de despliegue o se guardan fuera del repositorio (archivos incluidos en `.gitignore`) y se comparten solo entre los integrantes del equipo.
 
@@ -474,7 +473,7 @@ e) El archivo `railway.toml`, que indica a Railway construir con el `Dockerfile`
 
 4. Configurar `/health` como **Health Check Path** (en Railway ya viene definido en `railway.toml`) y dejar el despliegue automático activado.
 5. Ejecutar el primer despliegue y revisar los logs hasta ver que Spring Boot inició correctamente.
-6. Verificar el despliegue abriendo `https://<servicio>/health` y la documentación en `https://<servicio>/swagger-ui.html`, y ejecutando desde ella una operación de prueba, por ejemplo la consulta del inventario de un medicamento (US-41).
+6. Verificar el despliegue abriendo `https://web-services-yzxl.onrender.com/health` y la documentación en `https://web-services-yzxl.onrender.com/swagger-ui/index.html`, y ejecutando desde ella una operación de prueba, por ejemplo la consulta del inventario de un medicamento (US-41).
 
 **Consideraciones de los planes gratuitos:**
 - El servicio web puede suspenderse tras un periodo sin tráfico, y la primera solicitud posterior puede tardar cerca de un minuto. Antes de cada sustentación y de las entrevistas de validación, el equipo abre `/health` para activarlo.
@@ -494,19 +493,19 @@ Las dos aplicaciones móviles se distribuyen como archivos APK firmados mediante
 **Aplicación Android nativa (Kotlin):**
 
 1. Copiar `google-services.json` en la carpeta `app/`.
-2. Definir la URL del backend. En `app/build.gradle.kts` la URL se lee de la propiedad de Gradle `TATA_API_BASE_URL` y, si no se indica, apunta al backend local desde el emulador (`http://10.0.2.2:8080/`). Para la versión distribuida se compila indicando la URL del backend desplegado, sin escribirla en el código:
+2. Definir la URL del backend. En `app/build.gradle.kts` la URL se lee de la propiedad de Gradle `TATA_API_BASE_URL` y, si no se indica, apunta al backend público de Render (`https://web-services-yzxl.onrender.com/`). Para la versión distribuida se compila indicando la URL del backend desplegado, sin escribirla en el código:
 
 ```kotlin
 defaultConfig {
     val apiBaseUrl = providers.gradleProperty("TATA_API_BASE_URL")
-        .orElse("http://10.0.2.2:8080/").get()
+        .orElse("https://web-services-yzxl.onrender.com/").get()
     buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl}\"")
 }
 ```
 
 3. Configurar `signingConfigs.release` para que lea la ruta y las contraseñas de la llave desde un archivo `keystore.properties`, incluido en `.gitignore`.
 4. Actualizar `versionName` con la versión semántica de la release (por ejemplo, `1.0.0`) e incrementar `versionCode` en cada distribución.
-5. Generar el APK firmado con `./gradlew assembleRelease -PTATA_API_BASE_URL=https://<servicio>/`. El archivo se genera en `app/build/outputs/apk/release/app-release.apk`.
+5. Generar el APK firmado con `./gradlew assembleRelease -PTATA_API_BASE_URL=https://web-services-yzxl.onrender.com/`. El archivo se genera en `app/build/outputs/apk/release/app-release.apk`.
 6. En **Firebase → App Distribution**, seleccionar la aplicación `com.vitahealth.tata`, subir el APK, escribir las notas de versión con las User Stories incluidas y distribuirlo a los grupos correspondientes.
 7. Cada tester recibe un correo de invitación, acepta la distribución e instala el APK en su dispositivo físico, habilitando la instalación de aplicaciones de origen desconocido. Este es el dispositivo que se usa en la sustentación, como exige el enunciado.
 
@@ -559,9 +558,9 @@ El Sprint Planning 1 define el alcance del primer sprint de implementación de T
 | --- | --- |
 | **Sprint #** | Sprint 1 |
 | **Sprint Planning Background** | |
-| Date | [YYYY-MM-DD] |
-| Time | [HH:MM AM/PM] |
-| Location | [Reunión virtual / presencial] |
+| Date | 2026-09-28 (fecha propuesta para el cronograma del Sprint 1) |
+| Time | 19:00, hora de Perú (horario propuesto) |
+| Location | Reunión virtual (modalidad propuesta) |
 | Prepared By | Diaz Yurivilca, Sofia |
 | Attendees (to the meeting) | Quispe Pérez, Eder Edu / Diaz Yurivilca, Sofia / Morales Venegas, David Joel / Cabrera Novoa, Leonardo Moises / Alfaro Mallma, Joaquín Alberto / Velasquez Laquihuanaco, Eduardo David |
 | **Sprint 0 Review Summary** | |
