@@ -1194,7 +1194,6 @@ El despliegue manual terminó con *Deploy succeeded* y el servicio quedó en est
 | `vitaHealth-UPC/web-services` | `develop` | `aebd362` | `fix(deploy): map DATABASE_URL into Spring datasource for Neon/Render` | — | 07/10/2026 |
 | `vitaHealth-UPC/landing-page` | `develop` | `01ef128` | `ci: add GitHub Pages preview from develop` | — | 02/10/2026 |
 
-(FALTA: capturas de los pasos de creación de las cuentas y los recursos en GitHub, Neon y Render, si el equipo las requiere)
 
 #### 4.2.1.9. Team Collaboration Insights during Sprint
 
