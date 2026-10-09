@@ -50,7 +50,7 @@
 | Versión | Fecha | Autor | Descripción de modificación |
 |---------|-------|-------|-----------------------------|
 | AV1 | 16/09/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | Para esta primera entrega desarrollamos de manera colaborativa los dos primeros capítulos del informe, definiendo los segmentos objetivo, user stories, bounded contexts y más. |
-| TB1 | 07/10/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | Para esta segunda entrega se incorporaron el Capítulo III (Solution UI/UX Design) y el Capítulo IV (Product Implementation & Validation, Sprint 1), junto con las conclusiones, la bibliografía y los anexos actualizados. |
+| TB1 | 07/10/2026 | Quispe Pérez Eder Edu, Diaz Yurivilca Sofia, Morales Venegas David Joel, Cabrera Novoa Leonardo Moises, Alfaro Mallma Joaquín Alberto, Velasquez Laquihuanaco, Eduardo David | Para esta segunda entrega se incorporaron el Capítulo III (Solution UI/UX Design) y el Capítulo IV (Product Implementation & Validation, Sprint 1), junto con las conclusiones por hito, la bibliografía en APA 7 organizada en las tres categorías del Anexo G (con papers recientes del dominio y de técnicas de desarrollo, citados en el texto) y los anexos actualizados con enlaces de repositorios, despliegues, Swagger, CI y videos. |
 
 <br>
 <br>
@@ -229,20 +229,25 @@ de las actividades por cada entrega.
     - [4.3.3. Evaluaciones según heurísticas](#433-evaluaciones-según-heurísticas)
 - [Conclusiones](#conclusiones)
   - [Conclusiones y recomendaciones](#conclusiones-y-recomendaciones)
-    - [Capítulos I y II (AV1)](#capítulos-i-y-ii-av1)
-    - [Capítulo III: Solution UI/UX Design](#capítulo-iii-solution-uiux-design-1)
-    - [Capítulo IV: Product Implementation & Validation](#capítulo-iv-product-implementation--validation-1)
-    - [Recomendaciones](#recomendaciones)
+    - [Primer hito (AV1): Capítulos I y II](#primer-hito-av1-capítulos-i-y-ii)
+    - [Segundo hito (TB1): Capítulos III y IV y Sprint 1](#segundo-hito-tb1-capítulos-iii-y-iv-y-sprint-1)
+      - [Capítulo III: Solution UI/UX Design](#capítulo-iii-solution-uiux-design-1)
+      - [Capítulo IV: Product Implementation & Validation](#capítulo-iv-product-implementation--validation-1)
+      - [Recomendaciones](#recomendaciones)
 - [Video App Validation](#video-app-validation)
 - [Video About the product](#video-about-the-product)
 - [Video About the team](#video-about-the-team)
 - [Glosario](#glosario)
 - [Bibliografía](#bibliografía)
+  - [Dominio de negocio](#dominio-de-negocio)
+  - [Métodos, técnicas y enfoques de ingeniería de software](#métodos-técnicas-y-enfoques-de-ingeniería-de-software)
+  - [Lenguajes, frameworks y herramientas](#lenguajes-frameworks-y-herramientas)
 - [Anexos](#anexos)
   - [Capítulo I](#capítulo-i)
   - [Capítulo II](#capítulo-ii)
   - [Capítulo III](#capítulo-iii)
   - [Capítulo IV](#capítulo-iv)
+  - [Videos de Exposiciones](#videos-de-exposiciones)
 
 # Student Outcome
 
@@ -6197,35 +6202,31 @@ https://github.com/vitaHealth-UPC/project-report/graphs/contributors
 
 ## Conclusiones y recomendaciones
 
-### Capítulos I y II (AV1)
+### Primer hito (AV1): Capítulos I y II
 
-A partir del trabajo realizado en la primera entrega (AV1), correspondiente a la Presentación de la startup VitaHealth y su producto Tata (Capítulo I), y al Requirements Development and Software Solution Design (Capítulo II), el equipo llegó a las siguientes conclusiones:
+A partir de la Presentación de la startup VitaHealth y su producto Tata (Capítulo I) y del Requirements Development and Software Solution Design (Capítulo II), el equipo concluye que el Lean UX Problem Statement —la dificultad de las familias limeñas para verificar a distancia la adherencia al tratamiento de sus adultos mayores— fue confirmado por las entrevistas a ambos segmentos (el 100% de los adultos mayores olvidó alguna toma y el 100% de los familiares reportó incertidumbre sobre el cumplimiento), en coherencia con la literatura sobre las barreras de adherencia en el adulto mayor (Gellad et al., 2011; Organización Mundial de la Salud [OMS], 2004) y con las cifras de población adulta mayor del Instituto Nacional de Estadística e Informática [INEI] (2024). Los Business, User y Feature Assumptions y los Hypothesis Statements formulados con Lean UX (Gothelf & Seiden, 2021) se mantienen como hipótesis razonables, respaldadas por revisiones recientes que muestran que las aplicaciones móviles y los recordatorios pueden mejorar la adherencia, sobre todo cuando incorporan comunicación con cuidadores o profesionales de salud (Amato et al., 2026; Lanke et al., 2025; Salmensuu et al., 2026), aunque aún deben contrastarse con datos de uso en las Validation Interviews. El análisis competitivo mostró que ningún competidor directo combina accesibilidad extrema para el adulto mayor con anticipación de olvidos, lo que respalda el enfoque diferenciador de Tata, y el diseño estratégico de Domain-Driven Design (Evans, 2003; Vernon, 2013), apoyado en EventStorming (Brandolini, 2021) y en el modelo C4 (Brown, 2023), estableció nueve Bounded Contexts con responsabilidades y patrones de relación explícitos que sustentan el diseño táctico y la arquitectura de software.
 
-- El **Lean UX Problem Statement** planteado —la dificultad de las familias limeñas para verificar la adherencia al tratamiento médico de sus adultos mayores a distancia— fue confirmado mediante las entrevistas realizadas a ambos segmentos objetivo (adultos mayores y familiares/cuidadores), que evidenciaron de forma consistente la ausencia de un mecanismo confiable de confirmación de tomas y la dependencia actual de la comunicación verbal.
-- Los **Business, User y Feature Assumptions** definidos en el Lean UX Canvas se mantienen como hipótesis razonables luego del análisis competitivo y de las entrevistas, en particular la necesidad de una interfaz de baja carga cognitiva (voz o un toque) para el adulto mayor y de un panel de monitoreo remoto en tiempo real para el familiar; sin embargo, estos assumptions aún deben contrastarse con datos cuantitativos de uso una vez la aplicación esté disponible, lo cual se abordará en las Validation Interviews.
-- Los **Hypothesis Statements** planteados encuentran sustento inicial en los hallazgos de las entrevistas (100% de los adultos mayores entrevistados olvidó alguna toma; 100% de los familiares entrevistados reportó incertidumbre sobre el cumplimiento del tratamiento), lo que refuerza la pertinencia de las funcionalidades priorizadas en el Product Backlog para el Sprint 1 (recordatorios, confirmación accesible y alertas al cuidador).
-- El **análisis competitivo** confirmó que ningún competidor directo combina simultáneamente accesibilidad extrema para el adulto mayor con anticipación de olvidos mediante detección de patrones, validando el enfoque diferenciador de Tata.
-- El **diseño estratégico de Domain-Driven Design** (EventStorming, Bounded Context Canvases, Context Mapping) permitió establecer nueve Bounded Contexts con responsabilidades claras y patrones de relación explícitos (Customer/Supplier, Conformist, Shared Kernel, Anti-Corruption Layer), sentando una base sólida para el diseño táctico y la arquitectura de software detallados en el Capítulo II.
+### Segundo hito (TB1): Capítulos III y IV y Sprint 1
 
-### Capítulo III: Solution UI/UX Design
+#### Capítulo III: Solution UI/UX Design
 
-- Las **Style Guidelines** se consolidaron en un único sistema, *Tata Design Foundations* (paleta, tipografías DM Serif Display e Inter, escala tipográfica en `sp`, grid de 8 dp, área táctil mínima de 44 × 44 dp y CTA principal de 56-64 dp). Al aplicarse por igual al Landing Page y a las aplicaciones móviles, el equipo mantiene una identidad coherente y decisiones de accesibilidad (contraste mínimo de 4.5:1 y estados que nunca dependen solo del color) que responden directamente a las limitaciones del adulto mayor identificadas en las entrevistas y en el Empathy Mapping.
-- La **Information Architecture** separa tres experiencias —adulto mayor, familiar o cuidador y visitante del Landing Page— con sistemas de organización, etiquetado y navegación distintos. Esta separación por audiencia, apoyada en los principios "Reconocimiento > memoria" y "Prioridad temporal", reduce las decisiones que debe tomar el adulto mayor sin limitar la profundidad que necesita el familiar para configurar tratamientos y revisar resultados.
+- Las **Style Guidelines** se consolidaron en un único sistema, *Tata Design Foundations* (paleta, tipografías DM Serif Display e Inter, escala tipográfica en `sp`, grid de 8 dp, área táctil mínima de 44 × 44 dp y CTA principal de 56-64 dp). Al aplicarse por igual al Landing Page y a las aplicaciones móviles, el equipo mantiene una identidad coherente y decisiones de accesibilidad (contraste mínimo de 4.5:1 y estados que nunca dependen solo del color) alineadas con las pautas WCAG 2.1 (World Wide Web Consortium [W3C], 2018) y con las recomendaciones de diseño amigable para adultos mayores —navegación simple, texto y áreas táctiles ampliados e interfaces tolerantes a errores— (Amouzadeh et al., 2025), que responden directamente a las limitaciones identificadas en las entrevistas y en el Empathy Mapping.
+- La **Information Architecture** separa tres experiencias —adulto mayor, familiar o cuidador y visitante del Landing Page— con sistemas de organización, etiquetado y navegación distintos (Rosenfeld et al., 2015). Esta separación por audiencia, apoyada en los principios "Reconocimiento > memoria" y "Prioridad temporal" (Nielsen, 1994), reduce las decisiones que debe tomar el adulto mayor sin limitar la profundidad que necesita el familiar para configurar tratamientos y revisar resultados.
 - El **Landing Page** se diseñó en versiones desktop y mobile con la misma arquitectura de información, de modo que el diseño responsive se validó desde el wireframe y no se eliminan funciones esenciales en pantallas pequeñas.
-- El diseño de la **aplicación móvil** quedó documentado en 70 pantallas funcionales mediante wireframes, mock-ups y prototipo con numeración equivalente, y en 16 wireflow diagrams asociados a User Goals concretos. La inclusión de estados de validación, bloqueo, ausencia de datos, falta de consentimiento, recordatorios reforzados, accesibilidad e internacionalización permite cubrir los criterios de aceptación de las User Stories y no solo los escenarios exitosos. Las variantes en inglés se tratan como localización y no como pantallas adicionales.
+- El diseño de la **aplicación móvil** quedó documentado en 70 pantallas funcionales mediante wireframes, mock-ups y prototipo con numeración equivalente, elaborados en Figma (Figma, s. f.), y en 16 wireflow diagrams asociados a User Goals concretos. La inclusión de estados de validación, bloqueo, ausencia de datos, falta de consentimiento, recordatorios reforzados, accesibilidad e internacionalización permite cubrir los criterios de aceptación de las User Stories y no solo los escenarios exitosos. Las variantes en inglés se tratan como localización y no como pantallas adicionales.
 - La trazabilidad entre User Stories, wireframes, wireflows, mock-ups y prototipo permite verificar que cada pantalla responde a un requisito del Product Backlog y que la barra de navegación inferior no deja destinos inexistentes para ninguno de los dos perfiles.
 
-### Capítulo IV: Product Implementation & Validation
+#### Capítulo IV: Product Implementation & Validation
 
-- La **Software Configuration Management** quedó definida de forma uniforme para los productos de Tata: GitFlow como workflow, Semantic Versioning para los releases y Conventional Commits para los mensajes. La convención de ramas por User Story o Technical Story y el uso del identificador de la historia como *scope* permiten trazar cada cambio hacia el requisito que lo originó.
-- Las **guías de estilo y convenciones de código** por lenguaje (HTML5, CSS3, JavaScript, Java/Spring Boot, Kotlin, Dart/Flutter, Gherkin y SQL) alinean el código con el Ubiquitous Language y con el Tactical-Level Domain-Driven Design, con un paquete raíz por Bounded Context y tokens de diseño compartidos con Tata Design Foundations. El propio documento reconoce desviaciones del Sprint 1 (indentación mixta en Java y prefijo `I` en algunos repositorios) que el equipo corregirá en el Sprint 2.
-- La **configuración de despliegue** cubre los cuatro productos desplegables: el Landing Page en GitHub Pages, los Web Services como una sola imagen Docker en Render o Railway con PostgreSQL administrado, y las dos aplicaciones móviles mediante Firebase App Distribution. Las credenciales se gestionan con variables de entorno y nunca se versionan.
-- En el **Sprint 1** se planificaron 25 historias (81 Story Points) de los épicos de Landing Page, registro y vinculación, creación de tratamientos y próxima toma, junto con Technical Stories y dos Spike Stories. Como evidencia, el Landing Page quedó publicado en GitHub Pages en español e inglés y de forma responsive, el backend se organizó como monolito modular por Bounded Context con pruebas automatizadas y CI, y la aplicación Android se construyó de forma modular con vistas conectadas a los endpoints del backend. Además, las vistas de analítica de adherencia, previstas para el Sprint 3, se adelantaron durante este sprint.
+- La **Software Configuration Management** quedó definida de forma uniforme para los productos de Tata: GitFlow como workflow (Driessen, 2010), Semantic Versioning para los releases (Preston-Werner, s. f.) y Conventional Commits para los mensajes (Conventional Commits, s. f.). La convención de ramas por User Story o Technical Story y el uso del identificador de la historia como *scope* permiten trazar cada cambio hacia el requisito que lo originó.
+- Las **guías de estilo y convenciones de código** por lenguaje (HTML5, CSS3, JavaScript, Java/Spring Boot, Kotlin, Dart/Flutter, Gherkin y SQL) adoptan referencias reconocidas (Google, s. f.-d, s. f.-e, s. f.-f; JetBrains, s. f.; Dart Team, s. f.; Cucumber, s. f.-a) y alinean el código con el Ubiquitous Language y con el Tactical-Level Domain-Driven Design, con un paquete raíz por Bounded Context y tokens de diseño compartidos con Tata Design Foundations. El propio documento reconoce desviaciones del Sprint 1 (indentación mixta en Java y prefijo `I` en algunos repositorios) que el equipo corregirá en el Sprint 2.
+- La **configuración de despliegue** cubre los cuatro productos desplegables: el Landing Page en GitHub Pages (GitHub, s. f.-b), los Web Services como una sola imagen Docker (Docker Inc., s. f.) en Render o Railway (Render, s. f.) con PostgreSQL administrado (Neon, s. f.), y las dos aplicaciones móviles mediante Firebase App Distribution (Google, s. f.-c). Las credenciales se gestionan con variables de entorno y nunca se versionan.
+- En el **Sprint 1**, planificado según el Scrum Guide (Schwaber & Sutherland, 2020), se programaron 25 historias (81 Story Points) de los épicos de Landing Page, registro y vinculación, creación de tratamientos y próxima toma, junto con Technical Stories y dos Spike Stories. Como evidencia, el Landing Page quedó publicado en GitHub Pages en español e inglés y de forma responsive, el backend se organizó como monolito modular por Bounded Context —una arquitectura que la literatura reciente asocia con simplicidad operativa y modularidad mediante DDD y despliegue en contenedores (Al-Qora'n & Al-Said Ahmad, 2025)— con pruebas automatizadas y CI (GitHub, s. f.-a), y la aplicación Android se construyó de forma modular con Jetpack Compose (Google, s. f.-g) y vistas conectadas a los endpoints del backend, documentados con OpenAPI (SmartBear Software, s. f.). Además, las vistas de analítica de adherencia, previstas para el Sprint 3, se adelantaron durante este sprint.
 - Los analíticos de colaboración registran 216 commits en `develop` entre los tres repositorios (Landing Page 40, Web Services 83 y aplicación Android 93), trabajados en ramas de feature e integrados mediante Pull Request, lo que evidencia que el flujo de trabajo definido se aplicó en la práctica.
 
-### Recomendaciones
+#### Recomendaciones
 
-- Evaluar periódicamente la experiencia con adultos mayores y familiares, considerando la claridad de los mensajes, la navegación y la accesibilidad.
+- Evaluar periódicamente la experiencia con adultos mayores y familiares, considerando la claridad de los mensajes, la navegación y la accesibilidad, y aplicar la evaluación heurística de usabilidad (Nielsen, 1994) en las Validation Interviews.
 - Mantener responsabilidades claras entre los módulos y convenciones de código uniformes para facilitar el mantenimiento y la colaboración.
 - Proteger los datos personales mediante controles de acceso, consentimiento informado y gestión segura de credenciales.
 - Incorporar pruebas automatizadas y revisiones de código al flujo de trabajo para conservar la calidad de cada versión.
@@ -6235,6 +6236,28 @@ A partir del trabajo realizado en la primera entrega (AV1), correspondiente a la
 
 # Bibliografía
 
+Las referencias siguen el formato APA 7 y se organizan en las tres categorías definidas en el Anexo G del enunciado del trabajo final.
+
+## Dominio de negocio
+
+Amato, L., Napoleoni, I., Giannetta, N., Di Simone, E., Panattoni, N., Improta, A., Renzi, E., Massimi, A., Di Muzio, M., & Taborri, S. (2026). Impact of mHealth on medication adherence in older adults with chronic diseases facing treatment burden: A systematic review. *Geriatrics, 11*(4), Artículo 78. https://doi.org/10.3390/geriatrics11040078
+
+Gellad, W. F., Grenard, J. L., & Marcum, Z. A. (2011). A systematic review of barriers to medication adherence in the elderly: Looking beyond cost and regimen complexity. *American Journal of Geriatric Pharmacotherapy, 9*(1), 11–23. https://doi.org/10.1016/j.amjopharm.2011.02.004
+
+Instituto Nacional de Estadística e Informática. (2024). *Situación de la población adulta mayor: Trimestre enero-febrero-marzo 2024* (Informe Técnico N.° 02). https://cdn.www.gob.pe/uploads/document/file/6548711/5706764-situacion-de-la-poblacion-adulta-mayor-enero-febrero-marzo-2024.pdf
+
+Lanke, V., Trimm, K., Habib, B., & Tamblyn, R. (2025). Evaluating the effectiveness of mobile apps on medication adherence for chronic conditions: Systematic review and meta-analysis. *Journal of Medical Internet Research, 27*(8), Artículo e60822. https://doi.org/10.2196/60822
+
+Organización Mundial de la Salud. (2004). *Adherencia a los tratamientos a largo plazo: Pruebas para la acción*. https://www3.paho.org/hq/dmdocuments/2012/WHO-Adherence-Long-Term-Therapies-Spa-2003.pdf
+
+Salmensuu, O., Isotalo, J., Rijken, M., Hyttinen-Huotari, V., Kaarakainen, M., & Linnosmaa, I. (2026). Effects of using medication reminder technologies by home-dwelling older citizens: A systematic review. *Age and Ageing, 55*(2), Artículo afag007. https://doi.org/10.1093/ageing/afag007
+
+## Métodos, técnicas y enfoques de ingeniería de software
+
+Al-Qora'n, L. F., & Al-Said Ahmad, A. (2025). Modular monolith architecture in cloud environments: A systematic literature review. *Future Internet, 17*(11), Artículo 496. https://doi.org/10.3390/fi17110496
+
+Amouzadeh, E., Dianat, I., Faradmal, J., & Babamiri, M. (2025). Optimizing mobile app design for older adults: Systematic review of age-friendly design. *Aging Clinical and Experimental Research, 37*(1), Artículo 248. https://doi.org/10.1007/s40520-025-03157-7
+
 Brandolini, A. (2021). *Introducing EventStorming: An act of deliberate collective learning*. Leanpub. https://leanpub.com/introducing_eventstorming
 
 Brown, S. (2023). *The C4 model for visualising software architecture*. https://c4model.com
@@ -6243,57 +6266,75 @@ Chacon, S., & Straub, B. (2014). *Pro Git* (2.ª ed.). Apress. https://git-scm.c
 
 Conventional Commits. (s. f.). *Conventional Commits 1.0.0*. https://www.conventionalcommits.org/en/v1.0.0/
 
-Cucumber. (s. f.). *Gherkin reference*. https://cucumber.io/docs/gherkin/reference/
+Cucumber. (s. f.-a). *Gherkin reference*. https://cucumber.io/docs/gherkin/reference/
 
-Cucumber. (s. f.). *Writing better Gherkin*. https://cucumber.io/docs/bdd/better-gherkin/
-
-Dart Team. (s. f.). *Effective Dart*. https://dart.dev/effective-dart
-
-Docker Inc. (s. f.). *Docker Docs*. https://docs.docker.com/
+Cucumber. (s. f.-b). *Writing better Gherkin*. https://cucumber.io/docs/bdd/better-gherkin/
 
 Driessen, V. (2010). *A successful Git branching model*. https://nvie.com/posts/a-successful-git-branching-model/
 
-Evans, E. (2003). *Domain-Driven Design: Tackling complexity in the heart of software*. Addison-Wesley.
-
-Gellad, W. F., Grenard, J. L., & Marcum, Z. A. (2011). A systematic review of barriers to medication adherence in the elderly: Looking beyond cost and regimen complexity. *American Journal of Geriatric Pharmacotherapy, 9*(1), 11–23. https://doi.org/10.1016/j.amjopharm.2011.02.004
-
-GitHub. (s. f.). *GitHub Pages documentation*. https://docs.github.com/en/pages
-
-Google. (s. f.). *Android Kotlin style guide*. Android Developers. https://developer.android.com/kotlin/style-guide
-
-Google. (s. f.). *Firebase App Distribution*. https://firebase.google.com/docs/app-distribution
-
-Google. (s. f.). *Google HTML/CSS style guide*. https://google.github.io/styleguide/htmlcssguide.html
-
-Google. (s. f.). *Google Java style guide*. https://google.github.io/styleguide/javaguide.html
-
-Google. (s. f.). *Google JavaScript style guide*. https://google.github.io/styleguide/jsguide.html
+Evans, E. (2003). *Domain-driven design: Tackling complexity in the heart of software*. Addison-Wesley.
 
 Gothelf, J., & Seiden, J. (2021). *Lean UX: Creating great products with agile teams* (3.ª ed.). O'Reilly Media.
 
-Instituto Nacional de Estadística e Informática. (2024). *Situación de la población adulta mayor: Trimestre enero-febrero-marzo 2024* (Informe Técnico N.° 02). INEI. https://cdn.www.gob.pe/uploads/document/file/6548711/5706764-situacion-de-la-poblacion-adulta-mayor-enero-febrero-marzo-2024.pdf
-
-JetBrains. (s. f.). *Kotlin coding conventions*. https://kotlinlang.org/docs/coding-conventions.html
-
 Nielsen, J. (1994). *10 usability heuristics for user interface design*. Nielsen Norman Group. https://www.nngroup.com/articles/ten-usability-heuristics/
 
-Organización Mundial de la Salud. (2004). *Adherencia a los tratamientos a largo plazo: Pruebas para la acción*. OMS. https://www3.paho.org/hq/dmdocuments/2012/WHO-Adherence-Long-Term-Therapies-Spa-2003.pdf
-
 Preston-Werner, T. (s. f.). *Semantic Versioning 2.0.0*. https://semver.org/
-
-Render. (s. f.). *Render documentation*. https://render.com/docs
 
 Rosenfeld, L., Morville, P., & Arango, J. (2015). *Information architecture: For the web and beyond* (4.ª ed.). O'Reilly Media.
 
 Schwaber, K., & Sutherland, J. (2020). *The Scrum Guide*. https://scrumguides.org/scrum-guide.html
 
+Vernon, V. (2013). *Implementing domain-driven design*. Addison-Wesley.
+
+World Wide Web Consortium. (2018). *Web Content Accessibility Guidelines (WCAG) 2.1*. https://www.w3.org/TR/WCAG21/
+
+## Lenguajes, frameworks y herramientas
+
+Apache Software Foundation. (s. f.). *Apache Maven Project*. https://maven.apache.org/
+
+Atlassian. (s. f.). *Trello*. https://trello.com/
+
+Dart Team. (s. f.). *Effective Dart*. https://dart.dev/effective-dart
+
+Docker Inc. (s. f.). *Docker Docs*. https://docs.docker.com/
+
+Figma. (s. f.). *Figma Learn: Help Center*. https://help.figma.com/
+
+GitHub. (s. f.-a). *GitHub Actions documentation*. https://docs.github.com/en/actions
+
+GitHub. (s. f.-b). *GitHub Pages documentation*. https://docs.github.com/en/pages
+
+Google. (s. f.-a). *Android Kotlin style guide*. Android Developers. https://developer.android.com/kotlin/style-guide
+
+Google. (s. f.-b). *Android Studio*. Android Developers. https://developer.android.com/studio
+
+Google. (s. f.-c). *Firebase App Distribution*. https://firebase.google.com/docs/app-distribution
+
+Google. (s. f.-d). *Google HTML/CSS style guide*. https://google.github.io/styleguide/htmlcssguide.html
+
+Google. (s. f.-e). *Google Java style guide*. https://google.github.io/styleguide/javaguide.html
+
+Google. (s. f.-f). *Google JavaScript style guide*. https://google.github.io/styleguide/jsguide.html
+
+Google. (s. f.-g). *Jetpack Compose*. Android Developers. https://developer.android.com/compose
+
+Google. (s. f.-h). *Save data in a local database using Room*. Android Developers. https://developer.android.com/training/data-storage/room
+
+Gradle Inc. (s. f.). *Gradle User Manual*. https://docs.gradle.org/current/userguide/userguide.html
+
+JetBrains. (s. f.). *Kotlin coding conventions*. https://kotlinlang.org/docs/coding-conventions.html
+
+JUnit Team. (s. f.). *JUnit 5 user guide*. https://junit.org/junit5/docs/current/user-guide/
+
+Neon. (s. f.). *Neon documentation*. https://neon.com/docs
+
+PostgreSQL Global Development Group. (s. f.). *PostgreSQL documentation*. https://www.postgresql.org/docs/
+
+Render. (s. f.). *Render documentation*. https://render.com/docs
+
 SmartBear Software. (s. f.). *OpenAPI Specification*. Swagger. https://swagger.io/specification/
 
 VMware. (s. f.). *Spring Boot*. Spring. https://spring.io/projects/spring-boot
-
-Vernon, V. (2013). *Implementing Domain-Driven Design*. Addison-Wesley.
-
-W3C. (2018). *Web Content Accessibility Guidelines (WCAG) 2.1*. https://www.w3.org/TR/WCAG21/
 
 W3Schools. (s. f.). *HTML style guide and coding conventions*. https://www.w3schools.com/html/html5_syntax.asp
 
@@ -6328,6 +6369,8 @@ W3Schools. (s. f.). *HTML style guide and coding conventions*. https://www.w3sch
 
 - Tablero público del Product Backlog de Tata (Trello): https://trello.com/b/wuHmMypU/apps-moviles
 
+- Video consolidado de las entrevistas de Needfinding: *enlace pendiente*.
+
 ## Capítulo III
 
 - Tata Design Foundations (paleta, tipografía y reglas de layout e interacción): [colors-typography](assets/tata-design-foundations-colors-typography.png) y [layout-interaction](assets/tata-design-foundations-layout-interaction.png).
@@ -6335,14 +6378,54 @@ W3Schools. (s. f.). *HTML style guide and coding conventions*. https://www.w3sch
 - Wireflow diagrams WF01 a WF16 (alta resolución): [assets/wireflows](assets/wireflows).
 - Exportaciones individuales de la versión previa de las pantallas de la aplicación móvil (66 wireframes y 68 mock-ups, anteriores a la incorporación de Login, Notes y Internationalization): [assets/wireframes](assets/wireframes) y [assets/mockups](assets/mockups).
 - Archivo de diseño en Figma (wireframes, mock-ups, prototipo y variantes `EN`): https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/MOVILES?node-id=0-1&t=TCzqaV0gRG22CEN3-1
+- Prototipo interactivo de la aplicación móvil en Figma: <https://www.figma.com/proto/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-5>
+- Archivo de diseño en Figma, vista del prototipo: <https://www.figma.com/design/jCppvxtSpLpHOrC3ZWUIVC/VitaHealth?node-id=563-2>
+- Tablero de Trello con el Product Backlog que origina las pantallas: <https://trello.com/b/wuHmMypU/apps-moviles>
+- Video de navegación del prototipo (Prototypes Navigation): *enlace pendiente*.
 
 ## Capítulo IV
 
-- Repositorio del Landing Page: https://github.com/vitaHealth-UPC/landing-page
-- Repositorio de los Web Services: https://github.com/vitaHealth-UPC/web-services
-- Repositorio de la aplicación Android: https://github.com/vitaHealth-UPC/mobile-android
-- Repositorio del informe: https://github.com/vitaHealth-UPC/project-report
-- Landing Page desplegado en GitHub Pages: https://vitahealth-upc.github.io/landing-page/
+**Repositorios y colaboración**
+
+- Repositorio del Landing Page: <https://github.com/vitaHealth-UPC/landing-page>
+- Repositorio de los Web Services: <https://github.com/vitaHealth-UPC/web-services>
+- Repositorio de la aplicación Android: <https://github.com/vitaHealth-UPC/mobile-android>
+- Repositorio del informe: <https://github.com/vitaHealth-UPC/project-report>
+- Analíticos de colaboración: [landing-page](https://github.com/vitaHealth-UPC/landing-page/graphs/contributors), [web-services](https://github.com/vitaHealth-UPC/web-services/graphs/contributors), [mobile-android](https://github.com/vitaHealth-UPC/mobile-android/graphs/contributors) y [project-report](https://github.com/vitaHealth-UPC/project-report/graphs/contributors).
+- Tablero del Product Backlog y del Sprint 1 (Trello): <https://trello.com/b/wuHmMypU/apps-moviles>
+
+**Productos desplegados**
+
+- Landing Page en GitHub Pages: <https://vitahealth-upc.github.io/landing-page/>
+- Backend (Web Services) en Render: <https://web-services-yzxl.onrender.com/>
+- Documentación Swagger UI (OpenAPI) del backend: <https://web-services-yzxl.onrender.com/swagger-ui/index.html>
+- Endpoint de salud del backend: <https://web-services-yzxl.onrender.com/health>
+- Release v1.0.0 de la aplicación Android: <https://github.com/vitaHealth-UPC/mobile-android/releases/tag/v1.0.0>
+
+**Evidencias de pruebas y CI**
+
+- Ejecución de CI del backend: <https://github.com/vitaHealth-UPC/web-services/actions/runs/37647569632>
+- Ejecución de CI de la aplicación Android: <https://github.com/vitaHealth-UPC/mobile-android/actions/runs/37727256292>
+- Despliegue del Landing Page con GitHub Actions: <https://github.com/vitaHealth-UPC/landing-page/actions/runs/37709905361>
+- Pruebas del backend: <https://github.com/vitaHealth-UPC/web-services/tree/develop/src/test>
+- Pruebas de la aplicación Android: <https://github.com/vitaHealth-UPC/mobile-android/tree/develop/app/src>
+- Prueba instrumentada de auditoría visual de pantallas (Android): <https://github.com/vitaHealth-UPC/mobile-android/blob/develop/app/src/androidTest/kotlin/com/vitahealth/tata/ExistingScreensVisualAuditTest.kt>
+- Prueba unitaria del agregado Treatment (backend): <https://github.com/vitaHealth-UPC/web-services/blob/develop/src/test/java/com/tata/treatmentmanagement/domain/model/aggregates/TreatmentTest.java>
+
+**Historial de commits en develop**
+
+- Landing Page: <https://github.com/vitaHealth-UPC/landing-page/commits/develop/>
+- Web Services: <https://github.com/vitaHealth-UPC/web-services/commits/develop/>
+- Aplicación Android: <https://github.com/vitaHealth-UPC/mobile-android/commits/develop/>
+
+**Archivos del informe**
+
 - Capturas de la evidencia de ejecución del Sprint 1: [assets/execution-evidence](assets/execution-evidence).
+- Capturas de la evidencia de despliegue (Neon, Render, health y Swagger): [assets/deployment-evidence](assets/deployment-evidence).
 - Deployment Diagram de Tata: [software-architecture-deployment-diagram.svg](assets/software-architecture-deployment-diagram.svg).
-- Video de ejecución del Sprint 1: *enlace por completar*.
+- Video de ejecución del Sprint 1 (Execution Evidence for Sprint Review): *enlace pendiente*.
+
+## Videos de Exposiciones
+
+- Video de exposición del primer hito (AV1): *enlace pendiente*.
+- Video de exposición del segundo hito (TB1): *enlace pendiente*.
