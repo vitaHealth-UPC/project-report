@@ -361,7 +361,7 @@ En cuanto a su contexto digital, utiliza principalmente WhatsApp. No ha utilizad
       <td>Smartphone gama media (Samsung); usa WhatsApp y Facebook; usa apps de pago de recibos (agua/luz/teléfono) pero evita apps nuevas o complejas; no usa comandos de voz pero los conoce y les tiene buena disposición</td>
     </tr>
     <tr>
-      <td colspan="2"><strong>Duración:</strong> Aproximadamente 12 minutos</td>
+      <td colspan="2"><strong>Duración:</strong> 5:49</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
         <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a267_upc_edu_pe/IQBuiywSCkPbT5DFNZwvX0JqASpso8jqpeVuR5BGWpvj2cY?e=54sQoI&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a267_upc_edu_pe/IQBuiywSCkPbT5DFNZwvX0JqASpso8jqpeVuR5BGWpvj2cY?e=54sQoI&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D</a>
