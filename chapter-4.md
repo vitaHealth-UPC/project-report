@@ -432,304 +432,227 @@ Enlace a video: Pendiente.
 
 #### 4.2.1.7. Services Documentation Evidence for Sprint Review
 
-Swagger UI reúne los contratos REST del backend, sus parámetros y respuestas. Las operaciones protegidas utilizan un token Bearer.
+En este Sprint documentamos el backend con OpenAPI y lo publicamos junto con los Web Services en Swagger UI. En total son 64 operaciones: 62 de los Bounded Contexts Identity & Subscription, Care Link, Treatment Management, Intake Execution, Family Monitoring, Adherence Analytics, Inventory & Replenishment y Accessibility & Preferences, y 2 de estado del servicio. Omission & Escalation no tiene endpoints REST, así que no aparece. Algunos endpoints pertenecen a historias que el Product Backlog asigna a sprints posteriores, pero ya estaban implementados al cerrar el Sprint 1 y por eso se documentaron aquí. Todas las llamadas llevan el encabezado `Authorization: Bearer <token>`, menos las que la tabla marca como públicas; sin el token responden `401 AUTHENTICATION_REQUIRED`. Los ejemplos de respuesta de la tabla son respuestas reales del backend desplegado, que obtuvimos con la cuenta de demostración. Tres ejemplos los armamos con la misma estructura de la respuesta real, porque no se pueden ejecutar con esa cuenta: la verificación del correo (necesita el código que todavía no se envía), la confirmación por voz (necesita el proveedor de voz) y el cambio de plan. Los endpoints de adherencia devuelven listas vacías o `204` porque la cuenta demo aún no tiene tomas pasadas.
 
-Enlace a repositorio:
+Repositorio de Web Services: https://github.com/vitaHealth-UPC/web-services
 
-https://github.com/vitaHealth-UPC/web-services
-
-Enlace a documentación:
-
-https://web-services-yzxl.onrender.com/swagger-ui/index.html
+Documentación desplegada: https://web-services-yzxl.onrender.com/swagger-ui/index.html
 
 **Treatment Management**
 
-| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
-| --- | --- | --- | --- | --- |
-| `/api/v1/older-adults/{olderAdultId}/treatments` | Crear un tratamiento (US-14) | POST | Path: `olderAdultId`.<br>Body: `caregiverId`, `name`. | `201` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":null,"dose":null,"frequency":null,"scheduledTimes":null,"instructions":null,"reminderLeadMinutes":null}`<br>Crea el tratamiento en estado `DRAFT`, sin pauta. `400` si falta un dato; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/older-adults/{olderAdultId}/treatments` | Listar los tratamientos de un adulto mayor (US-19) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":null,"dose":null,"frequency":null,"scheduledTimes":null,"instructions":null,"reminderLeadMinutes":null}]`<br>Devuelve la lista, del más antiguo al más reciente; vacía si no hay tratamientos. 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/treatments/{treatmentId}/regimen` | Configurar dosis, frecuencia, horarios, instrucciones y recordatorio (US-15, US-16, US-17) | PUT | Path: `treatmentId`.<br>Body: `caregiverId`, `medicationId`, `dose`, `frequency`, `scheduledTimes` (al menos un horario), `instructions`, `reminderLeadMinutes` (0 a 1440). | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}`<br>Devuelve el tratamiento con su pauta. `400` si la pauta es inválida; `404` si no existe el tratamiento o el medicamento; `409` si el medicamento está inactivo; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/treatments/{treatmentId}/activation` | Activar un tratamiento (US-18) | POST | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}`<br>El tratamiento pasa a `ACTIVE`. `409` si la pauta está incompleta o el medicamento está inactivo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/treatments/{treatmentId}/pause` | Pausar un tratamiento (US-18) | POST | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"PAUSED","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}`<br>El tratamiento pasa a `PAUSED` y conserva la pauta y el historial. `409` si no estaba activo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/treatments/{treatmentId}/resume` | Reanudar un tratamiento pausado | POST | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}`<br>El tratamiento vuelve a `ACTIVE`. `409` si no estaba pausado o su medicamento está inactivo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/treatments/{treatmentId}` | Consultar el detalle de un tratamiento (US-19) | GET | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}`<br>Devuelve el tratamiento con su pauta; los campos de la pauta son `null` mientras esté incompleto. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/older-adults/{olderAdultId}/medications` | Registrar un medicamento (US-03) | POST | Path: `olderAdultId`.<br>Body: `caregiverId`, `name`, `presentation`. | `201` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}`<br>Crea el medicamento activo del adulto mayor. `400` si falta un dato obligatorio; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/older-adults/{olderAdultId}/medications` | Listar los medicamentos de un adulto mayor (US-03) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}]`<br>Devuelve los medicamentos ordenados por nombre, incluidos los inactivos; vacía si no hay ninguno. 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/medications/{medicationId}` | Editar un medicamento (US-04) | PUT | Path: `medicationId`.<br>Body: `caregiverId`, `name`, `presentation`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"100 mg, tableta","active":true}`<br>Cambia el nombre y la presentación; los tratamientos que lo usan republican su agenda. `400` si falta un dato; `404` si no existe; `409` si está inactivo; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/medications/{medicationId}/deactivation` | Desactivar un medicamento (US-04) | POST | Path: `medicationId`.<br>Query: `caregiverId`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":false}`<br>El medicamento queda inactivo y conserva su historial; un tratamiento activo que lo use se pausa. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
-| `/api/v1/medications/{medicationId}` | Consultar el detalle de un medicamento | GET | Path: `medicationId`.<br>Query: `caregiverId`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}`<br>Devuelve el medicamento. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. |
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}/treatments` | Crear un tratamiento (US-14) | POST | `POST /api/v1/older-adults/{olderAdultId}/treatments` | Path: `olderAdultId`.<br>Body: `caregiverId`, `name`. | `201` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":null,"dose":null,"frequency":null,"scheduledTimes":null,"instructions":null,"reminderLeadMinutes":null}` | Crea el tratamiento en estado `DRAFT`, sin pauta. `400` si falta un dato; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Treatments |
+| `/api/v1/older-adults/{olderAdultId}/treatments` | Listar los tratamientos de un adulto mayor (US-19) | GET | `GET /api/v1/older-adults/{olderAdultId}/treatments?caregiverId={caregiverId}` | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":null,"dose":null,"frequency":null,"scheduledTimes":null,"instructions":null,"reminderLeadMinutes":null}]` | Devuelve la lista, del más antiguo al más reciente; vacía si no hay tratamientos. 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Treatments |
+| `/api/v1/treatments/{treatmentId}/regimen` | Configurar dosis, frecuencia, horarios, instrucciones y recordatorio (US-15, US-16, US-17) | PUT | `PUT /api/v1/treatments/{treatmentId}/regimen` | Path: `treatmentId`.<br>Body: `caregiverId`, `medicationId`, `dose`, `frequency`, `scheduledTimes` (al menos un horario), `instructions`, `reminderLeadMinutes` (0 a 1440). | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"DRAFT","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}` | Devuelve el tratamiento con su pauta. `400` si la pauta es inválida; `404` si no existe el tratamiento o el medicamento; `409` si el medicamento está inactivo; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Treatments |
+| `/api/v1/treatments/{treatmentId}/activation` | Activar un tratamiento (US-18) | POST | `POST /api/v1/treatments/{treatmentId}/activation?caregiverId={caregiverId}` | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}` | El tratamiento pasa a `ACTIVE`. `409` si la pauta está incompleta o el medicamento está inactivo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Treatments |
+| `/api/v1/treatments/{treatmentId}/pause` | Pausar un tratamiento (US-18) | POST | `POST /api/v1/treatments/{treatmentId}/pause?caregiverId={caregiverId}` | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"PAUSED","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}` | El tratamiento pasa a `PAUSED` y conserva la pauta y el historial. `409` si no estaba activo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Treatments |
+| `/api/v1/treatments/{treatmentId}/resume` | Reanudar un tratamiento pausado | POST | `POST /api/v1/treatments/{treatmentId}/resume?caregiverId={caregiverId}` | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}` | El tratamiento vuelve a `ACTIVE`. `409` si no estaba pausado o su medicamento está inactivo; `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Treatments |
+| `/api/v1/treatments/{treatmentId}` | Consultar el detalle de un tratamiento (US-19) | GET | `GET /api/v1/treatments/{treatmentId}?caregiverId={caregiverId}` | Path: `treatmentId`.<br>Query: `caregiverId`. | `200` `{"id":"3f6c1d0e-8a52-4f0b-9c55-2f1f4d9a7b10","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Control de presión","status":"ACTIVE","medicationId":"7a1b2c3d-1111-4222-8333-444455556666","dose":"1 comprimido","frequency":"DAILY","scheduledTimes":["08:00:00","20:00:00"],"instructions":"Con un vaso de agua","reminderLeadMinutes":10}` | Devuelve el tratamiento con su pauta; los campos de la pauta son `null` mientras esté incompleto. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Treatments |
+| `/api/v1/older-adults/{olderAdultId}/medications` | Registrar un medicamento (US-03) | POST | `POST /api/v1/older-adults/{olderAdultId}/medications` | Path: `olderAdultId`.<br>Body: `caregiverId`, `name`, `presentation`. | `201` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}` | Crea el medicamento activo del adulto mayor. `400` si falta un dato obligatorio; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Medications |
+| `/api/v1/older-adults/{olderAdultId}/medications` | Listar los medicamentos de un adulto mayor (US-03) | GET | `GET /api/v1/older-adults/{olderAdultId}/medications?caregiverId={caregiverId}` | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}]` | Devuelve los medicamentos ordenados por nombre, incluidos los inactivos; vacía si no hay ninguno. 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Medications |
+| `/api/v1/medications/{medicationId}` | Editar un medicamento (US-04) | PUT | `PUT /api/v1/medications/{medicationId}` | Path: `medicationId`.<br>Body: `caregiverId`, `name`, `presentation`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"100 mg, tableta","active":true}` | Cambia el nombre y la presentación; los tratamientos que lo usan republican su agenda. `400` si falta un dato; `404` si no existe; `409` si está inactivo; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Medications |
+| `/api/v1/medications/{medicationId}/deactivation` | Desactivar un medicamento (US-04) | POST | `POST /api/v1/medications/{medicationId}/deactivation?caregiverId={caregiverId}` | Path: `medicationId`.<br>Query: `caregiverId`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":false}` | El medicamento queda inactivo y conserva su historial; un tratamiento activo que lo use se pausa. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Medications |
+| `/api/v1/medications/{medicationId}` | Consultar el detalle de un medicamento | GET | `GET /api/v1/medications/{medicationId}?caregiverId={caregiverId}` | Path: `medicationId`.<br>Query: `caregiverId`. | `200` `{"id":"7a1b2c3d-1111-4222-8333-444455556666","olderAdultId":"00000000-0000-0000-0000-000000000001","name":"Losartán","presentation":"50 mg, tableta","active":true}` | Devuelve el medicamento. `404` si no existe; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Medications |
 
 **Accessibility & Preferences**
 
-| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
-| --- | --- | --- | --- | --- |
-| `/api/v1/users/{userId}/preferences` | Consultar las preferencias de un usuario (US-35, US-36) | GET | Path: `userId`. | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias de accesibilidad y de notificación. Un usuario que nunca guardó nada recibe los valores por defecto, que se guardan en esa primera lectura. |
-| `/api/v1/users/{userId}/preferences/text-size` | Cambiar el tamaño de texto (US-35) | PUT | Path: `userId`.<br>Body: `textSize` (`SMALL`, `MEDIUM`, `LARGE` o `EXTRA_LARGE`). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. `400` si el tamaño no es válido. |
-| `/api/v1/users/{userId}/preferences/contrast` | Activar o desactivar el contraste reforzado (US-36) | PUT | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":true,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. |
-| `/api/v1/users/{userId}/preferences/reduced-motion` | Activar o desactivar la reducción de movimiento (US-37) | PUT | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":true,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. |
-| `/api/v1/users/{userId}/preferences/reading-assistance` | Activar o desactivar la ayuda de lectura (US-38) | PUT | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":true,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. |
-| `/api/v1/users/{userId}/preferences/voice-confirmation` | Activar o desactivar la confirmación por voz (US-06) | PUT | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":false,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Devuelve las preferencias actualizadas. Solo guarda la preferencia; el reconocimiento de voz pertenece a Intake Execution. |
-| `/api/v1/users/{userId}/notification-preferences` | Configurar el horario de silencio y los canales de notificación (US-39) | PUT | Path: `userId`.<br>Body: `quietHours` (`start` y `end`, o `null` para quitarlo), `channels` (lista de `type` y `enabled`; `PUSH`, `SMS` o `EMAIL`, sin repetir). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}`<br>Reemplaza ambos ajustes a la vez y devuelve las preferencias. El horario puede cruzar la medianoche. `400` si inicio y fin son iguales o se repite un canal. |
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/users/{userId}/preferences` | Consultar las preferencias de un usuario (US-35, US-36) | GET | `GET /api/v1/users/{userId}/preferences` | Path: `userId`. | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias de accesibilidad y de notificación. Un usuario que nunca guardó nada recibe los valores por defecto, que se guardan en esa primera lectura. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Accessibility |
+| `/api/v1/users/{userId}/preferences/text-size` | Cambiar el tamaño de texto (US-35) | PUT | `PUT /api/v1/users/{userId}/preferences/text-size` | Path: `userId`.<br>Body: `textSize` (`SMALL`, `MEDIUM`, `LARGE` o `EXTRA_LARGE`). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. `400` si el tamaño no es válido. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Accessibility |
+| `/api/v1/users/{userId}/preferences/contrast` | Activar o desactivar el contraste reforzado (US-36) | PUT | `PUT /api/v1/users/{userId}/preferences/contrast` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":true,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Accessibility |
+| `/api/v1/users/{userId}/preferences/reduced-motion` | Activar o desactivar la reducción de movimiento (US-37) | PUT | `PUT /api/v1/users/{userId}/preferences/reduced-motion` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":true,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Accessibility |
+| `/api/v1/users/{userId}/preferences/reading-assistance` | Activar o desactivar la ayuda de lectura (US-38) | PUT | `PUT /api/v1/users/{userId}/preferences/reading-assistance` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":true,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias actualizadas. Cada cambio se conserva para las próximas sesiones. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Accessibility |
+| `/api/v1/users/{userId}/preferences/voice-confirmation` | Activar o desactivar la confirmación por voz (US-06) | PUT | `PUT /api/v1/users/{userId}/preferences/voice-confirmation` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":false,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Devuelve las preferencias actualizadas. Solo guarda la preferencia; el reconocimiento de voz pertenece a Intake Execution. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Accessibility |
+| `/api/v1/users/{userId}/notification-preferences` | Configurar el horario de silencio y los canales de notificación (US-39) | PUT | `PUT /api/v1/users/{userId}/notification-preferences` | Path: `userId`.<br>Body: `quietHours` (`start` y `end`, o `null` para quitarlo), `channels` (lista de `type` y `enabled`; `PUSH`, `SMS` o `EMAIL`, sin repetir). | `200` `{"userId":"00000000-0000-0000-0000-000000000001","textSize":"LARGE","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":{"start":"22:00:00","end":"07:00:00"},"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false}]}` | Reemplaza ambos ajustes a la vez y devuelve las preferencias. El horario puede cruzar la medianoche. `400` si inicio y fin son iguales o se repite un canal. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Notification Preferences |
 
 **Identity & Subscription**
 
-| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
-| --- | --- | --- | --- | --- |
-| `/api/v1/email-verification-requests` | Solicitar el código de verificación del correo | POST | Body: `email`. | `202` `{"id":"string","name":"string","email":"string","status":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Solicita el envío del código de verificación; responde `202`. `400` si el correo falta o no es válido. No requiere token. |
-| `/api/v1/accounts` | Crear una cuenta | POST | Body: `name`, `email`, `password`. | `201` `{"id":"string","name":"string","email":"string","status":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Crea la cuenta y devuelve sus datos y el token de acceso. `400` si faltan datos. No requiere token. |
-| `/api/v1/accounts/verification` | Verificar el correo con el código recibido | POST | Body: `email`, `code`. | `200` `{"id":"string","name":"string","email":"string","status":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Valida el código y devuelve los datos de la cuenta con el token de acceso. `400` si el código es inválido. No requiere token. |
-| `/api/v1/sessions` | Iniciar sesión de un cuidador o familiar | POST | Body: `email`, `password`. | `200` `{"accountId":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Devuelve el `accessToken` y su vencimiento. `400` si faltan datos. No requiere token. |
-| `/api/v1/sessions/current` | Consultar la sesión actual | GET | Ninguno. | `200` `{"subjectId":"string","role":"CAREGIVER","expiresAt":"2026-10-06T08:00:00Z","careLinkId":"string","name":"string"}`<br>Devuelve el sujeto de la sesión, su rol (`CAREGIVER` u otro), el vínculo de cuidado y el vencimiento. |
-| `/api/v1/sessions` | Cerrar la sesión | DELETE | Header: `Authorization`. | `204` Sin cuerpo<br>Invalida el token enviado en `Authorization`; responde `204` sin cuerpo. |
-| `/api/v1/pin-credentials` | Registrar el PIN de un adulto mayor | POST | Body: `olderAdultId`, `pin`. | `201` Sin cuerpo<br>Guarda el PIN con el que el adulto mayor iniciará sesión; responde `201` sin cuerpo. |
-| `/api/v1/pin-sessions` | Iniciar sesión de un adulto mayor con PIN | POST | Body: `olderAdultId`, `pin`. | `200` `{"olderAdultId":"string","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Devuelve el `accessToken` de la sesión del adulto mayor y su vencimiento. `400` si faltan datos. No requiere token. |
-| `/api/v1/plans` | Listar los planes disponibles | GET | Ninguno. | `200` `[{"code":"string","name":"string","monthlyPrice":1,"currency":"string","capabilities":["REMINDERS"]}]`<br>Devuelve los planes con su precio mensual, moneda y capacidades. No requiere token. |
-| `/api/v1/accounts/{accountId}/subscription` | Consultar la suscripción de una cuenta (US-44) | GET | Path: `accountId`. | `200` `{"accountId":"string","plan":{"code":"string","name":"string","monthlyPrice":1,"currency":"string","capabilities":["REMINDERS"]},"status":"ACTIVE","renewsAt":"2026-10-06T08:00:00Z"}`<br>Devuelve el plan vigente, el estado de la suscripción, la fecha de renovación y las capacidades habilitadas. |
-| `/api/v1/accounts/{accountId}/subscription` | Activar o cambiar el plan de una cuenta (US-45) | PUT | Path: `accountId`.<br>Body: `planCode`. | `200` `{"accountId":"string","plan":{"code":"string","name":"string","monthlyPrice":1,"currency":"string","capabilities":["REMINDERS"]},"status":"ACTIVE","renewsAt":"2026-10-06T08:00:00Z"}`<br>Aplica el plan indicado por `planCode` y devuelve la suscripción resultante. |
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/email-verification-requests` | Solicitar el código de verificación del correo | POST | `POST /api/v1/email-verification-requests` | Body: `email`. | `202` `{"id":"171efb94-a7d9-48b6-b968-73f09cdc7e31","name":"Ana Torres","email":"ana.torres.docs@tata.app","status":"PENDING_VERIFICATION","accessToken":null,"expiresAt":null}` | Solicita el envío del código de verificación; responde `202`. `400` si el correo falta o no es válido. No requiere token. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · email-verification-requests-controller |
+| `/api/v1/accounts` | Crear una cuenta | POST | `POST /api/v1/accounts` | Body: `name`, `email`, `password`. | `201` `{"id":"171efb94-a7d9-48b6-b968-73f09cdc7e31","name":"Ana Torres","email":"ana.torres.docs@tata.app","status":"PENDING_VERIFICATION","accessToken":null,"expiresAt":null}` | Crea la cuenta y devuelve sus datos y el token de acceso. `400` si faltan datos. No requiere token. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · accounts-controller |
+| `/api/v1/accounts/verification` | Verificar el correo con el código recibido | POST | `POST /api/v1/accounts/verification` | Body: `email`, `code`. | `200` `{"id":"171efb94-a7d9-48b6-b968-73f09cdc7e31","name":"Ana Torres","email":"ana.torres.docs@tata.app","status":"ACTIVE","accessToken":"0a1b2c3d-...","expiresAt":"2026-10-10T11:20:00Z"}` | Valida el código y devuelve los datos de la cuenta con el token de acceso. `401` si el código es inválido. No requiere token. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · accounts-controller |
+| `/api/v1/sessions` | Iniciar sesión de un cuidador o familiar | POST | `POST /api/v1/sessions` | Body: `email`, `password`. | `200` `{"accountId":"d3a10000-0000-4000-8000-000000000001","accessToken":"b646cff2-...","expiresAt":"2026-10-10T11:14:56.502817859Z"}` | Devuelve el `accessToken` y su vencimiento. `400` si faltan datos. No requiere token. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · sessions-controller |
+| `/api/v1/sessions/current` | Consultar la sesión actual | GET | `GET /api/v1/sessions/current` | Ninguno. | `200` `{"subjectId":"d3a10000-0000-4000-8000-000000000001","role":"CAREGIVER","expiresAt":"2026-10-10T11:14:56.502818Z","careLinkId":null,"name":"d3a10000-0000-4000-8000-000000000001"}` | Devuelve el sujeto de la sesión, su rol (`CAREGIVER` u otro), el vínculo de cuidado y el vencimiento. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · session-lifecycle-controller |
+| `/api/v1/sessions` | Cerrar la sesión | DELETE | `DELETE /api/v1/sessions` | Header: `Authorization`. | `204` Sin cuerpo | Invalida el token enviado en `Authorization`; responde `204` sin cuerpo. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · session-lifecycle-controller |
+| `/api/v1/pin-credentials` | Registrar el PIN de un adulto mayor | POST | `POST /api/v1/pin-credentials` | Body: `olderAdultId`, `pin`. | `201` Sin cuerpo | Guarda el PIN con el que el adulto mayor iniciará sesión; responde `201` sin cuerpo. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · pin-credentials-controller |
+| `/api/v1/pin-sessions` | Iniciar sesión de un adulto mayor con PIN | POST | `POST /api/v1/pin-sessions` | Body: `olderAdultId`, `pin`. | `200` `{"olderAdultId":"d3a10000-0000-4000-8000-000000000002","accessToken":"fb448982-...","expiresAt":"2026-10-10T11:15:00.089889817Z"}` | Devuelve el `accessToken` de la sesión del adulto mayor y su vencimiento. `400` si faltan datos. No requiere token. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · pin-sessions-controller |
+| `/api/v1/plans` | Listar los planes disponibles | GET | `GET /api/v1/plans` | Ninguno. | `200` `[{"code":"ESSENTIAL","name":"Esencial","monthlyPrice":9.90,"currency":"PEN","capabilities":["AGENDA","REMINDERS","INTAKE_CONFIRMATION"]},{"code":"FAMILY","name":"Familiar","monthlyPrice":19.90,"currency":"PEN","capabilities":["ADHERENCE_INSIGHTS","AGENDA","FAMILY_MONITORING","INTAKE_CONFIRMATION","REMINDERS","FAMILY_ALERTS"]}]` | Devuelve los planes con su precio mensual, moneda y capacidades. No requiere token. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Plans and subscriptions |
+| `/api/v1/accounts/{accountId}/subscription` | Consultar la suscripción de una cuenta (US-44) | GET | `GET /api/v1/accounts/{accountId}/subscription` | Path: `accountId`. | `200` `{"accountId":"d3a10000-0000-4000-8000-000000000001","plan":{"code":"ESSENTIAL","name":"Esencial","monthlyPrice":9.90,"currency":"PEN","capabilities":["AGENDA","REMINDERS","INTAKE_CONFIRMATION"]},"status":"ACTIVE","renewsAt":null}` | Devuelve el plan vigente, el estado de la suscripción, la fecha de renovación y las capacidades habilitadas. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Plans and subscriptions |
+| `/api/v1/accounts/{accountId}/subscription` | Activar o cambiar el plan de una cuenta (US-45) | PUT | `PUT /api/v1/accounts/{accountId}/subscription` | Path: `accountId`.<br>Body: `planCode`. | `200` `{"accountId":"d3a10000-0000-4000-8000-000000000001","plan":{"code":"FAMILY","name":"Familiar","monthlyPrice":19.90,"currency":"PEN","capabilities":["ADHERENCE_INSIGHTS","AGENDA","FAMILY_MONITORING","INTAKE_CONFIRMATION","REMINDERS","FAMILY_ALERTS"]},"status":"ACTIVE","renewsAt":"2026-11-09T12:00:00Z"}` | Aplica el plan indicado por `planCode` y devuelve la suscripción resultante. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Plans and subscriptions |
 
 **Care Link**
 
-| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
-| --- | --- | --- | --- | --- |
-| `/api/v1/older-adults` | Registrar un adulto mayor | POST | Body: `caregiverId`, `fullName`, `birthDate`, `emergencyContactName`, `emergencyContactRelationship`, `emergencyContactPhone`. | `201` `{"id":"string","registeredByCaregiverId":"string","fullName":"string","birthDate":"2026-10-06","emergencyContactName":"string","emergencyContactRelationship":"string","emergencyContactPhone":"string","createdAt":"2026-10-06T08:00:00Z"}`<br>Crea el adulto mayor con su contacto de emergencia y devuelve sus datos; responde `201`. |
-| `/api/v1/older-adults/{olderAdultId}` | Consultar los datos de un adulto mayor | GET | Path: `olderAdultId`. | `200` `{"id":"string","registeredByCaregiverId":"string","fullName":"string","birthDate":"2026-10-06","emergencyContactName":"string","emergencyContactRelationship":"string","emergencyContactPhone":"string","createdAt":"2026-10-06T08:00:00Z"}`<br>Devuelve los datos del adulto mayor y de su contacto de emergencia. |
-| `/api/v1/care-links/linking-codes` | Generar un código de vinculación | POST | Body: `caregiverId`, `olderAdultId`. | `201` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Crea un vínculo en estado `PENDING` con un código y su vencimiento; responde `201`. |
-| `/api/v1/care-links/acceptances` | Aceptar un código de vinculación | POST | Body: `caregiverId`, `code`. | `200` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Usa el código para asociar al cuidador con el vínculo y devuelve el vínculo actualizado. |
-| `/api/v1/care-links/{careLinkId}/consent` | Registrar el consentimiento del adulto mayor | POST | Path: `careLinkId`.<br>Body: `accepted`. | `200` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Guarda si el adulto mayor aceptó (`accepted`) y devuelve el vínculo con la fecha del consentimiento. |
-| `/api/v1/care-links` | Listar los vínculos confirmados de un cuidador | GET | Query: `caregiverId`. | `200` `[{"id":"string","olderAdultId":"string","olderAdultName":"string","confirmedAt":"2026-10-06T08:00:00Z"}]`<br>Devuelve los vínculos activos con consentimiento, del más reciente al más antiguo; vacía si no hay ninguno. |
-| `/api/v1/care-links/{careLinkId}` | Consultar un vínculo de cuidado | GET | Path: `careLinkId`. | `200` `{"id":"string","caregiverId":"string","olderAdultId":"string","status":"PENDING","linkingCode":"string","codeExpiresAt":"2026-10-06T08:00:00Z","codeUsedAt":"2026-10-06T08:00:00Z","consentGranted":true,"consentRecordedAt":"2026-10-06T08:00:00Z","confirmedAt":"2026-10-06T08:00:00Z","accessToken":"string","expiresAt":"2026-10-06T08:00:00Z"}`<br>Devuelve el vínculo con su estado, código y consentimiento. |
-| `/api/v1/care-links/authorization` | Verificar si un cuidador está autorizado sobre un adulto mayor | GET | Query: `caregiverId`, `olderAdultId`. | `200` `true`<br>Devuelve `true` si existe un vínculo activo entre ambos y `false` en caso contrario. |
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/older-adults` | Registrar un adulto mayor | POST | `POST /api/v1/older-adults` | Body: `caregiverId`, `fullName`, `birthDate`, `emergencyContactName`, `emergencyContactRelationship`, `emergencyContactPhone`. | `201` `{"id":"b4dcad92-3ce9-41b4-a184-980fb819ea4e","registeredByCaregiverId":"d3a10000-0000-4000-8000-000000000001","fullName":"Carlos Mendoza","birthDate":"1950-03-02","emergencyContactName":"Lucía Mendoza","emergencyContactRelationship":"Hija","emergencyContactPhone":"+51 999 111 222","createdAt":"2026-10-09T23:15:42.388079448Z"}` | Crea el adulto mayor con su contacto de emergencia y devuelve sus datos; responde `201`. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · older-adults-controller |
+| `/api/v1/older-adults/{olderAdultId}` | Consultar los datos de un adulto mayor | GET | `GET /api/v1/older-adults/{olderAdultId}` | Path: `olderAdultId`. | `200` `{"id":"d3a10000-0000-4000-8000-000000000002","registeredByCaregiverId":"d3a10000-0000-4000-8000-000000000001","fullName":"Rosa Vargas","birthDate":"1948-05-12","emergencyContactName":"Diego Vargas","emergencyContactRelationship":"Son","emergencyContactPhone":"999888777","createdAt":"2026-10-09T11:23:14.137645Z"}` | Devuelve los datos del adulto mayor y de su contacto de emergencia. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · older-adults-controller |
+| `/api/v1/care-links/linking-codes` | Generar un código de vinculación | POST | `POST /api/v1/care-links/linking-codes` | Body: `caregiverId`, `olderAdultId`. | `201` `{"id":"73e804c9-7a0a-47a0-8f3f-c440c790c2e7","caregiverId":"d3a10000-0000-4000-8000-000000000001","olderAdultId":"b4dcad92-3ce9-41b4-a184-980fb819ea4e","status":"PENDING","linkingCode":"TATA-9620","codeExpiresAt":"2026-10-09T23:30:43.475096019Z","codeUsedAt":null,"consentGranted":false,"consentRecordedAt":null,"confirmedAt":null,"accessToken":null,"expiresAt":null}` | Crea un vínculo en estado `PENDING` con un código y su vencimiento; responde `201`. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links-controller |
+| `/api/v1/care-links/acceptances` | Aceptar un código de vinculación | POST | `POST /api/v1/care-links/acceptances` | Body: `caregiverId`, `code`. | `200` `{"id":"73e804c9-7a0a-47a0-8f3f-c440c790c2e7","caregiverId":"d3a10000-0000-4000-8000-000000000001","olderAdultId":"b4dcad92-3ce9-41b4-a184-980fb819ea4e","status":"AWAITING_CONSENT","linkingCode":"TATA-9620","codeExpiresAt":"2026-10-09T23:30:43.475096Z","codeUsedAt":"2026-10-09T23:15:44.113778030Z","consentGranted":false,"consentRecordedAt":null,"confirmedAt":null,"accessToken":"1f760672-...","expiresAt":"2026-10-09T23:30:44.114526343Z"}` | Usa el código para asociar al cuidador con el vínculo y devuelve el vínculo actualizado. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links-controller |
+| `/api/v1/care-links/{careLinkId}/consent` | Registrar el consentimiento del adulto mayor | POST | `POST /api/v1/care-links/{careLinkId}/consent` | Path: `careLinkId`.<br>Body: `accepted`. | `200` `{"id":"73e804c9-7a0a-47a0-8f3f-c440c790c2e7","caregiverId":"d3a10000-0000-4000-8000-000000000001","olderAdultId":"b4dcad92-3ce9-41b4-a184-980fb819ea4e","status":"CONFIRMED","linkingCode":"TATA-9620","codeExpiresAt":"2026-10-09T23:30:43.475096Z","codeUsedAt":"2026-10-09T23:15:44.113778Z","consentGranted":true,"consentRecordedAt":"2026-10-09T23:15:45.096617372Z","confirmedAt":"2026-10-09T23:15:45.096651403Z","accessToken":"caf137bd-...","expiresAt":"2026-10-10T11:15:45.454296317Z"}` | Guarda si el adulto mayor aceptó (`accepted`) y devuelve el vínculo con la fecha del consentimiento. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links-controller |
+| `/api/v1/care-links` | Listar los vínculos confirmados de un cuidador | GET | `GET /api/v1/care-links?caregiverId={caregiverId}` | Query: `caregiverId`. | `200` `[{"id":"d3a10000-0000-4000-8000-000000000003","olderAdultId":"d3a10000-0000-4000-8000-000000000002","olderAdultName":"Rosa Vargas","confirmedAt":"2026-10-09T11:23:14.137645Z"}]` | Devuelve los vínculos activos con consentimiento, del más reciente al más antiguo; vacía si no hay ninguno. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links-controller |
+| `/api/v1/care-links/{careLinkId}` | Consultar un vínculo de cuidado | GET | `GET /api/v1/care-links/{careLinkId}` | Path: `careLinkId`. | `200` `{"id":"73e804c9-7a0a-47a0-8f3f-c440c790c2e7","caregiverId":"d3a10000-0000-4000-8000-000000000001","olderAdultId":"b4dcad92-3ce9-41b4-a184-980fb819ea4e","status":"CONFIRMED","linkingCode":"TATA-9620","codeExpiresAt":"2026-10-09T23:30:43.475096Z","codeUsedAt":"2026-10-09T23:15:44.113778Z","consentGranted":true,"consentRecordedAt":"2026-10-09T23:15:45.096617Z","confirmedAt":"2026-10-09T23:15:45.096651Z","accessToken":null,"expiresAt":null}` | Devuelve el vínculo con su estado, código y consentimiento. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links-controller |
+| `/api/v1/care-links/authorization` | Verificar si un cuidador está autorizado sobre un adulto mayor | GET | `GET /api/v1/care-links/authorization?caregiverId={caregiverId}&olderAdultId={olderAdultId}` | Query: `caregiverId`, `olderAdultId`. | `200` `true` | Devuelve `true` si existe un vínculo activo entre ambos y `false` en caso contrario. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links-controller |
 
 **Intake Execution**
 
-| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
-| --- | --- | --- | --- | --- |
-| `/api/v1/older-adults/{olderAdultId}/intakes/next` | Consultar la próxima toma | GET | Path: `olderAdultId`. | `200` `{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}`<br>Devuelve la próxima toma programada del adulto mayor. |
-| `/api/v1/older-adults/{olderAdultId}/intakes/agenda` | Consultar la agenda de tomas de un período | GET | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `[{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}]`<br>Devuelve las tomas programadas entre `from` y `to`. |
-| `/api/v1/intakes/{intakeId}` | Consultar una toma | GET | Path: `intakeId`. | `200` `{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}`<br>Devuelve el medicamento, la dosis, las instrucciones, el horario y el estado de la toma. |
-| `/api/v1/intakes/{intakeId}/confirmation` | Confirmar una toma (US-05) | POST | Path: `intakeId`.<br>Body: `channel`. | `200` `{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}`<br>Registra la confirmación por el canal indicado (`TOUCH`) y devuelve la toma actualizada. |
-| `/api/v1/intakes/{intakeId}/voice-confirmation` | Confirmar una toma por voz (US-06) | POST | Path: `intakeId`.<br>Query: `language` (opcional).<br>Body: `audio`. | `200` `{"status":"CONFIRMED","transcript":"string","confidence":1,"intake":{"id":"string","treatmentId":"string","medicationId":"string","olderAdultId":"string","medicationName":"string","dose":"string","instructions":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING","confirmedAt":"2026-10-06T08:00:00Z","confirmationChannel":"TOUCH"}}`<br>Procesa el audio con el servicio de reconocimiento de voz; solo una confirmación reconocida y validada cambia el estado de la toma. |
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}/intakes/next` | Consultar la próxima toma | GET | `GET /api/v1/older-adults/{olderAdultId}/intakes/next` | Path: `olderAdultId`. | `200` `{"id":"ed24bf3d-af04-4866-9d1a-49450670cb91","treatmentId":"a8809b8e-fafe-4d25-83d7-cc9529dc988e","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","olderAdultId":"d3a10000-0000-4000-8000-000000000002","medicationName":"Losartán","dose":"1 comprimido","instructions":"Con un vaso de agua","scheduledAt":"2026-10-10T08:00:00Z","status":"PENDING","confirmedAt":null,"confirmationChannel":null,"alreadyConfirmed":false}` | Devuelve la próxima toma programada del adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · intakes-controller |
+| `/api/v1/older-adults/{olderAdultId}/intakes/agenda` | Consultar la agenda de tomas de un período | GET | `GET /api/v1/older-adults/{olderAdultId}/intakes/agenda?from={from}&to={to}` | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `[{"id":"ed24bf3d-af04-4866-9d1a-49450670cb91","treatmentId":"a8809b8e-fafe-4d25-83d7-cc9529dc988e","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","olderAdultId":"d3a10000-0000-4000-8000-000000000002","medicationName":"Losartán","dose":"1 comprimido","instructions":"Con un vaso de agua","scheduledAt":"2026-10-10T08:00:00Z","status":"PENDING","confirmedAt":null,"confirmationChannel":null,"alreadyConfirmed":false},{"id":"59ac9071-9827-4f35-9796-bcd17fcf38ec","treatmentId":"a8809b8e-fafe-4d25-83d7-cc9529dc988e","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","olderAdultId":"d3a10000-0000-4000-8000-000000000002","medicationName":"Losartán","dose":"1 comprimido","instructions":"Con un vaso de agua","scheduledAt":"2026-10-10T20:00:00Z","status":"PENDING","confirmedAt":null,"confirmationChannel":null,"alreadyConfirmed":false},{"id":"09a16e35-2de1-4df0-92b9-7dabeaf96dfe","treatmentId":"a8809b8e-fafe-4d25-83d7-cc9529dc988e","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","olderAdultId":"d3a10000-0000-4000-8000-000000000002","medicationName":"Losartán","dose":"1 comprimido","instructions":"Con un vaso de agua","scheduledAt":"2026-10-11T08:00:00Z","status":"PENDING","confirmedAt":null,"confirmationChannel":null,"alreadyConfirmed":false},{"id":"76ed82b9-29d5-434e-bb8b-7cc9f053ae65","treatmentId":"a8809b8e-fafe-4d25-83d7-cc9529dc988e","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","olderAdultId":"d3a10000-0000-4000-8000-000000000002","medicationName":"Losartán","dose":"1 comprimido","instructions":"Con un vaso de agua","scheduledAt":"2026-10-11T20:00:00Z","status":"PENDING","confirmedAt":null,"confirmationChannel":null,"alreadyConfirmed":false}]` | Devuelve las tomas programadas entre `from` y `to`. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · intakes-controller |
+| `/api/v1/intakes/{intakeId}` | Consultar una toma | GET | `GET /api/v1/intakes/{intakeId}` | Path: `intakeId`. | `200` `{"id":"ed24bf3d-af04-4866-9d1a-49450670cb91","treatmentId":"a8809b8e-fafe-4d25-83d7-cc9529dc988e","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","olderAdultId":"d3a10000-0000-4000-8000-000000000002","medicationName":"Losartán","dose":"1 comprimido","instructions":"Con un vaso de agua","scheduledAt":"2026-10-10T08:00:00Z","status":"PENDING","confirmedAt":null,"confirmationChannel":null,"alreadyConfirmed":false}` | Devuelve el medicamento, la dosis, las instrucciones, el horario y el estado de la toma. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · intakes-controller |
+| `/api/v1/intakes/{intakeId}/confirmation` | Confirmar una toma (US-05) | POST | `POST /api/v1/intakes/{intakeId}/confirmation` | Path: `intakeId`.<br>Body: `channel`. | `200` `{"id":"ed24bf3d-af04-4866-9d1a-49450670cb91","treatmentId":"a8809b8e-fafe-4d25-83d7-cc9529dc988e","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","olderAdultId":"d3a10000-0000-4000-8000-000000000002","medicationName":"Losartán","dose":"1 comprimido","instructions":"Con un vaso de agua","scheduledAt":"2026-10-10T08:00:00Z","status":"CONFIRMED","confirmedAt":"2026-10-09T23:15:06.388841Z","confirmationChannel":"TOUCH","alreadyConfirmed":false}` | Registra la confirmación por el canal indicado (`TOUCH`) y devuelve la toma actualizada. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · intakes-controller |
+| `/api/v1/intakes/{intakeId}/voice-confirmation` | Confirmar una toma por voz (US-06) | POST | `POST /api/v1/intakes/{intakeId}/voice-confirmation?language={language}` | Path: `intakeId`.<br>Query: `language` (opcional).<br>Body: `audio`. | `200` `{"status":"CONFIRMED","transcript":"ya tomé mi pastilla","confidence":0.93,"intake":{"id":"ed24bf3d-af04-4866-9d1a-49450670cb91","treatmentId":"a8809b8e-fafe-4d25-83d7-cc9529dc988e","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","olderAdultId":"d3a10000-0000-4000-8000-000000000002","medicationName":"Losartán","dose":"1 comprimido","instructions":"Con un vaso de agua","scheduledAt":"2026-10-10T08:00:00Z","status":"CONFIRMED","confirmedAt":"2026-10-09T23:15:06.388841Z","confirmationChannel":"TOUCH","alreadyConfirmed":false}}` | Procesa el audio con el servicio de reconocimiento de voz; solo una confirmación reconocida y validada cambia el estado de la toma. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · intakes-controller |
 
 **Family Monitoring**
 
-| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
-| --- | --- | --- | --- | --- |
-| `/api/v1/older-adults/{olderAdultId}/status` | Consultar el estado reciente de un adulto mayor (US-25) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `{"nextIntakeAt":"2026-10-05T21:00:00Z","lastIntakeStatus":"CONFIRMED","hasOpenAlert":true,"openAlerts":[{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}],"weeklyAdherence":{"confirmedIntakes":1,"totalIntakes":1},"lowStock":[{"medicationId":"7a1b2c3d-1111-4222-8333-444455556666","medicationName":"Losartán","remainingStock":4,"replenishmentThreshold":5,"detectedAt":"2026-10-06T12:00:00Z"}],"adherenceInsights":[{"medicationId":"7a1b2c3d-1111-4222-8333-444455556666","medicationName":"Losartán","omissionDays":3,"firstDay":"2026-10-01","lastDay":"2026-10-03","detectedAt":"2026-10-06T08:00:00Z"}]}`<br>Devuelve la próxima toma, el resultado de la última y las alertas pendientes. `404` si el adulto mayor no tiene seguimiento activo. |
-| `/api/v1/older-adults/{olderAdultId}/intakes` | Consultar el historial reciente de tomas (US-26) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`, `days` (opcional). | `200` `[{"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","status":"CONFIRMED"}]`<br>Devuelve las tomas de los últimos días, de la más reciente a la más antigua; vacía si no hay registros. `400` si `days` es inválido; `404` si no hay seguimiento activo. |
-| `/api/v1/older-adults/{olderAdultId}/contact-channel` | Consultar el canal de contacto de un adulto mayor (US-29) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `{"type":"PHONE","value":"+51 999 888 777"}`<br>Devuelve el canal con el que el cuidador puede comunicarse tras una alerta. `404` si no hay seguimiento o canal. |
-| `/api/v1/older-adults/{olderAdultId}/alerts/{alertId}` | Consultar el detalle de una alerta (US-27) | GET | Path: `olderAdultId`, `alertId`.<br>Query: `caregiverId`. | `200` `{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}`<br>Devuelve el medicamento, el horario, el estado y el motivo de la alerta. `404` si no existe. |
-| `/api/v1/older-adults/{olderAdultId}/alerts/{alertId}/status` | Actualizar el estado de seguimiento de una alerta (US-31) | PUT | Path: `olderAdultId`, `alertId`.<br>Query: `caregiverId`.<br>Body: `status`. | `200` `{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}`<br>`ATTENDED` registra que el cuidador actuó; `CLOSED` la quita de las pendientes y la conserva en el historial. `400` si el estado no es válido; `404` si no existe; `409` si no puede pasar a ese estado. |
-| `/api/v1/older-adults/{olderAdultId}/notes` | Listar las notas de seguimiento (US-30) | GET | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":1,"text":"I called her and she had already taken the pill.","recordedAt":"2026-10-05T14:10:00Z","familiarId":"1"}]`<br>Devuelve las notas registradas, de la más reciente a la más antigua; vacía si no hay. `404` si no hay seguimiento activo. |
-| `/api/v1/older-adults/{olderAdultId}/notes` | Registrar una nota de seguimiento (US-30) | POST | Path: `olderAdultId`.<br>Body: `familiarId`, `text`. | `201` `{"id":1,"text":"I called her and she had already taken the pill.","recordedAt":"2026-10-05T14:10:00Z","familiarId":"1"}`<br>Guarda la nota con su fecha y su autor; responde `201`. `400` si la nota es inválida; `404` si no hay seguimiento activo. |
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}/status` | Consultar el estado reciente de un adulto mayor (US-25) | GET | `GET /api/v1/older-adults/{olderAdultId}/status?caregiverId={caregiverId}` | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `{"nextIntakeAt":"2026-10-05T21:00:00Z","lastIntakeStatus":"CONFIRMED","hasOpenAlert":true,"openAlerts":[{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}],"weeklyAdherence":{"confirmedIntakes":1,"totalIntakes":1},"lowStock":[{"medicationId":"7a1b2c3d-1111-4222-8333-444455556666","medicationName":"Losartán","remainingStock":4,"replenishmentThreshold":5,"detectedAt":"2026-10-06T12:00:00Z"}],"adherenceInsights":[{"medicationId":"7a1b2c3d-1111-4222-8333-444455556666","medicationName":"Losartán","omissionDays":3,"firstDay":"2026-10-01","lastDay":"2026-10-03","detectedAt":"2026-10-06T08:00:00Z"}]}` | Devuelve la próxima toma, el resultado de la última y las alertas pendientes. `404` si el adulto mayor no tiene seguimiento activo. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Family Monitoring |
+| `/api/v1/older-adults/{olderAdultId}/intakes` | Consultar el historial reciente de tomas (US-26) | GET | `GET /api/v1/older-adults/{olderAdultId}/intakes?caregiverId={caregiverId}&days={days}` | Path: `olderAdultId`.<br>Query: `caregiverId`, `days` (opcional). | `200` `[{"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","status":"CONFIRMED"}]` | Devuelve las tomas de los últimos días, de la más reciente a la más antigua; vacía si no hay registros. `400` si `days` es inválido; `404` si no hay seguimiento activo. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Family Monitoring |
+| `/api/v1/older-adults/{olderAdultId}/contact-channel` | Consultar el canal de contacto de un adulto mayor (US-29) | GET | `GET /api/v1/older-adults/{olderAdultId}/contact-channel?caregiverId={caregiverId}` | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `{"type":"PHONE","value":"+51 999 888 777"}` | Devuelve el canal con el que el cuidador puede comunicarse tras una alerta. `404` si no hay seguimiento o canal. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Family Monitoring |
+| `/api/v1/older-adults/{olderAdultId}/alerts/{alertId}` | Consultar el detalle de una alerta (US-27) | GET | `GET /api/v1/older-adults/{olderAdultId}/alerts/{alertId}?caregiverId={caregiverId}` | Path: `olderAdultId`, `alertId`.<br>Query: `caregiverId`. | `200` `{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}` | Devuelve el medicamento, el horario, el estado y el motivo de la alerta. `404` si no existe. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Alerts |
+| `/api/v1/older-adults/{olderAdultId}/alerts/{alertId}/status` | Actualizar el estado de seguimiento de una alerta (US-31) | PUT | `PUT /api/v1/older-adults/{olderAdultId}/alerts/{alertId}/status?caregiverId={caregiverId}` | Path: `olderAdultId`, `alertId`.<br>Query: `caregiverId`.<br>Body: `status`. | `200` `{"id":1,"intakeId":"101","medicationName":"Losartan 50 mg","scheduledAt":"2026-10-05T13:00:00Z","reason":"Intake not confirmed within the grace period","status":"OPEN","openedAt":"2026-10-05T13:30:00Z","closedAt":null}` | `ATTENDED` registra que el cuidador actuó; `CLOSED` la quita de las pendientes y la conserva en el historial. `400` si el estado no es válido; `404` si no existe; `409` si no puede pasar a ese estado. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Alerts |
+| `/api/v1/older-adults/{olderAdultId}/notes` | Listar las notas de seguimiento (US-30) | GET | `GET /api/v1/older-adults/{olderAdultId}/notes?caregiverId={caregiverId}` | Path: `olderAdultId`.<br>Query: `caregiverId`. | `200` `[{"id":1,"text":"I called her and she had already taken the pill.","recordedAt":"2026-10-05T14:10:00Z","familiarId":"1"}]` | Devuelve las notas registradas, de la más reciente a la más antigua; vacía si no hay. `404` si no hay seguimiento activo. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Caregiver Notes |
+| `/api/v1/older-adults/{olderAdultId}/notes` | Registrar una nota de seguimiento (US-30) | POST | `POST /api/v1/older-adults/{olderAdultId}/notes` | Path: `olderAdultId`.<br>Body: `familiarId`, `text`. | `201` `{"id":1,"text":"I called her and she had already taken the pill.","recordedAt":"2026-10-05T14:10:00Z","familiarId":"1"}` | Guarda la nota con su fecha y su autor; responde `201`. `400` si la nota es inválida; `404` si no hay seguimiento activo. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Caregiver Notes |
 
 **Adherence Analytics**
 
-| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
-| --- | --- | --- | --- | --- |
-| `/api/v1/older-adults/{olderAdultId}/adherence/weekly` | Consultar la adherencia semanal | GET | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `{"olderAdultId":"string","from":"2026-10-06T08:00:00Z","to":"2026-10-06T08:00:00Z","confirmedIntakes":1,"totalIntakes":1,"percentage":1,"onTimeIntakes":1,"lateIntakes":1,"omittedIntakes":1}`<br>Devuelve las tomas confirmadas, a tiempo, tardías y omitidas del período, con el porcentaje de adherencia. |
-| `/api/v1/older-adults/{olderAdultId}/adherence/summary` | Consultar el resumen de adherencia | GET | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `200` `{"periodDays":1,"scheduledCount":1,"adherencePercent":1,"adherenceChangePercent":1,"onTimePercent":1,"onTimeChangePercent":1,"lateCount":1,"omittedCount":1,"trend":[{"date":"2026-10-06","adherencePercent":1}],"recentIntakes":[{"scheduledAt":"2026-10-06T08:00:00Z","medicationName":"string","status":"string","minutesLate":1}],"pattern":{"timeBand":"string","omittedCount":1,"lateCount":1}}`<br>Devuelve los porcentajes de adherencia y puntualidad con el cambio frente al período anterior, la tendencia y las tomas recientes. `204` si no hay tomas definitivas; `400` si el período o la zona son inválidos. |
-| `/api/v1/older-adults/{olderAdultId}/adherence/recommendations` | Consultar las recomendaciones de adherencia | GET | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `[{"medicationId":"string","code":"string","evidenceDays":1}]`<br>Devuelve recomendaciones por medicamento con los días de evidencia. |
-| `/api/v1/older-adults/{olderAdultId}/adherence/patterns` | Consultar los patrones de omisión | GET | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `[{"medicationId":"string","omissionDays":1,"firstDay":"2026-10-06","lastDay":"2026-10-06"}]`<br>Devuelve, por medicamento, los días de omisión y el primer y último día. |
-| `/api/v1/older-adults/{olderAdultId}/adherence/insights` | Consultar las recomendaciones de seguimiento según patrones | GET | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `200` `{"periodDays":1,"pattern":{"type":"string","timeBand":"string","omittedCount":1,"lateCount":1,"fromHour":1,"toHour":1},"concentration":[[1]],"recommendations":["string"]}`<br>Devuelve el patrón detectado, la concentración por franja y las recomendaciones; solo tratan recordatorios, horarios y seguimiento, nunca la dosis. `204` si no hay evidencia suficiente; `400` si el período o la zona son inválidos. |
-| `/api/v1/older-adults/{olderAdultId}/adherence/insight` | Consultar las recomendaciones de seguimiento según patrones (ruta alterna) | GET | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `200` `{"periodDays":1,"pattern":{"type":"string","timeBand":"string","omittedCount":1,"lateCount":1,"fromHour":1,"toHour":1},"concentration":[[1]],"recommendations":["string"]}`<br>Misma respuesta que `/adherence/insights`. |
-| `/api/v1/older-adults/{olderAdultId}/adherence/history` | Consultar el historial de tomas del período | GET | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `[{"medicationId":"string","scheduledAt":"2026-10-06T08:00:00Z","status":"PENDING"}]`<br>Devuelve cada toma con su medicamento, horario y estado entre `from` y `to`. |
-| `/api/v1/older-adults/{olderAdultId}/adherence/consolidations` | Consolidar la adherencia de un período | POST | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `{"id":"string","olderAdultId":"string","from":"2026-10-06T08:00:00Z","to":"2026-10-06T08:00:00Z","zone":"string","consolidatedAt":"2026-10-06T08:00:00Z","confirmedIntakes":1,"totalIntakes":1,"percentage":1,"onTimeIntakes":1,"lateIntakes":1,"omittedIntakes":1,"patterns":[{"medicationId":"string","omissionDays":1,"firstDay":"2026-10-06","lastDay":"2026-10-06"}],"minimumOmissionDays":1}`<br>Calcula y guarda una captura de la adherencia entre `from` y `to` y la devuelve. |
-| `/api/v1/older-adults/{olderAdultId}/adherence/consolidations/{snapshotId}` | Consultar una consolidación de adherencia | GET | Path: `olderAdultId`, `snapshotId`. | `200` `{"id":"string","olderAdultId":"string","from":"2026-10-06T08:00:00Z","to":"2026-10-06T08:00:00Z","zone":"string","consolidatedAt":"2026-10-06T08:00:00Z","confirmedIntakes":1,"totalIntakes":1,"percentage":1,"onTimeIntakes":1,"lateIntakes":1,"omittedIntakes":1,"patterns":[{"medicationId":"string","omissionDays":1,"firstDay":"2026-10-06","lastDay":"2026-10-06"}],"minimumOmissionDays":1}`<br>Devuelve la captura guardada con sus totales y porcentajes. |
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}/adherence/weekly` | Consultar la adherencia semanal | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/weekly?from={from}&to={to}` | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `{"olderAdultId":"d3a10000-0000-4000-8000-000000000002","from":"2026-10-03T00:00:00Z","to":"2026-10-10T00:00:00Z","confirmedIntakes":0,"totalIntakes":0,"percentage":0.0,"onTimeIntakes":0,"lateIntakes":0,"omittedIntakes":0}` | Devuelve las tomas confirmadas, a tiempo, tardías y omitidas del período, con el porcentaje de adherencia. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · adherence-controller |
+| `/api/v1/older-adults/{olderAdultId}/adherence/summary` | Consultar el resumen de adherencia | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/summary?days={days}&zone={zone}` | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `204` Sin cuerpo | Devuelve los porcentajes de adherencia y puntualidad con el cambio frente al período anterior, la tendencia y las tomas recientes. `204` si no hay tomas definitivas; `400` si el período o la zona son inválidos. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Adherence Analytics |
+| `/api/v1/older-adults/{olderAdultId}/adherence/recommendations` | Consultar las recomendaciones de adherencia | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/recommendations?from={from}&to={to}&zone={zone}` | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `[]` | Devuelve recomendaciones por medicamento con los días de evidencia; la lista va vacía si el período no tiene omisiones. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · adherence-controller |
+| `/api/v1/older-adults/{olderAdultId}/adherence/patterns` | Consultar los patrones de omisión | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/patterns?from={from}&to={to}&zone={zone}` | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `[]` | Devuelve, por medicamento, los días de omisión y el primer y último día; la lista va vacía si no hay patrones. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · adherence-controller |
+| `/api/v1/older-adults/{olderAdultId}/adherence/insights` | Consultar las recomendaciones de seguimiento según patrones | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/insights?days={days}&zone={zone}` | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `204` Sin cuerpo | Devuelve el patrón detectado, la concentración por franja y las recomendaciones; solo tratan recordatorios, horarios y seguimiento, nunca la dosis. `204` si no hay evidencia suficiente; `400` si el período o la zona son inválidos. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Adherence Analytics |
+| `/api/v1/older-adults/{olderAdultId}/adherence/insight` | Consultar las recomendaciones de seguimiento según patrones (ruta alterna) | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/insight?days={days}&zone={zone}` | Path: `olderAdultId`.<br>Query: `days` (opcional), `zone` (opcional). | `204` Sin cuerpo | Misma respuesta que `/adherence/insights`. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Adherence Analytics |
+| `/api/v1/older-adults/{olderAdultId}/adherence/history` | Consultar el historial de tomas del período | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/history?from={from}&to={to}` | Path: `olderAdultId`.<br>Query: `from`, `to`. | `200` `[]` | Devuelve cada toma con su medicamento, horario y estado entre `from` y `to`; la lista va vacía si todavía no hay tomas en el período. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · adherence-controller |
+| `/api/v1/older-adults/{olderAdultId}/adherence/consolidations` | Consolidar la adherencia de un período | POST | `POST /api/v1/older-adults/{olderAdultId}/adherence/consolidations?from={from}&to={to}&zone={zone}` | Path: `olderAdultId`.<br>Query: `from`, `to`, `zone` (opcional). | `200` `{"id":"969c2d55-5383-3507-8e83-5093803bd0be","olderAdultId":"d3a10000-0000-4000-8000-000000000002","from":"2026-10-03T00:00:00Z","to":"2026-10-10T00:00:00Z","zone":"Z","consolidatedAt":"2026-10-09T23:15:18.371490Z","confirmedIntakes":0,"totalIntakes":0,"percentage":0.0,"onTimeIntakes":0,"lateIntakes":0,"omittedIntakes":0,"patterns":[],"minimumOmissionDays":3}` | Calcula y guarda una captura de la adherencia entre `from` y `to` y la devuelve. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · adherence-controller |
+| `/api/v1/older-adults/{olderAdultId}/adherence/consolidations/{snapshotId}` | Consultar una consolidación de adherencia | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/consolidations/{snapshotId}` | Path: `olderAdultId`, `snapshotId`. | `200` `{"id":"969c2d55-5383-3507-8e83-5093803bd0be","olderAdultId":"d3a10000-0000-4000-8000-000000000002","from":"2026-10-03T00:00:00Z","to":"2026-10-10T00:00:00Z","zone":"Z","consolidatedAt":"2026-10-09T23:15:18.371490Z","confirmedIntakes":0,"totalIntakes":0,"percentage":0.0,"onTimeIntakes":0,"lateIntakes":0,"omittedIntakes":0,"patterns":[],"minimumOmissionDays":3}` | Devuelve la captura guardada con sus totales y porcentajes. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · adherence-controller |
 
 **Inventory & Replenishment**
 
-| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
-| --- | --- | --- | --- | --- |
-| `/api/v1/inventories` | Registrar el inventario inicial de un medicamento (US-40) | POST | Body: `medicationId`, `initialQuantity`, `replenishmentThreshold`. | `201` `{"id":"string","medicationId":"string","remainingStock":12,"replenishmentThreshold":5,"lowStock":true,"batches":[{"id":"string","quantity":1,"registeredAt":"2026-10-06T08:00:00Z","lot":"string"}],"createdAt":"2026-10-06T08:00:00Z","updatedAt":"2026-10-06T08:00:00Z","daysRemaining":1,"dailyConsumptionUnits":1}`<br>Crea el stock con su primer lote y el umbral de reposición; solo existe un inventario por medicamento. `400` si faltan datos o la cantidad es inválida; `404` si el medicamento no existe; `409` si está inactivo o ya tiene inventario. |
-| `/api/v1/inventories/{medicationId}/replenishments` | Registrar una reposición (US-43) | POST | Path: `medicationId`.<br>Body: `quantity`, `lot`. | `201` `{"id":"string","medicationId":"string","remainingStock":12,"replenishmentThreshold":5,"lowStock":true,"batches":[{"id":"string","quantity":1,"registeredAt":"2026-10-06T08:00:00Z","lot":"string"}],"createdAt":"2026-10-06T08:00:00Z","updatedAt":"2026-10-06T08:00:00Z","daysRemaining":1,"dailyConsumptionUnits":1}`<br>Agrega un lote y aumenta el stock; devuelve el inventario actualizado. `400` si faltan datos; `404` si no hay inventario; `409` si hubo una modificación concurrente. |
-| `/api/v1/inventories/{medicationId}` | Consultar el stock de un medicamento (US-41, US-42) | GET | Path: `medicationId`. | `200` `{"id":"string","medicationId":"string","remainingStock":12,"replenishmentThreshold":5,"lowStock":true,"batches":[{"id":"string","quantity":1,"registeredAt":"2026-10-06T08:00:00Z","lot":"string"}],"createdAt":"2026-10-06T08:00:00Z","updatedAt":"2026-10-06T08:00:00Z","daysRemaining":1,"dailyConsumptionUnits":1}`<br>Devuelve las unidades restantes, el umbral, el indicador de stock bajo y los lotes. `404` si no hay inventario. |
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/inventories` | Registrar el inventario inicial de un medicamento (US-40) | POST | `POST /api/v1/inventories` | Body: `medicationId`, `initialQuantity`, `replenishmentThreshold`. | `201` `{"id":"d58ca5d0-ea63-499a-947b-4cd872537e11","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","remainingStock":30,"replenishmentThreshold":5,"lowStock":false,"batches":[{"id":"117270be-c2c4-4a1e-ac18-1e62eb5bf84f","quantity":30,"registeredAt":"2026-10-09T23:15:07.775052975Z","lot":null}],"createdAt":"2026-10-09T23:15:07.775052975Z","updatedAt":"2026-10-09T23:15:07.775052975Z","daysRemaining":15,"dailyConsumptionUnits":2}` | Crea el stock con su primer lote y el umbral de reposición; solo existe un inventario por medicamento. `400` si faltan datos o la cantidad es inválida; `404` si el medicamento no existe; `409` si está inactivo o ya tiene inventario. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Inventory |
+| `/api/v1/inventories/{medicationId}/replenishments` | Registrar una reposición (US-43) | POST | `POST /api/v1/inventories/{medicationId}/replenishments` | Path: `medicationId`.<br>Body: `quantity`, `lot`. | `201` `{"id":"d58ca5d0-ea63-499a-947b-4cd872537e11","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","remainingStock":40,"replenishmentThreshold":5,"lowStock":false,"batches":[{"id":"117270be-c2c4-4a1e-ac18-1e62eb5bf84f","quantity":30,"registeredAt":"2026-10-09T23:15:07.775053Z","lot":null},{"id":"b4bbf371-bd2f-4df9-9e27-a429938eec8f","quantity":10,"registeredAt":"2026-10-09T23:15:09.889009393Z","lot":"L-2026-10"}],"createdAt":"2026-10-09T23:15:07.775053Z","updatedAt":"2026-10-09T23:15:09.889009393Z","daysRemaining":20,"dailyConsumptionUnits":2}` | Agrega un lote y aumenta el stock; devuelve el inventario actualizado. `400` si faltan datos; `404` si no hay inventario; `409` si hubo una modificación concurrente. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Inventory |
+| `/api/v1/inventories/{medicationId}` | Consultar el stock de un medicamento (US-41, US-42) | GET | `GET /api/v1/inventories/{medicationId}` | Path: `medicationId`. | `200` `{"id":"d58ca5d0-ea63-499a-947b-4cd872537e11","medicationId":"f66da084-42d4-4faa-ba33-996027441d07","remainingStock":40,"replenishmentThreshold":5,"lowStock":false,"batches":[{"id":"117270be-c2c4-4a1e-ac18-1e62eb5bf84f","quantity":30,"registeredAt":"2026-10-09T23:15:07.775053Z","lot":null},{"id":"b4bbf371-bd2f-4df9-9e27-a429938eec8f","quantity":10,"registeredAt":"2026-10-09T23:15:09.889009Z","lot":"L-2026-10"}],"createdAt":"2026-10-09T23:15:07.775053Z","updatedAt":"2026-10-09T23:15:09.889009Z","daysRemaining":20,"dailyConsumptionUnits":2}` | Devuelve las unidades restantes, el umbral, el indicador de stock bajo y los lotes. `404` si no hay inventario. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Inventory |
 
 **Estado del servicio**
 
-| Endpoint | Acción | HTTP | Parámetros | Respuesta y significado |
-| --- | --- | --- | --- | --- |
-| `/health` | Verificar que el servicio está activo | GET | Ninguno. | `200` `null`<br>Devuelve el estado del servicio (`UP`). No requiere token. |
-| `/actuator/health` | Verificar el estado del servicio (Actuator) | GET | Ninguno. | `200` `null`<br>Devuelve el estado del servicio (`UP`). No requiere token. |
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/health` | Verificar que el servicio está activo | GET | `GET /health` | Ninguno. | `200` `{"status":"UP"}` | Devuelve el estado del servicio (`UP`). No requiere token. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · health-controller |
+| `/actuator/health` | Verificar el estado del servicio (Actuator) | GET | `GET /actuator/health` | Ninguno. | `200` `{"status":"UP"}` | Devuelve el estado del servicio (`UP`). No requiere token. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · health-controller |
 
 **Capturas de la documentación**
 
-Las capturas se tomaron ejecutando el backend en un entorno local con una base de datos en memoria y datos de muestra, desde Swagger UI con la opción *Try it out*.
+Las primeras capturas las tomamos con el backend corriendo en local, con una base de datos en memoria y datos de muestra, usando la opción *Try it out* de Swagger UI.
 
-<p align="center">
-  <img src="assets/services-documentation/00-swagger-treatments.png" alt="Operaciones de tratamientos en Swagger UI" width="960">
-</p>
+![Swagger UI: operaciones del grupo Treatments.](assets/services-documentation/00-swagger-treatments.png)
 
-*Figura. Operaciones de tratamientos en Swagger UI.*
+*Figura 1. Swagger UI: operaciones del grupo Treatments.*
 
+![Swagger UI: operaciones del grupo Medications.](assets/services-documentation/00-swagger-medications.png)
 
-<p align="center">
-  <img src="assets/services-documentation/00-swagger-medications.png" alt="Operaciones de medicamentos en Swagger UI" width="960">
-</p>
+*Figura 2. Swagger UI: operaciones del grupo Medications.*
 
-*Figura. Operaciones de medicamentos en Swagger UI.*
+![Swagger UI: operaciones del grupo Accessibility.](assets/services-documentation/00-swagger-accessibility.png)
 
+*Figura 3. Swagger UI: operaciones del grupo Accessibility.*
 
-<p align="center">
-  <img src="assets/services-documentation/00-swagger-accessibility.png" alt="Operaciones de accesibilidad en Swagger UI" width="960">
-</p>
+![Swagger UI: operación del grupo Notification Preferences.](assets/services-documentation/00-swagger-notification-preferences.png)
 
-*Figura. Operaciones de accesibilidad en Swagger UI.*
+*Figura 4. Swagger UI: operación del grupo Notification Preferences.*
 
+![POST /api/v1/older-adults/{olderAdultId}/medications: registra Losartán 50 mg y responde 201 con el medicamento creado.](assets/services-documentation/01-registrar-medicamento.png)
 
-<p align="center">
-  <img src="assets/services-documentation/00-swagger-notification-preferences.png" alt="Preferencias de notificación en Swagger UI" width="960">
-</p>
+*Figura 5. `POST /api/v1/older-adults/{olderAdultId}/medications`: registra Losartán 50 mg y responde `201` con el medicamento creado.*
 
-*Figura. Preferencias de notificación en Swagger UI.*
+![GET /api/v1/older-adults/{olderAdultId}/medications: responde 200 con la lista de medicamentos.](assets/services-documentation/02-listar-medicamentos.png)
 
+*Figura 6. `GET /api/v1/older-adults/{olderAdultId}/medications`: responde `200` con la lista de medicamentos.*
 
-<p align="center">
-  <img src="assets/services-documentation/01-registrar-medicamento.png" alt="Registro de medicamento" width="960">
-</p>
+![PUT /api/v1/medications/{medicationId}: cambia la presentación a 100 mg y responde 200.](assets/services-documentation/03-editar-medicamento.png)
 
-*Figura. Registro de medicamento.*
+*Figura 7. `PUT /api/v1/medications/{medicationId}`: cambia la presentación a 100 mg y responde `200`.*
 
+![POST /api/v1/older-adults/{olderAdultId}/treatments: crea el tratamiento en estado DRAFT y responde 201.](assets/services-documentation/04-crear-tratamiento.png)
 
-<p align="center">
-  <img src="assets/services-documentation/02-listar-medicamentos.png" alt="Consulta de medicamentos" width="960">
-</p>
+*Figura 8. `POST /api/v1/older-adults/{olderAdultId}/treatments`: crea el tratamiento en estado `DRAFT` y responde `201`.*
 
-*Figura. Consulta de medicamentos.*
+![PUT /api/v1/treatments/{treatmentId}/regimen: asigna medicamento, dosis, frecuencia, horarios, instrucciones y recordatorio; responde 200.](assets/services-documentation/05-configurar-pauta.png)
 
+*Figura 9. `PUT /api/v1/treatments/{treatmentId}/regimen`: asigna medicamento, dosis, frecuencia, horarios, instrucciones y recordatorio; responde `200`.*
 
-<p align="center">
-  <img src="assets/services-documentation/03-editar-medicamento.png" alt="Edición de medicamento" width="960">
-</p>
+![POST /api/v1/treatments/{treatmentId}/activation: el tratamiento pasa a ACTIVE.](assets/services-documentation/06-activar-tratamiento.png)
 
-*Figura. Edición de medicamento.*
+*Figura 10. `POST /api/v1/treatments/{treatmentId}/activation`: el tratamiento pasa a `ACTIVE`.*
 
+![GET /api/v1/treatments/{treatmentId}: devuelve el tratamiento con su pauta.](assets/services-documentation/07-detalle-tratamiento.png)
 
-<p align="center">
-  <img src="assets/services-documentation/04-crear-tratamiento.png" alt="Creación de tratamiento" width="960">
-</p>
+*Figura 11. `GET /api/v1/treatments/{treatmentId}`: devuelve el tratamiento con su pauta.*
 
-*Figura. Creación de tratamiento.*
+![POST /api/v1/treatments/{treatmentId}/pause: el tratamiento pasa a PAUSED.](assets/services-documentation/08-pausar-tratamiento.png)
 
+*Figura 12. `POST /api/v1/treatments/{treatmentId}/pause`: el tratamiento pasa a `PAUSED`.*
 
-<p align="center">
-  <img src="assets/services-documentation/05-configurar-pauta.png" alt="Configuración de la pauta" width="960">
-</p>
+![POST /api/v1/medications/{medicationId}/deactivation: el medicamento queda inactivo.](assets/services-documentation/09-desactivar-medicamento.png)
 
-*Figura. Configuración de la pauta.*
+*Figura 13. `POST /api/v1/medications/{medicationId}/deactivation`: el medicamento queda inactivo.*
 
+![GET /api/v1/older-adults/{olderAdultId}/medications con un cuidador sin vínculo activo: responde 403 CARE_LINK_NOT_AUTHORIZED.](assets/services-documentation/10-error-403-sin-vinculo.png)
 
-<p align="center">
-  <img src="assets/services-documentation/06-activar-tratamiento.png" alt="Activación del tratamiento" width="960">
-</p>
+*Figura 14. `GET /api/v1/older-adults/{olderAdultId}/medications` con un cuidador sin vínculo activo: responde `403 CARE_LINK_NOT_AUTHORIZED`.*
 
-*Figura. Activación del tratamiento.*
+![GET /api/v1/users/{userId}/preferences: devuelve las preferencias del usuario.](assets/services-documentation/11-consultar-preferencias.png)
 
+*Figura 15. `GET /api/v1/users/{userId}/preferences`: devuelve las preferencias del usuario.*
 
-<p align="center">
-  <img src="assets/services-documentation/07-detalle-tratamiento.png" alt="Consulta del tratamiento" width="960">
-</p>
+![PUT /api/v1/users/{userId}/preferences/text-size: cambia el tamaño de texto a LARGE.](assets/services-documentation/12-cambiar-tamano-texto.png)
 
-*Figura. Consulta del tratamiento.*
+*Figura 16. `PUT /api/v1/users/{userId}/preferences/text-size`: cambia el tamaño de texto a `LARGE`.*
 
+![PUT /api/v1/users/{userId}/preferences/contrast: activa el contraste reforzado.](assets/services-documentation/13-activar-contraste.png)
 
-<p align="center">
-  <img src="assets/services-documentation/08-pausar-tratamiento.png" alt="Pausa del tratamiento" width="960">
-</p>
+*Figura 17. `PUT /api/v1/users/{userId}/preferences/contrast`: activa el contraste reforzado.*
 
-*Figura. Pausa del tratamiento.*
+![PUT /api/v1/users/{userId}/notification-preferences: configura el horario de silencio (22:00 a 07:00) y los canales de notificación.](assets/services-documentation/14-horario-silencio-y-canales.png)
 
+*Figura 18. `PUT /api/v1/users/{userId}/notification-preferences`: configura el horario de silencio (22:00 a 07:00) y los canales de notificación.*
 
-<p align="center">
-  <img src="assets/services-documentation/09-desactivar-medicamento.png" alt="Desactivación del medicamento" width="960">
-</p>
+Las capturas siguientes son del Swagger UI desplegado en Render y muestran los grupos de endpoints de los demás Bounded Contexts.
 
-*Figura. Desactivación del medicamento.*
+![Swagger UI desplegado](assets/services-documentation/swagger-identity-subscription.png)
 
+*Figura 19. Swagger UI desplegado: operaciones de Identity & Subscription.*
 
-<p align="center">
-  <img src="assets/services-documentation/10-error-403-sin-vinculo.png" alt="Respuesta de acceso sin vínculo autorizado" width="960">
-</p>
+![Swagger UI desplegado](assets/services-documentation/swagger-care-link.png)
 
-*Figura. Respuesta de acceso sin vínculo autorizado.*
+*Figura 20. Swagger UI desplegado: operaciones de Care Link.*
 
+![Swagger UI desplegado](assets/services-documentation/swagger-intake-execution.png)
 
-<p align="center">
-  <img src="assets/services-documentation/11-consultar-preferencias.png" alt="Consulta de preferencias" width="960">
-</p>
+*Figura 21. Swagger UI desplegado: operaciones de Intake Execution.*
 
-*Figura. Consulta de preferencias.*
+![Swagger UI desplegado](assets/services-documentation/swagger-family-monitoring.png)
 
+*Figura 22. Swagger UI desplegado: operaciones de Family Monitoring (estado, alertas y notas).*
 
-<p align="center">
-  <img src="assets/services-documentation/12-cambiar-tamano-texto.png" alt="Ajuste del tamaño de texto" width="960">
-</p>
+![Swagger UI desplegado](assets/services-documentation/swagger-adherence-analytics.png)
 
-*Figura. Ajuste del tamaño de texto.*
+*Figura 23. Swagger UI desplegado: operaciones de Adherence Analytics.*
 
+![Swagger UI desplegado](assets/services-documentation/swagger-inventory.png)
 
-<p align="center">
-  <img src="assets/services-documentation/13-activar-contraste.png" alt="Activación del contraste" width="960">
-</p>
-
-*Figura. Activación del contraste.*
-
-
-<p align="center">
-  <img src="assets/services-documentation/14-horario-silencio-y-canales.png" alt="Configuración del horario de silencio y canales" width="960">
-</p>
-
-*Figura. Configuración del horario de silencio y canales.*
-
-
-Las siguientes capturas muestran los grupos de endpoints de los demás Bounded Contexts en el Swagger UI desplegado.
-
-<p align="center">
-  <img src="assets/services-documentation/swagger-identity-subscription.png" alt="Cuenta y suscripción en Swagger UI" width="960">
-</p>
-
-*Figura. Cuenta y suscripción en Swagger UI.*
-
-
-<p align="center">
-  <img src="assets/services-documentation/swagger-care-link.png" alt="Vinculación de cuidado en Swagger UI" width="960">
-</p>
-
-*Figura. Vinculación de cuidado en Swagger UI.*
-
-
-<p align="center">
-  <img src="assets/services-documentation/swagger-intake-execution.png" alt="Tomas en Swagger UI" width="960">
-</p>
-
-*Figura. Tomas en Swagger UI.*
-
-
-<p align="center">
-  <img src="assets/services-documentation/swagger-family-monitoring.png" alt="Seguimiento familiar en Swagger UI" width="960">
-</p>
-
-*Figura. Seguimiento familiar en Swagger UI.*
-
-
-<p align="center">
-  <img src="assets/services-documentation/swagger-adherence-analytics.png" alt="Adherencia en Swagger UI" width="960">
-</p>
-
-*Figura. Adherencia en Swagger UI.*
-
-
-<p align="center">
-  <img src="assets/services-documentation/swagger-inventory.png" alt="Inventario en Swagger UI" width="960">
-</p>
-
-*Figura. Inventario en Swagger UI.*
-
-
-(FALTA: capturas de ejecución con datos de muestra de los endpoints de los demás Bounded Contexts)
+*Figura 24. Swagger UI desplegado: operaciones de Inventory & Replenishment.*
+ 
 
 **Commits de documentación del Sprint**
 
-Commits que agregan o modifican la documentación OpenAPI de los endpoints, integrados en la rama `develop`.
+Estos son los commits de `develop` que agregan o cambian la documentación OpenAPI de los endpoints.
 
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
 | --- | --- | --- | --- | --- | --- |
@@ -745,92 +668,102 @@ Commits que agregan o modifican la documentación OpenAPI de los endpoints, inte
 
 #### 4.2.1.8. Software Deployment Evidence for Sprint Review
 
-La landing se publica en GitHub Pages y el backend en Render, con PostgreSQL en Neon. Las capturas muestran la publicación, la configuración del servicio y la documentación disponible.
+En este Sprint desplegamos el Landing Page en GitHub Pages y los Web Services en Render, con la base de datos PostgreSQL en Neon. También distribuimos la aplicación Android con Firebase App Distribution. Los pasos de configuración están en la sección 4.1.4.
 
-| Producto | Plataforma | Versión / acceso |
-| --- | --- | --- |
-| Landing | GitHub Pages | Release v1.0.0 |
-| Backend | Render | Release v1.0.0 y Swagger UI |
-| Base de datos | Neon | PostgreSQL, conexión privada |
-| Android | Emulador Android API 36 | APK y ejecución de vistas |
+| Producto | Plataforma | Estado en el Sprint 1 | URL |
+| --- | --- | --- | --- |
+| Landing Page | GitHub Pages (GitHub Actions) | Desplegado | https://vitahealth-upc.github.io/landing-page/ |
+| Web Services | Render (Web Service con Docker, plan Free; rama `develop`) | Desplegado | https://web-services-yzxl.onrender.com |
+| Base de datos | Neon (PostgreSQL 16, proyecto TATA, branch `production`, base `tata`) | Desplegada | (conexión privada) |
+| Aplicación Android | Firebase App Distribution (proyecto `tata-vitahealth`, app `com.vitahealth.tata`) | Distribuida (versión 0.1.0, APK debug) | Invitación por correo a los testers |
 
-<p align="center">
-  <img src="assets/repository-evidence/landing-deployment.png" alt="Publicación de la landing mediante GitHub Actions" width="960">
-</p>
+**Landing Page: GitHub Pages**
 
-*Figura. Publicación de la landing mediante GitHub Actions.*
+El repositorio `landing-page` tiene el workflow `.github/workflows/pages.yml` (*Deploy landing page to GitHub Pages*), que se ejecuta con cada push a `develop` o `main` y también se puede lanzar a mano. Hace el checkout, configura Pages, sube el sitio estático y lo publica con `actions/deploy-pages`. En *Settings > Pages* la fuente es *GitHub Actions* y dejamos activa la opción *Enforce HTTPS*.
 
-Enlace a despliegue de landing:
+![GitHub Pages del repositorio landing-page: sitio publicado con GitHub Actions como fuente y HTTPS forzado.](assets/githubPageEvidence.png)
 
-https://github.com/vitaHealth-UPC/landing-page/actions/runs/37709905361
+*Figura 1. GitHub Pages del repositorio `landing-page`: sitio publicado con GitHub Actions como fuente y HTTPS forzado.*
 
-<p align="center">
-  <img src="assets/githubPageEvidence.png" alt="Configuración de GitHub Pages" width="960">
-</p>
+![Landing Page publicada en https://vitahealth-upc.github.io/landing-page/.](assets/landingPageEvidence.png)
 
-*Figura. Configuración de GitHub Pages.*
+*Figura 2. Landing Page publicada en https://vitahealth-upc.github.io/landing-page/.*
 
-<p align="center">
-  <img src="assets/landingPageEvidence.png" alt="Landing publicada" width="960">
-</p>
+**Base de datos: Neon**
 
-*Figura. Landing publicada.*
+En Neon creamos el proyecto TATA con el plan Free, en la región AWS US East 2 (Ohio), con el branch `production` y la base `tata`. La cadena de conexión la copiamos desde *Connect*, con *connection pooling* activo y el rol `tata_owner`. La contraseña no se muestra en las capturas.
 
-<p align="center">
-  <img src="assets/deployment-evidence/neon-proyecto.png" alt="Proyecto PostgreSQL en Neon" width="960">
-</p>
+![Neon: resumen del proyecto TATA, branch production.](assets/deployment-evidence/neon-proyecto.png)
 
-*Figura. Proyecto PostgreSQL en Neon.*
+*Figura 3. Neon: resumen del proyecto TATA, branch `production`.*
 
-<p align="center">
-  <img src="assets/deployment-evidence/neon-connect.png" alt="Configuración de conexión a PostgreSQL" width="960">
-</p>
+![Neon: cadena de conexión con la contraseña oculta.](assets/deployment-evidence/neon-connect.png)
 
-*Figura. Configuración de conexión a PostgreSQL.*
+*Figura 4. Neon: cadena de conexión con la contraseña oculta.*
 
-<p align="center">
-  <img src="assets/deployment-evidence/render-env.png" alt="Variables de entorno del servicio" width="960">
-</p>
+**Web Services: Render**
 
-*Figura. Variables de entorno del servicio.*
+En Render creamos un Web Service enlazado al repositorio `vitaHealth-UPC/web-services`, rama `develop`, con entorno Docker (el `Dockerfile` está en la raíz) y plan Free. La conexión a la base de datos va en las variables de entorno `SPRING_DATASOURCE_URL` (`jdbc:postgresql://<host>.neon.tech:5432/tata?sslmode=require`), `SPRING_DATASOURCE_USERNAME` y `SPRING_DATASOURCE_PASSWORD`, así que ningún secreto queda en el repositorio. En producción las tablas se crean al arrancar con `spring.jpa.hibernate.ddl-auto=update`. Después agregamos la variable `TATA_DEMO_SEED=true`, que crea una cuenta de demostración al arrancar, porque el envío del código de verificación por correo todavía no está integrado.
 
-<p align="center">
-  <img src="assets/deployment-evidence/render-deploy.png" alt="Servicio publicado en Render" width="960">
-</p>
+![Render: variables de entorno del servicio con los valores ocultos.](assets/deployment-evidence/render-env.png)
 
-*Figura. Servicio publicado en Render.*
+*Figura 5. Render: variables de entorno del servicio con los valores ocultos.*
 
-<p align="center">
-  <img src="assets/deployment-evidence/health.png" alt="Respuesta del endpoint de salud" width="960">
-</p>
+Lanzamos el primer despliegue a mano; terminó con *Deploy succeeded* y el servicio quedó en estado *Live*.
 
-*Figura. Respuesta del endpoint de salud.*
+![Render: despliegue exitoso y servicio en estado Live.](assets/deployment-evidence/render-deploy.png)
 
-<p align="center">
-  <img src="assets/deployment-evidence/swagger-desplegado.png" alt="Swagger UI del backend publicado" width="960">
-</p>
+*Figura 6. Render: despliegue exitoso y servicio en estado Live.*
 
-*Figura. Swagger UI del backend publicado.*
+**Verificación**
 
-Enlace a landing:
+`GET /health` responde `{"status":"UP"}` y Swagger UI abre en la URL pública. Como el plan Free de Render suspende la instancia cuando no recibe tráfico, la primera petición después de un rato puede tardar en responder.
 
-https://vitahealth-upc.github.io/landing-page/
+![Verificación de GET /health en la URL pública.](assets/deployment-evidence/health.png)
 
-Enlace a backend:
+*Figura 7. Verificación de `GET /health` en la URL pública.*
 
-https://web-services-yzxl.onrender.com/
+![Swagger UI en la URL pública del backend.](assets/deployment-evidence/swagger-desplegado.png)
 
-Enlace a health:
+*Figura 8. Swagger UI en la URL pública del backend.*
 
-https://web-services-yzxl.onrender.com/health
+**Aplicación Android: Firebase App Distribution**
 
-Enlace a Swagger UI:
+Para distribuir la aplicación Android creamos el proyecto `tata-vitahealth` en Firebase, con el plan Spark, y registramos la app `Tata` con el identificador `com.vitahealth.tata`.
 
-https://web-services-yzxl.onrender.com/swagger-ui/index.html
+![Firebase: resumen del proyecto tata-vitahealth con la app Tata registrada.](assets/deployment-evidence/FirebaseDeployment1.png)
 
-Enlace a release Android:
+*Figura 9. Firebase: resumen del proyecto `tata-vitahealth` con la app Tata registrada.*
 
-https://github.com/vitaHealth-UPC/mobile-android/releases/tag/v1.0.0
+Generamos el APK con `./gradlew :app:assembleDebug`, que apunta por defecto al backend desplegado en Render, y lo subimos a App Distribution. Firebase confirmó la carga de `app-debug.apk` y creó la versión 0.1.0 (1). Para este Sprint usamos el APK de debug; la versión firmada de release queda pendiente.
+
+![Firebase: se subió app-debug.apk correctamente y se crea la versión 0.1.0.](assets/deployment-evidence/FirebaseDeployment2.png)
+
+*Figura 10. Firebase App Distribution: carga correcta de `app-debug.apk`.*
+
+Después invitamos a un verificador y escribimos las notas de la versión ("Segundo Hito App Moviles"). El panel de versiones muestra la 0.1.0 con 1 invitado, 1 invitación aceptada y 1 descarga.
+
+![Firebase: versión 0.1.0 con 1 invitado, 1 aceptada y 1 descargada.](assets/deployment-evidence/FirebaseDeployment.png)
+
+*Figura 11. Firebase App Distribution: versión 0.1.0 distribuida a un verificador.*
+
+El verificador recibió un correo con la invitación a probar Tata (`com.vitahealth.tata`), desde el que acepta la invitación con su cuenta de Google, habilita la instalación desde orígenes desconocidos y descarga la app con Firebase App Distribution.
+
+![Correo de invitación de Firebase App Distribution para probar Tata.](assets/deployment-evidence/pruebaFirebase.jpeg)
+
+*Figura 12. Correo de invitación de Firebase App Distribution para probar Tata.*
+
+**Commits de despliegue del Sprint**
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
+| --- | --- | --- | --- | --- | --- |
+| `vitaHealth-UPC/web-services` | `develop` | `67511a1` | `chore(deploy): add Docker packaging, health and DATABASE_URL mapping Prepare the Spring Boot API so Railway can build and run it.` | - | 07/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `7582274` | `fix(deploy): use published Temurin 26 Docker base images` | - | 07/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `aebd362` | `fix(deploy): map DATABASE_URL into Spring datasource for Neon/Render` | - | 07/10/2026 |
+| `vitaHealth-UPC/landing-page` | `develop` | `01ef128` | `ci: add GitHub Pages preview from develop` | - | 02/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `a941b15` | `feat: add demo account seeders enabled by TATA_DEMO_SEED` | - | 09/10/2026 |
+| `vitaHealth-UPC/web-services` | `develop` | `d9d2518` | `fix: create the demo caregiver by id and use a free default email` | - | 09/10/2026 |
+
 
 #### 4.2.1.9. Team Collaboration Insights during Sprint
 
