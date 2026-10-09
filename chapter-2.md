@@ -329,7 +329,7 @@ En cuanto a su contexto digital, utiliza principalmente WhatsApp. No ha utilizad
     </tr>
     <tr>
       <td colspan="4" align="center">
-        <img src="assets/entrevista-abuelo-2.png" alt="Entrevista del segmento 1, participante 2" width="900">
+        <img src="assets/entrevista-abuelo-3.png" alt="Entrevista del segmento 1, participante 3" width="900">
       </td>
     </tr>
     <tr>
@@ -338,43 +338,43 @@ En cuanto a su contexto digital, utiliza principalmente WhatsApp. No ha utilizad
     </tr>
     <tr>
       <td><strong>Nombre completo</strong></td>
-      <td>Manuel Alberto Torres Huamaní</td>
+      <td>Rosa Elena Quispe Mamani</td>
       <td><strong>Tratamiento o medicación</strong></td>
-      <td>Losartán (mañana) y amlodipino (tarde) para hipertensión; celecoxib 200mg ante dolor de columna; atorvastatina para colesterol</td>
+      <td>Enalapril (mañana) y amlodipino (tarde) para hipertensión; paracetamol 500mg ante dolor de rodillas; atorvastatina para colesterol</td>
     </tr>
     <tr>
       <td><strong>Edad</strong></td>
-      <td>64 años</td>
+      <td>63 años</td>
       <td><strong>Gestión actual de las tomas</strong></td>
       <td>Sigue una rutina informal (mañana/tarde) sin recordatorio fijo; frecuentemente no recuerda si ya tomó la dosis</td>
     </tr>
     <tr>
       <td><strong>Distrito</strong></td>
-      <td>San Martín de Porres</td>
+      <td>Comas</td>
       <td><strong>Apoyo familiar</strong></td>
-      <td>Su único hijo (vive en Los Olivos) lo llama o envía mensajes de forma esporádica para recordarle, sin frecuencia fija</td>
+      <td>Su única hija (vive en Independencia) la llama o envía mensajes de forma esporádica para recordarle, sin frecuencia fija</td>
     </tr>
     <tr>
       <td><strong>Ocupación o situación actual</strong></td>
-      <td>Jubilado (ex mecánico y conductor); vive solo, es viudo</td>
+      <td>Jubilada (ex costurera y comerciante); vive sola, es viuda</td>
       <td><strong>Contexto digital</strong></td>
-      <td>Smartphone gama media (Honor); usa WhatsApp y Facebook; usa apps de pago de recibos (agua/luz/teléfono) pero evita apps nuevas o complejas; no usa comandos de voz pero los conoce y les tiene buena disposición</td>
+      <td>Smartphone gama media (Samsung); usa WhatsApp y Facebook; usa apps de pago de recibos (agua/luz/teléfono) pero evita apps nuevas o complejas; no usa comandos de voz pero los conoce y les tiene buena disposición</td>
     </tr>
     <tr>
       <td colspan="2"><strong>Duración:</strong> Aproximadamente 12 minutos</td>
       <td colspan="2">
         <strong>URL de grabación:</strong>
-        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a267_upc_edu_pe/IQDjy7UeUuqmQruRbsAjIoOoAXNJOOYATp0PMbEG3i0lVeI?e=xfXBYu&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a267_upc_edu_pe/IQDjy7UeUuqmQruRbsAjIoOoAXNJOOYATp0PMbEG3i0lVeI?e=xfXBYu&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D</a>
+        <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a267_upc_edu_pe/IQBuiywSCkPbT5DFNZwvX0JqASpso8jqpeVuR5BGWpvj2cY?e=54sQoI&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241a267_upc_edu_pe/IQBuiywSCkPbT5DFNZwvX0JqASpso8jqpeVuR5BGWpvj2cY?e=54sQoI&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D</a>
       </td>
     </tr>
     <tr>
       <td colspan="4">
         <strong>Resumen de la entrevista</strong>
-        <p>Manuel Alberto Torres Huamaní es un adulto mayor de 64 años, viudo, residente en San Martín de Porres. Vive solo, ya que su único hijo reside en el distrito de Los Olivos y lo visita principalmente los fines de semana, según su disponibilidad laboral. Trabajó la mayor parte de su vida como mecánico y conductor; actualmente no realiza actividad laboral por limitaciones físicas asociadas a la edad, y su rutina diaria se centra en caminatas cortas y permanecer en casa.</p>
-        <p>Es hipertenso y toma losartán en la mañana y amlodipino en la tarde; adicionalmente maneja dolor de columna con celecoxib 200mg ante episodios de dolor, y atorvastatina para el control del colesterol. No cuenta con un método fijo de recordatorio: sigue una rutina informal asociada a los momentos del día, pero reconoce olvidarse con frecuencia de si ya tomó una dosis, dándose cuenta generalmente solo cuando aparecen síntomas físicos (dolor de cabeza asociado al antihipertensivo, mareos asociados a la atorvastatina).</p>
-        <p>El apoyo familiar existente es esporádico: su hijo lo llama o le escribe ocasionalmente para recordarle tomar su medicación, pero sin una frecuencia constante debido a sus propias responsabilidades laborales y familiares. Manuel expresa que, al vivir solo, no existe alguien presente que note si algo sale mal.</p>
-        <p>En cuanto a tecnología, usa un smartphone gama media (Honor) y limita su uso principalmente a WhatsApp y Facebook para comunicarse con familiares y conocidos. Utiliza aplicaciones de pago de servicios (agua, luz, teléfono) por necesidad, pero evita explorar aplicaciones nuevas que perciba como complejas. No ha usado comandos de voz personalmente, pero los conoce por observar a personas más jóvenes de su entorno, y expresa una actitud favorable hacia esta forma de interacción, ya que la percibe como más práctica que escribir.</p>
-        <p>Su principal preocupación de salud es sufrir un evento grave (menciona explícitamente el riesgo de un infarto) por no medicarse correctamente mientras vive solo, sin nadie que lo note a tiempo. Señala además la preocupación de convertirse en una carga para su familia. Como necesidad ideal, describe un mecanismo de aviso simple, lo compara con un timbre que no dependa de la disponibilidad de un familiar para recordarle su medicación.</p>
+        <p>Rosa Elena Quispe Mamani es una adulta mayor de 63 años, viuda, residente en Comas. Vive sola, ya que su única hija reside en el distrito de Independencia y la visita principalmente los fines de semana, según su disponibilidad laboral. Trabajó la mayor parte de su vida como costurera y comerciante; actualmente no realiza actividad laboral por limitaciones físicas asociadas a la edad, y su rutina diaria se centra en caminatas cortas y permanecer en casa.</p>
+        <p>Es hipertensa y toma enalapril en la mañana y amlodipino en la tarde; adicionalmente maneja dolor de rodillas con paracetamol 500mg ante episodios de dolor, y atorvastatina para el control del colesterol. No cuenta con un método fijo de recordatorio: sigue una rutina informal asociada a los momentos del día, pero reconoce olvidarse con frecuencia de si ya tomó una dosis, dándose cuenta generalmente solo cuando aparecen síntomas físicos (dolor de cabeza asociado al antihipertensivo, mareos).</p>
+        <p>El apoyo familiar existente es esporádico: su hija la llama o le escribe ocasionalmente para recordarle tomar su medicación, pero sin una frecuencia constante debido a sus propias responsabilidades laborales y familiares. Rosa expresa que, al vivir sola, no existe alguien presente que note si algo sale mal.</p>
+        <p>En cuanto a tecnología, usa un smartphone gama media (Samsung) y limita su uso principalmente a WhatsApp y Facebook para comunicarse con familiares y conocidos. Utiliza aplicaciones de pago de servicios (agua, luz, teléfono) por necesidad, pero evita explorar aplicaciones nuevas que perciba como complejas. No ha usado comandos de voz personalmente, pero los conoce por observar a personas más jóvenes de su entorno, y expresa una actitud favorable hacia esta forma de interacción, ya que la percibe como más práctica que escribir.</p>
+        <p>Su principal preocupación de salud es sufrir un evento grave (menciona explícitamente el riesgo de un infarto) por no medicarse correctamente mientras vive sola, sin nadie que la note a tiempo. Señala además la preocupación de convertirse en una carga para su familia. Como necesidad ideal, describe un mecanismo de aviso simple, lo compara con un timbre que no dependa de la disponibilidad de un familiar para recordarle su medicación.</p>
       </td>
     </tr>
   </tbody>
