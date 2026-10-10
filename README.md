@@ -5773,7 +5773,15 @@ https://vitahealth-upc.github.io/landing-page/
 
 **Video de ejecución**
 
-Enlace a video: Pendiente.
+<p align="center">
+  <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCB84CBuGz_T5NngWc1a80SAdKHBcArMUcdP7DEkmu17-M?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=N23NX3">
+    <img src="assets/execution-evidence/video-ejecucion.png" alt="Video de ejecución del Sprint 1" width="720">
+  </a>
+</p>
+
+*Figura. Video de ejecución del Sprint 1: recorrido por el Landing Page desplegado y las vistas de la aplicación Android conectadas al backend en Render.*
+
+Enlace a video: [Video de ejecución del Sprint 1](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCB84CBuGz_T5NngWc1a80SAdKHBcArMUcdP7DEkmu17-M?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=N23NX3) (duración: 5:25).
 
 #### 4.2.1.7. Services Documentation Evidence for Sprint Review
 
@@ -6375,7 +6383,7 @@ W3Schools. (s. f.). *HTML style guide and coding conventions*. https://www.w3sch
 - Capturas de la evidencia de ejecución del Sprint 1: [assets/execution-evidence](assets/execution-evidence).
 - Capturas de la evidencia de despliegue (Neon, Render, health y Swagger): [assets/deployment-evidence](assets/deployment-evidence).
 - Deployment Diagram de Tata: [software-architecture-deployment-diagram.svg](assets/software-architecture-deployment-diagram.svg).
-- Video de ejecución del Sprint 1 (Execution Evidence for Sprint Review): *enlace pendiente*.
+- Video de ejecución del Sprint 1 (Execution Evidence for Sprint Review): [ver video](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCB84CBuGz_T5NngWc1a80SAdKHBcArMUcdP7DEkmu17-M?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=N23NX3)
 
 ## Videos de Exposiciones
 
