@@ -171,7 +171,15 @@ Todas las etiquetas de Tata siguen la convención **verbo + objeto** ya definida
 
 #### 3.1.2.4. Searching Systems
 
+Tata no tiene un buscador de texto libre en ninguna de sus experiencias. Lo resolvimos así porque el volumen de información es pequeño (los medicamentos, las tomas y las alertas de una persona o de pocas personas) y porque pedirle al adulto mayor que escriba el nombre de un medicamento contradice el principio "Reconocimiento > memoria". En lugar de buscar, el usuario filtra por los criterios que más necesita: qué toca hoy, cómo va la semana o el mes y qué alertas siguen pendientes. Así evitamos que se sienta perdido entre los datos.
 
+| Pantalla | Perfil | Opción de búsqueda | Filtros disponibles | Cómo se ven los datos después |
+| --- | --- | --- | --- | --- |
+| Agenda de tomas (US-24) | Adulto mayor | Selección de día dentro de la semana y cambio de semana | Día de la semana, semana anterior o siguiente | Lista de las tomas del día elegido, cada una con su estado: pendiente, confirmada, tardía u omitida. |
+| Alertas (US-27, US-31) | Familiar o cuidador | Chips de filtro sobre la lista | Todas, Pendientes, Atendidas | Lista de alertas de la más reciente a la más antigua. Si el filtro no tiene resultados aparece el mensaje "No hay alertas en este filtro." |
+| Historial de adherencia (US-32) | Familiar o cuidador | Menú desplegable de período | Últimos 7 días, Últimos 30 días | Resumen del período con el porcentaje de adherencia y de puntualidad, la tendencia y las tomas recientes (a tiempo, tardías u omitidas). Si no hay tomas definitivas se muestra un estado vacío. |
+
+Las recomendaciones de adherencia (US-34) usan siempre los últimos 30 días y no tienen filtros. El Landing Page tampoco tiene buscador: el visitante se mueve con la barra de navegación fija y las anclas de cada sección, como se describe en 3.1.2.5.
 
 #### 3.1.2.5. Navigation Systems
 
