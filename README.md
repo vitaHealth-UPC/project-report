@@ -5769,7 +5769,15 @@ https://vitahealth-upc.github.io/landing-page/
 
 **Video de ejecución**
 
-Enlace a video: Pendiente.
+<p align="center">
+  <a href="https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCB84CBuGz_T5NngWc1a80SAdKHBcArMUcdP7DEkmu17-M?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=N23NX3">
+    <img src="assets/execution-evidence/video-ejecucion.png" alt="Video de ejecución del Sprint 1" width="720">
+  </a>
+</p>
+
+*Figura. Video de ejecución del Sprint 1: recorrido por el Landing Page desplegado y las vistas de la aplicación Android conectadas al backend en Render.*
+
+Enlace a video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCB84CBuGz_T5NngWc1a80SAdKHBcArMUcdP7DEkmu17-M?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=N23NX3
 
 #### 4.2.1.7. Services Documentation Evidence for Sprint Review
 
@@ -6270,7 +6278,54 @@ SmartBear Software. (s. f.). *OpenAPI Specification*. Swagger. https://swagger.i
 
 ## Capítulo IV
 
+<<<<<<< HEAD
 - Landing Page: repositorio https://github.com/vitaHealth-UPC/landing-page y sitio https://vitahealth-upc.github.io/landing-page/
 - Web Services: repositorio https://github.com/vitaHealth-UPC/web-services y documentación Swagger UI https://web-services-yzxl.onrender.com/swagger-ui/index.html
 - Aplicación Android: repositorio https://github.com/vitaHealth-UPC/mobile-android y release https://github.com/vitaHealth-UPC/mobile-android/releases/tag/v1.0.0
 - Analíticos de colaboración: https://github.com/vitaHealth-UPC/landing-page/graphs/contributors , https://github.com/vitaHealth-UPC/web-services/graphs/contributors , https://github.com/vitaHealth-UPC/mobile-android/graphs/contributors y https://github.com/vitaHealth-UPC/project-report/graphs/contributors 
+=======
+**Repositorios y colaboración**
+
+- Repositorio del Landing Page: <https://github.com/vitaHealth-UPC/landing-page>
+- Repositorio de los Web Services: <https://github.com/vitaHealth-UPC/web-services>
+- Repositorio de la aplicación Android: <https://github.com/vitaHealth-UPC/mobile-android>
+- Repositorio del informe: <https://github.com/vitaHealth-UPC/project-report>
+- Analíticos de colaboración: [landing-page](https://github.com/vitaHealth-UPC/landing-page/graphs/contributors), [web-services](https://github.com/vitaHealth-UPC/web-services/graphs/contributors), [mobile-android](https://github.com/vitaHealth-UPC/mobile-android/graphs/contributors) y [project-report](https://github.com/vitaHealth-UPC/project-report/graphs/contributors).
+- Tablero del Product Backlog y del Sprint 1 (Trello): <https://trello.com/b/wuHmMypU/apps-moviles>
+
+**Productos desplegados**
+
+- Landing Page en GitHub Pages: <https://vitahealth-upc.github.io/landing-page/>
+- Backend (Web Services) en Render: <https://web-services-yzxl.onrender.com/>
+- Documentación Swagger UI (OpenAPI) del backend: <https://web-services-yzxl.onrender.com/swagger-ui/index.html>
+- Endpoint de salud del backend: <https://web-services-yzxl.onrender.com/health>
+- Release v1.0.0 de la aplicación Android: <https://github.com/vitaHealth-UPC/mobile-android/releases/tag/v1.0.0>
+
+**Evidencias de pruebas y CI**
+
+- Ejecución de CI del backend: <https://github.com/vitaHealth-UPC/web-services/actions/runs/37647569632>
+- Ejecución de CI de la aplicación Android: <https://github.com/vitaHealth-UPC/mobile-android/actions/runs/37727256292>
+- Despliegue del Landing Page con GitHub Actions: <https://github.com/vitaHealth-UPC/landing-page/actions/runs/37709905361>
+- Pruebas del backend: <https://github.com/vitaHealth-UPC/web-services/tree/develop/src/test>
+- Pruebas de la aplicación Android: <https://github.com/vitaHealth-UPC/mobile-android/tree/develop/app/src>
+- Prueba instrumentada de auditoría visual de pantallas (Android): <https://github.com/vitaHealth-UPC/mobile-android/blob/develop/app/src/androidTest/kotlin/com/vitahealth/tata/ExistingScreensVisualAuditTest.kt>
+- Prueba unitaria del agregado Treatment (backend): <https://github.com/vitaHealth-UPC/web-services/blob/develop/src/test/java/com/tata/treatmentmanagement/domain/model/aggregates/TreatmentTest.java>
+
+**Historial de commits en develop**
+
+- Landing Page: <https://github.com/vitaHealth-UPC/landing-page/commits/develop/>
+- Web Services: <https://github.com/vitaHealth-UPC/web-services/commits/develop/>
+- Aplicación Android: <https://github.com/vitaHealth-UPC/mobile-android/commits/develop/>
+
+**Archivos del informe**
+
+- Capturas de la evidencia de ejecución del Sprint 1: [assets/execution-evidence](assets/execution-evidence).
+- Capturas de la evidencia de despliegue (Neon, Render, health y Swagger): [assets/deployment-evidence](assets/deployment-evidence).
+- Deployment Diagram de Tata: [software-architecture-deployment-diagram.svg](assets/software-architecture-deployment-diagram.svg).
+- Video de ejecución del Sprint 1 (Execution Evidence for Sprint Review): [ver video](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202415820_upc_edu_pe/IQCB84CBuGz_T5NngWc1a80SAdKHBcArMUcdP7DEkmu17-M?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=N23NX3)
+
+## Videos de Exposiciones
+
+- Video de exposición del primer hito (AV1): *enlace pendiente*.
+- Video de exposición del segundo hito (TB1): *enlace pendiente*.
+>>>>>>> 35f74adc0b90326d52d9181272c36e702445be36
