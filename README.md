@@ -70,7 +70,7 @@ lo cual queda evidenciado en los analíticos de colaboración de GitHub y en el
 Registro de Versiones del Informe. A continuación, se describe el desarrollo
 de las actividades por cada entrega.
 
-![Foto de la colaboración](./assets/report_collaboration.png)
+![Foto de la colaboración](./assets/colaborationInsightSprint1.png)
 
 
 ---
