@@ -223,6 +223,16 @@ de las actividades por cada entrega.
       - [4.2.1.7. Services Documentation Evidence for Sprint Review](#4217-services-documentation-evidence-for-sprint-review)
       - [4.2.1.8. Software Deployment Evidence for Sprint Review](#4218-software-deployment-evidence-for-sprint-review)
       - [4.2.1.9. Team Collaboration Insights during Sprint](#4219-team-collaboration-insights-during-sprint)
+    - [4.2.2. Sprint 2](#422-sprint-2)
+      - [4.2.2.1. Sprint Planning 2](#4221-sprint-planning-2)
+      - [4.2.2.2. Aspect Leaders and Collaborators](#4222-aspect-leaders-and-collaborators)
+      - [4.2.2.3. Sprint Backlog 2](#4223-sprint-backlog-2)
+      - [4.2.2.4. Development Evidence for Sprint Review](#4224-development-evidence-for-sprint-review)
+      - [4.2.2.5. Testing Suite Evidence for Sprint Review](#4225-testing-suite-evidence-for-sprint-review)
+      - [4.2.2.6. Execution Evidence for Sprint Review](#4226-execution-evidence-for-sprint-review)
+      - [4.2.2.7. Services Documentation Evidence for Sprint Review](#4227-services-documentation-evidence-for-sprint-review)
+      - [4.2.2.8. Software Deployment Evidence for Sprint Review](#4228-software-deployment-evidence-for-sprint-review)
+      - [4.2.2.9. Team Collaboration Insights during Sprint](#4229-team-collaboration-insights-during-sprint)
   - [4.3. Validation Interviews](#43-validation-interviews)
     - [4.3.1. Diseño de Entrevistas](#431-diseño-de-entrevistas)
     - [4.3.2. Registro de Entrevistas](#432-registro-de-entrevistas)
@@ -6151,6 +6161,117 @@ Enlace a colaboración de project-report:
 
 https://github.com/vitaHealth-UPC/project-report/graphs/contributors
 
+
+### 4.2.2. Sprint 2
+
+#### 4.2.2.1. Sprint Planning 2
+
+**Sprint Planning Background**
+
+| Campo | Detalle |
+| --- | --- |
+| Sprint # | Sprint 2 |
+| Date | |
+| Time | |
+| Location | |
+| Prepared By | |
+| Attendees (to the planning meeting) | |
+
+**Sprint 1 Review Summary**
+
+
+
+**Sprint 1 Retrospective Summary**
+
+
+
+**Sprint Goal & User Stories**
+
+| Campo | Detalle |
+| --- | --- |
+| Sprint 2 Goal | |
+| Sprint 2 Velocity | |
+| Sum of Story Points | |
+
+
+#### 4.2.2.2. Aspect Leaders and Collaborators
+
+<!-- Incorporar la matriz LACX con los aspectos, líderes y colaboradores del Sprint 2. -->
+
+
+#### 4.2.2.3. Sprint Backlog 2
+
+**Sprint Board**
+
+<!-- Incorporar captura del tablero y su enlace público. -->
+
+**Sprint Backlog**
+
+| Historia | Título | Task ID | Tarea | Estimación (horas) | Responsable | Estado |
+| --- | --- | --- | --- | --- | --- | --- |
+
+
+#### 4.2.2.4. Development Evidence for Sprint Review
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
+| --- | --- | --- | --- | --- | --- |
+
+
+#### 4.2.2.5. Testing Suite Evidence for Sprint Review
+
+**Unit Tests**
+
+<!-- Incorporar las pruebas y las clases/comportamientos que verifican. -->
+
+**Integration & Acceptance Tests**
+
+<!-- Incorporar pruebas de integración/BDD, archivos .feature y evidencias. -->
+
+**Testing Commits**
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
+| --- | --- | --- | --- | --- | --- |
+
+
+#### 4.2.2.6. Execution Evidence for Sprint Review
+
+**Landing Page**
+
+
+
+**Web Services**
+
+
+
+**Mobile Applications**
+
+
+
+**Execution Video**
+
+
+
+#### 4.2.2.7. Services Documentation Evidence for Sprint Review
+
+**OpenAPI / Swagger**
+
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+
+#### 4.2.2.8. Software Deployment Evidence for Sprint Review
+
+| Producto | Plataforma | Configuración / evidencia | URL |
+| --- | --- | --- | --- |
+
+
+#### 4.2.2.9. Team Collaboration Insights during Sprint
+
+**Collaboration Evidence**
+
+<!-- Incorporar capturas y enlaces a las contribuciones de los repositorios. -->
+
+**Collaboration Analysis**
 
 # Conclusiones
 
