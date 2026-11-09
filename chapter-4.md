@@ -863,8 +863,41 @@ https://github.com/vitaHealth-UPC/project-report/graphs/contributors
 
 #### 4.2.2.4. Development Evidence for Sprint Review
 
+Durante el Sprint 2 la implementación avanzó en tres productos. En los Web Services completamos el procesamiento de tomas no confirmadas (TS-05) y la integración de notificaciones (TS-06), con la persistencia de la política de notificación, los contactos de emergencia y la preferencia de llamada. Después consolidamos la arquitectura por Bounded Context, los contratos verificados y la seguridad en el release `v1.1.0`, integrado a `main`. En la aplicación Android implementamos las preferencias de notificación de US-39, con editores nativos para la política y los contactos alineados con Figma, y alineamos la arquitectura antes de los releases `v1.1.x`. También iniciamos la aplicación multiplataforma en Flutter con el mismo backend: acceso, registro y recuperación de cuenta, vínculo y consentimiento, acceso del adulto mayor con PIN, inicio con la próxima toma y el progreso del día, agenda semanal, detalle de toma y confirmación por toque (US-01, US-02, US-06, US-10, US-11, US-12, US-13, US-20, US-21 y US-24).
+
+El Landing Page no recibió cambios de código en este Sprint, porque su alcance se completó y desplegó en el Sprint 1. Los commits con el mensaje `fix: minor changes` de las ramas `fix/backend-architecture` y `fix/android-architecture` agrupan la reorganización por Bounded Context previa a los releases. En Flutter, el trabajo se integra temporalmente en la rama compartida `temp` y se distribuirá en ramas `feature/us-xx` por historia antes de integrarse a `develop`. Los commits de pruebas se detallan en la sección 4.2.2.5 y los de documentación no se incluyen en esta tabla.
+
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 | --- | --- | --- | --- | --- | --- |
+| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`4bc1c69`](https://github.com/vitaHealth-UPC/web-services/commit/4bc1c69) | `fix(ts-05): ignore delayed unconfirmed events after intake confirmation` | - | 10/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`8c128e8`](https://github.com/vitaHealth-UPC/web-services/commit/8c128e8) | `fix(ts-05): lock scheduler candidates before reporting unresolved intakes` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`95d5638`](https://github.com/vitaHealth-UPC/web-services/commit/95d5638) | `feat(ts-06): persist the call notification channel preference` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`8a4b0b7`](https://github.com/vitaHealth-UPC/web-services/commit/8a4b0b7) | `feat(ts-06): persist notification policy and emergency contacts` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`2de88ed`](https://github.com/vitaHealth-UPC/web-services/commit/2de88ed) | `fix(ts-06): serialize notification effects and escalation decisions` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`0e24649`](https://github.com/vitaHealth-UPC/web-services/commit/0e24649) | `fix: minor changes` | - | 22/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`e3fab7e`](https://github.com/vitaHealth-UPC/web-services/commit/e3fab7e) | `release: consolidate verified APMO backend contracts and security` | Includes dark theme persistence, alert timeline, medication reactivation, treatment consistency, adherence context, API contract integration and regression coverage. | 22/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`56e9b76`](https://github.com/vitaHealth-UPC/web-services/commit/56e9b76) | `fix: minor changes` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`08ace9f`](https://github.com/vitaHealth-UPC/mobile-android/commit/08ace9f) | `fix(us-39): render original Figma notification icons and proportional header` | - | 10/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`9e764f5`](https://github.com/vitaHealth-UPC/mobile-android/commit/9e764f5) | `feat(us-39): align notification editors and preserve call preferences` | - | 11/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`aead8dd`](https://github.com/vitaHealth-UPC/mobile-android/commit/aead8dd) | `feat(us-39): integrate native notification policy and contact editors` | - | 11/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`828c0ac`](https://github.com/vitaHealth-UPC/mobile-android/commit/828c0ac) | `fix: minor changes` | - | 26/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`34fdef9`](https://github.com/vitaHealth-UPC/mobile-android/commit/34fdef9) | `fix: minor changes` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`0e29678`](https://github.com/vitaHealth-UPC/mobile-android/commit/0e29678) | `fix: minor changes` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`d9c6c70`](https://github.com/vitaHealth-UPC/mobile-android/commit/d9c6c70) | `fix: minor changes` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`ed44709`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ed44709) | `chore: initialize Flutter scaffold` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`ce70f0d`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ce70f0d) | `feat: share Flutter identity and care-link checkpoint` | - | 02/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`bfe62b9`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/bfe62b9) | `feat: add adult PIN access and next-dose home` | - | 03/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`aec8faf`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/aec8faf) | `chore: allow local backend verification in debug builds` | - | 03/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`4ff897a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/4ff897a) | `feat: add weekly intake agenda and touch confirmation` | - | 03/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`e425705`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/e425705) | `chore: extend local probe with intake confirmation` | - | 03/11/2026 |
+
+Enlaces a commits:
+
+https://github.com/vitaHealth-UPC/web-services/commits/develop/
+
+https://github.com/vitaHealth-UPC/mobile-android/commits/develop/
+
+https://github.com/vitaHealth-UPC/mobile-cross-platform/commits/temp/
 
 
 #### 4.2.2.5. Testing Suite Evidence for Sprint Review
