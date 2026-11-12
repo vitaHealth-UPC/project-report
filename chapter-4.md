@@ -848,8 +848,25 @@ Sprint 2 reúne la confirmación de las tomas, las alertas y el seguimiento fami
 
 #### 4.2.2.2. Aspect Leaders and Collaborators
 
-<!-- Incorporar la matriz LACX con los aspectos, líderes y colaboradores del Sprint 2. -->
+La matriz distribuye el liderazgo y la colaboración en los aspectos del Sprint 2. L identifica al líder y C al colaborador. Los aspectos son los grupos funcionales que reúne el alcance del Sprint, y cada uno se trabaja en los Web Services, en la aplicación Android o en Flutter según corresponda:
 
+- **Confirmación de tomas:** El registro de que el adulto mayor tomó su medicamento.
+- **Alertas y seguimiento familiar:** Los avisos y el seguimiento que recibe el familiar o cuidador.
+- **Gestión de tratamientos:** El registro y la configuración de tratamientos y medicamentos.
+- **Accesibilidad:** Los ajustes que facilitan el uso de la aplicación al adulto mayor.
+- **Procesos de soporte:** Las tomas sin confirmar, las notificaciones push, el reconocimiento de voz y el almacenamiento local.
+- **Migración a Flutter:** El traslado de los flujos de la aplicación a la versión multiplataforma.
+
+Quien lidera un aspecto es el responsable de sus tareas en el Sprint Backlog 2, y los colaboradores participan en ellas.
+
+| Integrante | GitHub Username | Confirmación de tomas | Alertas y seguimiento familiar | Gestión de tratamientos | Accesibilidad | Procesos de soporte | Migración a Flutter |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Morales Venegas, David Joel | David-std2 |  |  |  |  |  |  |
+| Velasquez Laquihuanaco, Eduardo David | lalo-dev8 |  |  |  |  |  |  |
+| Cabrera Novoa, Leonardo Moises | u202415820 |  |  |  |  |  |  |
+| Diaz Yurivilca, Sofía | u20241a195-cmd |  |  |  |  |  |  |
+| Alfaro Mallma, Alberto Joaquín | elprrr / elperro123xd |  |  |  |  |  |  |
+| Quispe Pérez, Eder Edu | DuDu-0912 |  |  |  |  |  |  |
 
 #### 4.2.2.3. Sprint Backlog 2
 
