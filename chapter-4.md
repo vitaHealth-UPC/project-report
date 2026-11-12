@@ -814,6 +814,8 @@ https://github.com/vitaHealth-UPC/project-report/graphs/contributors
 
 ### 4.2.2. Sprint 2
 
+Sprint 2 reúne la confirmación de las tomas, las alertas y el seguimiento familiar, la gestión de tratamientos y medicamentos, los ajustes de accesibilidad y los procesos de soporte: tomas sin confirmar, notificaciones push, reconocimiento de voz y almacenamiento local. El alcance comprende 22 elementos del Product Backlog (15 historias de usuario, 6 Technical Stories y 1 Spike Story) y 81 Story Points. En este Sprint el trabajo se avanza en tres productos: los Web Services, la aplicación Android y la migración a Flutter. El Landing Page no cambia, porque ya se completó y desplegó en el Sprint 1.
+
 #### 4.2.2.1. Sprint Planning 2
 
 **Sprint Planning Background**
@@ -936,16 +938,131 @@ https://github.com/vitaHealth-UPC/mobile-cross-platform/commits/temp/
 
 #### 4.2.2.7. Services Documentation Evidence for Sprint Review
 
-**OpenAPI / Swagger**
+En este Sprint ampliamos la documentación OpenAPI del backend con las operaciones nuevas: pasamos de 64 a 81 operaciones, es decir, 17 nuevas. Esta sección documenta solo esas 17; las 64 anteriores siguen en la sección 4.2.1.7. Las nuevas pertenecen a los Bounded Contexts Identity & Subscription (inicio de sesión social, recuperación de contraseña y dispositivos push), Care Link (edición del adulto mayor, contacto de emergencia y retiro del consentimiento), Treatment Management (reactivación de medicamentos y medicamentos del adulto mayor), Family Monitoring (línea de tiempo de alertas y notas de rutina), Adherence Analytics (resumen por tratamiento) y Accessibility & Preferences (tema oscuro y política de notificación). Todas las llamadas llevan el encabezado `Authorization: Bearer <token>`, menos las que la tabla marca como públicas; sin el token responden `401 AUTHENTICATION_REQUIRED`. Los ejemplos de respuesta son respuestas reales del backend: las obtuvimos ejecutando la versión actual de `develop` en una base de datos local con la cuenta de demostración (cuidadora y adulto mayor con PIN). Tres ejemplos los armamos con la misma estructura de la respuesta real, porque no se pueden ejecutar con la cuenta demo: el inicio de sesión social (necesita un token válido de Firebase), el restablecimiento de contraseña (necesita el código que llega por correo) y la línea de tiempo de una alerta (la cuenta demo no tiene alertas). El resumen de adherencia por tratamiento devuelve `204` porque la cuenta demo aún no tiene tomas pasadas.
+
+Repositorio de Web Services: https://github.com/vitaHealth-UPC/web-services
+
+Documentación desplegada: https://web-services-yzxl.onrender.com/swagger-ui/index.html
+
+**Identity & Subscription**
 
 | Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/social-sessions` | Iniciar sesión con una cuenta social (Google), verificando el token de Firebase | POST | `POST /api/v1/social-sessions` | Body: `firebaseIdToken` (token de identidad que entrega Firebase Authentication). | `200` `{"accountId":"d3a10000-0000-4000-8000-000000000001","accessToken":"<jwt>","expiresAt":"2026-11-11T18:06:22Z"}` | Endpoint público. Verifica la firma del token con Firebase y devuelve una sesión de cuidador igual a la del inicio de sesión con contraseña. `400` si falta el token; `503 SOCIAL_PROVIDER_UNAVAILABLE` si el proveedor no está configurado o no responde (respuesta real al probar con un token de prueba). El ejemplo `200` lo armamos con la estructura real, porque requiere un token válido de Firebase. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Identity & Subscription |
+| `/api/v1/me/social-identities` | Vincular una cuenta social a la cuenta del cuidador autenticado | PUT | `PUT /api/v1/me/social-identities` | Body: `firebaseIdToken`. | `204` Sin cuerpo | Asocia la identidad de Firebase a la cuenta de la sesión; después el cuidador puede entrar con `POST /api/v1/social-sessions`. Solo acepta sesiones de cuidador. `503 SOCIAL_PROVIDER_UNAVAILABLE` si el proveedor no está disponible (respuesta real al probar con un token de prueba). El `204` es la respuesta de éxito definida en el controlador. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Identity & Subscription |
+| `/api/v1/password-recovery-requests` | Solicitar la recuperación de la contraseña | POST | `POST /api/v1/password-recovery-requests` | Body: `email`. | `202` Sin cuerpo | Endpoint público. Responde `202` exista o no la cuenta, para no revelar qué correos están registrados; si existe, genera un código de recuperación de un solo uso. `400` si el correo no tiene formato válido. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Identity & Subscription |
+| `/api/v1/password-recoveries` | Restablecer la contraseña con el código de recuperación | POST | `POST /api/v1/password-recoveries` | Body: `email`, `code`, `newPassword` (hasta 72 caracteres). | `204` Sin cuerpo | Endpoint público. Cambia la contraseña y consume el código. `400 INVALID_RECOVERY_CODE` si el código es incorrecto, venció o ya se usó (respuesta real: `{"detail":"The recovery code is invalid or is no longer available.","instance":"/api/v1/password-recoveries","status":400,"title":"INVALID_RECOVERY_CODE"}`). El ejemplo `204` lo armamos con la respuesta de éxito del controlador, porque el código real llega por correo. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Identity & Subscription |
+| `/api/v1/push-devices/{installationId}` | Registrar o rotar el token FCM del dispositivo | PUT | `PUT /api/v1/push-devices/{installationId}` | Path: `installationId` (UUID que crea la instalación).<br>Body: `token` (token FCM actual). | `200` `{"installationId":"6d3f1c52-9a7e-4b1d-8f20-3c5e7a91b4d6","updatedAt":"2026-11-11T06:06:23.060719Z"}` | La propiedad se deriva de la sesión; el token del dispositivo no se devuelve. Repetir el mismo token conserva `updatedAt`. `409` si el token ya pertenece a otra instalación; `401` sin sesión válida. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Identity & Subscription |
+| `/api/v1/push-devices/{installationId}` | Eliminar el registro del dispositivo | DELETE | `DELETE /api/v1/push-devices/{installationId}` | Path: `installationId`. | `204` Sin cuerpo | Quita el dispositivo de la sesión que lo registró; repetir la llamada también responde `204`. `403` si lo intenta otra sesión. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Identity & Subscription |
+
+**Care Link**
+
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}` | Editar el nombre y la fecha de nacimiento del adulto mayor | PUT | `PUT /api/v1/older-adults/{olderAdultId}` | Path: `olderAdultId`.<br>Body: `fullName`, `birthDate` (`AAAA-MM-DD`). | `200` `{"id":"d3a10000-0000-4000-8000-000000000002","registeredByCaregiverId":"d3a10000-0000-4000-8000-000000000001","fullName":"Rosa Vargas Quispe","birthDate":"1948-05-12","emergencyContactName":"Diego Vargas","emergencyContactRelationship":"Son","emergencyContactPhone":"999888777","createdAt":"2026-11-11T06:06:16.200916Z"}` | Devuelve el perfil actualizado. `400` si falta el nombre o la fecha. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · older-adults-controller |
+| `/api/v1/older-adults/{olderAdultId}/emergency-contact` | Actualizar el contacto de emergencia del adulto mayor | PUT | `PUT /api/v1/older-adults/{olderAdultId}/emergency-contact` | Path: `olderAdultId`.<br>Body: `fullName`, `relationship`, `phone`. | `200` `{"id":"d3a10000-0000-4000-8000-000000000002","registeredByCaregiverId":"d3a10000-0000-4000-8000-000000000001","fullName":"Rosa Vargas Quispe","birthDate":"1948-05-12","emergencyContactName":"Diego Vargas","emergencyContactRelationship":"Hijo","emergencyContactPhone":"999888777","createdAt":"2026-11-11T06:06:16.200916Z"}` | Devuelve el perfil con el contacto nuevo. Guardar un contacto no concede acceso de cuidado. `400` si falta algún dato. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · older-adults-controller |
+| `/api/v1/care-links/{careLinkId}/consent` | Retirar el consentimiento de un vínculo de cuidado | DELETE | `DELETE /api/v1/care-links/{careLinkId}/consent` | Path: `careLinkId`. | `204` Sin cuerpo | Lo ejecuta el adulto mayor con su propia sesión: el actor sale de la credencial, no del cuerpo. El vínculo deja de estar activo y se revocan las credenciales ligadas a él. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links-controller |
+
+**Treatment Management**
+
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/medications/{medicationId}/reactivation` | Reactivar un medicamento (US-04) | POST | `POST /api/v1/medications/{medicationId}/reactivation?caregiverId={caregiverId}` | Path: `medicationId`.<br>Query: `caregiverId`. | `200` `{"id":"8f6e4da9-ea94-4690-a8c4-36818c596079","olderAdultId":"d3a10000-0000-4000-8000-000000000002","name":"Losartán","presentation":"50 mg, tableta","active":true}` | El medicamento vuelve a `active: true`. No reanuda los tratamientos que se pausaron al desactivarlo: hay que reanudarlos con `POST /api/v1/treatments/{treatmentId}/resume`. 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Medications |
+| `/api/v1/me/medications` | Consultar mis medicamentos con sus tratamientos (adulto mayor) | GET | `GET /api/v1/me/medications` | Sin parámetros: el adulto mayor sale de la sesión con PIN. | `200` `[{"medication":{"id":"8f6e4da9-ea94-4690-a8c4-36818c596079","olderAdultId":"d3a10000-0000-4000-8000-000000000002","name":"Losartán","presentation":"50 mg, tableta","active":true},"treatments":[]}]` | Devuelve cada medicamento con la lista de sus tratamientos (`treatments` vacía si todavía no tiene). Ningún parámetro permite elegir a otro adulto mayor. `401` sin sesión. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Medications |
+
+**Family Monitoring**
+
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}/alerts/{alertId}/timeline` | Consultar la línea de tiempo registrada de una alerta (US-27) | GET | `GET /api/v1/older-adults/{olderAdultId}/alerts/{alertId}/timeline?caregiverId={caregiverId}` | Path: `olderAdultId`, `alertId` (numérico).<br>Query: `caregiverId`. | `200` `[{"type":"INTAKE_SCHEDULED","occurredAt":"2026-11-11T13:00:00Z"},{"type":"ALERT_GENERATED","occurredAt":"2026-11-11T13:20:00Z"}]` | Devuelve solo los instantes que quedaron guardados: `INTAKE_SCHEDULED`, `ALERT_GENERATED` y, si se cerró, `ALERT_CLOSED`; no estima si la notificación llegó. El ejemplo `200` lo armamos con la estructura real, porque la cuenta demo no tiene alertas. Con un `alertId` que no existe responde `404 NOT_FOUND` (respuesta real) y sin sesión `401 AUTHENTICATION_REQUIRED`; 403 si el cuidador no tiene un vínculo de cuidado activo con el adulto mayor. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Alerts |
+| `/api/v1/me/notes` | Agregar una nota de rutina privada (adulto mayor) | POST | `POST /api/v1/me/notes` | Body: `title` (hasta 100), `text` (hasta 1000), `category` (`MEDICATION` o `ROUTINE`). | `201` `{"id":1,"title":"Control de presión","text":"Medir la presión antes del desayuno","category":"ROUTINE","recordedAt":"2026-11-11T06:06:23.293304Z"}` | Guarda la nota a nombre del adulto mayor de la sesión. Son notas distintas de las de seguimiento del cuidador. `400` si falta un dato o la categoría no es válida. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Personal Notes |
+| `/api/v1/me/notes` | Listar mis notas de rutina | GET | `GET /api/v1/me/notes` | Sin parámetros. | `200` `[{"id":1,"title":"Control de presión","text":"Medir la presión antes del desayuno","category":"ROUTINE","recordedAt":"2026-11-11T06:06:23.293304Z"}]` | Devuelve las notas del adulto mayor autenticado; lista vacía si no tiene. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Personal Notes |
+
+**Adherence Analytics**
+
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/older-adults/{olderAdultId}/adherence/treatments/{treatmentId}/summary` | Consultar el resumen de adherencia de un tratamiento | GET | `GET /api/v1/older-adults/{olderAdultId}/adherence/treatments/{treatmentId}/summary?days={days}&zone={zone}` | Path: `olderAdultId`, `treatmentId`.<br>Query: `days` (opcional, 7 por defecto), `zone` (opcional, `America/Lima` por defecto). | `204` Sin cuerpo | Devuelve el mismo resumen de `/adherence/summary` (porcentajes, tendencia, tomas recientes y patrón), pero solo con las tomas de ese tratamiento. `204` si todavía no hay tomas definitivas, como en la cuenta demo; `400` si el período o la zona son inválidos. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Adherence Analytics |
+
+**Accessibility & Preferences**
+
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/users/{userId}/preferences/dark-theme` | Activar o desactivar el tema oscuro | PUT | `PUT /api/v1/users/{userId}/preferences/dark-theme` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"d3a10000-0000-4000-8000-000000000002","textSize":"MEDIUM","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":null,"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false},{"type":"CALL","enabled":false}],"notificationPolicy":{"reminderMinutes":10,"pendingAlertMinutes":20,"omittedAlertMinutes":120,"escalationMinutes":180,"dailySummaryTime":"20:00:00"},"emergencyContacts":[],"darkTheme":true}` | Devuelve las preferencias completas, ahora con `darkTheme`, la política de notificación y los contactos de emergencia. El cambio se conserva para las próximas sesiones. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Accessibility |
+| `/api/v1/users/{userId}/notification-preferences/policy` | Reemplazar los tiempos de aviso y los contactos de emergencia (US-39) | PUT | `PUT /api/v1/users/{userId}/notification-preferences/policy` | Path: `userId`.<br>Body: `policy` (`reminderMinutes`, `pendingAlertMinutes`, `omittedAlertMinutes`, `escalationMinutes`, enteros desde 1; `dailySummaryTime` opcional, `HH:mm`) y `contacts` (lista de `name` y `phone`). | `200` `{"userId":"d3a10000-0000-4000-8000-000000000002","textSize":"MEDIUM","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":null,"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false},{"type":"CALL","enabled":false}],"notificationPolicy":{"reminderMinutes":10,"pendingAlertMinutes":20,"omittedAlertMinutes":120,"escalationMinutes":180,"dailySummaryTime":"20:00:00"},"emergencyContacts":[{"name":"Diego Vargas","phone":"999888777"}],"darkTheme":true}` | Guarda la política sin tocar las horas de silencio, los canales ni la dosis. Los retrasos deben crecer del recordatorio a la escalación y se miden desde la toma programada; un `dailySummaryTime` nulo desactiva el resumen. `400` si los tiempos o los contactos no son válidos. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Notification Preferences |
+
+**Capturas de la documentación**
+
+![Swagger UI: operaciones nuevas de Identity & Subscription.](assets/services-documentation/s2-swagger-identity-subscription.png)
+
+*Figura 25. Swagger UI: operaciones nuevas de Identity & Subscription (sesión social, recuperación de contraseña y dispositivos push).*
+
+![Swagger UI: operaciones nuevas de Care Link.](assets/services-documentation/s2-swagger-care-link.png)
+
+*Figura 26. Swagger UI: operaciones nuevas de Care Link.*
+
+![Swagger UI: operaciones nuevas de Treatment Management.](assets/services-documentation/s2-swagger-medications.png)
+
+*Figura 27. Swagger UI: operaciones nuevas de Medications (reactivación y `/me/medications`).*
+
+![Swagger UI: operaciones nuevas de Family Monitoring.](assets/services-documentation/s2-swagger-family-monitoring.png)
+
+*Figura 28. Swagger UI: operaciones nuevas de Family Monitoring (línea de tiempo y notas de rutina).*
+
+![Swagger UI: operaciones nuevas de Adherence Analytics y Accessibility.](assets/services-documentation/s2-swagger-analytics-accessibility.png)
+
+*Figura 29. Swagger UI: resumen de adherencia por tratamiento, tema oscuro y política de notificación.*
+
+**Commits de documentación del Sprint**
+
+Estos son los commits de `develop` que agregan o cambian las operaciones documentadas con OpenAPI en este Sprint.
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
+| --- | --- | --- | --- | --- | --- |
+| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`8a4b0b7`](https://github.com/vitaHealth-UPC/web-services/commit/8a4b0b7) | `feat(ts-06): persist notification policy and emergency contacts` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`e3fab7e`](https://github.com/vitaHealth-UPC/web-services/commit/e3fab7e) | `release: consolidate verified APMO backend contracts and security` | Includes dark theme persistence, alert timeline, medication reactivation, treatment consistency, adherence context, API contract integration and regression coverage. | 22/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`0e24649`](https://github.com/vitaHealth-UPC/web-services/commit/0e24649) | `fix: minor changes` | Agrega los controladores de dispositivos push y de notas personales. | 22/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`56e9b76`](https://github.com/vitaHealth-UPC/web-services/commit/56e9b76) | `fix: minor changes` | Agrega los controladores de sesión social y de recuperación de contraseña. | 27/10/2026 |
 
 
 #### 4.2.2.8. Software Deployment Evidence for Sprint Review
 
+En este Sprint no cambió la infraestructura: seguimos con GitHub Pages para el Landing Page, Render para los Web Services y Neon para la base de datos PostgreSQL, que configuramos en la sección 4.1.4 y desplegamos en el Sprint 1. Lo nuevo es que pasamos el backend a la rama `main` (release `v2.0.0`) y lo redesplegamos en Render con las 17 operaciones nuevas (sección 4.2.2.7) y las variables de entorno que esa versión exige. La aplicación Android no tuvo una distribución nueva en este Sprint, y la migración a Flutter todavía no se distribuye: por ahora se compila y se prueba con GitHub Actions.
+
 | Producto | Plataforma | Configuración / evidencia | URL |
 | --- | --- | --- | --- |
+| Landing Page | GitHub Pages (GitHub Actions) | Sin cambios: sigue publicado desde el Sprint 1. | https://vitahealth-upc.github.io/landing-page/ |
+| Web Services | Render (Web Service con Docker, plan Free; rama `main`) | Redespliegue del release `v2.0.0` (commit `9f6fd73`, 81 operaciones) con las variables de entorno nuevas. | https://web-services-yzxl.onrender.com |
+| Base de datos | Neon (PostgreSQL, proyecto TATA, branch `production`, base `tata`) | Sin cambios de infraestructura. Las tablas y columnas nuevas se crean al arrancar con `spring.jpa.hibernate.ddl-auto=update`. | (conexión privada) |
+| Aplicación Android | Firebase App Distribution (proyecto `tata-vitahealth`, app `com.vitahealth.tata`) | Sin nueva distribución en este Sprint: sigue la versión 0.1.0 del Sprint 1. | Invitación por correo a los testers |
+| Aplicación Flutter | GitHub Actions (`flutter-ci.yml`) | Compilación y pruebas en CI; todavía sin distribución. | https://github.com/vitaHealth-UPC/mobile-cross-platform |
+
+**Web Services: redespliegue en Render**
+
+El backend desplegado en el Sprint 1 tenía 64 operaciones. Para publicar las 81 de este Sprint, integramos el trabajo a `main` (commit `9f6fd73`, etiqueta `v2.0.0`, 11 de noviembre de 2026) y el servicio de Render pasó a desplegar esa rama. Render construye la imagen Docker del repositorio `vitaHealth-UPC/web-services`: el `Dockerfile` compila con Maven y Temurin 26 y ejecuta el JAR con el perfil `prod`. Además de las variables del Sprint 1 (`SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD` y `TATA_DEMO_SEED`), esta versión exige estas, que se cargan solo como variables de entorno de Render y no quedan en el repositorio:
+
+| Variable | Para qué sirve |
+| --- | --- |
+| `TATA_JWT_SECRET_BASE64` | Clave de 32 bytes en Base64 con la que se firman las sesiones. Sin ella el backend no arranca; si cambia, las sesiones anteriores dejan de valer. |
+| `TATA_EMAIL_ENCRYPTION_ACTIVE_KEY_ID` y `TATA_EMAIL_ENCRYPTION_KEYS_<ID>` | Identificador de la clave activa y clave AES de 32 bytes en Base64 con la que se cifra la solicitud de verificación del correo. El arranque rechaza una clave ausente o inválida. |
+| `TATA_FIREBASE_PROJECT_ID` | Proyecto de Firebase (`tata-vitahealth`) contra el que se verifica el token del inicio de sesión social. Sin él, `POST /api/v1/social-sessions` responde `503 SOCIAL_PROVIDER_UNAVAILABLE`. |
+| `TATA_GOOGLE_SPEECH_ENABLED` | Activa el reconocimiento de voz de Google Cloud en la confirmación por voz (valor por defecto `false`). |
+| `TATA_RESEND_API_KEY` y `TATA_RESEND_SENDER` | Credenciales del proveedor de correo Resend para enviar los códigos de verificación y de recuperación. |
+
+Al guardar las variables nuevas, Render lanzó el despliegue (*Trigger: Environment updated by you*) sobre el commit `9f6fd73`. Terminó con *Deploy succeeded* en 23 segundos, el 12 de noviembre de 2026 a las 12:35 a. m. (GMT-5), y el servicio quedó en estado *Live* en https://web-services-yzxl.onrender.com. Al arrancar, Hibernate agrega a Neon las tablas y columnas nuevas (dispositivos push, notas de rutina, tema oscuro y política de notificación), sin borrar los datos existentes. Como el plan Free suspende la instancia cuando no recibe tráfico, la primera petición después de un rato puede tardar en responder.
+
+![Render: despliegue exitoso del commit 9f6fd73 y servicio en estado Live.](assets/redeploy.jpeg)
+
+*Figura 13. Render: despliegue exitoso del commit `9f6fd73` (release `v2.0.0`) y servicio en estado Live.*
+
+**Commits de despliegue del Sprint**
+
+Estos son los commits que cambian lo que se construye y se despliega en este Sprint: el release del backend que se publica en Render y el flujo de integración continua de la aplicación Flutter.
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
+| --- | --- | --- | --- | --- | --- |
+| `vitaHealth-UPC/web-services` | `main` | [`9f6fd73`](https://github.com/vitaHealth-UPC/web-services/commit/9f6fd73) | `merge: minor changes` | Integra el backend del Sprint 2 a `main` (etiqueta `v2.0.0`), la rama que despliega Render. | 11/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`ed44709`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ed44709) | `chore: initialize Flutter scaffold` | Incluye el flujo `flutter-ci.yml`. | 27/10/2026 |
 
 
 #### 4.2.2.9. Team Collaboration Insights during Sprint
