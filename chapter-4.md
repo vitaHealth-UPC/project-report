@@ -1170,4 +1170,84 @@ Para cada tarea registramos si se completó sin ayuda, con ayuda o no se complet
 
 ### 4.3.2. Registro de Entrevistas
 
+Se registran las entrevistas de validación de los dos segmentos objetivo de Tata, con un mínimo de tres por segmento. Cada entrevista indica los datos del entrevistado, una captura del video, su enlace en el OneDrive del docente, el inicio y la duración, y un resumen de sus apreciaciones sobre las tareas asignadas. Las indicaciones sobre videos están en el Anexo C.
+
+<!-- Cada integrante completa solo los campos entre corchetes de su entrevista y sube su captura a assets/ con el nombre indicado. Para una cuarta o quinta entrevista, copiar una tabla y cambiar el número y el nombre de la imagen. -->
+
+#### Segmento 1: Adultos mayores
+
+<table>
+  <tbody>
+    <tr><td colspan="4" align="center"><strong>Entrevista N.° 1</strong></td></tr>
+    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-1-entrevista-1.png" alt="Entrevista de validación del segmento 1, participante 1" width="900"></td></tr>
+    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
+    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
+    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr><td colspan="4" align="center"><strong>Entrevista N.° 2</strong></td></tr>
+    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-1-entrevista-2.png" alt="Entrevista de validación del segmento 1, participante 2" width="900"></td></tr>
+    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
+    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
+    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr><td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td></tr>
+    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-1-entrevista-3.png" alt="Entrevista de validación del segmento 1, participante 3" width="900"></td></tr>
+    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
+    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
+    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
+  </tbody>
+</table>
+
+#### Segmento 2: Familiares o cuidadores
+
+<table>
+  <tbody>
+    <tr><td colspan="4" align="center"><strong>Entrevista N.° 1</strong></td></tr>
+    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-2-entrevista-1.png" alt="Entrevista de validación del segmento 2, participante 1" width="900"></td></tr>
+    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
+    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
+    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr><td colspan="4" align="center"><strong>Entrevista N.° 2</strong></td></tr>
+    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-2-entrevista-2.png" alt="Entrevista de validación del segmento 2, participante 2" width="900"></td></tr>
+    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
+    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
+    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr><td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td></tr>
+    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-2-entrevista-3.png" alt="Entrevista de validación del segmento 2, participante 3" width="900"></td></tr>
+    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
+    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
+    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
+    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
+  </tbody>
+</table>
+
 ### 4.3.3. Evaluaciones según heurísticas
