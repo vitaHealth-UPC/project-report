@@ -6213,8 +6213,41 @@ https://github.com/vitaHealth-UPC/project-report/graphs/contributors
 
 #### 4.2.2.4. Development Evidence for Sprint Review
 
+Durante el Sprint 2 la implementación avanzó en tres productos. En los Web Services completamos el procesamiento de tomas no confirmadas (TS-05) y la integración de notificaciones (TS-06), con la persistencia de la política de notificación, los contactos de emergencia y la preferencia de llamada. Después consolidamos la arquitectura por Bounded Context, los contratos verificados y la seguridad en el release `v1.1.0`, integrado a `main`. En la aplicación Android implementamos las preferencias de notificación de US-39, con editores nativos para la política y los contactos alineados con Figma, y alineamos la arquitectura antes de los releases `v1.1.x`. También iniciamos la aplicación multiplataforma en Flutter con el mismo backend: acceso, registro y recuperación de cuenta, vínculo y consentimiento, acceso del adulto mayor con PIN, inicio con la próxima toma y el progreso del día, agenda semanal, detalle de toma y confirmación por toque (US-01, US-02, US-06, US-10, US-11, US-12, US-13, US-20, US-21 y US-24).
+
+El Landing Page no recibió cambios de código en este Sprint, porque su alcance se completó y desplegó en el Sprint 1. Los commits con el mensaje `fix: minor changes` de las ramas `fix/backend-architecture` y `fix/android-architecture` agrupan la reorganización por Bounded Context previa a los releases. En Flutter, el trabajo se integra temporalmente en la rama compartida `temp` y se distribuirá en ramas `feature/us-xx` por historia antes de integrarse a `develop`. Los commits de pruebas se detallan en la sección 4.2.2.5 y los de documentación no se incluyen en esta tabla.
+
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 | --- | --- | --- | --- | --- | --- |
+| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`4bc1c69`](https://github.com/vitaHealth-UPC/web-services/commit/4bc1c69) | `fix(ts-05): ignore delayed unconfirmed events after intake confirmation` | - | 10/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`8c128e8`](https://github.com/vitaHealth-UPC/web-services/commit/8c128e8) | `fix(ts-05): lock scheduler candidates before reporting unresolved intakes` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`95d5638`](https://github.com/vitaHealth-UPC/web-services/commit/95d5638) | `feat(ts-06): persist the call notification channel preference` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`8a4b0b7`](https://github.com/vitaHealth-UPC/web-services/commit/8a4b0b7) | `feat(ts-06): persist notification policy and emergency contacts` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`2de88ed`](https://github.com/vitaHealth-UPC/web-services/commit/2de88ed) | `fix(ts-06): serialize notification effects and escalation decisions` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`0e24649`](https://github.com/vitaHealth-UPC/web-services/commit/0e24649) | `fix: minor changes` | - | 22/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`e3fab7e`](https://github.com/vitaHealth-UPC/web-services/commit/e3fab7e) | `release: consolidate verified APMO backend contracts and security` | Includes dark theme persistence, alert timeline, medication reactivation, treatment consistency, adherence context, API contract integration and regression coverage. | 22/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`56e9b76`](https://github.com/vitaHealth-UPC/web-services/commit/56e9b76) | `fix: minor changes` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`08ace9f`](https://github.com/vitaHealth-UPC/mobile-android/commit/08ace9f) | `fix(us-39): render original Figma notification icons and proportional header` | - | 10/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`9e764f5`](https://github.com/vitaHealth-UPC/mobile-android/commit/9e764f5) | `feat(us-39): align notification editors and preserve call preferences` | - | 11/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`aead8dd`](https://github.com/vitaHealth-UPC/mobile-android/commit/aead8dd) | `feat(us-39): integrate native notification policy and contact editors` | - | 11/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`828c0ac`](https://github.com/vitaHealth-UPC/mobile-android/commit/828c0ac) | `fix: minor changes` | - | 26/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`34fdef9`](https://github.com/vitaHealth-UPC/mobile-android/commit/34fdef9) | `fix: minor changes` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`0e29678`](https://github.com/vitaHealth-UPC/mobile-android/commit/0e29678) | `fix: minor changes` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`d9c6c70`](https://github.com/vitaHealth-UPC/mobile-android/commit/d9c6c70) | `fix: minor changes` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`ed44709`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ed44709) | `chore: initialize Flutter scaffold` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`ce70f0d`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ce70f0d) | `feat: share Flutter identity and care-link checkpoint` | - | 02/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`bfe62b9`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/bfe62b9) | `feat: add adult PIN access and next-dose home` | - | 03/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`aec8faf`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/aec8faf) | `chore: allow local backend verification in debug builds` | - | 03/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`4ff897a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/4ff897a) | `feat: add weekly intake agenda and touch confirmation` | - | 03/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`e425705`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/e425705) | `chore: extend local probe with intake confirmation` | - | 03/11/2026 |
+
+Enlaces a commits:
+
+https://github.com/vitaHealth-UPC/web-services/commits/develop/
+
+https://github.com/vitaHealth-UPC/mobile-android/commits/develop/
+
+https://github.com/vitaHealth-UPC/mobile-cross-platform/commits/temp/
 
 
 #### 4.2.2.5. Testing Suite Evidence for Sprint Review
@@ -6272,6 +6305,110 @@ https://github.com/vitaHealth-UPC/project-report/graphs/contributors
 <!-- Incorporar capturas y enlaces a las contribuciones de los repositorios. -->
 
 **Collaboration Analysis**
+
+
+## 4.3. Validation Interviews
+
+En esta sección registramos las entrevistas de validación del producto. A diferencia de las entrevistas de needfinding del Capítulo II, en estas sesiones los participantes de cada segmento objetivo interactúan con el Landing Page desplegado y con las aplicaciones implementadas. Así podemos contrastar las Hypothesis Statements con el comportamiento real de los usuarios. La sección incluye el diseño de las entrevistas, su registro y la evaluación según heurísticas.
+
+### 4.3.1. Diseño de Entrevistas
+
+Las sesiones de validación de este Sprint buscan comprobar si las funcionalidades core de Tata permiten que cada segmento cumpla su objetivo sin ayuda. Según lo definido en el Lean UX Problem Statement, Tata tiene éxito cuando los adultos mayores confirman sus medicamentos con poca o ninguna asistencia, y cuando los familiares aumentan su confianza en el seguimiento del tratamiento.
+
+**Objetivos de validación**
+
+| Hypothesis Statement relacionada | Qué observaremos en la sesión | Segmento |
+| --- | --- | --- |
+| Los adultos mayores de 68 a 85 años con baja alfabetización digital logran confirmar sus tomas sin fricción ni ayuda de terceros, con una interfaz de confirmación por voz o un solo toque. | Si el participante encuentra su próxima toma, la confirma con un toque y entiende el resultado sin intervención del moderador. | Adultos mayores |
+| Los adultos mayores logran registrar sus confirmaciones sin interactuar con pantallas complejas. | Si el acceso con PIN, el inicio y la agenda se comprenden a la primera lectura, y cuántas veces el participante duda o pide ayuda. | Adultos mayores |
+| Los familiares de 35 a 55 años obtienen tranquilidad al recibir información inmediata sobre la toma de medicación. | Si el participante configura el cuidado de su familiar y encuentra el estado de las tomas, las alertas y su detalle. | Familiares o cuidadores |
+| El Landing Page comunica la propuesta de valor y conduce al registro. | Si el participante explica con sus palabras qué hace Tata, distingue los planes y llega al registro o al contacto. | Ambos segmentos |
+
+**Participantes**
+
+| Segmento | Cantidad | Criterios de selección |
+| --- | --- | --- |
+| Adultos mayores | De 3 a 5 entrevistas | Personas de 68 a 85 años que residen en Lima Metropolitana, toman al menos un medicamento de forma regular y usan un smartphone, aunque sea de forma básica. |
+| Familiares o cuidadores | De 3 a 5 entrevistas | Personas de 35 a 55 años que residen en Lima Metropolitana, acompañan o supervisan a distancia el tratamiento de un adulto mayor y usan aplicaciones móviles a diario. |
+
+Siempre que sea posible, entrevistamos a participantes que no formaron parte del needfinding, para que el conocimiento previo del producto no influya en los resultados.
+
+**Elementos incluidos en la sesión**
+
+| Elemento | Versión utilizada | Adultos mayores | Familiares o cuidadores |
+| --- | --- | --- | --- |
+| Landing Page | Desplegado en https://vitahealth-upc.github.io/landing-page/ | Propuesta de valor y funcionalidades | Propuesta de valor, funcionalidades, planes, registro y contacto |
+| Aplicación Android nativa | Distribuida con Firebase App Distribution | Flujos del adulto mayor | Flujos del familiar o cuidador |
+| Aplicación multiplataforma (Flutter) | Build instalado en un teléfono físico del equipo | Flujos del adulto mayor implementados en el Sprint | Registro, verificación y vínculo |
+| Web Services | Desplegados en https://web-services-yzxl.onrender.com/ con cuentas y tratamientos de prueba creados para cada sesión | Datos de la próxima toma, agenda y confirmación | Datos de vínculo, tratamientos, resumen y alertas |
+
+Usamos cuentas de prueba para que ningún participante registre sus datos de salud reales. Para los flujos que existen en ambas aplicaciones, alternamos la aplicación entre participantes, de modo que las dos versiones se validen sin duplicar tareas en una misma sesión.
+
+**Estructura de la sesión**
+
+| Bloque | Duración aproximada | Actividad |
+| --- | --- | --- |
+| 1. Bienvenida y consentimiento | 2 minutos | Explicamos el objetivo, aclaramos que evaluamos el producto y no a la persona, y pedimos permiso para grabar. |
+| 2. Contexto | 3 minutos | Confirmamos los datos del participante: nombres, edad y distrito, y su relación con la medicación. |
+| 3. Landing Page | 3 a 5 minutos | El participante explora la página y responde preguntas de comprensión. |
+| 4. Tareas en las aplicaciones | 10 a 15 minutos | El participante realiza las tareas en voz alta (think aloud) mientras observamos sin intervenir, salvo que lo pida. |
+| 5. Cierre | 3 a 5 minutos | Preguntas de cierre y calificación de facilidad de cada tarea en una escala del 1 al 7. |
+
+En cada sesión participan un moderador, que guía las tareas, y un observador, que registra los tiempos, errores, dudas y pedidos de ayuda que alimentan la evaluación según heurísticas de la sección 4.3.3.
+
+**User flows a validar con adultos mayores**
+
+| Tarea | Instrucción para el participante | User flow | User Stories | Aplicación | Criterio de éxito observable |
+| --- | --- | --- | --- | --- | --- |
+| L1 | "Revise esta página y cuénteme para qué cree que sirve Tata." | WF16 | US-46, US-47 | Landing Page | Describe con sus palabras que Tata ayuda a recordar y confirmar medicamentos. |
+| A1 | "Ingrese a la aplicación con su PIN y dígame cuál es su próxima toma." | WF01 | US-01, US-20 | Android nativa / Flutter | Ingresa y menciona el medicamento y la hora sin ayuda. |
+| A2 | "Ya tomó su medicamento. Regístrelo en la aplicación." | WF02 | US-06 | Android nativa / Flutter | Confirma la toma con un toque e identifica el mensaje de confirmación. |
+| A3 | "Revise qué medicamentos le tocan en la semana y cuáles ya tomó." | WF03-WF04 | US-21, US-24 | Android nativa / Flutter | Cambia de día en la agenda y distingue una toma confirmada de una pendiente. |
+| A4 | "Haga que las letras de la aplicación se vean más grandes." | WF05 | US-35, US-36 | Android nativa | Encuentra la opción de accesibilidad y aplica el cambio. |
+| A5 | "Confirme su siguiente toma hablándole al celular." | WF02 (voz) | US-06 | Android nativa | Completa la confirmación por voz o reintenta tras un aviso de voz no reconocida. |
+
+**User flows a validar con familiares o cuidadores**
+
+| Tarea | Instrucción para el participante | User flow | User Stories | Aplicación | Criterio de éxito observable |
+| --- | --- | --- | --- | --- | --- |
+| L1 | "Revise esta página, compare los planes y continúe hacia el registro." | WF16 | US-46, US-47, US-48, US-49 | Landing Page | Explica la propuesta de valor, distingue los planes y llega al registro o al contacto. |
+| C1 | "Cree su cuenta y verifique su correo." | WF06 | US-10, US-11 | Android nativa / Flutter | Completa el registro y la verificación, y corrige los datos inválidos si aparecen. |
+| C2 | "Registre a su familiar y compártale la invitación para vincularse." | WF06 | US-12, US-02, US-13 | Android nativa / Flutter | Registra el perfil y genera la invitación. El vínculo queda activo cuando el adulto da su consentimiento. |
+| C3 | "Registre el medicamento de su familiar y configure el tratamiento." | WF07 | US-03, US-14, US-15, US-16, US-17 | Android nativa | Define el medicamento, la dosis, la frecuencia, el horario y el recordatorio, y activa el tratamiento. |
+| C4 | "Revise cómo va su familiar hoy y atienda la alerta pendiente." | WF08-WF10 | US-25, US-27, US-07 | Android nativa | Encuentra el resumen, abre la alerta y entiende qué toma no se confirmó. |
+| C5 | "Revise el historial reciente de tomas de su familiar." | WF08 | US-26 | Android nativa | Identifica las tomas confirmadas, tardías y omitidas. |
+
+**Fuera del alcance de esta validación**
+
+No validamos en este Sprint los flujos de inventario y reposición (US-40 a US-43), plan y suscripción (US-44 y US-45), ni la confirmación por voz en la aplicación Flutter. Estos flujos corresponden a Sprints posteriores o aún no están implementados en la versión multiplataforma.
+
+**Preguntas de cierre**
+
+*Adultos mayores*<br>
+**1.** ¿Qué fue lo más fácil y lo más difícil de lo que hizo hoy? <br>
+**2.** ¿Hubo algún texto, botón o ícono que no entendió o que le costó leer? <br>
+**3.** ¿Preferiría confirmar sus tomas tocando la pantalla o hablándole al celular? ¿Por qué? <br>
+**4.** ¿Cree que podría usar la aplicación todos los días sin ayuda de un familiar? <br>
+**5.** ¿Qué le cambiaría a la aplicación para que le resulte más cómoda? <br>
+
+*Familiares o cuidadores*<br>
+**1.** ¿Qué tan seguro se sentiría de que su familiar tomó su medicamento con la información que vio hoy? <br>
+**2.** ¿Qué información le faltó en el resumen o en las alertas para decidir qué hacer? <br>
+**3.** ¿Le resultó claro cómo vincular a su familiar y por qué se le pide su consentimiento? <br>
+**4.** ¿Con qué frecuencia revisaría la aplicación y por qué medio le gustaría recibir los avisos? <br>
+**5.** Después de ver el Landing Page y la aplicación, ¿pagaría un plan como el que se ofrece? ¿Qué lo convencería? <br>
+
+**Registro de resultados**
+
+Para cada tarea registramos si se completó sin ayuda, con ayuda o no se completó, el tiempo empleado, los errores y dudas observados, y la calificación de facilidad del participante. Estos datos se presentan por entrevista en la sección 4.3.2 y sirven de evidencia para la evaluación según heurísticas de usabilidad, arquitectura de información e inclusive design de la sección 4.3.3.
+
+### 4.3.2. Registro de Entrevistas
+
+<!-- Incorporar el registro de cada entrevista: nombres, apellidos, edad, distrito, captura del video, URL en OneDrive, timing de inicio, duración y resumen. -->
+
+### 4.3.3. Evaluaciones según heurísticas
+
+<!-- Incorporar la evaluación según el formato del Anexo E: tareas evaluadas, escala de severidad y problemas encontrados. -->
 
 # Conclusiones
 
