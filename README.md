@@ -6252,19 +6252,105 @@ https://github.com/vitaHealth-UPC/mobile-cross-platform/commits/temp/
 
 #### 4.2.2.5. Testing Suite Evidence for Sprint Review
 
+En el Sprint 2 las pruebas acompañan a cada cambio en los tres productos. En los Web Services usamos JUnit 5 con Spring Boot, MockMvc y una base H2 para las pruebas de integración. En Android mantenemos pruebas unitarias de JUnit y pruebas instrumentadas de Compose. En Flutter usamos `flutter_test` para probar casos de uso, BLoC, repositorios y pantallas; las respuestas del servidor se simulan con `MockClient` y la sesión con un almacén en memoria, de modo que las pruebas no dependen de un backend desplegado.
+
+Al cierre del Sprint, el release `v1.1.0` de los Web Services (`3a2f2ef`) cuenta con 994 métodos de prueba en 265 clases. El release `v1.1.2` de Android (`027363e`) cuenta con 858 métodos de prueba unitaria en 179 archivos y 154 pruebas instrumentadas en 45 archivos. En Flutter, la rama `temp` (`4ff897a`) ejecuta 123 pruebas, todas aprobadas. Los conteos de los Web Services y Android corresponden a los métodos anotados con `@Test` o `@ParameterizedTest`; el de Flutter, a la ejecución local de `flutter test`.
+
 **Unit Tests**
 
-<!-- Incorporar las pruebas y las clases/comportamientos que verifican. -->
+| Prueba | Historias | Comportamiento |
+| --- | --- | --- |
+| ReportUnconfirmedIntakeCommandHandlerTest | TS-05 | Usa el plazo exacto del tratamiento, no sobrescribe una confirmación registrada y no publica dos veces la misma toma |
+| NotificationPolicyTest | TS-06, US-39 | Tiempos crecientes desde la toma programada, precisión al minuto y destinatarios normalizados |
+| SendReinforcedReminderCommandHandlerTest | TS-06 | Encola el recordatorio reforzado una sola vez, no lo envía para tomas resueltas y no simula la entrega si falla el almacenamiento |
+| NotificationPreferencesViewModelTest y UserPreferencesMapperTest (Android) | US-39 | Carga, guardado y reintento de la política; horario de silencio; respuestas incompletas rechazadas sin inventar valores |
+| access_bloc_test, session_repository_test y secure_session_store_test (Flutter) | US-10, US-11 | Sesión cifrada, restauración y descarte de respuestas que llegan después de un cambio de sesión |
+| registration_flow_test, registration_repository_test y recovery_test (Flutter) | US-10, US-11 | Registro del familiar, verificación del correo y recuperación de la contraseña |
+| care_link_repository_test, consent_flow_test y withdrawal_flow_test (Flutter) | US-02, US-12, US-13 | Registro del adulto mayor, invitación, consentimiento y su retiro |
+| pin_access_repository_test y pin_flow_test (Flutter) | US-01 | Creación del PIN, ingreso, PIN incorrecto y bloqueo temporal |
+| adult_home_test e intake_reader_test (Flutter) | US-20, US-24 | Próxima toma, progreso del día y agenda semanal |
+| intake_confirmation_test y dose_flow_test (Flutter) | US-06, US-21 | Detalle de la toma, confirmación por toque, confirmación repetida y tomas que ya no se pueden confirmar |
 
 **Integration & Acceptance Tests**
 
-<!-- Incorporar pruebas de integración/BDD, archivos .feature y evidencias. -->
+| Prueba | Historias | Comportamiento |
+| --- | --- | --- |
+| AutomaticUnconfirmedIntakeIntegrationTest | TS-05 | La toma no confirmada se reporta una sola vez y queda omitida de forma definitiva |
+| UnconfirmedIntakeRollbackIntegrationTest | TS-05 | Un fallo en el procesamiento no bloquea a las demás tomas y se puede reintentar sin duplicar casos |
+| OmissionAndMonitoringFlowTest | TS-05 | Recorrido completo de la omisión: caso pendiente, alerta al familiar, escalamiento y cierre; un evento tardío no abre un caso para una toma confirmada |
+| NotificationConcurrencyIntegrationTest | TS-06 | Recordatorios y alertas concurrentes se encolan una sola vez y el escalamiento no se salta niveles |
+| AccessibilityApiIntegrationTest | TS-06, US-39 | La política y los contactos de emergencia se conservan al recargar; una política inválida no sobrescribe la guardada |
+| ExistingScreensVisualAuditTest (Android) | US-39 | Editores nativos de la política de notificación y de los contactos con los íconos originales de Figma |
+| caregiver_setup_flow_test, consent_flow_test y dose_flow_test (Flutter) | US-02, US-06, US-13 | Flujos completos en pantalla, desde el registro del adulto mayor y su consentimiento hasta la confirmación de una toma |
+
+Enlace a pruebas del backend:
+
+https://github.com/vitaHealth-UPC/web-services/tree/main/src/test
+
+Enlace a pruebas Android:
+
+https://github.com/vitaHealth-UPC/mobile-android/tree/main/app/src
+
+Enlace a pruebas Flutter:
+
+https://github.com/vitaHealth-UPC/mobile-cross-platform/tree/temp/test
+
+**Prueba de confirmación repetida en Flutter**
+
+```dart
+test('an idempotent replay is reported as already confirmed', () async {
+  final repo = RemoteIntakeConfirmation(
+    api: api((_) async => _json(evidence(alreadyConfirmed: true), 200)),
+    store: MemorySessionStore(session()),
+  );
+  final result = await ConfirmIntake(repo)('intake-1');
+  expect(
+    (result as AppSuccess<ConfirmationReceipt>).value.alreadyConfirmed,
+    isTrue,
+  );
+});
+```
+
+Enlace a intake_confirmation_test:
+
+https://github.com/vitaHealth-UPC/mobile-cross-platform/blob/temp/test/intake_execution/intake_confirmation_test.dart
+
+Enlace a ReportUnconfirmedIntakeCommandHandlerTest:
+
+https://github.com/vitaHealth-UPC/web-services/blob/main/src/test/java/com/vitahealth/tata/intakeexecution/application/internal/commandservices/ReportUnconfirmedIntakeCommandHandlerTest.java
 
 **Testing Commits**
 
+La tabla incluye los commits del Sprint que agregan o modifican pruebas. Los commits `828c0ac` de Android y `e3fab7e` de los Web Services reorganizan las pruebas por Bounded Context junto con el código que verifican y agregan pruebas de regresión.
+
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 | --- | --- | --- | --- | --- | --- |
+| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`a85639d`](https://github.com/vitaHealth-UPC/web-services/commit/a85639d) | `test: bound H2 lock waits for concurrent PIN authentication` | - | 10/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`4bc1c69`](https://github.com/vitaHealth-UPC/web-services/commit/4bc1c69) | `fix(ts-05): ignore delayed unconfirmed events after intake confirmation` | - | 10/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`8c128e8`](https://github.com/vitaHealth-UPC/web-services/commit/8c128e8) | `fix(ts-05): lock scheduler candidates before reporting unresolved intakes` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`95d5638`](https://github.com/vitaHealth-UPC/web-services/commit/95d5638) | `feat(ts-06): persist the call notification channel preference` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`8a4b0b7`](https://github.com/vitaHealth-UPC/web-services/commit/8a4b0b7) | `feat(ts-06): persist notification policy and emergency contacts` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`2de88ed`](https://github.com/vitaHealth-UPC/web-services/commit/2de88ed) | `fix(ts-06): serialize notification effects and escalation decisions` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`e3fab7e`](https://github.com/vitaHealth-UPC/web-services/commit/e3fab7e) | `release: consolidate verified APMO backend contracts and security` | Includes dark theme persistence, alert timeline, medication reactivation, treatment consistency, adherence context, API contract integration and regression coverage. | 22/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`08ace9f`](https://github.com/vitaHealth-UPC/mobile-android/commit/08ace9f) | `fix(us-39): render original Figma notification icons and proportional header` | - | 10/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`9e764f5`](https://github.com/vitaHealth-UPC/mobile-android/commit/9e764f5) | `feat(us-39): align notification editors and preserve call preferences` | - | 11/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`aead8dd`](https://github.com/vitaHealth-UPC/mobile-android/commit/aead8dd) | `feat(us-39): integrate native notification policy and contact editors` | - | 11/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`828c0ac`](https://github.com/vitaHealth-UPC/mobile-android/commit/828c0ac) | `fix: minor changes` | - | 26/10/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`ce70f0d`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ce70f0d) | `feat: share Flutter identity and care-link checkpoint` | - | 02/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`bfe62b9`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/bfe62b9) | `feat: add adult PIN access and next-dose home` | - | 03/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`4ff897a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/4ff897a) | `feat: add weekly intake agenda and touch confirmation` | - | 03/11/2026 |
 
+**Ejecución continua**
+
+Los Web Services y Android ejecutan sus pruebas en GitHub Actions con cada integración. En Flutter, el flujo de integración continua corre sobre `main` y `develop`; mientras el trabajo permanece en `temp`, las pruebas se ejecutan localmente antes de cada commit.
+
+Enlace a ejecución de Backend CI sobre el release `v1.1.0` en `main`:
+
+https://github.com/vitaHealth-UPC/web-services/actions/runs/40424172970
+
+Enlace a ejecución de Android CI sobre el release `v1.1.2` en `main`:
+
+https://github.com/vitaHealth-UPC/mobile-android/actions/runs/40461491308
 
 #### 4.2.2.6. Execution Evidence for Sprint Review
 
