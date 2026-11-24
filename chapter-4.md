@@ -814,116 +814,213 @@ https://github.com/vitaHealth-UPC/project-report/graphs/contributors
 
 ### 4.2.2. Sprint 2
 
-Sprint 2 reúne la confirmación de las tomas, las alertas y el seguimiento familiar, la gestión de tratamientos y medicamentos, los ajustes de accesibilidad y los procesos de soporte: tomas sin confirmar, notificaciones push, reconocimiento de voz y almacenamiento local. El alcance comprende 22 elementos del Product Backlog (15 historias de usuario, 6 Technical Stories y 1 Spike Story) y 81 Story Points. En este Sprint el trabajo se avanza en tres productos: los Web Services, la aplicación Android y la migración a Flutter. El Landing Page no cambia, porque ya se completó y desplegó en el Sprint 1.
+El Sprint 2 consolida los recorridos de confirmación de tomas, alertas, seguimiento familiar, gestión de tratamientos y accesibilidad, junto con los servicios de soporte. Android y Flutter implementan el mismo Product Backlog de Tata: 45 historias móviles (US-01 a US-45), con las historias US-46 a US-50 correspondientes a la landing. La planificación original asigna al Sprint 2 15 US, seis TS y un Spike (81 Story Points). El trabajo de migración a Flutter comprende el catálogo móvil completo, reutilizando los identificadores, sin duplicar historias ni sumar nuevamente sus puntos. La implementación y la aceptación se distinguen por plataforma.
 
 #### 4.2.2.1. Sprint Planning 2
 
-**Sprint Planning Background**
+El objetivo del Sprint 2 es consolidar el cuidado cotidiano del adulto mayor y trasladar los recorridos nativos a Flutter con los mismos contratos REST.
 
 | Campo | Detalle |
 | --- | --- |
 | Sprint # | Sprint 2 |
-| Date | |
-| Time | |
-| Location | |
-| Prepared By | |
-| Attendees (to the planning meeting) | |
+| Date / Time / Location | [DATO 1] |
+| Prepared By / Attendees | [DATO 2] |
+| Sprint 1 Review Summary | Landing desplegada; contratos de acceso, vinculación, tratamientos y agenda disponibles; recorridos iniciales en Android. |
+| Sprint 1 Retrospective Summary | Como acción de mejora, se prioriza la integración de contratos, los estados de error, la automatización de pruebas y la migración multiplataforma. |
+| Sprint 2 Goal | Integrar confirmación, seguimiento familiar, gestión de tratamientos y accesibilidad, preservando el catálogo de Android en Flutter. |
+| Sprint 2 Velocity | 81 Story Points planificados; la velocidad efectiva corresponde a las historias aceptadas. |
+| Sum of Story Points | 81 |
 
-**Sprint 1 Review Summary**
+**Historias y tareas técnicas asignadas al Sprint 2**
 
-
-
-**Sprint 1 Retrospective Summary**
-
-
-
-**Sprint Goal & User Stories**
-
-| Campo | Detalle |
-| --- | --- |
-| Sprint 2 Goal | |
-| Sprint 2 Velocity | |
-| Sum of Story Points | |
-
+| Story ID | Título | Epic | Story Points |
+| --- | --- | --- | --- |
+| US-06 | Confirmación accesible de una toma | EPIC-03 | 5 |
+| US-07 | Alerta ante una toma no confirmada | EPIC-04 | 5 |
+| US-25 | Consulta del estado reciente del adulto mayor | EPIC-04 | 3 |
+| US-24 | Consulta de agenda diaria de tomas | EPIC-03 | 3 |
+| US-26 | Consulta del historial reciente de tomas | EPIC-04 | 3 |
+| US-27 | Consulta del detalle de una alerta | EPIC-04 | 2 |
+| US-22 | Recordatorio reforzado por falta de confirmación | EPIC-03 | 3 |
+| US-23 | Confirmación dentro del periodo de tolerancia | EPIC-03 | 3 |
+| US-18 | Activación y pausa de un tratamiento | EPIC-02 | 3 |
+| US-04 | Edición y desactivación de un medicamento | EPIC-02 | 3 |
+| US-21 | Consulta del detalle de una toma | EPIC-03 | 2 |
+| US-19 | Consulta del detalle de un tratamiento | EPIC-02 | 2 |
+| US-29 | Contacto con el adulto mayor ante una alerta | EPIC-04 | 2 |
+| US-35 | Ajuste del tamaño de texto | EPIC-06 | 2 |
+| US-36 | Activación de mayor contraste | EPIC-06 | 2 |
+| TS-04 | API de confirmación de tomas | EPIC-03 | 5 |
+| TS-09 | API de resumen familiar e historial | EPIC-04 | 5 |
+| TS-05 | Proceso automático de tomas sin confirmar | EPIC-04 | 5 |
+| TS-06 | Integración del servicio de notificaciones push | EPIC-04 | 5 |
+| TS-11 | Integración de reconocimiento de voz | EPIC-03 | 5 |
+| TS-13 | Almacenamiento local y sincronización | EPIC-03 | 8 |
+| SP-02 | Investigación de detección de patrones de olvido | EPIC-05 | 5 |
+| **Total** |  |  | 81 |
 
 #### 4.2.2.2. Aspect Leaders and Collaborators
 
-La matriz distribuye el liderazgo y la colaboración en los aspectos del Sprint 2. L identifica al líder y C al colaborador. Los aspectos son los grupos funcionales que reúne el alcance del Sprint, y cada uno se trabaja en los Web Services, en la aplicación Android o en Flutter según corresponda:
-
-- **Confirmación de tomas:** El registro de que el adulto mayor tomó su medicamento.
-- **Alertas y seguimiento familiar:** Los avisos y el seguimiento que recibe el familiar o cuidador.
-- **Gestión de tratamientos:** El registro y la configuración de tratamientos y medicamentos.
-- **Accesibilidad:** Los ajustes que facilitan el uso de la aplicación al adulto mayor.
-- **Procesos de soporte:** Las tomas sin confirmar, las notificaciones push, el reconocimiento de voz y el almacenamiento local.
-- **Migración a Flutter:** El traslado de los flujos de la aplicación a la versión multiplataforma.
-
-Quien lidera un aspecto es el responsable de sus tareas en el Sprint Backlog 2, y los colaboradores participan en ellas.
+La matriz distribuye las responsabilidades técnicas propuestas según la especialización y las contribuciones registradas. L identifica liderazgo propuesto y C colaboración técnica documentada. La participación efectiva se detalla en 4.2.2.9.
 
 | Integrante | GitHub Username | Confirmación de tomas | Alertas y seguimiento familiar | Gestión de tratamientos | Accesibilidad | Procesos de soporte | Migración a Flutter |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Morales Venegas, David Joel | David-std2 |  |  |  |  |  |  |
-| Velasquez Laquihuanaco, Eduardo David | lalo-dev8 |  |  |  |  |  |  |
-| Cabrera Novoa, Leonardo Moises | u202415820 |  |  |  |  |  |  |
-| Diaz Yurivilca, Sofía | u20241a195-cmd |  |  |  |  |  |  |
-| Alfaro Mallma, Alberto Joaquín | elprrr / elperro123xd |  |  |  |  |  |  |
-| Quispe Pérez, Eder Edu | DuDu-0912 |  |  |  |  |  |  |
+| Morales Venegas, David Joel | David-std2 | C | C | C | C | L | L |
+| Velasquez Laquihuanaco, Eduardo David | lalo-dev8 | — | L | L | L | C | C |
+| Cabrera Novoa, Leonardo Moises | u202415820 | L | C | — | — | C | C |
+| Diaz Yurivilca, Sofía | u20241a195-cmd | — | C | — | C | — | C |
+| Alfaro Mallma, Joaquín Alberto | elprrr / elperro123xd | — | — | — | — | — | — |
+| Quispe Pérez, Eder Edu | DuDu-0912 | — | — | — | — | — | — |
+
+Eduardo aporta a tratamientos, accesibilidad y seguimiento familiar; Leonardo a confirmación por voz, recordatorios y persistencia; Sofía a adherencia y navegación accesible; David a integración, notificaciones y arquitectura.
 
 #### 4.2.2.3. Sprint Backlog 2
 
-**Sprint Board**
+El Sprint Backlog conserva la planificación de Trello y descompone las historias en tareas de implementación y revisión. Las estimaciones de esta descomposición son propuestas de esfuerzo: dos horas por punto y el timebox de ocho horas para SP-02. La responsabilidad propuesta se basa en los cambios registrados; el tablero público no asigna individualmente las tarjetas.
 
-<!-- Incorporar captura del tablero y su enlace público. -->
+<p align="center"><img src="assets/sprint2/trello-board.png" alt="Tablero público Trello consultado el 24/11/2026" width="900"></p>
 
-**Sprint Backlog**
+*Figura. Tablero público Trello consultado el 24/11/2026.*
 
-| Historia | Título | Task ID | Tarea | Estimación (horas) | Responsable | Estado |
+Enlace: https://trello.com/b/wuHmMypU/apps-moviles
+
+| Historia | Título | Task ID | Tarea | Estimación (horas) | Responsable propuesto | Estado técnico |
 | --- | --- | --- | --- | --- | --- | --- |
+| US-06 | Confirmación accesible de una toma | S2-T01 | Confirmación por toque y voz, estados y pruebas | 10 | Leonardo / David | To-review |
+| US-07 | Alerta ante una toma no confirmada | S2-T02 | Integrar omisiones, alertas y detalle | 10 | Eduardo / David | To-review |
+| US-25 | Consulta del estado reciente del adulto mayor | S2-T03 | Consultar y mostrar resumen familiar | 6 | Eduardo / David | To-review |
+| US-24 | Consulta de agenda diaria de tomas | S2-T04 | Agenda de tomas por fecha | 6 | Leonardo / David | To-review |
+| US-26 | Consulta del historial reciente de tomas | S2-T05 | Historial de tomas y resultados | 6 | Eduardo / David | To-review |
+| US-27 | Consulta del detalle de una alerta | S2-T06 | Detalle y estado de alerta | 4 | Eduardo / David | To-review |
+| US-22 | Recordatorio reforzado por falta de confirmación | S2-T07 | Recordatorio reforzado y dosis pendientes | 6 | Leonardo / David | To-review |
+| US-23 | Confirmación dentro del periodo de tolerancia | S2-T08 | Confirmación dentro de tolerancia | 6 | David | To-review |
+| US-18 | Activación y pausa de un tratamiento | S2-T09 | Activar, pausar y reanudar tratamiento | 6 | Eduardo / David | To-review |
+| US-04 | Edición y desactivación de un medicamento | S2-T10 | Editar, desactivar y reactivar medicamentos | 6 | Eduardo / David | To-review |
+| US-21 | Consulta del detalle de una toma | S2-T11 | Detalle y estado de toma | 4 | Leonardo / David | To-review |
+| US-19 | Consulta del detalle de un tratamiento | S2-T12 | Consultar detalle de tratamiento | 4 | Eduardo / David | To-review |
+| US-29 | Contacto con el adulto mayor ante una alerta | S2-T13 | Resolver canal de contacto autorizado | 4 | Eduardo / David | To-review |
+| US-35 | Ajuste del tamaño de texto | S2-T14 | Aplicar escala de texto y verificar vistas | 4 | Eduardo / David | To-review |
+| US-36 | Activación de mayor contraste | S2-T15 | Aplicar contraste y persistir preferencias | 4 | Eduardo / David | To-review |
+| TS-04 | API de confirmación de tomas | S2-T16 | Contrato de confirmación e idempotencia | 10 | David | Done |
+| TS-09 | API de resumen familiar e historial | S2-T17 | Contratos de resumen familiar e historial | 10 | David | Done |
+| TS-05 | Proceso automático de tomas sin confirmar | S2-T18 | Procesamiento de omisiones, concurrencia y aislamiento | 10 | David | Done |
+| TS-06 | Integración del servicio de notificaciones push | S2-T19 | Registro de dispositivos, política y recepción push | 10 | David / Eduardo | To-review |
+| TS-11 | Integración de reconocimiento de voz | S2-T20 | Captura de voz y contrato WAV multipart | 10 | Leonardo / David | To-review |
+| TS-13 | Almacenamiento local y sincronización | S2-T21 | Persistencia por sesión y sincronización de confirmaciones | 16 | Leonardo / David | To-review |
+| SP-02 | Investigación de detección de patrones de olvido | S2-T22 | Evaluar criterios de patrones y recomendaciones | 8 | Sofía / David | To-review |
 
+**Backlog de implementación multiplataforma (catálogo compartido con Android)**
+
+La siguiente trazabilidad comprende las 45 historias móviles, incluidas las de otros sprints que se trasladaron a Flutter. Conserva el sprint original y relaciona cada historia con el corte de implementación publicado en su rama. Los commits que abarcan varias historias comparten referencia. Los cortes de Git sustentan implementación, no aceptación por usuarios ni horas imputadas.
+
+| Historia | Título | Sprint original | Rama de Flutter | Commit de referencia | Autor registrado |
+| --- | --- | --- | --- | --- | --- |
+| US-01 | Ingreso simplificado a la aplicación | Sprint 1 | `feature/us-01-pin-access` | [`b2493b3`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/b2493b3) | u202415820 |
+| US-02 | Vinculación con la cuenta del adulto mayor | Sprint 1 | `feature/us-02-care-link` | [`ce70f0d`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ce70f0d) | David Joel Morales Venegas |
+| US-03 | Registro de un nuevo medicamento | Sprint 1 | `feature/us-03-register-medication` | [`8cce4df`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/8cce4df) | Eduardo |
+| US-04 | Edición y desactivación de un medicamento | Sprint 2 | `feature/us-04-update-deactivate-medication` | [`8cce4df`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/8cce4df) | Eduardo |
+| US-05 | Recordatorio de toma de medicamento | Sprint 1 | `feature/us-05-dose-reminder` | [`e604dd3`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/e604dd3) | u202415820 |
+| US-06 | Confirmación accesible de una toma | Sprint 2 | `feature/us-06-dose-confirmation` | [`ca0faf9`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ca0faf9) | u202415820 |
+| US-07 | Alerta ante una toma no confirmada | Sprint 2 | `feature/us-07-missed-dose-alert` | [`efc6d20`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/efc6d20) | Eduardo |
+| US-08 | Resumen semanal de adherencia | Sprint 3 | `feature/us-08-weekly-adherence-summary` | [`911a8a2`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/911a8a2) | u20241a195-cmd |
+| US-09 | Alerta de patrón de olvido recurrente | Sprint 3 | `feature/us-09-recurring-omission-pattern` | [`643caf1`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/643caf1) | u20241a195-cmd |
+| US-10 | Registro de cuenta del familiar | Sprint 1 | `feature/us-10-caregiver-registration` | [`ce70f0d`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ce70f0d) | David Joel Morales Venegas |
+| US-11 | Verificación del correo del familiar | Sprint 1 | `feature/us-11-email-verification` | [`cd772b4`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/cd772b4) | u202415820 |
+| US-12 | Registro del perfil del adulto mayor | Sprint 1 | `feature/us-12-older-adult-profile` | [`a0aa276`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/a0aa276) | u202415820 |
+| US-13 | Consentimiento para establecer el vínculo | Sprint 1 | `feature/us-13-care-consent` | [`ce70f0d`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ce70f0d) | David Joel Morales Venegas |
+| US-14 | Creación de un tratamiento | Sprint 1 | `feature/us-14-create-treatment` | [`8cce4df`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/8cce4df) | Eduardo |
+| US-15 | Definición de dosis y frecuencia | Sprint 1 | `feature/us-15-dose-frequency` | [`7c4b3a6`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/7c4b3a6) | David Joel Morales Venegas |
+| US-16 | Configuración de horarios e instrucciones | Sprint 1 | `feature/us-16-schedule-instructions` | [`7c4b3a6`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/7c4b3a6) | David Joel Morales Venegas |
+| US-17 | Configuración de recordatorios | Sprint 1 | `feature/us-17-treatment-reminders` | [`157acea`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/157acea) | David Joel Morales Venegas |
+| US-18 | Activación y pausa de un tratamiento | Sprint 2 | `feature/us-18-treatment-activation-pause` | [`157acea`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/157acea) | David Joel Morales Venegas |
+| US-19 | Consulta del detalle de un tratamiento | Sprint 2 | `feature/us-19-treatment-detail` | [`157acea`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/157acea) | David Joel Morales Venegas |
+| US-20 | Consulta de la próxima toma | Sprint 1 | `feature/us-20-next-dose` | [`b2493b3`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/b2493b3) | u202415820 |
+| US-21 | Consulta del detalle de una toma | Sprint 2 | `feature/us-21-dose-detail` | [`6d2d8ab`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/6d2d8ab) | u202415820 |
+| US-22 | Recordatorio reforzado por falta de confirmación | Sprint 2 | `feature/us-22-reinforced-reminder` | [`6b336c1`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/6b336c1) | u202415820 |
+| US-23 | Confirmación dentro del periodo de tolerancia | Sprint 2 | `feature/us-23-late-dose-confirmation` | [`6d2d8ab`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/6d2d8ab) | u202415820 |
+| US-24 | Consulta de agenda diaria de tomas | Sprint 2 | `feature/us-24-daily-schedule` | [`6d2d8ab`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/6d2d8ab) | u202415820 |
+| US-25 | Consulta del estado reciente del adulto mayor | Sprint 2 | `feature/us-25-recent-care-status` | [`efc6d20`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/efc6d20) | Eduardo |
+| US-26 | Consulta del historial reciente de tomas | Sprint 2 | `feature/us-26-intake-history` | [`341810e`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/341810e) | u20241a195-cmd |
+| US-27 | Consulta del detalle de una alerta | Sprint 2 | `feature/us-27-alert-detail` | [`efc6d20`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/efc6d20) | Eduardo |
+| US-28 | Configuración de preferencias de notificación | Sprint 3 | `feature/us-28-notification-preferences` | [`c9533e4`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/c9533e4) | Eduardo |
+| US-29 | Contacto con el adulto mayor ante una alerta | Sprint 2 | `feature/us-29-alert-contact` | [`efc6d20`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/efc6d20) | Eduardo |
+| US-30 | Registro de una nota de seguimiento | Sprint 4 | `feature/us-30-followup-note` | [`efc6d20`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/efc6d20) | Eduardo |
+| US-31 | Actualización del seguimiento de una alerta | Sprint 3 | `feature/us-31-alert-followup` | [`efc6d20`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/efc6d20) | Eduardo |
+| US-32 | Consulta del historial de adherencia | Sprint 3 | `feature/us-32-adherence-history` | [`341810e`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/341810e) | u20241a195-cmd |
+| US-33 | Identificación de tomas tardías y omitidas | Sprint 3 | `feature/us-33-late-omitted-classification` | [`341810e`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/341810e) | u20241a195-cmd |
+| US-34 | Recomendaciones a partir de patrones | Sprint 3 | `feature/us-34-adherence-recommendations` | [`341810e`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/341810e) | u20241a195-cmd |
+| US-35 | Ajuste del tamaño de texto | Sprint 2 | `feature/us-35-text-size` | [`c9533e4`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/c9533e4) | Eduardo |
+| US-36 | Activación de mayor contraste | Sprint 2 | `feature/us-36-high-contrast` | [`c9533e4`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/c9533e4) | Eduardo |
+| US-37 | Reducción de movimiento | Sprint 3 | `feature/us-37-reduced-motion` | [`c9533e4`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/c9533e4) | Eduardo |
+| US-38 | Activación de ayuda de lectura | Sprint 3 | `feature/us-38-reading-assistance` | [`c9533e4`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/c9533e4) | Eduardo |
+| US-39 | Configuración de horario de silencio y canales | Sprint 3 | `feature/us-39-quiet-hours-channels` | [`c9533e4`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/c9533e4) | Eduardo |
+| US-40 | Registro de inventario inicial | Sprint 4 | `feature/us-40-initial-inventory` | [`270a898`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/270a898) | u202415820 |
+| US-41 | Consulta de stock restante | Sprint 4 | `feature/us-41-stock-status` | [`270a898`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/270a898) | u202415820 |
+| US-42 | Aviso de stock bajo | Sprint 4 | `feature/us-42-low-stock-alert` | [`e2c5d15`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/e2c5d15) | u202415820 |
+| US-43 | Registro de reposición de medicamento | Sprint 4 | `feature/us-43-restock` | [`270a898`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/270a898) | u202415820 |
+| US-44 | Consulta del plan actual | Sprint 4 | `feature/us-44-current-plan` | [`564466a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/564466a) | u202415820 |
+| US-45 | Activación o cambio de suscripción | Sprint 4 | `feature/us-45-change-subscription` | [`564466a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/564466a) | u202415820 |
+
+Catálogo Android: https://github.com/vitaHealth-UPC/mobile-android/blob/main/docs/architecture/user-stories.md
+
+Catálogo Flutter: https://github.com/vitaHealth-UPC/mobile-cross-platform/blob/main/docs/architecture/user-stories.md
 
 #### 4.2.2.4. Development Evidence for Sprint Review
 
-Durante el Sprint 2 la implementación avanzó en tres productos. En los Web Services completamos el procesamiento de tomas no confirmadas (TS-05) y la integración de notificaciones (TS-06), con la persistencia de la política de notificación, los contactos de emergencia y la preferencia de llamada. Después consolidamos la arquitectura por Bounded Context, los contratos verificados y la seguridad en el release `v1.1.0`, integrado a `main`. En la aplicación Android implementamos las preferencias de notificación de US-39, con editores nativos para la política y los contactos alineados con Figma, y alineamos la arquitectura antes de los releases `v1.1.x`. También iniciamos la aplicación multiplataforma en Flutter con el mismo backend: acceso, registro y recuperación de cuenta, vínculo y consentimiento, acceso del adulto mayor con PIN, inicio con la próxima toma y el progreso del día, agenda semanal, detalle de toma y confirmación por toque (US-01, US-02, US-06, US-10, US-11, US-12, US-13, US-20, US-21 y US-24).
+Los servicios REST incorporan contratos de confirmación, omisiones, seguimiento, seguridad y preferencias. Android conserva sus nueve contextos con Kotlin y Compose. Flutter traslada los recorridos compartidos mediante Dart, BLoC, adaptadores REST y persistencia local con Drift. Las correcciones de acceso, recuperación, notificaciones y disponibilidad se integran en sus respectivas ramas. La landing conserva la versión pública del Sprint 1.
 
-El Landing Page no recibió cambios de código en este Sprint, porque su alcance se completó y desplegó en el Sprint 1. Los commits con el mensaje `fix: minor changes` de las ramas `fix/backend-architecture` y `fix/android-architecture` agrupan la reorganización por Bounded Context previa a los releases. En Flutter, el trabajo se integra temporalmente en la rama compartida `temp` y se distribuirá en ramas `feature/us-xx` por historia antes de integrarse a `develop`. Los commits de pruebas se detallan en la sección 4.2.2.5 y los de documentación no se incluyen en esta tabla.
+Los commits representativos siguientes son alcanzables desde main al 24/11/2026.
 
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 | --- | --- | --- | --- | --- | --- |
-| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`4bc1c69`](https://github.com/vitaHealth-UPC/web-services/commit/4bc1c69) | `fix(ts-05): ignore delayed unconfirmed events after intake confirmation` | - | 10/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`8c128e8`](https://github.com/vitaHealth-UPC/web-services/commit/8c128e8) | `fix(ts-05): lock scheduler candidates before reporting unresolved intakes` | - | 11/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`95d5638`](https://github.com/vitaHealth-UPC/web-services/commit/95d5638) | `feat(ts-06): persist the call notification channel preference` | - | 11/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`8a4b0b7`](https://github.com/vitaHealth-UPC/web-services/commit/8a4b0b7) | `feat(ts-06): persist notification policy and emergency contacts` | - | 11/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`2de88ed`](https://github.com/vitaHealth-UPC/web-services/commit/2de88ed) | `fix(ts-06): serialize notification effects and escalation decisions` | - | 11/10/2026 |
-| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`0e24649`](https://github.com/vitaHealth-UPC/web-services/commit/0e24649) | `fix: minor changes` | - | 22/10/2026 |
-| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`e3fab7e`](https://github.com/vitaHealth-UPC/web-services/commit/e3fab7e) | `release: consolidate verified APMO backend contracts and security` | Includes dark theme persistence, alert timeline, medication reactivation, treatment consistency, adherence context, API contract integration and regression coverage. | 22/10/2026 |
-| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`56e9b76`](https://github.com/vitaHealth-UPC/web-services/commit/56e9b76) | `fix: minor changes` | - | 27/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`08ace9f`](https://github.com/vitaHealth-UPC/mobile-android/commit/08ace9f) | `fix(us-39): render original Figma notification icons and proportional header` | - | 10/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`9e764f5`](https://github.com/vitaHealth-UPC/mobile-android/commit/9e764f5) | `feat(us-39): align notification editors and preserve call preferences` | - | 11/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`aead8dd`](https://github.com/vitaHealth-UPC/mobile-android/commit/aead8dd) | `feat(us-39): integrate native notification policy and contact editors` | - | 11/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`828c0ac`](https://github.com/vitaHealth-UPC/mobile-android/commit/828c0ac) | `fix: minor changes` | - | 26/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`34fdef9`](https://github.com/vitaHealth-UPC/mobile-android/commit/34fdef9) | `fix: minor changes` | - | 27/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`0e29678`](https://github.com/vitaHealth-UPC/mobile-android/commit/0e29678) | `fix: minor changes` | - | 27/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`d9c6c70`](https://github.com/vitaHealth-UPC/mobile-android/commit/d9c6c70) | `fix: minor changes` | - | 27/10/2026 |
-| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`ed44709`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ed44709) | `chore: initialize Flutter scaffold` | - | 27/10/2026 |
-| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`ce70f0d`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ce70f0d) | `feat: share Flutter identity and care-link checkpoint` | - | 02/11/2026 |
-| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`bfe62b9`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/bfe62b9) | `feat: add adult PIN access and next-dose home` | - | 03/11/2026 |
-| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`aec8faf`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/aec8faf) | `chore: allow local backend verification in debug builds` | - | 03/11/2026 |
-| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`4ff897a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/4ff897a) | `feat: add weekly intake agenda and touch confirmation` | - | 03/11/2026 |
-| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`e425705`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/e425705) | `chore: extend local probe with intake confirmation` | - | 03/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`4bc1c69`](https://github.com/vitaHealth-UPC/web-services/commit/4bc1c69690374e3f8ff0971f995d646e1a4048a9) | `fix(ts-05): ignore delayed unconfirmed events after intake confirmation` | - | 10/10/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`8c128e8`](https://github.com/vitaHealth-UPC/web-services/commit/8c128e89150b5504a1d5fd009dd4c137c4d52d4a) | `fix(ts-05): lock scheduler candidates before reporting unresolved intakes` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`95d5638`](https://github.com/vitaHealth-UPC/web-services/commit/95d56383ed7f817b965580c6890016012469ed17) | `feat(ts-06): persist the call notification channel preference` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`8a4b0b7`](https://github.com/vitaHealth-UPC/web-services/commit/8a4b0b769417ad3cefcafad15f3501d855335835) | `feat(ts-06): persist notification policy and emergency contacts` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`2de88ed`](https://github.com/vitaHealth-UPC/web-services/commit/2de88edbbeb9bc9cfeef6cfcf1dd820029c6ba8c) | `fix(ts-06): serialize notification effects and escalation decisions` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`e3fab7e`](https://github.com/vitaHealth-UPC/web-services/commit/e3fab7e1635a207df1b591dc8b56a10501c439f8) | `release: consolidate verified APMO backend contracts and security` | - | 26/10/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`a3a8a7c`](https://github.com/vitaHealth-UPC/web-services/commit/a3a8a7c7401203419d77c72028a5cde37bd4113b) | `fix: minor changes` | - | 23/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`934fab2`](https://github.com/vitaHealth-UPC/web-services/commit/934fab26a1dc95c929436266ef06c2967814161d) | `merge: minor changes` | - | 23/11/2026 |
+| `vitaHealth-UPC/mobile-android` | `main` | [`08ace9f`](https://github.com/vitaHealth-UPC/mobile-android/commit/08ace9ff1a6f82bc763be37ad41499619d299d7e) | `fix(us-39): render original Figma notification icons and proportional header` | - | 10/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `main` | [`9e764f5`](https://github.com/vitaHealth-UPC/mobile-android/commit/9e764f541b270d4fe057255c90422f9dc3bf5089) | `feat(us-39): align notification editors and preserve call preferences` | - | 11/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `main` | [`aead8dd`](https://github.com/vitaHealth-UPC/mobile-android/commit/aead8dd5298a2ec20ca92f31f2b468ab36b29bf1) | `feat(us-39): integrate native notification policy and contact editors` | - | 11/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `main` | [`34fdef9`](https://github.com/vitaHealth-UPC/mobile-android/commit/34fdef951014711786c8b7e7707294fbcc39838e) | `fix: minor changes` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `main` | [`0e29678`](https://github.com/vitaHealth-UPC/mobile-android/commit/0e296780caad56cdfbf842c05fdd76031dd26a7e) | `fix: minor changes` | - | 27/10/2026 |
+| `vitaHealth-UPC/mobile-android` | `main` | [`08111ab`](https://github.com/vitaHealth-UPC/mobile-android/commit/08111abb90c0ca4ed3c862a22d5fde5f9a6e3104) | `fix: minor changes` | - | 23/11/2026 |
+| `vitaHealth-UPC/mobile-android` | `main` | [`d9c3946`](https://github.com/vitaHealth-UPC/mobile-android/commit/d9c39460409724468b4233bfb0c739ed2cc46d79) | `merge: minor changes` | - | 23/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`ce70f0d`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ce70f0df518320cc1eec50431a3102471cb0bc1d) | `feat: share Flutter identity and care-link checkpoint` | - | 02/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`bfe62b9`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/bfe62b9ab3ad757fd68768da7c66ec7484d4e511) | `feat: add adult PIN access and next-dose home` | - | 03/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`4ff897a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/4ff897a112169c3b43cd2cfcb960c1479fa5be37) | `feat: add weekly intake agenda and touch confirmation` | - | 03/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`7356703`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/7356703d578a864f4bf8e56f98fe6bbd5adf4f64) | `feat(intake-execution): confirm intakes by voice` | - | 13/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`8cce4df`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/8cce4dfe954cc4f739a3e5cd8e860f1d372f042f) | `feat(treatment-management): add medication and treatment flows` | - | 12/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`c9533e4`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/c9533e416caddaa59c9167c5757571e4efb8b2c6) | `feat(accessibility-preferences): add accessibility and notification preferences` | - | 12/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`47d115f`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/47d115f3d21c06585334c1bceeb89af89b0ff0b8) | `feat(family-monitoring): add the family summary, alerts and notes screens` | - | 13/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`0d1e593`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/0d1e593006ff6ff20277d4b74175a01bf5746b15) | `feat(omission-escalation): migrate the Omission & Escalation bounded context` | - | 13/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`911a8a2`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/911a8a2ec557e042a19937e9bfd1f8484500c882) | `feat(adherence-analytics): load the weekly adherence for a host screen` | - | 11/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`4caf3b6`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/4caf3b6e78bdd2458380c4c4cefe44f7f28ef70e) | `feat(intake-execution): schedule dose reminders that arrive with the app closed` | - | 17/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`62c1acd`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/62c1acd2119ebd00852aa44828fc991933a7aa6a) | `feat(intake-execution): keep medication and treatment references in the offline cache` | - | 17/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`1aeea68`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/1aeea68393df3d848a3144ffe0076e691f88b939) | `feat(intake-execution): align weekly calendar and connect adult notes` | - | 18/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`001d82a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/001d82ae3538a542991a0fa716059259d29966be) | `feat(treatment): align medication registration and carry regimen details` | - | 18/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`65c95b4`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/65c95b4b0524b147334e0365ea3d06f536ee5b61) | `feat(identity): connect social providers with guarded Tata sessions` | - | 23/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`7f00a2f`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/7f00a2f5d79279d7c3ff8e16e373f9ed7e1f675a) | `feat(omission): receive Android background messages with session checks` | - | 23/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`7e88fc6`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/7e88fc60ca6a9b021819d874d46b995e7832bf4b) | `fix(identity): improve access navigation and password visibility` | - | 24/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`d4c0408`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/d4c0408137f587247b11af4fbb358233a3d77096) | `fix(network): prepare backend before requests after inactivity` | - | 24/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`0c2cb6b`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/0c2cb6b955755d0dcf08505e557c61cf0522a520) | `merge: update Flutter release 1.0.0` | - | 24/11/2026 |
 
-Enlaces a commits:
 
-https://github.com/vitaHealth-UPC/web-services/commits/develop/
+<p align="center"><img src="assets/sprint2/flutter-commits.png" alt="Historial de commits de mobile-cross-platform en main" width="900"></p>
 
-https://github.com/vitaHealth-UPC/mobile-android/commits/develop/
+*Figura. Historial de commits de mobile-cross-platform en main.*
 
-https://github.com/vitaHealth-UPC/mobile-cross-platform/commits/temp/
-
+- web-services: https://github.com/vitaHealth-UPC/web-services/commits/main/
+- mobile-android: https://github.com/vitaHealth-UPC/mobile-android/commits/main/
+- mobile-cross-platform: https://github.com/vitaHealth-UPC/mobile-cross-platform/commits/main/
 
 #### 4.2.2.5. Testing Suite Evidence for Sprint Review
 
 En el Sprint 2 las pruebas acompañan a cada cambio en los tres productos. En los Web Services usamos JUnit 5 con Spring Boot, MockMvc y una base H2 para las pruebas de integración. En Android mantenemos pruebas unitarias de JUnit y pruebas instrumentadas de Compose. En Flutter usamos `flutter_test` para probar casos de uso, BLoC, repositorios y pantallas; las respuestas del servidor se simulan con `MockClient` y la sesión con un almacén en memoria, de modo que las pruebas no dependen de un backend desplegado.
 
-Al cierre del Sprint, el release `v1.1.0` de los Web Services (`3a2f2ef`) cuenta con 994 métodos de prueba en 265 clases. El release `v1.1.2` de Android (`027363e`) cuenta con 858 métodos de prueba unitaria en 179 archivos y 154 pruebas instrumentadas en 45 archivos. En Flutter, la rama `temp` (`4ff897a`) ejecuta 123 pruebas, todas aprobadas. Los conteos de los Web Services y Android corresponden a los métodos anotados con `@Test` o `@ParameterizedTest`; el de Flutter, a la ejecución local de `flutter test`.
+El 24/11/2026 Flutter ejecutó 885 pruebas automatizadas sin fallos y el análisis estático no reportó incidencias, sobre el código integrado en `0c2cb6b`. Backend CI terminó correctamente sobre `934fab2` y Android CI sobre `d9c3946`. El corte anterior de Android registró 858 pruebas JVM aprobadas y compilación de las pruebas instrumentadas; esta compilación no equivale a ejecución en dispositivo.
 
 **Unit Tests**
 
@@ -962,7 +1059,7 @@ https://github.com/vitaHealth-UPC/mobile-android/tree/main/app/src
 
 Enlace a pruebas Flutter:
 
-https://github.com/vitaHealth-UPC/mobile-cross-platform/tree/temp/test
+https://github.com/vitaHealth-UPC/mobile-cross-platform/tree/main/test
 
 **Prueba de confirmación repetida en Flutter**
 
@@ -982,66 +1079,116 @@ test('an idempotent replay is reported as already confirmed', () async {
 
 Enlace a intake_confirmation_test:
 
-https://github.com/vitaHealth-UPC/mobile-cross-platform/blob/temp/test/intake_execution/intake_confirmation_test.dart
+https://github.com/vitaHealth-UPC/mobile-cross-platform/blob/main/test/intake_execution/intake_confirmation_test.dart
 
 Enlace a ReportUnconfirmedIntakeCommandHandlerTest:
 
 https://github.com/vitaHealth-UPC/web-services/blob/main/src/test/java/com/vitahealth/tata/intakeexecution/application/internal/commandservices/ReportUnconfirmedIntakeCommandHandlerTest.java
 
-**Testing Commits**
+**Pruebas de regresión recientes**
 
-La tabla incluye los commits del Sprint que agregan o modifican pruebas. Los commits `828c0ac` de Android y `e3fab7e` de los Web Services reorganizan las pruebas por Bounded Context junto con el código que verifican y agregan pruebas de regresión.
+| Prueba | Alcance | Comportamiento |
+| --- | --- | --- |
+| login_screen_test y widget_test | Acceso | Mostrar y ocultar contraseña; retorno a bienvenida; conservación del formulario. |
+| backend_readiness_test | Transversal | Sondeos de salud concurrentes, presupuesto temporal, inactividad y no repetición de escrituras. |
+| AutomaticUnconfirmedIntakeIntegrationTest | TS-05 | Base de pruebas aislada; una toma reportada y omisión definitiva sin duplicados. |
+
+**Testing Commits**
 
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 | --- | --- | --- | --- | --- | --- |
-| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`a85639d`](https://github.com/vitaHealth-UPC/web-services/commit/a85639d) | `test: bound H2 lock waits for concurrent PIN authentication` | - | 10/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`4bc1c69`](https://github.com/vitaHealth-UPC/web-services/commit/4bc1c69) | `fix(ts-05): ignore delayed unconfirmed events after intake confirmation` | - | 10/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-05-unconfirmed-intake-processing` | [`8c128e8`](https://github.com/vitaHealth-UPC/web-services/commit/8c128e8) | `fix(ts-05): lock scheduler candidates before reporting unresolved intakes` | - | 11/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`95d5638`](https://github.com/vitaHealth-UPC/web-services/commit/95d5638) | `feat(ts-06): persist the call notification channel preference` | - | 11/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`8a4b0b7`](https://github.com/vitaHealth-UPC/web-services/commit/8a4b0b7) | `feat(ts-06): persist notification policy and emergency contacts` | - | 11/10/2026 |
-| `vitaHealth-UPC/web-services` | `feature/ts-06-push-notification-integration` | [`2de88ed`](https://github.com/vitaHealth-UPC/web-services/commit/2de88ed) | `fix(ts-06): serialize notification effects and escalation decisions` | - | 11/10/2026 |
-| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`e3fab7e`](https://github.com/vitaHealth-UPC/web-services/commit/e3fab7e) | `release: consolidate verified APMO backend contracts and security` | Includes dark theme persistence, alert timeline, medication reactivation, treatment consistency, adherence context, API contract integration and regression coverage. | 22/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`08ace9f`](https://github.com/vitaHealth-UPC/mobile-android/commit/08ace9f) | `fix(us-39): render original Figma notification icons and proportional header` | - | 10/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`9e764f5`](https://github.com/vitaHealth-UPC/mobile-android/commit/9e764f5) | `feat(us-39): align notification editors and preserve call preferences` | - | 11/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `feature/us-39-quiet-hours-channels` | [`aead8dd`](https://github.com/vitaHealth-UPC/mobile-android/commit/aead8dd) | `feat(us-39): integrate native notification policy and contact editors` | - | 11/10/2026 |
-| `vitaHealth-UPC/mobile-android` | `fix/android-architecture` | [`828c0ac`](https://github.com/vitaHealth-UPC/mobile-android/commit/828c0ac) | `fix: minor changes` | - | 26/10/2026 |
-| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`ce70f0d`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ce70f0d) | `feat: share Flutter identity and care-link checkpoint` | - | 02/11/2026 |
-| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`bfe62b9`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/bfe62b9) | `feat: add adult PIN access and next-dose home` | - | 03/11/2026 |
-| `vitaHealth-UPC/mobile-cross-platform` | `temp` | [`4ff897a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/4ff897a) | `feat: add weekly intake agenda and touch confirmation` | - | 03/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`4bc1c69`](https://github.com/vitaHealth-UPC/web-services/commit/4bc1c69690374e3f8ff0971f995d646e1a4048a9) | `fix(ts-05): ignore delayed unconfirmed events after intake confirmation` | - | 10/10/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`8c128e8`](https://github.com/vitaHealth-UPC/web-services/commit/8c128e89150b5504a1d5fd009dd4c137c4d52d4a) | `fix(ts-05): lock scheduler candidates before reporting unresolved intakes` | - | 11/10/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`e3fab7e`](https://github.com/vitaHealth-UPC/web-services/commit/e3fab7e1635a207df1b591dc8b56a10501c439f8) | `release: consolidate verified APMO backend contracts and security` | - | 26/10/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`a3a8a7c`](https://github.com/vitaHealth-UPC/web-services/commit/a3a8a7c7401203419d77c72028a5cde37bd4113b) | `fix: minor changes` | - | 23/11/2026 |
+| `vitaHealth-UPC/mobile-android` | `main` | [`08111ab`](https://github.com/vitaHealth-UPC/mobile-android/commit/08111abb90c0ca4ed3c862a22d5fde5f9a6e3104) | `fix: minor changes` | - | 23/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`4ff897a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/4ff897a112169c3b43cd2cfcb960c1479fa5be37) | `feat: add weekly intake agenda and touch confirmation` | - | 03/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`6ddcfe7`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/6ddcfe70a0b54ac2f75dc3a4d71330aba09f7e85) | `test(treatment): verify registration through activation routes` | - | 18/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`a5ba449`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/a5ba4491ff93f77734a148e92936a17b58acfa03) | `test(analytics): validate no-data fidelity and period selection` | - | 22/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`7e88fc6`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/7e88fc60ca6a9b021819d874d46b995e7832bf4b) | `fix(identity): improve access navigation and password visibility` | - | 24/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`d4c0408`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/d4c0408137f587247b11af4fbb358233a3d77096) | `fix(network): prepare backend before requests after inactivity` | - | 24/11/2026 |
+
 
 **Ejecución continua**
 
-Los Web Services y Android ejecutan sus pruebas en GitHub Actions con cada integración. En Flutter, el flujo de integración continua corre sobre `main` y `develop`; mientras el trabajo permanece en `temp`, las pruebas se ejecutan localmente antes de cada commit.
+| Producto | Commit | Evidencia |
+| --- | --- | --- |
+| Web Services | `934fab2` | [Backend CI: ejecución exitosa](https://github.com/vitaHealth-UPC/web-services/actions/runs/45325629923) |
+| Android | `d9c3946` | [Android CI: ejecución exitosa](https://github.com/vitaHealth-UPC/mobile-android/actions/runs/45280457921) |
+| Flutter | `8a6c78f` | [Flutter CI: ejecución exitosa](https://github.com/vitaHealth-UPC/mobile-cross-platform/actions/runs/45332012183) |
+| Flutter | `0c2cb6b` | [Flutter CI: ejecución exitosa](https://github.com/vitaHealth-UPC/mobile-cross-platform/actions/runs/45333137790); validación local: 885 pruebas aprobadas. |
 
-Enlace a ejecución de Backend CI sobre el release `v1.1.0` en `main`:
+Las pruebas automatizadas de integración se expresan en código de JUnit, MockMvc, flutter_test y Compose. La aceptación con usuarios corresponde a la sección 4.3.
 
-https://github.com/vitaHealth-UPC/web-services/actions/runs/40424172970
+<p align="center"><img src="assets/sprint2/backend-ci.png" alt="Resultado de Backend CI sobre 934fab2" width="900"></p>
 
-Enlace a ejecución de Android CI sobre el release `v1.1.2` en `main`:
+*Figura. Resultado de Backend CI sobre 934fab2.*
 
-https://github.com/vitaHealth-UPC/mobile-android/actions/runs/40461491308
+<p align="center"><img src="assets/sprint2/android-ci.png" alt="Resultado de Android CI sobre d9c3946" width="900"></p>
+
+*Figura. Resultado de Android CI sobre d9c3946.*
+
+<p align="center"><img src="assets/sprint2/flutter-ci.png" alt="Resultado de Flutter CI sobre 0c2cb6b, Android e iOS" width="900"></p>
+
+*Figura. Resultado de Flutter CI sobre 0c2cb6b, Android e iOS.*
 
 #### 4.2.2.6. Execution Evidence for Sprint Review
+
+Los recorridos principales incluyen acceso, gestión de medicamentos, agenda, seguimiento de alertas y accesibilidad.
 
 **Landing Page**
 
 
+<p align="center"><img src="assets/sprint2/landing-live.png" alt="Landing Page pública consultada el 24/11/2026" width="900"></p>
+
+*Figura. Landing Page pública consultada el 24/11/2026.*
 
 **Web Services**
 
+La comprobación pública de salud devolvió HTTP 200 con estado UP; Swagger permite consultar los contratos publicados.
 
+<p align="center"><img src="assets/sprint2/swagger-live.png" alt="Swagger UI del backend público" width="900"></p>
+
+*Figura. Swagger UI del backend público.*
 
 **Mobile Applications**
 
+Las capturas nativas de Android del 25/10/2026 corresponden a la agenda y al detalle de toma, con datos de prueba.
 
+<p align="center"><img src="assets/sprint2/android-agenda.png" alt="Agenda semanal en Android nativo" width="260"> <img src="assets/sprint2/android-detail.png" alt="Detalle de toma en Android nativo" width="260"></p>
+
+*Figura. Agenda semanal y detalle de una toma en Android nativo.*
+
+
+Las capturas de Flutter proceden de pruebas de widgets entre el 17 y el 24 de noviembre con datos de prueba. Muestran interfaces implementadas, no entrevistas ni sesiones de usuarios reales.
+
+<p align="center"><img src="assets/sprint2/login.png" alt="Inicio de sesión con contraseña oculta" width="260"> <img src="assets/sprint2/login-visible.png" alt="Inicio de sesión con contraseña visible" width="260"></p>
+
+*Figura. Inicio de sesión con contraseña oculta / Inicio de sesión con contraseña visible.*
+
+<p align="center"><img src="assets/sprint2/registration.png" alt="Registro del familiar" width="260"> <img src="assets/sprint2/agenda.png" alt="Agenda semanal de tomas" width="260"></p>
+
+*Figura. Registro del familiar / Agenda semanal de tomas.*
+
+<p align="center"><img src="assets/sprint2/family-summary.png" alt="Resumen familiar" width="260"> <img src="assets/sprint2/alert-detail.png" alt="Detalle de una alerta" width="260"></p>
+
+*Figura. Resumen familiar / Detalle de una alerta.*
+
+<p align="center"><img src="assets/sprint2/medication.png" alt="Registro de medicamento" width="260"> <img src="assets/sprint2/accessibility.png" alt="Preferencias de accesibilidad" width="260"></p>
+
+*Figura. Registro de medicamento / Preferencias de accesibilidad.*
+
+<p align="center"><img src="assets/sprint2/adherence.png" alt="Historial de adherencia" width="260"></p>
+
+*Figura. Historial de adherencia.*
 
 **Execution Video**
 
-
+[VIDEO 1]
 
 #### 4.2.2.7. Services Documentation Evidence for Sprint Review
 
-En este Sprint ampliamos la documentación OpenAPI del backend con las operaciones nuevas: pasamos de 64 a 81 operaciones, es decir, 17 nuevas. Esta sección documenta solo esas 17; las 64 anteriores siguen en la sección 4.2.1.7. Las nuevas pertenecen a los Bounded Contexts Identity & Subscription (inicio de sesión social, recuperación de contraseña y dispositivos push), Care Link (edición del adulto mayor, contacto de emergencia y retiro del consentimiento), Treatment Management (reactivación de medicamentos y medicamentos del adulto mayor), Family Monitoring (línea de tiempo de alertas y notas de rutina), Adherence Analytics (resumen por tratamiento) y Accessibility & Preferences (tema oscuro y política de notificación). Todas las llamadas llevan el encabezado `Authorization: Bearer <token>`, menos las que la tabla marca como públicas; sin el token responden `401 AUTHENTICATION_REQUIRED`. Los ejemplos de respuesta son respuestas reales del backend: las obtuvimos ejecutando la versión actual de `develop` en una base de datos local con la cuenta de demostración (cuidadora y adulto mayor con PIN). Tres ejemplos los armamos con la misma estructura de la respuesta real, porque no se pueden ejecutar con la cuenta demo: el inicio de sesión social (necesita un token válido de Firebase), el restablecimiento de contraseña (necesita el código que llega por correo) y la línea de tiempo de una alerta (la cuenta demo no tiene alertas). El resumen de adherencia por tratamiento devuelve `204` porque la cuenta demo aún no tiene tomas pasadas.
+El Sprint 2 amplía la documentación OpenAPI de 64 a 81 operaciones (17 adicionales). La consulta del documento público del 24/11/2026 confirma las 81 operaciones. Esta sección documenta solo esas 17; las 64 anteriores siguen en la sección 4.2.1.7. Las nuevas pertenecen a los Bounded Contexts Identity & Subscription (inicio de sesión social, recuperación de contraseña y dispositivos push), Care Link (edición del adulto mayor, contacto de emergencia y retiro del consentimiento), Treatment Management (reactivación de medicamentos y medicamentos del adulto mayor), Family Monitoring (línea de tiempo de alertas y notas de rutina), Adherence Analytics (resumen por tratamiento) y Accessibility & Preferences (tema oscuro y política de notificación). Las operaciones protegidas requieren `Authorization: Bearer <token>`; las operaciones públicas se indican en la tabla. Los ejemplos de respuesta proceden de la ejecución local documentada por el equipo con datos de demostración. Tres ejemplos ilustran únicamente la estructura de respuesta: el inicio de sesión social (necesita un token válido de Firebase), el restablecimiento de contraseña (necesita el código que llega por correo) y la línea de tiempo de una alerta (la cuenta demo no tiene alertas). El resumen de adherencia por tratamiento devuelve `204` porque la cuenta demo aún no tiene tomas pasadas.
 
 Repositorio de Web Services: https://github.com/vitaHealth-UPC/web-services
 
@@ -1128,17 +1275,29 @@ Estos son los commits de `develop` que agregan o cambian las operaciones documen
 | `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`56e9b76`](https://github.com/vitaHealth-UPC/web-services/commit/56e9b76) | `fix: minor changes` | Agrega los controladores de sesión social y de recuperación de contraseña. | 27/10/2026 |
 
 
+
+
+[Documento OpenAPI público](https://web-services-yzxl.onrender.com/v3/api-docs).
+
+**Consulta pública de muestra**
+
+La solicitud GET /api/v1/plans del 24/11/2026 devolvió HTTP 200 y el catálogo de planes ESSENTIAL y FAMILY, con precio mensual, moneda PEN y capacidades asociadas. La siguiente captura corresponde a la respuesta JSON del servidor público.
+
+<p align="center"><img src="assets/sprint2/api-plans.png" alt="Respuesta del endpoint público GET /api/v1/plans" width="900"></p>
+
+*Figura. Respuesta del endpoint público GET /api/v1/plans.*
+
 #### 4.2.2.8. Software Deployment Evidence for Sprint Review
 
-En este Sprint no cambió la infraestructura: seguimos con GitHub Pages para el Landing Page, Render para los Web Services y Neon para la base de datos PostgreSQL, que configuramos en la sección 4.1.4 y desplegamos en el Sprint 1. Lo nuevo es que pasamos el backend a la rama `main` (release `v2.0.0`) y lo redesplegamos en Render con las 17 operaciones nuevas (sección 4.2.2.7) y las variables de entorno que esa versión exige. La aplicación Android no tuvo una distribución nueva en este Sprint, y la migración a Flutter todavía no se distribuye: por ahora se compila y se prueba con GitHub Actions.
+En este Sprint no cambió la infraestructura: seguimos con GitHub Pages para el Landing Page, Render para los Web Services y Neon para la base de datos PostgreSQL, que configuramos en la sección 4.1.4 y desplegamos en el Sprint 1. Lo nuevo es que pasamos el backend a la rama `main` (release `v2.0.0`) y lo redesplegamos en Render con las 17 operaciones nuevas (sección 4.2.2.7) y las variables de entorno que esa versión exige. Android mantiene la distribución registrada en el Sprint 1. Flutter cuenta con la versión 1.0.0 integrada en main, con pruebas automatizadas y compilaciones de integración continua.
 
 | Producto | Plataforma | Configuración / evidencia | URL |
 | --- | --- | --- | --- |
 | Landing Page | GitHub Pages (GitHub Actions) | Sin cambios: sigue publicado desde el Sprint 1. | https://vitahealth-upc.github.io/landing-page/ |
 | Web Services | Render (Web Service con Docker, plan Free; rama `main`) | Redespliegue del release `v2.0.0` (commit `9f6fd73`, 81 operaciones) con las variables de entorno nuevas. | https://web-services-yzxl.onrender.com |
 | Base de datos | Neon (PostgreSQL, proyecto TATA, branch `production`, base `tata`) | Sin cambios de infraestructura. Las tablas y columnas nuevas se crean al arrancar con `spring.jpa.hibernate.ddl-auto=update`. | (conexión privada) |
-| Aplicación Android | Firebase App Distribution (proyecto `tata-vitahealth`, app `com.vitahealth.tata`) | Sin nueva distribución en este Sprint: sigue la versión 0.1.0 del Sprint 1. | Invitación por correo a los testers |
-| Aplicación Flutter | GitHub Actions (`flutter-ci.yml`) | Compilación y pruebas en CI; todavía sin distribución. | https://github.com/vitaHealth-UPC/mobile-cross-platform |
+| Aplicación Android | Firebase App Distribution (proyecto `tata-vitahealth`, app `com.vitahealth.tata`) | Distribución registrada en Sprint 1; código actual en `d9c3946`. | Invitación por correo a los testers |
+| Aplicación Flutter | GitHub Actions (`flutter-ci.yml`) | Tag `v1.0.0` sobre `0c2cb6b`; 885 pruebas locales aprobadas. | https://github.com/vitaHealth-UPC/mobile-cross-platform |
 
 **Web Services: redespliegue en Render**
 
@@ -1152,7 +1311,7 @@ El backend desplegado en el Sprint 1 tenía 64 operaciones. Para publicar las 81
 | `TATA_GOOGLE_SPEECH_ENABLED` | Activa el reconocimiento de voz de Google Cloud en la confirmación por voz (valor por defecto `false`). |
 | `TATA_RESEND_API_KEY` y `TATA_RESEND_SENDER` | Credenciales del proveedor de correo Resend para enviar los códigos de verificación y de recuperación. |
 
-Al guardar las variables nuevas, Render lanzó el despliegue (*Trigger: Environment updated by you*) sobre el commit `9f6fd73`. Terminó con *Deploy succeeded* en 23 segundos, el 12 de noviembre de 2026 a las 12:35 a. m. (GMT-5), y el servicio quedó en estado *Live* en https://web-services-yzxl.onrender.com. Al arrancar, Hibernate agrega a Neon las tablas y columnas nuevas (dispositivos push, notas de rutina, tema oscuro y política de notificación), sin borrar los datos existentes. Como el plan Free suspende la instancia cuando no recibe tráfico, la primera petición después de un rato puede tardar en responder.
+Al guardar las variables nuevas, Render lanzó el despliegue (*Trigger: Environment updated by you*) sobre el commit `9f6fd73`. Terminó con *Deploy succeeded* en 23 segundos, el 12 de noviembre de 2026 a las 12:35 a. m. (GMT-5), y el servicio quedó en estado *Live* en https://web-services-yzxl.onrender.com. Hibernate utiliza actualización de esquema para incorporar las tablas y columnas nuevas (dispositivos push, notas de rutina, tema oscuro y política de notificación). Como el plan Free suspende la instancia cuando no recibe tráfico, la primera petición después de un rato puede tardar en responder.
 
 ![Render: despliegue exitoso del commit 9f6fd73 y servicio en estado Live.](assets/redeploy.jpeg)
 
@@ -1168,13 +1327,39 @@ Estos son los commits que cambian lo que se construye y se despliega en este Spr
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`ed44709`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ed44709) | `chore: initialize Flutter scaffold` | Incluye el flujo `flutter-ci.yml`. | 27/10/2026 |
 
 
+
+
+**Corte de integración del 24/11/2026**
+
+| Producto | Revisión publicada | Evidencia |
+| --- | --- | --- |
+| Web Services | `934fab2` | [Backend CI](https://github.com/vitaHealth-UPC/web-services/actions/runs/45325629923) |
+| Android | `d9c3946` | [Tag v1.1.0](https://github.com/vitaHealth-UPC/mobile-android/tree/v1.1.0) |
+| Flutter | `0c2cb6b` | [Tag v1.0.0](https://github.com/vitaHealth-UPC/mobile-cross-platform/tree/v1.0.0) |
+
+El registro de Render del 12/11/2026 acredita el redespliegue descrito. La consulta pública del 24/11/2026 devuelve las 81 operaciones y estado UP. Las revisiones de la tabla identifican el código fuente publicado. Flutter prepara el backend mediante una comprobación de salud al inicio y tras diez minutos sin contacto, con un presupuesto de 120 segundos; las operaciones mantienen 30 segundos de timeout y las escrituras no se repiten automáticamente.
+
 #### 4.2.2.9. Team Collaboration Insights during Sprint
 
-**Collaboration Evidence**
+El intervalo de análisis comprende del 10/10/2026 al 24/11/2026. Se contabilizan commits sin merge alcanzables desde main para los productos y desde feature/sprint-2 para el informe. El conteo identifica contribuciones registradas; no equivale a horas trabajadas ni a aceptación individual.
 
-<!-- Incorporar capturas y enlaces a las contribuciones de los repositorios. -->
+<p align="center"><img src="assets/sprint2/collaboration-code.png" alt="Contribuciones de código y documentación en los repositorios técnicos" width="900"></p>
 
-**Collaboration Analysis**
+*Figura. Contribuciones de código y documentación en los repositorios técnicos.*
+
+| Repositorio | Commits sin merge | Autores registrados |
+| --- | --- | --- |
+| web-services | 9 | David Joel Morales Venegas: 9 |
+| mobile-android | 8 | David Joel Morales Venegas: 8 |
+| mobile-cross-platform | 112 | David Joel Morales Venegas: 50, u202415820: 36, u20241a195-cmd: 16, Eduardo: 10 |
+
+Flutter reúne aportes de David Morales (integración y arquitectura), Leonardo Cabrera (confirmación, recordatorios y persistencia), Sofía Diaz (adherencia y navegación accesible) y Eduardo Velasquez (tratamientos, accesibilidad y seguimiento familiar). Backend y Android concentran revisiones de integración y arquitectura. La landing conserva su alcance del Sprint 1.
+
+- landing-page: https://github.com/vitaHealth-UPC/landing-page/graphs/contributors
+- web-services: https://github.com/vitaHealth-UPC/web-services/graphs/contributors
+- mobile-android: https://github.com/vitaHealth-UPC/mobile-android/graphs/contributors
+- mobile-cross-platform: https://github.com/vitaHealth-UPC/mobile-cross-platform/graphs/contributors
+- project-report: https://github.com/vitaHealth-UPC/project-report/graphs/contributors
 
 ## 4.3. Validation Interviews
 
@@ -1208,7 +1393,7 @@ Siempre que sea posible, entrevistamos a participantes que no formaron parte del
 | --- | --- | --- | --- |
 | Landing Page | Desplegado en https://vitahealth-upc.github.io/landing-page/ | Propuesta de valor y funcionalidades | Propuesta de valor, funcionalidades, planes, registro y contacto |
 | Aplicación Android nativa | Distribuida con Firebase App Distribution | Flujos del adulto mayor | Flujos del familiar o cuidador |
-| Aplicación multiplataforma (Flutter) | Build instalado en un teléfono físico del equipo | Flujos del adulto mayor implementados en el Sprint | Registro, verificación y vínculo |
+| Aplicación multiplataforma (Flutter) | Build instalado en un teléfono físico del equipo | Flujos del adulto mayor | Flujos del familiar o cuidador |
 | Web Services | Desplegados en https://web-services-yzxl.onrender.com/ con cuentas y tratamientos de prueba creados para cada sesión | Datos de la próxima toma, agenda y confirmación | Datos de vínculo, tratamientos, resumen y alertas |
 
 Usamos cuentas de prueba para que ningún participante registre sus datos de salud reales. Para los flujos que existen en ambas aplicaciones, alternamos la aplicación entre participantes, de modo que las dos versiones se validen sin duplicar tareas en una misma sesión.
@@ -1233,7 +1418,7 @@ En cada sesión participan un moderador, que guía las tareas, y un observador, 
 | A1 | "Ingrese a la aplicación con su PIN y dígame cuál es su próxima toma." | WF01 | US-01, US-20 | Android nativa / Flutter | Ingresa y menciona el medicamento y la hora sin ayuda. |
 | A2 | "Ya tomó su medicamento. Regístrelo en la aplicación." | WF02 | US-06 | Android nativa / Flutter | Confirma la toma con un toque e identifica el mensaje de confirmación. |
 | A3 | "Revise qué medicamentos le tocan en la semana y cuáles ya tomó." | WF03-WF04 | US-21, US-24 | Android nativa / Flutter | Cambia de día en la agenda y distingue una toma confirmada de una pendiente. |
-| A4 | "Haga que las letras de la aplicación se vean más grandes." | WF05 | US-35, US-36 | Android nativa | Encuentra la opción de accesibilidad y aplica el cambio. |
+| A4 | "Haga que las letras de la aplicación se vean más grandes." | WF05 | US-35, US-36 | Android nativa / Flutter | Encuentra la opción de accesibilidad y aplica el cambio. |
 | A5 | "Confirme su siguiente toma hablándole al celular." | WF02 (voz) | US-06 | Android nativa | Completa la confirmación por voz o reintenta tras un aviso de voz no reconocida. |
 
 **User flows a validar con familiares o cuidadores**
@@ -1243,13 +1428,13 @@ En cada sesión participan un moderador, que guía las tareas, y un observador, 
 | L1 | "Revise esta página, compare los planes y continúe hacia el registro." | WF16 | US-46, US-47, US-48, US-49 | Landing Page | Explica la propuesta de valor, distingue los planes y llega al registro o al contacto. |
 | C1 | "Cree su cuenta y verifique su correo." | WF06 | US-10, US-11 | Android nativa / Flutter | Completa el registro y la verificación, y corrige los datos inválidos si aparecen. |
 | C2 | "Registre a su familiar y compártale la invitación para vincularse." | WF06 | US-12, US-02, US-13 | Android nativa / Flutter | Registra el perfil y genera la invitación. El vínculo queda activo cuando el adulto da su consentimiento. |
-| C3 | "Registre el medicamento de su familiar y configure el tratamiento." | WF07 | US-03, US-14, US-15, US-16, US-17 | Android nativa | Define el medicamento, la dosis, la frecuencia, el horario y el recordatorio, y activa el tratamiento. |
-| C4 | "Revise cómo va su familiar hoy y atienda la alerta pendiente." | WF08-WF10 | US-25, US-27, US-07 | Android nativa | Encuentra el resumen, abre la alerta y entiende qué toma no se confirmó. |
-| C5 | "Revise el historial reciente de tomas de su familiar." | WF08 | US-26 | Android nativa | Identifica las tomas confirmadas, tardías y omitidas. |
+| C3 | "Registre el medicamento de su familiar y configure el tratamiento." | WF07 | US-03, US-14, US-15, US-16, US-17 | Android nativa / Flutter | Define el medicamento, la dosis, la frecuencia, el horario y el recordatorio, y activa el tratamiento. |
+| C4 | "Revise cómo va su familiar hoy y atienda la alerta pendiente." | WF08-WF10 | US-25, US-27, US-07 | Android nativa / Flutter | Encuentra el resumen, abre la alerta y entiende qué toma no se confirmó. |
+| C5 | "Revise el historial reciente de tomas de su familiar." | WF08 | US-26 | Android nativa / Flutter | Identifica las tomas confirmadas, tardías y omitidas. |
 
 **Fuera del alcance de esta validación**
 
-No validamos en este Sprint los flujos de inventario y reposición (US-40 a US-43), plan y suscripción (US-44 y US-45), ni la confirmación por voz en la aplicación Flutter. Estos flujos corresponden a Sprints posteriores o aún no están implementados en la versión multiplataforma.
+El protocolo del Sprint 2 se concentra en las historias seleccionadas y los recorridos básicos. Inventario y suscripción corresponden a otros sprints del Product Backlog. La confirmación por voz de Flutter se incluye cuando el dispositivo y el proveedor de reconocimiento estén disponibles.
 
 **Preguntas de cierre**
 
@@ -1273,84 +1458,63 @@ Para cada tarea registramos si se completó sin ayuda, con ayuda o no se complet
 
 ### 4.3.2. Registro de Entrevistas
 
-Se registran las entrevistas de validación de los dos segmentos objetivo de Tata, con un mínimo de tres por segmento. Cada entrevista indica los datos del entrevistado, una captura del video, su enlace en el OneDrive del docente, el inicio y la duración, y un resumen de sus apreciaciones sobre las tareas asignadas. Las indicaciones sobre videos están en el Anexo C.
-
-<!-- Cada integrante completa solo los campos entre corchetes de su entrevista y sube su captura a assets/ con el nombre indicado. Para una cuarta o quinta entrevista, copiar una tabla y cambiar el número y el nombre de la imagen. -->
-
 #### Segmento 1: Adultos mayores
 
-<table>
-  <tbody>
-    <tr><td colspan="4" align="center"><strong>Entrevista N.° 1</strong></td></tr>
-    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-1-entrevista-1.png" alt="Entrevista de validación del segmento 1, participante 1" width="900"></td></tr>
-    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
-    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
-    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr><td colspan="4" align="center"><strong>Entrevista N.° 2</strong></td></tr>
-    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-1-entrevista-2.png" alt="Entrevista de validación del segmento 1, participante 2" width="900"></td></tr>
-    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
-    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
-    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr><td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td></tr>
-    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-1-entrevista-3.png" alt="Entrevista de validación del segmento 1, participante 3" width="900"></td></tr>
-    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
-    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
-    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
-  </tbody>
-</table>
 
 #### Segmento 2: Familiares o cuidadores
 
-<table>
-  <tbody>
-    <tr><td colspan="4" align="center"><strong>Entrevista N.° 1</strong></td></tr>
-    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-2-entrevista-1.png" alt="Entrevista de validación del segmento 2, participante 1" width="900"></td></tr>
-    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
-    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
-    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr><td colspan="4" align="center"><strong>Entrevista N.° 2</strong></td></tr>
-    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-2-entrevista-2.png" alt="Entrevista de validación del segmento 2, participante 2" width="900"></td></tr>
-    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
-    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
-    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr><td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td></tr>
-    <tr><td colspan="4" align="center"><img src="assets/validacion-segmento-2-entrevista-3.png" alt="Entrevista de validación del segmento 2, participante 3" width="900"></td></tr>
-    <tr><td><strong>Nombres</strong></td><td>[Completar]</td><td><strong>Apellidos</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Edad</strong></td><td>[Completar]</td><td><strong>Distrito</strong></td><td>[Completar]</td></tr>
-    <tr><td><strong>Inicio en el video</strong></td><td>[mm:ss]</td><td><strong>Duración</strong></td><td>[mm:ss]</td></tr>
-    <tr><td colspan="4"><strong>URL del video:</strong> <a href="[URL]">[URL]</a></td></tr>
-    <tr><td colspan="4"><strong>Resumen de la entrevista</strong><p>[Apreciaciones del entrevistado sobre las tareas asignadas.]</p></td></tr>
-  </tbody>
-</table>
 
 ### 4.3.3. Evaluaciones según heurísticas
+
+**UX Heuristics & Principles Evaluation**
+
+| Campo | Información |
+| --- | --- |
+| Carrera | Ingeniería de Software |
+| Curso | 1ACC0238 Aplicaciones para dispositivos móviles |
+| Auditor | Equipo VitaHealth |
+| Site o app | Tata — Flutter |
+| Participantes de la revisión técnica | Tester del equipo |
+
+**Tareas a evaluar:** acceso, registro, retroceso, introducción de contraseña y recuperación de disponibilidad del servicio. La evaluación con los segmentos objetivo comprende las tareas definidas en 4.3.1.
+
+**Escala de severidad:** 1 (superficial), 2 (menor), 3 (mayor), 4 (muy grave), de acuerdo con el Anexo E del enunciado.
+
+**Evaluación técnica de usabilidad**
+
+Las observaciones del tester del equipo del 23/11/2026 permiten identificar incidencias en Flutter independientemente de las entrevistas a los segmentos objetivo.
+
+| # | Problema | Severidad estimada | Heurística / principio |
+| --- | --- | --- | --- |
+| 1 | El retroceso desde login cerraba la aplicación. | 3 | Usabilidad: libertad y control del usuario |
+| 2 | El campo de contraseña no tenía control de visibilidad. | 2 | Usabilidad: prevención de errores |
+| 3 | El registro mostró falta de conexión cuando el backend no respondió a tiempo. | 3 | Usabilidad: visibilidad del estado del sistema |
+
+
+**Descripción de problemas**
+
+**Problema 1. Retroceso desde el acceso**
+
+Severidad estimada: 3. La ausencia de un destino anterior en el acceso interrumpía el flujo al utilizar el gesto de retroceso. Se incorporó el retorno a la bienvenida, con prueba de regresión de navegación en Flutter.
+
+**Problema 2. Visibilidad de la contraseña**
+
+Severidad estimada: 2. El control permite comprobar el texto introducido sin modificarlo; el campo conserva el ocultamiento inicial. Se implementó en acceso, registro y recuperación.
+
+
+<p align="center"><img src="assets/sprint2/login.png" alt="Control de visibilidad en la pantalla de acceso" width="260"></p>
+
+*Figura. Control de visibilidad en la pantalla de acceso.*
+
+<p align="center"><img src="assets/sprint2/login-visible.png" alt="Contraseña visible utilizando datos de prueba" width="260"></p>
+
+*Figura. Contraseña visible utilizando datos de prueba.*
+
+
+**Problema 3. Disponibilidad del servicio**
+
+Severidad estimada: 3. Una solicitud de registro mostró un mensaje de conexión mientras el servidor público demoraba su respuesta. La comprobación de salud previa y el aviso de preparación permiten esperar el arranque de Render antes de enviar la solicitud de negocio. La prueba de regresión verifica el límite temporal y la ausencia de reenvío automático de escrituras.
+
+Las severidades corresponden a la revisión técnica y no a frecuencias medidas con participantes.
+
+**Evaluación derivada de entrevistas**
