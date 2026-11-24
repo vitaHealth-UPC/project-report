@@ -823,8 +823,12 @@ El objetivo del Sprint 2 es consolidar el cuidado cotidiano del adulto mayor y t
 | Campo | Detalle |
 | --- | --- |
 | Sprint # | Sprint 2 |
-| Date / Time / Location | [DATO 1] |
-| Prepared By / Attendees | [DATO 2] |
+| **Sprint Planning Background** | |
+| Date | 2026-10-10 (fecha propuesta para el cronograma del Sprint 2) |
+| Time | 19:00, hora de Perú (horario propuesto) |
+| Location | Reunión virtual (modalidad propuesta) |
+| Prepared By | Diaz Yurivilca, Sofia (responsabilidad propuesta, en continuidad con el Sprint 1) |
+| Attendees (to the meeting) | Integrantes convocados: Quispe Pérez, Eder Edu / Diaz Yurivilca, Sofia / Morales Venegas, David Joel / Cabrera Novoa, Leonardo Moises / Alfaro Mallma, Joaquín Alberto / Velasquez Laquihuanaco, Eduardo David |
 | Sprint 1 Review Summary | Landing desplegada; contratos de acceso, vinculación, tratamientos y agenda disponibles; recorridos iniciales en Android. |
 | Sprint 1 Retrospective Summary | Como acción de mejora, se prioriza la integración de contratos, los estados de error, la automatización de pruebas y la migración multiplataforma. |
 | Sprint 2 Goal | Integrar confirmación, seguimiento familiar, gestión de tratamientos y accesibilidad, preservando el catálogo de Android en Flutter. |

@@ -293,7 +293,7 @@ En el siguiente cuadro se describe las acciones realizadas y enunciados de concl
 
 ## Evidencias del Student Outcome 7 — AV2
 
-El Sprint 2 aplica conocimientos de desarrollo multiplataforma, integración REST, persistencia y pruebas, relacionados con los dos criterios del Student Outcome 7. Los siguientes aportes se sustentan en el código y en el historial del informe.
+El Sprint 2 aplica conocimientos de desarrollo multiplataforma, integración REST, persistencia y pruebas, relacionados con los dos criterios del Student Outcome 7. La tabla relaciona el aprendizaje con las evidencias del Sprint 2. Los cuatro primeros registros corresponden a contribuciones individuales identificadas en Git; los dos últimos plantean la aplicación de conocimientos a partir de las actividades del equipo y las responsabilidades previas de sus integrantes.
 
 | Integrante | Aplicación de conocimientos | Evidencia |
 | --- | --- | --- |
@@ -301,8 +301,8 @@ El Sprint 2 aplica conocimientos de desarrollo multiplataforma, integración RES
 | Velasquez Laquihuanaco, Eduardo David | Migración de tratamientos, accesibilidad y seguimiento familiar; documentación de API y despliegue. | [8cce4df](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/8cce4df), [c9533e4](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/c9533e4), [a6a4704](https://github.com/vitaHealth-UPC/project-report/commit/a6a4704) |
 | Cabrera Novoa, Leonardo Moises | Confirmación por voz, recordatorios y persistencia local; pruebas automatizadas. | [7356703](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/7356703), [4caf3b6](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/4caf3b6), [4b1de0d](https://github.com/vitaHealth-UPC/project-report/commit/4b1de0d) |
 | Diaz Yurivilca, Sofía | Presentación de adherencia y navegación accesible; documentación de validación y colaboración. | [911a8a2](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/911a8a2), [c4d717d](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/c4d717d), [fe86c6c](https://github.com/vitaHealth-UPC/project-report/commit/fe86c6c) |
-| Quispe Pérez, Eder Edu | [DATO 3] |  |
-| Alfaro Mallma, Joaquín Alberto | [DATO 4] |  |
+| Quispe Pérez, Eder Edu | Integración y release: análisis del flujo GitFlow, de las pruebas automatizadas del backend y de las comprobaciones de disponibilidad del servicio REST. Enfoque de aprendizaje vinculado a su responsabilidad previa de integración. | [Backend CI del equipo](https://github.com/vitaHealth-UPC/web-services/actions/runs/45325629923); [Flutter CI del equipo](https://github.com/vitaHealth-UPC/mobile-cross-platform/actions/runs/45333137790) |
+| Alfaro Mallma, Joaquín Alberto | Arquitectura y documentación: revisión de la correspondencia entre los bounded contexts, el catálogo de historias compartido por Android y Flutter y las evidencias del Sprint 2. Enfoque de aprendizaje vinculado a su responsabilidad previa sobre el informe. | [Mapa de historias Android](https://github.com/vitaHealth-UPC/mobile-android/blob/main/docs/architecture/user-stories.md); [Mapa de historias Flutter](https://github.com/vitaHealth-UPC/mobile-cross-platform/blob/main/docs/architecture/user-stories.md) |
 
 
 La integración y las pruebas de regresión permiten aplicar los conocimientos de arquitectura a comportamientos observables. La evaluación de competencias se complementa con el testimonio personal del video About-the-Team.
@@ -6204,8 +6204,12 @@ El objetivo del Sprint 2 es consolidar el cuidado cotidiano del adulto mayor y t
 | Campo | Detalle |
 | --- | --- |
 | Sprint # | Sprint 2 |
-| Date / Time / Location | [DATO 1] |
-| Prepared By / Attendees | [DATO 2] |
+| **Sprint Planning Background** | |
+| Date | 2026-10-10 (fecha propuesta para el cronograma del Sprint 2) |
+| Time | 19:00, hora de Perú (horario propuesto) |
+| Location | Reunión virtual (modalidad propuesta) |
+| Prepared By | Diaz Yurivilca, Sofia (responsabilidad propuesta, en continuidad con el Sprint 1) |
+| Attendees (to the meeting) | Integrantes convocados: Quispe Pérez, Eder Edu / Diaz Yurivilca, Sofia / Morales Venegas, David Joel / Cabrera Novoa, Leonardo Moises / Alfaro Mallma, Joaquín Alberto / Velasquez Laquihuanaco, Eduardo David |
 | Sprint 1 Review Summary | Landing desplegada; contratos de acceso, vinculación, tratamientos y agenda disponibles; recorridos iniciales en Android. |
 | Sprint 1 Retrospective Summary | Como acción de mejora, se prioriza la integración de contratos, los estados de error, la automatización de pruebas y la migración multiplataforma. |
 | Sprint 2 Goal | Integrar confirmación, seguimiento familiar, gestión de tratamientos y accesibilidad, preservando el catálogo de Android en Flutter. |
