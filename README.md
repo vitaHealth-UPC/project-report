@@ -6208,7 +6208,7 @@ El objetivo del Sprint 2 es consolidar el cuidado cotidiano del adulto mayor y t
 | Date | 2026-10-10 (fecha propuesta para el cronograma del Sprint 2) |
 | Time | 19:00, hora de Perú (horario propuesto) |
 | Location | Reunión virtual (modalidad propuesta) |
-| Prepared By | Diaz Yurivilca, Sofia (responsabilidad propuesta, en continuidad con el Sprint 1) |
+| Prepared By | Diaz Yurivilca, Sofia |
 | Attendees (to the meeting) | Integrantes convocados: Quispe Pérez, Eder Edu / Diaz Yurivilca, Sofia / Morales Venegas, David Joel / Cabrera Novoa, Leonardo Moises / Alfaro Mallma, Joaquín Alberto / Velasquez Laquihuanaco, Eduardo David |
 | Sprint 1 Review Summary | Landing desplegada; contratos de acceso, vinculación, tratamientos y agenda disponibles; recorridos iniciales en Android. |
 | Sprint 1 Retrospective Summary | Como acción de mejora, se prioriza la integración de contratos, los estados de error, la automatización de pruebas y la migración multiplataforma. |
@@ -6294,7 +6294,7 @@ Enlace: https://trello.com/b/wuHmMypU/apps-moviles
 | TS-13 | Almacenamiento local y sincronización | S2-T21 | Persistencia por sesión y sincronización de confirmaciones | 16 | Leonardo / David | To-review |
 | SP-02 | Investigación de detección de patrones de olvido | S2-T22 | Evaluar criterios de patrones y recomendaciones | 8 | Sofía / David | To-review |
 
-**Backlog de implementación multiplataforma (catálogo compartido con Android)**
+**Backlog de implementación multiplataforma**
 
 La siguiente trazabilidad comprende las 45 historias móviles, incluidas las de otros sprints que se trasladaron a Flutter. Conserva el sprint original y relaciona cada historia con el corte de implementación publicado en su rama. Los commits que abarcan varias historias comparten referencia. Los cortes de Git sustentan implementación, no aceptación por usuarios ni horas imputadas.
 
