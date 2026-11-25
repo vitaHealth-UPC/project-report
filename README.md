@@ -6502,6 +6502,14 @@ https://github.com/vitaHealth-UPC/web-services/blob/main/src/test/java/com/vitah
 
 *Figura. Resultado de Flutter CI sobre 0c2cb6b, Android e iOS.*
 
+<p align="center"><img src="assets/sprint2/backend-ci-786f8df.png" alt="Resultado de Backend CI sobre 786f8df" width="900"></p>
+
+*Figura. Resultado de Backend CI sobre 786f8df.*
+
+<p align="center"><img src="assets/sprint2/flutter-ci-39c7226.png" alt="Resultado de Flutter CI sobre 39c7226, Android e iOS" width="900"></p>
+
+*Figura. Resultado de Flutter CI sobre 39c7226, Android e iOS.*
+
 #### 4.2.2.6. Execution Evidence for Sprint Review
 
 **Mobile Application: Flutter**
@@ -6604,6 +6612,10 @@ Documentación desplegada: https://web-services-yzxl.onrender.com/swagger-ui/ind
 
 **Capturas de la documentación**
 
+<p align="center"><img src="assets/sprint2/swagger-closing-ops.png" alt="Swagger UI desplegado en Render: operaciones añadidas al cierre del Sprint" width="960"></p>
+
+*Figura. Swagger UI desplegado en Render: operaciones añadidas al cierre del Sprint.*
+
 ![Swagger UI: operaciones nuevas de Identity & Subscription.](assets/services-documentation/s2-swagger-identity-subscription.png)
 
 *Figura 25. Swagger UI: operaciones nuevas de Identity & Subscription (sesión social, recuperación de contraseña y dispositivos push).*
@@ -6658,7 +6670,7 @@ En este Sprint no cambió la infraestructura: seguimos con GitHub Pages para el 
 | Producto | Plataforma | Configuración / evidencia | URL |
 | --- | --- | --- | --- |
 | Landing Page | GitHub Pages (GitHub Actions) | Publicado desde el Sprint 1. | https://vitahealth-upc.github.io/landing-page/ |
-| Web Services | Render (Web Service con Docker, plan Free; rama `main`) | Redespliegue del release `v2.0.0` (commit `9f6fd73`, 81 operaciones) con las variables de entorno nuevas; el 25/11/2026 Render desplegó `786f8df` (tag `v1.1.0`, 91 operaciones). | https://web-services-yzxl.onrender.com |
+| Web Services | Render (Web Service con Docker, plan Free; rama `main`) | Redespliegue del release `v2.0.0` (commit `9f6fd73`, 81 operaciones) con las variables de entorno nuevas; desde el 25/11/2026 el servicio publica las 91 operaciones de `786f8df` (tag `v1.1.0`). | https://web-services-yzxl.onrender.com |
 | Base de datos | Neon (PostgreSQL, proyecto TATA, branch `production`, base `tata`) | Sin cambios de infraestructura. Las tablas y columnas nuevas se crean al arrancar con `spring.jpa.hibernate.ddl-auto=update`. | (conexión privada) |
 | Aplicación Flutter | GitHub Actions (`flutter-ci.yml`) | Tag `v1.0.0` sobre `39c7226`; 906 pruebas locales aprobadas. | https://github.com/vitaHealth-UPC/mobile-cross-platform |
 
