@@ -870,11 +870,11 @@ La matriz organiza las responsabilidades previstas del Sprint 2. L identifica al
 | Integrante | GitHub Username | Confirmación de tomas | Alertas y seguimiento familiar | Gestión de tratamientos | Accesibilidad | Procesos de soporte | Migración a Flutter |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Morales Venegas, David Joel | David-std2 | C | C | C | C | L | L |
-| Velasquez Laquihuanaco, Eduardo David | lalo-dev8 | — | L | L | L | C | C |
-| Cabrera Novoa, Leonardo Moises | u202415820 | L | C | — | — | C | C |
-| Diaz Yurivilca, Sofía | u20241a195-cmd | — | C | — | C | — | C |
-| Alfaro Mallma, Joaquín Alberto | elprrr / elperro123xd | — | — | — | — | — | — |
-| Quispe Pérez, Eder Edu | DuDu-0912 | — | — | — | — | — | — |
+| Velasquez Laquihuanaco, Eduardo David | lalo-dev8 | - | L | L | L | C | C |
+| Cabrera Novoa, Leonardo Moises | u202415820 | L | C | - | - | C | C |
+| Diaz Yurivilca, Sofía | u20241a195-cmd | - | C | - | C | - | C |
+| Alfaro Mallma, Joaquín Alberto | elprrr / elperro123xd | - | - | - | - | - | - |
+| Quispe Pérez, Eder Edu | DuDu-0912 | - | - | - | - | - | - |
 
 Eduardo aporta a tratamientos, accesibilidad y seguimiento familiar; Leonardo a confirmación por voz, recordatorios y persistencia; Sofía a adherencia y navegación accesible; David a integración, notificaciones y arquitectura.
 
@@ -1139,29 +1139,27 @@ https://github.com/vitaHealth-UPC/web-services/blob/main/src/test/java/com/vitah
 
 #### 4.2.2.6. Execution Evidence for Sprint Review
 
-**Mobile Application — Flutter**
+**Mobile Application: Flutter**
 
 Las siguientes capturas muestran los recorridos de acceso, registro, agenda, seguimiento familiar, tratamientos y accesibilidad de Flutter, ejecutados mediante pruebas de widgets con datos de prueba.
 
-<p align="center"><img src="assets/sprint2/login.png" alt="Inicio de sesión con contraseña oculta" width="260"> <img src="assets/sprint2/login-visible.png" alt="Inicio de sesión con contraseña visible" width="260"></p>
+<p align="center">
+  <img src="assets/sprint2/flutter-access.png" alt="Inicio de sesión con contraseña oculta y visible, y registro del familiar en Flutter" width="960">
+</p>
 
-*Figura. Inicio de sesión con contraseña oculta / Inicio de sesión con contraseña visible.*
+*Figura. Inicio de sesión con contraseña oculta y visible, y registro del familiar en Flutter.*
 
-<p align="center"><img src="assets/sprint2/registration.png" alt="Registro del familiar" width="260"> <img src="assets/sprint2/agenda.png" alt="Agenda semanal de tomas" width="260"></p>
+<p align="center">
+  <img src="assets/sprint2/flutter-followup.png" alt="Agenda semanal de tomas, resumen familiar y detalle de una alerta en Flutter" width="960">
+</p>
 
-*Figura. Registro del familiar / Agenda semanal de tomas.*
+*Figura. Agenda semanal de tomas, resumen familiar y detalle de una alerta en Flutter.*
 
-<p align="center"><img src="assets/sprint2/family-summary.png" alt="Resumen familiar" width="260"> <img src="assets/sprint2/alert-detail.png" alt="Detalle de una alerta" width="260"></p>
+<p align="center">
+  <img src="assets/sprint2/flutter-treatment.png" alt="Registro de medicamento, preferencias de accesibilidad e historial de adherencia en Flutter" width="960">
+</p>
 
-*Figura. Resumen familiar / Detalle de una alerta.*
-
-<p align="center"><img src="assets/sprint2/medication.png" alt="Registro de medicamento" width="260"> <img src="assets/sprint2/accessibility.png" alt="Preferencias de accesibilidad" width="260"></p>
-
-*Figura. Registro de medicamento / Preferencias de accesibilidad.*
-
-<p align="center"><img src="assets/sprint2/adherence.png" alt="Historial de adherencia" width="260"></p>
-
-*Figura. Historial de adherencia.*
+*Figura. Registro de medicamento, preferencias de accesibilidad e historial de adherencia en Flutter.*
 
 **Execution Video**
 
@@ -1171,7 +1169,7 @@ Las siguientes capturas muestran los recorridos de acceso, registro, agenda, seg
 
 El Sprint 2 amplía la documentación OpenAPI de 64 a 81 operaciones (17 adicionales). La consulta del documento público del 24/11/2026 confirma las 81 operaciones. Las 17 operaciones añadidas complementan los contratos de la sección 4.2.1.7. Las nuevas pertenecen a los Bounded Contexts Identity & Subscription (inicio de sesión social, recuperación de contraseña y dispositivos push), Care Link (edición del adulto mayor, contacto de emergencia y retiro del consentimiento), Treatment Management (reactivación de medicamentos y medicamentos del adulto mayor), Family Monitoring (línea de tiempo de alertas y notas de rutina), Adherence Analytics (resumen por tratamiento) y Accessibility & Preferences (tema oscuro y política de notificación). Las operaciones protegidas requieren `Authorization: Bearer <token>`; las operaciones públicas se indican en la tabla. Los ejemplos de respuesta proceden de la ejecución local documentada por el equipo con datos de demostración. Tres ejemplos ilustran únicamente la estructura de respuesta: el inicio de sesión social (necesita un token válido de Firebase), el restablecimiento de contraseña (necesita el código que llega por correo) y la línea de tiempo de una alerta (la cuenta demo no tiene alertas). El resumen de adherencia por tratamiento devuelve `204` porque la cuenta demo aún no tiene tomas pasadas.
 
-Tras el reporte del tester, el 25/11/2026 se publicaron diez operaciones más, con lo que el documento público reúne 91 operaciones. Se detallan en la tabla **Operaciones añadidas tras el reporte del tester**.
+Entre el 24/11/2026 y el 25/11/2026 se publicaron diez operaciones más, con lo que el documento público reúne 91 operaciones. Se detallan en la tabla **Operaciones añadidas al cierre del Sprint**.
 
 Repositorio de Web Services: https://github.com/vitaHealth-UPC/web-services
 
@@ -1224,18 +1222,18 @@ Documentación desplegada: https://web-services-yzxl.onrender.com/swagger-ui/ind
 | `/api/v1/users/{userId}/preferences/dark-theme` | Activar o desactivar el tema oscuro | PUT | `PUT /api/v1/users/{userId}/preferences/dark-theme` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"d3a10000-0000-4000-8000-000000000002","textSize":"MEDIUM","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":null,"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false},{"type":"CALL","enabled":false}],"notificationPolicy":{"reminderMinutes":10,"pendingAlertMinutes":20,"omittedAlertMinutes":120,"escalationMinutes":180,"dailySummaryTime":"20:00:00"},"emergencyContacts":[],"darkTheme":true}` | Devuelve las preferencias completas, ahora con `darkTheme`, la política de notificación y los contactos de emergencia. El cambio se conserva para las próximas sesiones. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Accessibility |
 | `/api/v1/users/{userId}/notification-preferences/policy` | Reemplazar los tiempos de aviso y los contactos de emergencia (US-39) | PUT | `PUT /api/v1/users/{userId}/notification-preferences/policy` | Path: `userId`.<br>Body: `policy` (`reminderMinutes`, `pendingAlertMinutes`, `omittedAlertMinutes`, `escalationMinutes`, enteros desde 1; `dailySummaryTime` opcional, `HH:mm`) y `contacts` (lista de `name` y `phone`). | `200` `{"userId":"d3a10000-0000-4000-8000-000000000002","textSize":"MEDIUM","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":null,"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false},{"type":"CALL","enabled":false}],"notificationPolicy":{"reminderMinutes":10,"pendingAlertMinutes":20,"omittedAlertMinutes":120,"escalationMinutes":180,"dailySummaryTime":"20:00:00"},"emergencyContacts":[{"name":"Diego Vargas","phone":"999888777"}],"darkTheme":true}` | Guarda la política sin tocar las horas de silencio, los canales ni la dosis. Los retrasos deben crecer del recordatorio a la escalación y se miden desde la toma programada; un `dailySummaryTime` nulo desactiva el resumen. `400` si los tiempos o los contactos no son válidos. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Notification Preferences |
 
-**Operaciones añadidas tras el reporte del tester**
+**Operaciones añadidas al cierre del Sprint**
 
 | Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `/api/v1/medications/{medicationId}` | Eliminar un medicamento del catálogo | DELETE | `DELETE /api/v1/medications/{medicationId}?caregiverId={caregiverId}` | Path: `medicationId`.<br>Query: `caregiverId`. | `204` Sin cuerpo | Retira el medicamento del catálogo del familiar y conserva el historial clínico de sus tomas. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Medications |
 | `/api/v1/inventories/{medicationId}/batches/{batchId}` | Corregir el último ingreso de inventario | PUT | `PUT /api/v1/inventories/{medicationId}/batches/{batchId}` | Path: `medicationId`, `batchId`.<br>Body: `quantity` (positivo), `lot` (opcional), `replenishmentThreshold` (solo para el stock inicial). | `200` Inventario con `latestReceiptCorrectable:false` y `recentConsumptions` | Se permite una sola corrección y antes de que se registre una toma; si no, `409 RECEIPT_NOT_CORRECTABLE`. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Inventory |
 | `/api/v1/care-links/{careLinkId}` | Terminar un vínculo de cuidado (el familiar deja de cuidar) | DELETE | `DELETE /api/v1/care-links/{careLinkId}?caregiverId={caregiverId}` | Path: `careLinkId`.<br>Query: `caregiverId`. | `204` Sin cuerpo | Termina solo el vínculo de ese familiar; los demás cuidadores conservan el suyo. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
-| `/api/v1/care-links/{careLinkId}/access-codes` | Generar un código de acceso para el adulto mayor | POST | `POST /api/v1/care-links/{careLinkId}/access-codes` | Path: `careLinkId`.<br>Body: `caregiverId`. | `201` `{"careLinkId":"…","code":"K7PM-Q2XD","expiresAt":"2026-11-26T15:00:00Z"}` | Código de un solo uso, válido 24 horas y sin caracteres que se confundan, para volver a entrar tras cambiar de celular o cerrar sesión. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
-| `/api/v1/care-links/access-code-redemptions` | Ingresar con el código de acceso | POST | `POST /api/v1/care-links/access-code-redemptions` | Body: `code`. | `200` `{"careLinkId":"…","olderAdultId":"…","olderAdultName":"Rosa Vargas","pinRegistered":true,"accessToken":null,"expiresAt":null}` | Endpoint público. Si el adulto mayor ya tiene PIN, solo se identifica y luego ingresa con su PIN; si no, recibe una sesión para crearlo. `410` si el código venció o ya se usó. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
-| `/api/v1/care-links/{careLinkId}/caregiver-invitations` | Invitar a otro cuidador | POST | `POST /api/v1/care-links/{careLinkId}/caregiver-invitations` | Path: `careLinkId`.<br>Body: `caregiverId`. | `201` `{"careLinkId":"…","code":"M4TR-8KZP","expiresAt":"…"}` | Código de un solo uso que el familiar comparte con el otro cuidador. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/{careLinkId}/access-codes` | Generar un código de acceso para el adulto mayor | POST | `POST /api/v1/care-links/{careLinkId}/access-codes` | Path: `careLinkId`.<br>Body: `caregiverId`. | `201` `{"careLinkId":"c1a20000-0000-4000-8000-000000000010","code":"K7PM-Q2XD","expiresAt":"2026-11-26T15:00:00Z"}` | Código de un solo uso, válido 24 horas y sin caracteres que se confundan, para volver a entrar tras cambiar de celular o cerrar sesión. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/access-code-redemptions` | Ingresar con el código de acceso | POST | `POST /api/v1/care-links/access-code-redemptions` | Body: `code`. | `200` `{"careLinkId":"c1a20000-0000-4000-8000-000000000010","olderAdultId":"d3a10000-0000-4000-8000-000000000002","olderAdultName":"Rosa Vargas","pinRegistered":true,"accessToken":null,"expiresAt":null}` | Endpoint público. Si el adulto mayor ya tiene PIN, solo se identifica y luego ingresa con su PIN; si no, recibe una sesión para crearlo. `410` si el código venció o ya se usó. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/{careLinkId}/caregiver-invitations` | Invitar a otro cuidador | POST | `POST /api/v1/care-links/{careLinkId}/caregiver-invitations` | Path: `careLinkId`.<br>Body: `caregiverId`. | `201` `{"careLinkId":"c1a20000-0000-4000-8000-000000000010","code":"M4TR-8KZP","expiresAt":"2026-11-26T15:05:00Z"}` | Código de un solo uso que el familiar comparte con el otro cuidador. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
 | `/api/v1/care-links/caregiver-joins` | Unirse como cuidador con una invitación | POST | `POST /api/v1/care-links/caregiver-joins` | Body: `caregiverId`, `code`. | `201` Vínculo en estado `AWAITING_CONSENT` | El nuevo vínculo queda en espera hasta que el adulto mayor lo acepte. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
-| `/api/v1/care-links/caregiver-requests` | Consultar solicitudes de otros cuidadores | GET | `GET /api/v1/care-links/caregiver-requests` | Sin parámetros: el adulto mayor sale de la sesión. | `200` `[{"careLinkId":"…","caregiverId":"…","caregiverName":"Diego","requestedAt":"…"}]` | Lista vacía si no hay solicitudes pendientes. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/caregiver-requests` | Consultar solicitudes de otros cuidadores | GET | `GET /api/v1/care-links/caregiver-requests` | Sin parámetros: el adulto mayor sale de la sesión. | `200` `[{"careLinkId":"c1a20000-0000-4000-8000-000000000011","caregiverId":"d3a10000-0000-4000-8000-000000000003","caregiverName":"Diego Vargas","requestedAt":"2026-11-25T15:10:00Z"}]` | Lista vacía si no hay solicitudes pendientes. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
 | `/api/v1/care-links/caregiver-requests/{requestId}/decision` | Aceptar o rechazar a otro cuidador | POST | `POST /api/v1/care-links/caregiver-requests/{requestId}/decision` | Path: `requestId`.<br>Body: `accepted` (booleano). | `200` Vínculo confirmado o rechazado | Solo el adulto mayor del vínculo puede decidir. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
 | `/api/v1/care-links/adult-account` | Eliminar la cuenta del adulto mayor | DELETE | `DELETE /api/v1/care-links/adult-account` | Sin parámetros: el adulto mayor sale de la sesión. | `204` Sin cuerpo | Termina todos sus vínculos, revoca sus sesiones y borra su PIN; el historial se conserva solo para auditoría. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
 
@@ -1448,7 +1446,7 @@ En cada sesión participan un moderador, que guía las tareas, y un observador, 
 
 **Fuera del alcance de esta validación**
 
-La evaluación comprende las historias seleccionadas del Sprint 2. La confirmación por voz requiere un dispositivo con acceso al proveedor de reconocimiento.
+La evaluación comprende las historias del Sprint 2 y las de Sprint 1 que sostienen sus flujos. Las funcionalidades planificadas para los Sprints 3 y 4, como patrones de olvido, inventario y suscripción, no forman parte de las tareas aunque estén disponibles en las aplicaciones. La tarea A5 requiere un dispositivo con acceso al servicio de reconocimiento de voz.
 
 **Preguntas de cierre**
 
@@ -1472,10 +1470,345 @@ Para cada tarea registramos si se completó sin ayuda, con ayuda o no se complet
 
 ### 4.3.2. Registro de Entrevistas
 
+Las entrevistas se consolidan en un video con un tramo editado de 3 a 5 minutos por participante.
+
 #### Segmento 1: Adultos mayores
 
+Las sesiones con adultos mayores evalúan el acceso con PIN, la confirmación de tomas, la agenda y las preferencias de accesibilidad. Para cada participante se registran sus datos, una captura de la sesión, el minuto de inicio en el video consolidado, la duración, el resultado de cada tarea y un resumen de observaciones.
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 1</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">[IMAGEN 1]</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de la sesión</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td></td>
+      <td><strong>Aplicación utilizada</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td></td>
+      <td><strong>Medicación habitual</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td></td>
+      <td><strong>Uso del smartphone</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Inicio en el video:</strong> </td>
+      <td colspan="2"><strong>Duración:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>URL de grabación:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de observaciones</strong>
+        <p></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+| Tarea | Resultado (sin ayuda, con ayuda, no completada) | Tiempo | Errores y dudas observados | Facilidad (1 a 7) |
+| --- | --- | --- | --- | --- |
+| L1 |  |  |  |  |
+| A1 |  |  |  |  |
+| A2 |  |  |  |  |
+| A3 |  |  |  |  |
+| A4 |  |  |  |  |
+| A5 |  |  |  |  |
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 2</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">[IMAGEN 2]</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de la sesión</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td></td>
+      <td><strong>Aplicación utilizada</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td></td>
+      <td><strong>Medicación habitual</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td></td>
+      <td><strong>Uso del smartphone</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Inicio en el video:</strong> </td>
+      <td colspan="2"><strong>Duración:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>URL de grabación:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de observaciones</strong>
+        <p></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+| Tarea | Resultado (sin ayuda, con ayuda, no completada) | Tiempo | Errores y dudas observados | Facilidad (1 a 7) |
+| --- | --- | --- | --- | --- |
+| L1 |  |  |  |  |
+| A1 |  |  |  |  |
+| A2 |  |  |  |  |
+| A3 |  |  |  |  |
+| A4 |  |  |  |  |
+| A5 |  |  |  |  |
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">[IMAGEN 3]</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de la sesión</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td></td>
+      <td><strong>Aplicación utilizada</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td></td>
+      <td><strong>Medicación habitual</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td></td>
+      <td><strong>Uso del smartphone</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Inicio en el video:</strong> </td>
+      <td colspan="2"><strong>Duración:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>URL de grabación:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de observaciones</strong>
+        <p></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+| Tarea | Resultado (sin ayuda, con ayuda, no completada) | Tiempo | Errores y dudas observados | Facilidad (1 a 7) |
+| --- | --- | --- | --- | --- |
+| L1 |  |  |  |  |
+| A1 |  |  |  |  |
+| A2 |  |  |  |  |
+| A3 |  |  |  |  |
+| A4 |  |  |  |  |
+| A5 |  |  |  |  |
 
 #### Segmento 2: Familiares o cuidadores
+
+Las sesiones con familiares o cuidadores evalúan el registro, la vinculación con consentimiento, la configuración del tratamiento y el seguimiento mediante el resumen, las alertas y el historial. El registro sigue la misma estructura que el segmento anterior.
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 1</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">[IMAGEN 4]</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de la sesión</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td></td>
+      <td><strong>Aplicación utilizada</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td></td>
+      <td><strong>Familiar a cargo</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td></td>
+      <td><strong>Forma actual de seguimiento</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Inicio en el video:</strong> </td>
+      <td colspan="2"><strong>Duración:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>URL de grabación:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de observaciones</strong>
+        <p></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+| Tarea | Resultado (sin ayuda, con ayuda, no completada) | Tiempo | Errores y dudas observados | Facilidad (1 a 7) |
+| --- | --- | --- | --- | --- |
+| L1 |  |  |  |  |
+| C1 |  |  |  |  |
+| C2 |  |  |  |  |
+| C3 |  |  |  |  |
+| C4 |  |  |  |  |
+| C5 |  |  |  |  |
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 2</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">[IMAGEN 5]</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de la sesión</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td></td>
+      <td><strong>Aplicación utilizada</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td></td>
+      <td><strong>Familiar a cargo</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td></td>
+      <td><strong>Forma actual de seguimiento</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Inicio en el video:</strong> </td>
+      <td colspan="2"><strong>Duración:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>URL de grabación:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de observaciones</strong>
+        <p></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+| Tarea | Resultado (sin ayuda, con ayuda, no completada) | Tiempo | Errores y dudas observados | Facilidad (1 a 7) |
+| --- | --- | --- | --- | --- |
+| L1 |  |  |  |  |
+| C1 |  |  |  |  |
+| C2 |  |  |  |  |
+| C3 |  |  |  |  |
+| C4 |  |  |  |  |
+| C5 |  |  |  |  |
+
+<table>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center"><strong>Entrevista N.° 3</strong></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">[IMAGEN 6]</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><strong>Información del entrevistado</strong></td>
+      <td colspan="2" align="center"><strong>Contexto de la sesión</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Nombre completo</strong></td>
+      <td></td>
+      <td><strong>Aplicación utilizada</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Edad</strong></td>
+      <td></td>
+      <td><strong>Familiar a cargo</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Distrito</strong></td>
+      <td></td>
+      <td><strong>Forma actual de seguimiento</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2"><strong>Inicio en el video:</strong> </td>
+      <td colspan="2"><strong>Duración:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>URL de grabación:</strong> </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <strong>Resumen de observaciones</strong>
+        <p></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+| Tarea | Resultado (sin ayuda, con ayuda, no completada) | Tiempo | Errores y dudas observados | Facilidad (1 a 7) |
+| --- | --- | --- | --- | --- |
+| L1 |  |  |  |  |
+| C1 |  |  |  |  |
+| C2 |  |  |  |  |
+| C3 |  |  |  |  |
+| C4 |  |  |  |  |
+| C5 |  |  |  |  |
 
 
 ### 4.3.3. Evaluaciones según heurísticas
@@ -1487,7 +1820,7 @@ Para cada tarea registramos si se completó sin ayuda, con ayuda o no se complet
 | Carrera | Ingeniería de Software |
 | Curso | 1ACC0238 Aplicaciones para dispositivos móviles |
 | Auditor | Equipo VitaHealth |
-| Site o app | Tata — Flutter |
+| Site o app | Tata (Flutter) |
 | Participantes de la revisión técnica | Tester del equipo |
 
 **Tareas a evaluar:** acceso, registro, retroceso, introducción de contraseña y recuperación de disponibilidad del servicio. La evaluación con los segmentos objetivo comprende las tareas definidas en 4.3.1.
@@ -1530,3 +1863,47 @@ Severidad estimada: 2. El control permite comprobar el texto introducido sin mod
 Severidad estimada: 3. Una solicitud de registro mostró un mensaje de conexión mientras el servidor público demoraba su respuesta. La comprobación de salud previa y el aviso de preparación permiten esperar el arranque de Render antes de enviar la solicitud de negocio. La prueba de regresión verifica el límite temporal y la ausencia de reenvío automático de escrituras.
 
 **Evaluación derivada de entrevistas**
+
+Los problemas se consolidan a partir de las observaciones registradas en la sección 4.3.2 y se clasifican con la escala de severidad del Anexo E.
+
+| # | Problema | Escala de severidad | Heurística / principio violado | Segmento y tarea |
+| --- | --- | --- | --- | --- |
+| 1 |  |  |  |  |
+| 2 |  |  |  |  |
+| 3 |  |  |  |  |
+
+**Descripción de problemas**
+
+**Problema 1.**
+
+| Campo | Detalle |
+| --- | --- |
+| Severidad |  |
+| Heurística / principio violado |  |
+| Problema |  |
+| Recomendación |  |
+
+[IMAGEN 7]
+
+**Problema 2.**
+
+| Campo | Detalle |
+| --- | --- |
+| Severidad |  |
+| Heurística / principio violado |  |
+| Problema |  |
+| Recomendación |  |
+
+[IMAGEN 8]
+
+**Problema 3.**
+
+| Campo | Detalle |
+| --- | --- |
+| Severidad |  |
+| Heurística / principio violado |  |
+| Problema |  |
+| Recomendación |  |
+
+[IMAGEN 9]
+
