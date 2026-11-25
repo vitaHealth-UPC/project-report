@@ -890,28 +890,28 @@ Enlace: https://trello.com/b/wuHmMypU/apps-moviles
 
 | Historia | Título | Task ID | Tarea | Estimación (horas) | Responsable propuesto | Estado técnico |
 | --- | --- | --- | --- | --- | --- | --- |
-| US-06 | Confirmación accesible de una toma | S2-T01 | Confirmación por toque y voz, estados y pruebas | 10 | Leonardo / David | To-review |
-| US-07 | Alerta ante una toma no confirmada | S2-T02 | Integrar omisiones, alertas y detalle | 10 | Eduardo / David | To-review |
-| US-25 | Consulta del estado reciente del adulto mayor | S2-T03 | Consultar y mostrar resumen familiar | 6 | Eduardo / David | To-review |
-| US-24 | Consulta de agenda diaria de tomas | S2-T04 | Agenda de tomas por fecha | 6 | Leonardo / David | To-review |
-| US-26 | Consulta del historial reciente de tomas | S2-T05 | Historial de tomas y resultados | 6 | Eduardo / David | To-review |
-| US-27 | Consulta del detalle de una alerta | S2-T06 | Detalle y estado de alerta | 4 | Eduardo / David | To-review |
-| US-22 | Recordatorio reforzado por falta de confirmación | S2-T07 | Recordatorio reforzado y dosis pendientes | 6 | Leonardo / David | To-review |
-| US-23 | Confirmación dentro del periodo de tolerancia | S2-T08 | Confirmación dentro de tolerancia | 6 | David | To-review |
-| US-18 | Activación y pausa de un tratamiento | S2-T09 | Activar, pausar y reanudar tratamiento | 6 | Eduardo / David | To-review |
-| US-04 | Edición y desactivación de un medicamento | S2-T10 | Editar, desactivar y reactivar medicamentos | 6 | Eduardo / David | To-review |
-| US-21 | Consulta del detalle de una toma | S2-T11 | Detalle y estado de toma | 4 | Leonardo / David | To-review |
-| US-19 | Consulta del detalle de un tratamiento | S2-T12 | Consultar detalle de tratamiento | 4 | Eduardo / David | To-review |
-| US-29 | Contacto con el adulto mayor ante una alerta | S2-T13 | Resolver canal de contacto autorizado | 4 | Eduardo / David | To-review |
-| US-35 | Ajuste del tamaño de texto | S2-T14 | Aplicar escala de texto y verificar vistas | 4 | Eduardo / David | To-review |
-| US-36 | Activación de mayor contraste | S2-T15 | Aplicar contraste y persistir preferencias | 4 | Eduardo / David | To-review |
+| US-06 | Confirmación accesible de una toma | S2-T01 | Confirmación por toque y voz, estados y pruebas | 10 | Leonardo / David | Done |
+| US-07 | Alerta ante una toma no confirmada | S2-T02 | Integrar omisiones, alertas y detalle | 10 | Eduardo / David | Done |
+| US-25 | Consulta del estado reciente del adulto mayor | S2-T03 | Consultar y mostrar resumen familiar | 6 | Eduardo / David | Done |
+| US-24 | Consulta de agenda diaria de tomas | S2-T04 | Agenda de tomas por fecha | 6 | Leonardo / David | Done |
+| US-26 | Consulta del historial reciente de tomas | S2-T05 | Historial de tomas y resultados | 6 | Eduardo / David | Done |
+| US-27 | Consulta del detalle de una alerta | S2-T06 | Detalle y estado de alerta | 4 | Eduardo / David | Done |
+| US-22 | Recordatorio reforzado por falta de confirmación | S2-T07 | Recordatorio reforzado y dosis pendientes | 6 | Leonardo / David | Done |
+| US-23 | Confirmación dentro del periodo de tolerancia | S2-T08 | Confirmación dentro de tolerancia | 6 | David | Done |
+| US-18 | Activación y pausa de un tratamiento | S2-T09 | Activar, pausar y reanudar tratamiento | 6 | Eduardo / David | Done |
+| US-04 | Edición y desactivación de un medicamento | S2-T10 | Editar, desactivar y reactivar medicamentos | 6 | Eduardo / David | Done |
+| US-21 | Consulta del detalle de una toma | S2-T11 | Detalle y estado de toma | 4 | Leonardo / David | Done |
+| US-19 | Consulta del detalle de un tratamiento | S2-T12 | Consultar detalle de tratamiento | 4 | Eduardo / David | Done |
+| US-29 | Contacto con el adulto mayor ante una alerta | S2-T13 | Resolver canal de contacto autorizado | 4 | Eduardo / David | Done |
+| US-35 | Ajuste del tamaño de texto | S2-T14 | Aplicar escala de texto y verificar vistas | 4 | Eduardo / David | Done |
+| US-36 | Activación de mayor contraste | S2-T15 | Aplicar contraste y persistir preferencias | 4 | Eduardo / David | Done |
 | TS-04 | API de confirmación de tomas | S2-T16 | Contrato de confirmación e idempotencia | 10 | David | Done |
 | TS-09 | API de resumen familiar e historial | S2-T17 | Contratos de resumen familiar e historial | 10 | David | Done |
 | TS-05 | Proceso automático de tomas sin confirmar | S2-T18 | Procesamiento de omisiones, concurrencia y aislamiento | 10 | David | Done |
-| TS-06 | Integración del servicio de notificaciones push | S2-T19 | Registro de dispositivos, política y recepción push | 10 | David / Eduardo | To-review |
-| TS-11 | Integración de reconocimiento de voz | S2-T20 | Captura de voz y contrato WAV multipart | 10 | Leonardo / David | To-review |
-| TS-13 | Almacenamiento local y sincronización | S2-T21 | Persistencia por sesión y sincronización de confirmaciones | 16 | Leonardo / David | To-review |
-| SP-02 | Investigación de detección de patrones de olvido | S2-T22 | Evaluar criterios de patrones y recomendaciones | 8 | Sofía / David | To-review |
+| TS-06 | Integración del servicio de notificaciones push | S2-T19 | Registro de dispositivos, política y recepción push | 10 | David / Eduardo | Done |
+| TS-11 | Integración de reconocimiento de voz | S2-T20 | Captura de voz y contrato WAV multipart | 10 | Leonardo / David | Done |
+| TS-13 | Almacenamiento local y sincronización | S2-T21 | Persistencia por sesión y sincronización de confirmaciones | 16 | Leonardo / David | Done |
+| SP-02 | Investigación de detección de patrones de olvido | S2-T22 | Evaluar criterios de patrones y recomendaciones | 8 | Sofía / David | Done |
 
 **Backlog de implementación multiplataforma**
 
@@ -973,6 +973,8 @@ Catálogo Flutter: https://github.com/vitaHealth-UPC/mobile-cross-platform/blob/
 
 Implementamos los recorridos de Tata en Flutter con Dart, BLoC, adaptadores REST y persistencia local con Drift. Integramos confirmación por voz, agenda, tratamientos, seguimiento familiar, adherencia y preferencias de accesibilidad. Los servicios REST incorporan las operaciones de soporte para estos flujos.
 
+Al cierre del Sprint atendimos el primer reporte del tester (diez observaciones) y validamos los recorridos en un emulador contra el backend. Las correcciones agregan tratamientos con varios medicamentos y frecuencia «Cada N horas», dosis personalizada, stock inicial al registrar un medicamento, corrección del último ingreso de inventario con historial de movimientos, búsqueda y orden del catálogo, tamaño de texto con control deslizante y movimiento reducido en las transiciones. En el vínculo de cuidado, el familiar puede dejar de cuidar a una persona, ver si el adulto mayor tiene la sesión iniciada y generarle un código de acceso de un solo uso. Además, otro cuidador puede unirse con una invitación que el adulto mayor acepta o rechaza, y el adulto mayor puede eliminar su cuenta.
+
 La siguiente tabla reúne los commits de Flutter y de los servicios REST del Sprint 2.
 
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
@@ -985,6 +987,12 @@ La siguiente tabla reúne los commits de Flutter y de los servicios REST del Spr
 | `vitaHealth-UPC/web-services` | `main` | [`e3fab7e`](https://github.com/vitaHealth-UPC/web-services/commit/e3fab7e1635a207df1b591dc8b56a10501c439f8) | `release: consolidate verified APMO backend contracts and security` | - | 26/10/2026 |
 | `vitaHealth-UPC/web-services` | `main` | [`a3a8a7c`](https://github.com/vitaHealth-UPC/web-services/commit/a3a8a7c7401203419d77c72028a5cde37bd4113b) | `fix: minor changes` | - | 23/11/2026 |
 | `vitaHealth-UPC/web-services` | `main` | [`934fab2`](https://github.com/vitaHealth-UPC/web-services/commit/934fab26a1dc95c929436266ef06c2967814161d) | `merge: minor changes` | - | 23/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`f10227d`](https://github.com/vitaHealth-UPC/web-services/commit/f10227d391d3fac71685e59e2f6a83d2f8f2e9fa) | `feat(treatment): delete medications while retaining clinical history` | - | 24/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`52b19f2`](https://github.com/vitaHealth-UPC/web-services/commit/52b19f2556aa9af9d8bdfb053afb9ce05deac14d) | `fix(treatment): allow editing retired medications` | - | 24/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`cd00773`](https://github.com/vitaHealth-UPC/web-services/commit/cd007736dd2c6e2db7e661b336352570cf16afb0) | `feat(inventory): correct the newest receipt once and expose consumption history` | - | 25/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`ab19049`](https://github.com/vitaHealth-UPC/web-services/commit/ab19049ccb501555bf78ae326a6b0da6c06fa567) | `feat(treatment): support multi-medication plans and whole-hour intervals` | - | 25/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`5825e27`](https://github.com/vitaHealth-UPC/web-services/commit/5825e27cc5ff20ea85c30984e78de1d6c0386820) | `feat(care-link): end links, adult access codes, co-caregivers and account removal` | - | 25/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`786f8df`](https://github.com/vitaHealth-UPC/web-services/commit/786f8df5f82e23e7b17b672a58f25340a6a3bf74) | `merge: integrate tester report corrections` | - | 25/11/2026 |
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`ce70f0d`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ce70f0df518320cc1eec50431a3102471cb0bc1d) | `feat: share Flutter identity and care-link checkpoint` | - | 02/11/2026 |
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`bfe62b9`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/bfe62b9ab3ad757fd68768da7c66ec7484d4e511) | `feat: add adult PIN access and next-dose home` | - | 03/11/2026 |
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`4ff897a`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/4ff897a112169c3b43cd2cfcb960c1479fa5be37) | `feat: add weekly intake agenda and touch confirmation` | - | 03/11/2026 |
@@ -1003,6 +1011,12 @@ La siguiente tabla reúne los commits de Flutter y de los servicios REST del Spr
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`7e88fc6`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/7e88fc60ca6a9b021819d874d46b995e7832bf4b) | `fix(identity): improve access navigation and password visibility` | - | 24/11/2026 |
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`d4c0408`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/d4c0408137f587247b11af4fbb358233a3d77096) | `fix(network): prepare backend before requests after inactivity` | - | 24/11/2026 |
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`0c2cb6b`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/0c2cb6b955755d0dcf08505e557c61cf0522a520) | `merge: update Flutter release 1.0.0` | - | 24/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`d0cfe40`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/d0cfe407f28b24445ecbe4b548d2a69d03278cd2) | `fix(treatment): simplify medication flows and validate prescribed schedules` | - | 24/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`925c60c`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/925c60cf6c3d1f4ce7fb0952885391b0407b45ea) | `fix(treatment): align visual design and inline feedback` | - | 24/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`e43f302`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/e43f30284ab3abcff8bf0fdc97200a5d69db1b87) | `feat(treatment): add permanent medication catalog removal` | - | 24/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`03d7234`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/03d7234e6a436c26287e3e29552b220ab5139e7d) | `fix: address the first tester report` | - | 25/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`d060805`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/d060805521b6bdf5d66816913b135ec1d411ef94) | `fix: second caregiver, account removal and walkthrough usability fixes` | - | 25/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`39c7226`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/39c722655bf2ae4fece280a7f912e1602cc7efc2) | `merge: update Flutter release 1.0.0` | - | 25/11/2026 |
 
 
 <p align="center"><img src="assets/sprint2/flutter-commits.png" alt="Historial de commits de mobile-cross-platform en main" width="900"></p>
@@ -1016,7 +1030,7 @@ La siguiente tabla reúne los commits de Flutter y de los servicios REST del Spr
 
 En Flutter usamos `flutter_test` para probar casos de uso, BLoC, repositorios y pantallas. Las respuestas HTTP se simulan con `MockClient` y la sesión con un almacén en memoria. Los servicios REST se prueban con JUnit 5, Spring Boot, MockMvc y H2.
 
-El 24/11/2026 Flutter ejecutó 885 pruebas automatizadas sin fallos sobre el código integrado en `0c2cb6b`. El análisis estático no reportó incidencias y GitHub Actions completó las comprobaciones de Flutter y Web Services.
+El 25/11/2026 Flutter ejecutó 906 pruebas automatizadas sin fallos sobre el código integrado en `39c7226`. El análisis estático no reportó incidencias y GitHub Actions completó las comprobaciones de Flutter y Web Services. Una prueba de extremo a extremo opcional (`tester_flows_probe_test`) recorrió los flujos del reporte del tester contra el backend real.
 
 **Unit Tests**
 
@@ -1040,6 +1054,8 @@ El 24/11/2026 Flutter ejecutó 885 pruebas automatizadas sin fallos sobre el có
 | UnconfirmedIntakeRollbackIntegrationTest | TS-05 | Un fallo en el procesamiento no bloquea a las demás tomas y se puede reintentar sin duplicar casos |
 | OmissionAndMonitoringFlowTest | TS-05 | Recorrido completo de la omisión: caso pendiente, alerta al familiar, escalamiento y cierre; un evento tardío no abre un caso para una toma confirmada |
 | NotificationConcurrencyIntegrationTest | TS-06 | Recordatorios y alertas concurrentes se encolan una sola vez y el escalamiento no se salta niveles |
+| CaregiverLinkManagementApiIntegrationTest | US-02, US-13 | El familiar termina un vínculo y genera un código de acceso de un solo uso; el adulto mayor con PIN se identifica sin recibir sesión y uno sin PIN recibe una sesión para crearlo |
+| CoCaregiverApiIntegrationTest | US-02, US-13 | Un segundo cuidador se une con una invitación, queda en espera hasta que el adulto mayor la acepta o rechaza, y la eliminación de la cuenta revoca vínculos y sesiones |
 | AccessibilityApiIntegrationTest | TS-06, US-39 | La política y los contactos de emergencia se conservan al recargar; una política inválida no sobrescribe la guardada |
 | caregiver_setup_flow_test, consent_flow_test y dose_flow_test (Flutter) | US-02, US-06, US-13 | Flujos completos en pantalla, desde el registro del adulto mayor y su consentimiento hasta la confirmación de una toma |
 
@@ -1079,6 +1095,8 @@ https://github.com/vitaHealth-UPC/web-services/blob/main/src/test/java/com/vitah
 
 | Prueba | Alcance | Comportamiento |
 | --- | --- | --- |
+| adult_access_code_test | Vínculo de cuidado | Códigos de acceso sin caracteres ambiguos, ingreso del adulto mayor con y sin PIN, fin del vínculo, segundo cuidador y eliminación de la cuenta. |
+| InventoryTest y RegimenFrequencyTest | Inventario y tratamientos | Corrección única del último ingreso antes de la primera toma y horarios derivados de la frecuencia «Cada N horas». |
 | login_screen_test y widget_test | Acceso | Mostrar y ocultar contraseña; retorno a bienvenida; conservación del formulario. |
 | backend_readiness_test | Transversal | Sondeos de salud concurrentes, presupuesto temporal, inactividad y no repetición de escrituras. |
 | AutomaticUnconfirmedIntakeIntegrationTest | TS-05 | Base de pruebas aislada; una toma reportada y omisión definitiva sin duplicados. |
@@ -1096,6 +1114,9 @@ https://github.com/vitaHealth-UPC/web-services/blob/main/src/test/java/com/vitah
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`a5ba449`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/a5ba4491ff93f77734a148e92936a17b58acfa03) | `test(analytics): validate no-data fidelity and period selection` | - | 22/11/2026 |
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`7e88fc6`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/7e88fc60ca6a9b021819d874d46b995e7832bf4b) | `fix(identity): improve access navigation and password visibility` | - | 24/11/2026 |
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`d4c0408`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/d4c0408137f587247b11af4fbb358233a3d77096) | `fix(network): prepare backend before requests after inactivity` | - | 24/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`5825e27`](https://github.com/vitaHealth-UPC/web-services/commit/5825e27cc5ff20ea85c30984e78de1d6c0386820) | `feat(care-link): end links, adult access codes, co-caregivers and account removal` | - | 25/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`03d7234`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/03d7234e6a436c26287e3e29552b220ab5139e7d) | `fix: address the first tester report` | - | 25/11/2026 |
+| `vitaHealth-UPC/mobile-cross-platform` | `main` | [`d060805`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/d060805521b6bdf5d66816913b135ec1d411ef94) | `fix: second caregiver, account removal and walkthrough usability fixes` | - | 25/11/2026 |
 
 
 **Integración continua**
@@ -1105,6 +1126,8 @@ https://github.com/vitaHealth-UPC/web-services/blob/main/src/test/java/com/vitah
 | Web Services | `934fab2` | [Backend CI: ejecución exitosa](https://github.com/vitaHealth-UPC/web-services/actions/runs/45325629923) |
 | Flutter | `8a6c78f` | [Flutter CI: ejecución exitosa](https://github.com/vitaHealth-UPC/mobile-cross-platform/actions/runs/45332012183) |
 | Flutter | `0c2cb6b` | [Flutter CI: ejecución exitosa](https://github.com/vitaHealth-UPC/mobile-cross-platform/actions/runs/45333137790); validación local: 885 pruebas aprobadas. |
+| Web Services | `786f8df` | [Backend CI: ejecución exitosa](https://github.com/vitaHealth-UPC/web-services/actions/runs/45650478726) |
+| Flutter | `39c7226` | [Flutter CI: ejecución exitosa](https://github.com/vitaHealth-UPC/mobile-cross-platform/actions/runs/45656161236); validación local: 906 pruebas aprobadas. |
 
 <p align="center"><img src="assets/sprint2/backend-ci.png" alt="Resultado de Backend CI sobre 934fab2" width="900"></p>
 
@@ -1147,6 +1170,8 @@ Las siguientes capturas muestran los recorridos de acceso, registro, agenda, seg
 #### 4.2.2.7. Services Documentation Evidence for Sprint Review
 
 El Sprint 2 amplía la documentación OpenAPI de 64 a 81 operaciones (17 adicionales). La consulta del documento público del 24/11/2026 confirma las 81 operaciones. Las 17 operaciones añadidas complementan los contratos de la sección 4.2.1.7. Las nuevas pertenecen a los Bounded Contexts Identity & Subscription (inicio de sesión social, recuperación de contraseña y dispositivos push), Care Link (edición del adulto mayor, contacto de emergencia y retiro del consentimiento), Treatment Management (reactivación de medicamentos y medicamentos del adulto mayor), Family Monitoring (línea de tiempo de alertas y notas de rutina), Adherence Analytics (resumen por tratamiento) y Accessibility & Preferences (tema oscuro y política de notificación). Las operaciones protegidas requieren `Authorization: Bearer <token>`; las operaciones públicas se indican en la tabla. Los ejemplos de respuesta proceden de la ejecución local documentada por el equipo con datos de demostración. Tres ejemplos ilustran únicamente la estructura de respuesta: el inicio de sesión social (necesita un token válido de Firebase), el restablecimiento de contraseña (necesita el código que llega por correo) y la línea de tiempo de una alerta (la cuenta demo no tiene alertas). El resumen de adherencia por tratamiento devuelve `204` porque la cuenta demo aún no tiene tomas pasadas.
+
+Tras el reporte del tester, el 25/11/2026 se publicaron diez operaciones más, con lo que el documento público reúne 91 operaciones. Se detallan en la tabla **Operaciones añadidas tras el reporte del tester**.
 
 Repositorio de Web Services: https://github.com/vitaHealth-UPC/web-services
 
@@ -1199,6 +1224,21 @@ Documentación desplegada: https://web-services-yzxl.onrender.com/swagger-ui/ind
 | `/api/v1/users/{userId}/preferences/dark-theme` | Activar o desactivar el tema oscuro | PUT | `PUT /api/v1/users/{userId}/preferences/dark-theme` | Path: `userId`.<br>Body: `enabled` (booleano). | `200` `{"userId":"d3a10000-0000-4000-8000-000000000002","textSize":"MEDIUM","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":null,"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false},{"type":"CALL","enabled":false}],"notificationPolicy":{"reminderMinutes":10,"pendingAlertMinutes":20,"omittedAlertMinutes":120,"escalationMinutes":180,"dailySummaryTime":"20:00:00"},"emergencyContacts":[],"darkTheme":true}` | Devuelve las preferencias completas, ahora con `darkTheme`, la política de notificación y los contactos de emergencia. El cambio se conserva para las próximas sesiones. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Accessibility |
 | `/api/v1/users/{userId}/notification-preferences/policy` | Reemplazar los tiempos de aviso y los contactos de emergencia (US-39) | PUT | `PUT /api/v1/users/{userId}/notification-preferences/policy` | Path: `userId`.<br>Body: `policy` (`reminderMinutes`, `pendingAlertMinutes`, `omittedAlertMinutes`, `escalationMinutes`, enteros desde 1; `dailySummaryTime` opcional, `HH:mm`) y `contacts` (lista de `name` y `phone`). | `200` `{"userId":"d3a10000-0000-4000-8000-000000000002","textSize":"MEDIUM","highContrast":false,"reducedMotion":false,"readingAssistance":false,"voiceConfirmationEnabled":true,"quietHours":null,"notificationChannels":[{"type":"PUSH","enabled":true},{"type":"SMS","enabled":false},{"type":"EMAIL","enabled":false},{"type":"CALL","enabled":false}],"notificationPolicy":{"reminderMinutes":10,"pendingAlertMinutes":20,"omittedAlertMinutes":120,"escalationMinutes":180,"dailySummaryTime":"20:00:00"},"emergencyContacts":[{"name":"Diego Vargas","phone":"999888777"}],"darkTheme":true}` | Guarda la política sin tocar las horas de silencio, los canales ni la dosis. Los retrasos deben crecer del recordatorio a la escalación y se miden desde la toma programada; un `dailySummaryTime` nulo desactiva el resumen. `400` si los tiempos o los contactos no son válidos. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Notification Preferences |
 
+**Operaciones añadidas tras el reporte del tester**
+
+| Endpoint | Acción | Verbo HTTP | Sintaxis de llamada | Parámetros | Ejemplo de response | Explicación del response | Documentación |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/api/v1/medications/{medicationId}` | Eliminar un medicamento del catálogo | DELETE | `DELETE /api/v1/medications/{medicationId}?caregiverId={caregiverId}` | Path: `medicationId`.<br>Query: `caregiverId`. | `204` Sin cuerpo | Retira el medicamento del catálogo del familiar y conserva el historial clínico de sus tomas. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Medications |
+| `/api/v1/inventories/{medicationId}/batches/{batchId}` | Corregir el último ingreso de inventario | PUT | `PUT /api/v1/inventories/{medicationId}/batches/{batchId}` | Path: `medicationId`, `batchId`.<br>Body: `quantity` (positivo), `lot` (opcional), `replenishmentThreshold` (solo para el stock inicial). | `200` Inventario con `latestReceiptCorrectable:false` y `recentConsumptions` | Se permite una sola corrección y antes de que se registre una toma; si no, `409 RECEIPT_NOT_CORRECTABLE`. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · Inventory |
+| `/api/v1/care-links/{careLinkId}` | Terminar un vínculo de cuidado (el familiar deja de cuidar) | DELETE | `DELETE /api/v1/care-links/{careLinkId}?caregiverId={caregiverId}` | Path: `careLinkId`.<br>Query: `caregiverId`. | `204` Sin cuerpo | Termina solo el vínculo de ese familiar; los demás cuidadores conservan el suyo. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/{careLinkId}/access-codes` | Generar un código de acceso para el adulto mayor | POST | `POST /api/v1/care-links/{careLinkId}/access-codes` | Path: `careLinkId`.<br>Body: `caregiverId`. | `201` `{"careLinkId":"…","code":"K7PM-Q2XD","expiresAt":"2026-11-26T15:00:00Z"}` | Código de un solo uso, válido 24 horas y sin caracteres que se confundan, para volver a entrar tras cambiar de celular o cerrar sesión. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/access-code-redemptions` | Ingresar con el código de acceso | POST | `POST /api/v1/care-links/access-code-redemptions` | Body: `code`. | `200` `{"careLinkId":"…","olderAdultId":"…","olderAdultName":"Rosa Vargas","pinRegistered":true,"accessToken":null,"expiresAt":null}` | Endpoint público. Si el adulto mayor ya tiene PIN, solo se identifica y luego ingresa con su PIN; si no, recibe una sesión para crearlo. `410` si el código venció o ya se usó. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/{careLinkId}/caregiver-invitations` | Invitar a otro cuidador | POST | `POST /api/v1/care-links/{careLinkId}/caregiver-invitations` | Path: `careLinkId`.<br>Body: `caregiverId`. | `201` `{"careLinkId":"…","code":"M4TR-8KZP","expiresAt":"…"}` | Código de un solo uso que el familiar comparte con el otro cuidador. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/caregiver-joins` | Unirse como cuidador con una invitación | POST | `POST /api/v1/care-links/caregiver-joins` | Body: `caregiverId`, `code`. | `201` Vínculo en estado `AWAITING_CONSENT` | El nuevo vínculo queda en espera hasta que el adulto mayor lo acepte. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/caregiver-requests` | Consultar solicitudes de otros cuidadores | GET | `GET /api/v1/care-links/caregiver-requests` | Sin parámetros: el adulto mayor sale de la sesión. | `200` `[{"careLinkId":"…","caregiverId":"…","caregiverName":"Diego","requestedAt":"…"}]` | Lista vacía si no hay solicitudes pendientes. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/caregiver-requests/{requestId}/decision` | Aceptar o rechazar a otro cuidador | POST | `POST /api/v1/care-links/caregiver-requests/{requestId}/decision` | Path: `requestId`.<br>Body: `accepted` (booleano). | `200` Vínculo confirmado o rechazado | Solo el adulto mayor del vínculo puede decidir. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+| `/api/v1/care-links/adult-account` | Eliminar la cuenta del adulto mayor | DELETE | `DELETE /api/v1/care-links/adult-account` | Sin parámetros: el adulto mayor sale de la sesión. | `204` Sin cuerpo | Termina todos sus vínculos, revoca sus sesiones y borra su PIN; el historial se conserva solo para auditoría. | https://web-services-yzxl.onrender.com/swagger-ui/index.html · care-links |
+
 **Capturas de la documentación**
 
 ![Swagger UI: operaciones nuevas de Identity & Subscription.](assets/services-documentation/s2-swagger-identity-subscription.png)
@@ -1231,11 +1271,14 @@ Estos son los commits de `develop` que agregan o cambian las operaciones documen
 | `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`e3fab7e`](https://github.com/vitaHealth-UPC/web-services/commit/e3fab7e) | `release: consolidate verified APMO backend contracts and security` | Includes dark theme persistence, alert timeline, medication reactivation, treatment consistency, adherence context, API contract integration and regression coverage. | 22/10/2026 |
 | `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`0e24649`](https://github.com/vitaHealth-UPC/web-services/commit/0e24649) | `fix: minor changes` | Agrega los controladores de dispositivos push y de notas personales. | 22/10/2026 |
 | `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`56e9b76`](https://github.com/vitaHealth-UPC/web-services/commit/56e9b76) | `fix: minor changes` | Agrega los controladores de sesión social y de recuperación de contraseña. | 27/10/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`f10227d`](https://github.com/vitaHealth-UPC/web-services/commit/f10227d391d3fac71685e59e2f6a83d2f8f2e9fa) | `feat(treatment): delete medications while retaining clinical history` | Agrega la eliminación de medicamentos del catálogo. | 24/11/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`cd00773`](https://github.com/vitaHealth-UPC/web-services/commit/cd007736dd2c6e2db7e661b336352570cf16afb0) | `feat(inventory): correct the newest receipt once and expose consumption history` | Agrega la corrección del último ingreso de inventario. | 25/11/2026 |
+| `vitaHealth-UPC/web-services` | `fix/backend-architecture` | [`5825e27`](https://github.com/vitaHealth-UPC/web-services/commit/5825e27cc5ff20ea85c30984e78de1d6c0386820) | `feat(care-link): end links, adult access codes, co-caregivers and account removal` | Agrega el fin del vínculo, los códigos de acceso, el segundo cuidador y la eliminación de la cuenta. | 25/11/2026 |
 
 
 
 
-[Documento OpenAPI público](https://web-services-yzxl.onrender.com/v3/api-docs).
+[Documento OpenAPI público](https://web-services-yzxl.onrender.com/v3/api-docs). El 25/11/2026 el documento publicado reunía 91 operaciones.
 
 **Consulta pública de muestra**
 
@@ -1252,9 +1295,9 @@ En este Sprint no cambió la infraestructura: seguimos con GitHub Pages para el 
 | Producto | Plataforma | Configuración / evidencia | URL |
 | --- | --- | --- | --- |
 | Landing Page | GitHub Pages (GitHub Actions) | Publicado desde el Sprint 1. | https://vitahealth-upc.github.io/landing-page/ |
-| Web Services | Render (Web Service con Docker, plan Free; rama `main`) | Redespliegue del release `v2.0.0` (commit `9f6fd73`, 81 operaciones) con las variables de entorno nuevas. | https://web-services-yzxl.onrender.com |
+| Web Services | Render (Web Service con Docker, plan Free; rama `main`) | Redespliegue del release `v2.0.0` (commit `9f6fd73`, 81 operaciones) con las variables de entorno nuevas; el 25/11/2026 Render desplegó `786f8df` (tag `v1.1.0`, 91 operaciones). | https://web-services-yzxl.onrender.com |
 | Base de datos | Neon (PostgreSQL, proyecto TATA, branch `production`, base `tata`) | Sin cambios de infraestructura. Las tablas y columnas nuevas se crean al arrancar con `spring.jpa.hibernate.ddl-auto=update`. | (conexión privada) |
-| Aplicación Flutter | GitHub Actions (`flutter-ci.yml`) | Tag `v1.0.0` sobre `0c2cb6b`; 885 pruebas locales aprobadas. | https://github.com/vitaHealth-UPC/mobile-cross-platform |
+| Aplicación Flutter | GitHub Actions (`flutter-ci.yml`) | Tag `v1.0.0` sobre `39c7226`; 906 pruebas locales aprobadas. | https://github.com/vitaHealth-UPC/mobile-cross-platform |
 
 **Landing Page**
 
@@ -1289,19 +1332,20 @@ Estos son los commits que cambian lo que se construye y se despliega en este Spr
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
 | --- | --- | --- | --- | --- | --- |
 | `vitaHealth-UPC/web-services` | `main` | [`9f6fd73`](https://github.com/vitaHealth-UPC/web-services/commit/9f6fd73) | `merge: minor changes` | Integra el backend del Sprint 2 a `main` (etiqueta `v2.0.0`), la rama que despliega Render. | 11/11/2026 |
+| `vitaHealth-UPC/web-services` | `main` | [`786f8df`](https://github.com/vitaHealth-UPC/web-services/commit/786f8df5f82e23e7b17b672a58f25340a6a3bf74) | `merge: integrate tester report corrections` | Integra las correcciones del reporte del tester a `main` (etiqueta `v1.1.0`), que Render redespliega. | 25/11/2026 |
 | `vitaHealth-UPC/mobile-cross-platform` | `main` | [`ed44709`](https://github.com/vitaHealth-UPC/mobile-cross-platform/commit/ed44709) | `chore: initialize Flutter scaffold` | Incluye el flujo `flutter-ci.yml`. | 27/10/2026 |
 
 
 
 
-**Versiones integradas al 24/11/2026**
+**Versiones integradas al 25/11/2026**
 
 | Producto | Revisión publicada | Evidencia |
 | --- | --- | --- |
-| Web Services | `934fab2` | [Backend CI](https://github.com/vitaHealth-UPC/web-services/actions/runs/45325629923) |
-| Flutter | `0c2cb6b` | [Tag v1.0.0](https://github.com/vitaHealth-UPC/mobile-cross-platform/tree/v1.0.0) |
+| Web Services | `786f8df` | [Backend CI](https://github.com/vitaHealth-UPC/web-services/actions/runs/45650478726), [Tag v1.1.0](https://github.com/vitaHealth-UPC/web-services/tree/v1.1.0) |
+| Flutter | `39c7226` | [Flutter CI](https://github.com/vitaHealth-UPC/mobile-cross-platform/actions/runs/45656161236), [Tag v1.0.0](https://github.com/vitaHealth-UPC/mobile-cross-platform/tree/v1.0.0) |
 
-El 24/11/2026 el servicio público respondió con estado UP y 81 operaciones documentadas. Flutter prepara el backend mediante una comprobación de salud al inicio y tras diez minutos sin contacto, con un presupuesto de 120 segundos; las operaciones mantienen 30 segundos de timeout y las escrituras no se repiten automáticamente.
+El 25/11/2026 el servicio público respondió con 91 operaciones documentadas. Flutter prepara el backend mediante una comprobación de salud al inicio y tras diez minutos sin contacto, con un presupuesto de 120 segundos; las operaciones mantienen 30 segundos de timeout y las escrituras no se repiten automáticamente.
 
 #### 4.2.2.9. Team Collaboration Insights during Sprint
 
@@ -1315,13 +1359,13 @@ La actividad de Flutter se concentra entre finales de octubre y noviembre. Leona
 
 | Integrante (autor Git) | Commits en main |
 | --- | --- |
-| David Joel Morales Venegas | 50 |
+| David Joel Morales Venegas | 55 |
 | u202415820 | 36 |
 | u20241a195-cmd | 16 |
 | Eduardo | 10 |
-| **Total** | **112** |
+| **Total** | **117** |
 
-*Fuente: historial Git de mobile-cross-platform, 10/10/2026–24/11/2026, sin commits de merge.*
+*Fuente: historial Git de mobile-cross-platform, 10/10/2026–25/11/2026, sin commits de merge.*
 
 Enlace a colaboración de mobile-cross-platform:
 
